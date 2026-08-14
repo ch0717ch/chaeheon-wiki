@@ -22,8 +22,10 @@ export const metadata: Metadata = {
     description: site.intro,
     url: siteUrl,
   },
-  // 공개 허브이므로 검색 노출을 허용한다.
-  robots: { index: true, follow: true },
+  // 링크를 직접 받은 사람만 보도록 검색 색인을 막는다.
+  // 공개 URL이지만 생년월일·학력·경력과 개인 문서가 검색에 걸리는 것은 원치 않는다.
+  // 노출을 원하게 되면 여기와 app/robots.ts 두 곳을 함께 바꾼다.
+  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
