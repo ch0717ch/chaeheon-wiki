@@ -1,5 +1,12 @@
 import { getSupabase } from "@/lib/supabase";
-import type { Education, Experience, Project, ResearchPlan } from "@/types";
+import type {
+  Certification,
+  Education,
+  Experience,
+  Project,
+  ResearchPlan,
+  TimelineEntry,
+} from "@/types";
 
 // 모든 조회는 실패해도 예외를 던지지 않고 빈 배열을 돌려준다.
 // 환경변수 누락이나 일시적인 네트워크 오류로 사이트 전체가 500 이 되는 것보다
@@ -75,6 +82,36 @@ export async function getEducation(): Promise<Education[]> {
 
   logFailure("education", error);
   return (data as Education[]) ?? [];
+}
+
+export async function getCertifications(): Promise<Certification[]> {
+  const supabase = getSupabase();
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .from("certifications")
+    .select("*")
+    .eq("is_published", true)
+    .order("sort_order", { ascending: true })
+    .order("issued_on", { ascending: false, nullsFirst: false });
+
+  logFailure("certifications", error);
+  return (data as Certification[]) ?? [];
+}
+
+export async function getTimeline(): Promise<TimelineEntry[]> {
+  const supabase = getSupabase();
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .from("timeline")
+    .select("*")
+    .eq("is_published", true)
+    .order("year", { ascending: false })
+    .order("month", { ascending: false, nullsFirst: false });
+
+  logFailure("timeline", error);
+  return (data as TimelineEntry[]) ?? [];
 }
 
 export async function getResearchPlans(): Promise<ResearchPlan[]> {

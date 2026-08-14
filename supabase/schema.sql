@@ -172,6 +172,66 @@ create trigger research_plans_set_updated_at
 
 
 -- ---------------------------------------------------------------------
+-- 4-1. certifications — /cv 자격 및 면허
+-- ---------------------------------------------------------------------
+create table if not exists public.certifications (
+  id           uuid primary key default gen_random_uuid(),
+
+  name         text not null,                       -- 자격/면허 명칭
+  issuer       text,                                -- 발급 기관
+  kind         text not null default 'certificate'
+               check (kind in ('certificate', 'license', 'course', 'award')),
+  issued_on    date,                                -- 취득일 (모르면 비워 둔다)
+  note         text not null default '',
+
+  sort_order   integer not null default 0,
+  is_published boolean not null default true,
+
+  created_at   timestamptz not null default now(),
+  updated_at   timestamptz not null default now()
+);
+
+create index if not exists certifications_sort_idx on public.certifications (sort_order, issued_on desc);
+
+drop trigger if exists certifications_set_updated_at on public.certifications;
+create trigger certifications_set_updated_at
+  before update on public.certifications
+  for each row execute function public.set_updated_at();
+
+
+-- ---------------------------------------------------------------------
+-- 4-2. timeline — /cv 연혁
+--
+--    경력·학력·자격에 담기지 않는 활동(음악활동, 교육과정 수료, 대외활동
+--    등)을 연도순으로 늘어놓는 표다. 날짜를 모르는 항목도 실을 수 있도록
+--    year 만 필수로 두고 month 는 선택으로 뒀다.
+-- ---------------------------------------------------------------------
+create table if not exists public.timeline (
+  id           uuid primary key default gen_random_uuid(),
+
+  year         integer not null,
+  month        integer check (month between 1 and 12),
+  end_year     integer,                             -- 기간 활동이면 종료 연도
+  title        text not null,
+  category     text not null default '활동',        -- 활동 / 교육 / 경력 / 학력 / 자격
+  note         text not null default '',
+
+  sort_order   integer not null default 0,
+  is_published boolean not null default true,
+
+  created_at   timestamptz not null default now(),
+  updated_at   timestamptz not null default now()
+);
+
+create index if not exists timeline_year_idx on public.timeline (year desc, month desc);
+
+drop trigger if exists timeline_set_updated_at on public.timeline;
+create trigger timeline_set_updated_at
+  before update on public.timeline
+  for each row execute function public.set_updated_at();
+
+
+-- ---------------------------------------------------------------------
 -- 5. RLS — 공개 읽기 전용
 --
 --    select 정책 하나씩만 만든다. insert / update / delete 정책이 없으면
@@ -183,6 +243,8 @@ alter table public.projects       enable row level security;
 alter table public.experiences    enable row level security;
 alter table public.education      enable row level security;
 alter table public.research_plans enable row level security;
+alter table public.certifications enable row level security;
+alter table public.timeline       enable row level security;
 
 drop policy if exists "projects public read" on public.projects;
 create policy "projects public read"
@@ -205,6 +267,18 @@ create policy "education public read"
 drop policy if exists "research_plans public read" on public.research_plans;
 create policy "research_plans public read"
   on public.research_plans for select
+  to anon, authenticated
+  using (is_published);
+
+drop policy if exists "certifications public read" on public.certifications;
+create policy "certifications public read"
+  on public.certifications for select
+  to anon, authenticated
+  using (is_published);
+
+drop policy if exists "timeline public read" on public.timeline;
+create policy "timeline public read"
+  on public.timeline for select
   to anon, authenticated
   using (is_published);
 

@@ -24,12 +24,22 @@ export default function ContactPage() {
       {
         label: "GitHub",
         href: site.links.github,
-        note: "작업 코드와 진행 중인 저장소.",
+        note: "프로젝트 저장소와 진행 중인 코드.",
       },
       {
-        label: "블로그",
+        label: "블로그 (IT)",
         href: site.links.blog,
-        note: "작업 기록과 읽은 것에 대한 메모.",
+        note: "개발·자동화 작업 기록.",
+      },
+      {
+        label: "블로그 (일상)",
+        href: site.links.blogPersonal,
+        note: "일상과 대외활동 기록.",
+      },
+      {
+        label: "Instagram",
+        href: site.links.instagram,
+        note: site.linkNotes.instagram,
       },
       {
         label: "LinkedIn",

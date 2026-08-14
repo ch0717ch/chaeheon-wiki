@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
+import PdfViewer from "@/components/PdfViewer";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import { formatPeriod } from "@/lib/format";
@@ -126,6 +127,23 @@ export default async function ProjectPage({ params }: PageProps) {
         <EmptyNotice>등록된 기술 스택이 없다.</EmptyNotice>
       ),
     },
+    ...(project.pdf_url
+      ? [
+          {
+            id: "original",
+            title: "원본 포트폴리오",
+            body: (
+              <div className="space-y-4">
+                <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
+                  아래 요약은 이 문서에서 뽑아낸 것이다. 편집된 원본을 그대로 보려면 아래
+                  뷰어를 사용한다.
+                </p>
+                <PdfViewer src={project.pdf_url} title={project.title} />
+              </div>
+            ),
+          } satisfies DocSection,
+        ]
+      : []),
     {
       id: "refs",
       title: "참조",

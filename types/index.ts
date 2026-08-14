@@ -58,6 +58,35 @@ export type Education = {
   updated_at: string;
 };
 
+export type CertificationKind = "certificate" | "license" | "course" | "award";
+
+export type Certification = {
+  id: string;
+  name: string;
+  issuer: string | null;
+  kind: CertificationKind;
+  issued_on: string | null;
+  note: string;
+  sort_order: number;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type TimelineEntry = {
+  id: string;
+  year: number;
+  month: number | null;
+  end_year: number | null;
+  title: string;
+  category: string;
+  note: string;
+  sort_order: number;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type ResearchPlanStatus = "draft" | "in_progress" | "submitted" | "published";
 
 export type ResearchPlan = {

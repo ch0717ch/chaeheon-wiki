@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
-import { ExternalLink, RefList, type RefItem } from "@/components/Links";
+import { RefList, type RefItem } from "@/components/Links";
+import PdfViewer from "@/components/PdfViewer";
 import {
   Bullets,
   EmptyNotice,
@@ -71,17 +72,8 @@ function planSection(plan: ResearchPlan, index: number): DocSection {
     id: `${base}-files`,
     title: "자료 및 참조",
     body: refs.length ? (
-      <div className="space-y-4">
-        {plan.pdf_url ? (
-          <p>
-            <ExternalLink
-              href={plan.pdf_url}
-              className="inline-block border border-accent px-4 py-2 font-semibold no-underline hover:bg-accent-soft"
-            >
-              연구계획서 PDF 내려받기
-            </ExternalLink>
-          </p>
-        ) : null}
+      <div className="space-y-5">
+        {plan.pdf_url ? <PdfViewer src={plan.pdf_url} title={plan.title} /> : null}
         <RefList items={refs} />
       </div>
     ) : (

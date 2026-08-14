@@ -29,7 +29,7 @@ function TocList({ sections, path = [] }: { sections: DocSection[]; path?: numbe
           <li key={section.id}>
             <a
               href={`#${section.id}`}
-              className="group inline-flex gap-1.5 text-sm leading-relaxed text-ink-soft hover:text-accent"
+              className="group inline-flex gap-1.5 text-sm leading-relaxed text-ink-soft hover:text-ink"
             >
               <span className="sec-num shrink-0">{label(current)}</span>
               <span className="group-hover:underline group-hover:underline-offset-2">
@@ -52,7 +52,7 @@ export function Toc({ sections }: { sections: DocSection[] }) {
   return (
     <nav
       aria-labelledby="toc-heading"
-      className="no-print my-10 border border-line bg-surface px-5 py-4 sm:inline-block sm:min-w-[18rem]"
+      className="no-print my-10 border-2 border-rule bg-paper-deep px-5 py-4 sm:inline-block sm:min-w-[18rem]"
     >
       <h2 id="toc-heading" className="eyebrow mb-3">
         목차
@@ -72,11 +72,12 @@ function SectionBlock({ section, path }: { section: DocSection; path: number[] }
     | "h3"
     | "h4";
 
+  // 최상위 절은 굵은 괘선을 위에 얹어 문서를 눈에 띄게 끊는다.
   const headingStyle =
     depth === 1
-      ? "mt-14 border-b border-line pb-2 text-xl font-bold tracking-tight sm:text-2xl"
+      ? "rule-heavy mt-14 pt-3 text-xl font-bold tracking-tight sm:text-2xl"
       : depth === 2
-        ? "mt-9 text-lg font-bold tracking-tight"
+        ? "mt-9 border-b border-line pb-1 text-lg font-bold tracking-tight"
         : "mt-7 text-base font-bold";
 
   return (
@@ -127,7 +128,7 @@ export function DocHeader({
   meta?: ReactNode;
 }) {
   return (
-    <header className="border-b border-line pb-6">
+    <header className="border-b-2 border-rule pb-6">
       {kicker ? <p className="eyebrow mb-2">{kicker}</p> : null}
       <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-[2rem] sm:leading-tight">
         {title}

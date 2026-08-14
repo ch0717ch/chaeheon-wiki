@@ -119,6 +119,8 @@ npm run lint
 | `projects` | `/`, `/work`, `/work/[slug]` |
 | `experiences` | `/cv` 경력 |
 | `education` | `/cv` 학력 |
+| `certifications` | `/cv` 자격 및 면허 |
+| `timeline` | `/cv` 연혁 |
 | `research_plans` | `/research` |
 
 편집 시 알아 둘 것:
@@ -130,7 +132,29 @@ npm run lint
 - 긴 본문은 빈 줄로 문단을 나누면 화면에서도 문단이 나뉜다.
 - 링크 컬럼(`github_url`, `blog_url`, `demo_url`, `pdf_url`)은 값이 있는 것만 표시된다.
 
-### 4.3. PDF 올리기
+### 4.3. ★ 아직 비어 있는 값 (확인해서 채울 것)
+
+마스터 이력서 PDF를 읽지 못해 아래 항목은 자리표시자 상태다.
+
+| 위치 | 항목 | 현재 값 |
+| --- | --- | --- |
+| `lib/site.ts` | `birthDate` | 비어 있음 (비면 프로필에서 줄이 숨겨짐) |
+| `lib/site.ts` | `photoUrl` | 비어 있음 (사진 자리표시자 표시 중) |
+| `education` 테이블 | 컴퓨터공학 학사 학교명 | `학교명 확인 필요` |
+| `education` 테이블 | 영어통번역학 학사 학교명 | `학교명 확인 필요` |
+| `certifications` 테이블 | 자격증 6~7건 | 운전면허 2건만 등록됨 |
+| `timeline` 테이블 | 음악활동 · 자바 웹개발자 양성과정 등 | `seed.sql` 의 TEMPLATE 블록 참고 |
+| `experiences` 테이블 | 이전 경력 | 현 직장 1건만 등록됨 |
+
+`supabase/seed.sql` 에 주석 처리된 TEMPLATE 블록이 있다. 주석을 풀고 값만 바꿔서 실행하면 된다.
+
+### 4.4. 프로필 사진 넣기
+
+반명함(3:4) 비율로 잘라 `public/images/profile.jpg` 로 저장한 뒤,
+`lib/site.ts` 의 `photoUrl` 에 `"/images/profile.jpg"` 를 적는다.
+자리는 이미 잡혀 있어 사진을 넣어도 화면이 흔들리지 않는다.
+
+### 4.5. PDF 올리기
 
 `schema.sql` 이 `documents` 라는 공개 Storage 버킷을 만든다.
 

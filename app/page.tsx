@@ -1,6 +1,6 @@
 import Link from "next/link";
-import InfoBox, { type InfoRow } from "@/components/InfoBox";
-import { ExternalLink, RefList, type RefItem } from "@/components/Links";
+import { RefList, type RefItem } from "@/components/Links";
+import ProfileCard from "@/components/ProfileCard";
 import { EmptyNotice, TagList } from "@/components/Prose";
 import ProjectEntry from "@/components/ProjectEntry";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
@@ -13,16 +13,20 @@ export const revalidate = 300;
 export default async function HomePage() {
   const featured = await getFeaturedProjects(3);
 
-  const infoRows: InfoRow[] = [
-    { label: "이름", value: `${site.name} (${site.nameEn})` },
-    { label: "분야", value: site.title },
-    { label: "지역", value: site.location },
-    { label: "문서 수", value: `${docTree.length}개` },
-  ];
-
   const refs: RefItem[] = [
     site.links.github ? { label: "GitHub", href: site.links.github } : null,
-    site.links.blog ? { label: "블로그", href: site.links.blog } : null,
+    site.links.blog
+      ? { label: `블로그 — ${site.linkNotes.blog}`, href: site.links.blog }
+      : null,
+    site.links.blogPersonal
+      ? {
+          label: `블로그 — ${site.linkNotes.blogPersonal}`,
+          href: site.links.blogPersonal,
+        }
+      : null,
+    site.links.instagram
+      ? { label: `Instagram ${site.linkNotes.instagram}`, href: site.links.instagram }
+      : null,
     site.links.linkedin ? { label: "LinkedIn", href: site.links.linkedin } : null,
     site.links.email ? { label: "이메일", href: `mailto:${site.links.email}` } : null,
   ].filter((r): r is RefItem => r !== null);
@@ -115,18 +119,7 @@ export default async function HomePage() {
         lead={<p>{site.intro}</p>}
       />
 
-      <InfoBox
-        title="개요"
-        rows={infoRows}
-        footer={
-          site.links.github ? (
-            <>
-              코드는 <ExternalLink href={site.links.github}>GitHub</ExternalLink> 에서 볼 수
-              있다.
-            </>
-          ) : null
-        }
-      />
+      <ProfileCard />
 
       <Toc sections={sections} />
       <DocSections sections={sections} />
