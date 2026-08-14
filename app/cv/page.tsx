@@ -55,9 +55,9 @@ function ExperienceItem({ item }: { item: Experience }) {
         <span className="text-ink-soft">{item.org}</span>
       </div>
 
+      {/* 기간이 비어 있을 때 구분점만 남지 않도록 값이 있는 조각만 잇는다. */}
       <p className="mt-1 font-mono text-xs text-ink-muted">
-        {period}
-        {sub ? ` · ${sub}` : ""}
+        {compact([period, sub]).join(" · ")}
       </p>
 
       <Paragraphs text={item.description} className="mt-3" />
@@ -89,8 +89,7 @@ function EducationItem({ item }: { item: Education }) {
       </div>
 
       <p className="mt-1 font-mono text-xs text-ink-muted">
-        {period}
-        {item.location ? ` · ${item.location}` : ""}
+        {compact([period, item.location]).join(" · ")}
       </p>
 
       <Paragraphs text={item.note} className="mt-3" />

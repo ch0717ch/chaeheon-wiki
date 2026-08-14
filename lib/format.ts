@@ -8,8 +8,13 @@ export function formatMonth(date: string | null): string {
 }
 
 /**
- * 기간을 "2024.03 – 현재" 또는 "2022.01 – 2024.02" 로 만든다.
- * 시작일이 없으면 빈 문자열을 돌려주고, 화면에서는 아예 감춘다.
+ * 기간 표기.
+ *   진행 중            -> "2024.03 – 현재"
+ *   종료 + 종료일 있음 -> "2022.01 – 2024.02"
+ *   종료 + 종료일 없음 -> "2024.01"  (한 시점으로만 적는다)
+ *
+ * 마지막 경우를 "– 현재"로 적으면 끝난 일이 진행 중으로 보인다.
+ * 시작일이 없으면 빈 문자열을 돌려주고 화면에서 아예 감춘다.
  */
 export function formatPeriod(
   start: string | null,
@@ -18,8 +23,9 @@ export function formatPeriod(
 ): string {
   const from = formatMonth(start);
   if (!from) return isCurrent ? "진행 중" : "";
-  const to = isCurrent || !end ? "현재" : formatMonth(end);
-  return `${from} – ${to}`;
+  if (isCurrent) return `${from} – 현재`;
+  const to = formatMonth(end);
+  return to ? `${from} – ${to}` : from;
 }
 
 /** 빈 문자열·null 을 걸러낸 배열. 렌더 직전에 한 번 통과시킨다. */
