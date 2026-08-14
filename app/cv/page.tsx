@@ -73,12 +73,18 @@ function ExperienceItem({ item }: { item: Experience }) {
 
 function EducationItem({ item }: { item: Education }) {
   const period = formatPeriod(item.period_start, item.period_end, item.is_current);
-  const sub = compact([item.degree, item.field]).join(" · ");
+
+  // 기관명을 밝히지 않는 학력은 전공이 제목 자리를 대신한다.
+  // 그래야 제목 줄이 비어 목록이 깨지지 않는다.
+  const heading = item.school ?? item.field ?? item.degree ?? "";
+  const sub = compact(
+    item.school ? [item.degree, item.field] : [item.degree],
+  ).join(" · ");
 
   return (
     <article className="border-b border-line py-6 first:pt-0">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className="text-lg font-bold tracking-tight text-ink">{item.school}</h3>
+        <h3 className="text-lg font-bold tracking-tight text-ink">{heading}</h3>
         {sub ? <span className="text-ink-soft">{sub}</span> : null}
       </div>
 

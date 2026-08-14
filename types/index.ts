@@ -44,7 +44,8 @@ export type Experience = {
 
 export type Education = {
   id: string;
-  school: string;
+  /** 기관명을 밝히지 않는 학력은 null. 이때는 전공이 제목 자리를 대신한다. */
+  school: string | null;
   degree: string | null;
   field: string | null;
   location: string | null;

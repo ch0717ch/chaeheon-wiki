@@ -111,7 +111,9 @@ create trigger experiences_set_updated_at
 create table if not exists public.education (
   id           uuid primary key default gen_random_uuid(),
 
-  school       text not null,
+  -- 기관명을 밝히지 않을 학력도 있으므로 null 을 허용한다.
+  -- 이때는 화면에서 전공/학위가 제목 자리를 대신한다.
+  school       text,
   degree       text,                                -- 학사 / 석사 / 박사 / 수료 등
   field        text,                                -- 전공
   location     text,
@@ -130,6 +132,9 @@ create table if not exists public.education (
 );
 
 create index if not exists education_sort_idx on public.education (sort_order, period_start desc);
+
+-- 이미 school 이 not null 로 만들어진 DB 를 위한 보정. 새 DB 에서는 아무 일도 하지 않는다.
+alter table public.education alter column school drop not null;
 
 drop trigger if exists education_set_updated_at on public.education;
 create trigger education_set_updated_at
