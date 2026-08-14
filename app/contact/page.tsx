@@ -27,9 +27,9 @@ export default function ContactPage() {
         note: "프로젝트 저장소와 진행 중인 코드.",
       },
       {
-        label: "블로그 (IT)",
+        label: "블로그 (전공·IT)",
         href: site.links.blog,
-        note: "개발·자동화 작업 기록.",
+        note: "전공과 개발·자동화 작업 기록. 약 1년 운영, 누적 방문자 7만 명 이상.",
       },
       {
         label: "블로그 (일상)",
@@ -39,7 +39,7 @@ export default function ContactPage() {
       {
         label: "Instagram",
         href: site.links.instagram,
-        note: site.linkNotes.instagram,
+        note: "@eddiequate · 일렉기타 연주 콘텐츠. 팔로워 약 500명, 릴스 최고 조회 1만 회 이상.",
       },
       {
         label: "LinkedIn",

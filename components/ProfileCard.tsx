@@ -44,6 +44,7 @@ export default function ProfileCard() {
         </ul>
       ),
     },
+    { label: "언어", value: site.languages },
     { label: "MBTI", value: site.mbti },
     { label: "지역", value: site.location },
   ];
