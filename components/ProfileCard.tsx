@@ -60,7 +60,10 @@ export default function ProfileCard() {
       </p>
 
       <div className="flex justify-center border-b border-line px-4 py-5">
-        <ProfilePhoto className="w-32" />
+        {/* 폭은 이 래퍼가 정하고, 사진은 그 안을 채운다. */}
+        <div className="w-36">
+          <ProfilePhoto />
+        </div>
       </div>
 
       <dl className="divide-y divide-line-soft">

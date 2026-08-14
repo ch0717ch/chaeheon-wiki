@@ -71,7 +71,7 @@ export const site = {
    * 좌측 사이드바와 홈 프로필 상자에 함께 들어간다.
    * 비워 두면 자리표시자 상자가 대신 보인다.
    */
-  photoUrl: "",
+  photoUrl: "/images/profile.jpg",
 
   /**
    * 학력 요약. 홈 프로필 상자에 한 줄씩 들어간다.

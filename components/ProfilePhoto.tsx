@@ -1,12 +1,13 @@
 import { site } from "@/lib/site";
 
 /**
- * 반명함(3:4) 비율의 프로필 사진 자리.
+ * 반명함(3:4) 비율의 프로필 사진.
  *
  * site.photoUrl 이 비어 있으면 같은 크기의 자리표시자를 그린다.
- * 사진이 준비되면 public/images/profile.jpg 로 넣고
- * lib/site.ts 의 photoUrl 에 "/images/profile.jpg" 만 적으면 교체된다.
- * 레이아웃이 이미 확정돼 있어 그때 화면이 흔들리지 않는다.
+ *
+ * 폭은 항상 부모를 채운다(w-full). 크기를 정하고 싶으면 호출하는 쪽에서
+ * 감싸는 요소에 폭을 준다 — 여기에 w-32 같은 값을 함께 넘기면
+ * w-full 과 중복돼 어느 쪽이 이길지 불확실해진다.
  */
 export default function ProfilePhoto({ className = "" }: { className?: string }) {
   if (site.photoUrl) {
