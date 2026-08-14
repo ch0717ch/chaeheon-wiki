@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ExpertiseGrid from "@/components/ExpertiseGrid";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink } from "@/components/Links";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
@@ -254,24 +255,49 @@ export default async function CvPage() {
       title: "역량",
       children: [
         {
-          id: "skills-focus",
-          title: "관심 영역",
-          body: <TagList items={[...site.keywords]} label="관심 영역" />,
+          id: "skills-expertise",
+          title: "전문 분야",
+          body: <ExpertiseGrid />,
         },
         {
           id: "skills-stack",
-          title: "사용 기술",
+          title: "프로젝트에서 실제로 쓴 기술",
           body: stack.length ? (
             <div className="space-y-3">
               <TagList items={stack} label="사용 기술" />
               <p className="text-sm text-ink-muted">
-                등록된 프로젝트에서 실제로 사용한 기술만 모은 목록이다.
+                위 전문 분야와 달리, 이 목록은 등록된 프로젝트의 스택에서 자동으로
+                모은 것이다. 손으로 관리하지 않으므로 실제 작업과 어긋나지 않는다.
               </p>
             </div>
           ) : (
             <EmptyNotice>
               프로젝트에 <code>tech_stack</code> 을 채우면 여기에 자동으로 모인다.
             </EmptyNotice>
+          ),
+        },
+        {
+          id: "skills-target",
+          title: "지향 직무",
+          body: (
+            <dl className="max-w-prose divide-y divide-line-soft border-y border-line">
+              <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
+                <dt className="text-sm font-semibold text-ink-muted">우선</dt>
+                <dd className="leading-relaxed text-ink-soft">
+                  {site.targetRoles.primary}
+                </dd>
+              </div>
+              <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
+                <dt className="text-sm font-semibold text-ink-muted">확장</dt>
+                <dd className="leading-relaxed text-ink-soft">
+                  {site.targetRoles.secondary}
+                </dd>
+              </div>
+              <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
+                <dt className="text-sm font-semibold text-ink-muted">차별점</dt>
+                <dd className="leading-relaxed text-ink-soft">{site.targetRoles.edge}</dd>
+              </div>
+            </dl>
           ),
         },
       ],

@@ -33,7 +33,8 @@ export default function ProfileCard() {
     { label: "이름", value: `${site.name} (${site.nameEn})` },
     // 값이 비어 있는 줄은 표에서 통째로 뺀다. 빈 칸을 남기면 미완성으로 보인다.
     ...(site.birthDate ? [{ label: "생년월일", value: site.birthDate }] : []),
-    { label: "분야", value: site.title },
+    { label: "주 분야", value: site.fieldMain },
+    { label: "부 분야", value: site.fieldSub },
     {
       label: "학력",
       value: (

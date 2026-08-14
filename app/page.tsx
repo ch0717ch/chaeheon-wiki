@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ExpertiseGrid from "@/components/ExpertiseGrid";
 import { RefList, type RefItem } from "@/components/Links";
 import ProfileCard from "@/components/ProfileCard";
 import { EmptyNotice, TagList } from "@/components/Prose";
@@ -45,6 +46,25 @@ export default async function HomePage() {
             </Link>{" "}
             문서에 케이스 스터디로 정리해 두었다.
           </p>
+        </div>
+      ),
+    },
+    {
+      id: "expertise",
+      title: "전문 분야",
+      body: (
+        <div className="space-y-5">
+          <dl className="max-w-prose space-y-2 text-[0.9375rem]">
+            <div className="flex gap-3">
+              <dt className="w-16 shrink-0 font-semibold text-ink-muted">주 분야</dt>
+              <dd className="text-ink">{site.fieldMain}</dd>
+            </div>
+            <div className="flex gap-3">
+              <dt className="w-16 shrink-0 font-semibold text-ink-muted">부 분야</dt>
+              <dd className="text-ink">{site.fieldSub}</dd>
+            </div>
+          </dl>
+          <ExpertiseGrid />
         </div>
       ),
     },
