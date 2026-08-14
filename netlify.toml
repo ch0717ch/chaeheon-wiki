@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Next.js App Router(서버 컴포넌트, ISR)를 Netlify에서 그대로 돌리는 공식 플러그인.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
