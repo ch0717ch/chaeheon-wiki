@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink } from "@/components/Links";
@@ -10,11 +11,24 @@ import {
   getCertifications,
   getEducation,
   getExperiences,
+  getProfileBySlug,
   getProjects,
   getTimeline,
 } from "@/lib/queries";
-import { site } from "@/lib/site";
 import type { Certification, Education, Experience, TimelineEntry } from "@/types";
+
+export const revalidate = 300;
+
+type PageProps = { params: Promise<{ person: string }> };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { person } = await params;
+  const profile = await getProfileBySlug(person);
+  return {
+    title: "이력",
+    description: profile ? `${profile.name}의 경력, 학력, 역량 요약.` : undefined,
+  };
+}
 
 const CERT_KIND_LABEL: Record<Certification["kind"], string> = {
   certificate: "자격증",
@@ -30,14 +44,7 @@ function timelineLabel(entry: TimelineEntry): string {
   return String(entry.year);
 }
 
-export const revalidate = 300;
-
-export const metadata: Metadata = {
-  title: "이력",
-  description: `${site.name}의 경력, 학력, 역량 요약.`,
-};
-
-/** 가장 이른 경력 시작일을 찾아 활동 기간을 만든다. 없으면 빈 문자열. */
+/** 가장 이른 경력 시작일 기준 활동 기간. 없으면 빈 문자열. */
 function careerSpan(experiences: Experience[]): string {
   const starts = experiences.map((e) => e.period_start).filter(Boolean).sort();
   if (!starts.length) return "";
@@ -75,11 +82,8 @@ function EducationItem({ item }: { item: Education }) {
   const period = formatPeriod(item.period_start, item.period_end, item.is_current);
 
   // 기관명을 밝히지 않는 학력은 전공이 제목 자리를 대신한다.
-  // 그래야 제목 줄이 비어 목록이 깨지지 않는다.
   const heading = item.school ?? item.field ?? item.degree ?? "";
-  const sub = compact(
-    item.school ? [item.degree, item.field] : [item.degree],
-  ).join(" · ");
+  const sub = compact(item.school ? [item.degree, item.field] : [item.degree]).join(" · ");
 
   return (
     <article className="border-b border-line py-6 first:pt-0">
@@ -97,17 +101,20 @@ function EducationItem({ item }: { item: Education }) {
   );
 }
 
-export default async function CvPage() {
+export default async function CvPage({ params }: PageProps) {
+  const { person } = await params;
+  const profile = await getProfileBySlug(person);
+  if (!profile) notFound();
+
   const [experiences, education, projects, certifications, timeline] = await Promise.all([
-    getExperiences(),
-    getEducation(),
-    getProjects(),
-    getCertifications(),
-    getTimeline(),
+    getExperiences(profile.id),
+    getEducation(profile.id),
+    getProjects(profile.id),
+    getCertifications(profile.id),
+    getTimeline(profile.id),
   ]);
 
   // 역량 목록은 따로 관리하지 않고 실제 프로젝트에서 쓴 스택을 모아 만든다.
-  // 손으로 유지하는 목록은 금세 실제 작업과 어긋난다.
   const stack = Array.from(new Set(projects.flatMap((p) => p.tech_stack))).sort();
   const span = careerSpan(experiences);
 
@@ -116,7 +123,9 @@ export default async function CvPage() {
       span ? { label: "활동 기간", value: span } : null,
       experiences.length ? { label: "경력", value: `${experiences.length}건` } : null,
       education.length ? { label: "학력", value: `${education.length}건` } : null,
-      certifications.length ? { label: "자격·면허", value: `${certifications.length}건` } : null,
+      certifications.length
+        ? { label: "자격·면허", value: `${certifications.length}건` }
+        : null,
       stack.length ? { label: "사용 기술", value: `${stack.length}종` } : null,
     ] as (InfoRow | null)[]
   ).filter((row): row is InfoRow => row !== null);
@@ -127,20 +136,20 @@ export default async function CvPage() {
       title: "이력 요약",
       body: (
         <div className="max-w-prose space-y-4 leading-[1.85] text-ink-soft">
-          <p>{site.intro}</p>
+          {profile.intro ? <p>{profile.intro}</p> : null}
           {experiences.length ? (
             <p>
               지금까지 {experiences.length}개 조직에서 일했다. 그 사이 진행한 작업은{" "}
-              <Link href="/work" className="doc-link">
+              <Link href={`/${profile.slug}/work`} className="doc-link">
                 작업 문서
               </Link>
               에 케이스 스터디로 정리돼 있다.
             </p>
           ) : null}
-          {site.resumePdfUrl ? (
+          {profile.resume_pdf_url ? (
             <p>
               PDF 이력서:{" "}
-              <ExternalLink href={site.resumePdfUrl}>이력서 내려받기</ExternalLink>
+              <ExternalLink href={profile.resume_pdf_url}>이력서 내려받기</ExternalLink>
             </p>
           ) : null}
         </div>
@@ -156,10 +165,7 @@ export default async function CvPage() {
           ))}
         </div>
       ) : (
-        <EmptyNotice>
-          아직 등록된 경력이 없다. Supabase 의 <code>experiences</code> 테이블에 행을
-          추가한다.
-        </EmptyNotice>
+        <EmptyNotice>아직 등록된 경력이 없다.</EmptyNotice>
       ),
     },
     {
@@ -172,10 +178,7 @@ export default async function CvPage() {
           ))}
         </div>
       ) : (
-        <EmptyNotice>
-          아직 등록된 학력이 없다. Supabase 의 <code>education</code> 테이블에 행을
-          추가한다.
-        </EmptyNotice>
+        <EmptyNotice>아직 등록된 학력이 없다.</EmptyNotice>
       ),
     },
     {
@@ -216,10 +219,7 @@ export default async function CvPage() {
           </tbody>
         </table>
       ) : (
-        <EmptyNotice>
-          등록된 자격·면허가 없다. Supabase 의 <code>certifications</code> 테이블에 행을
-          추가한다.
-        </EmptyNotice>
+        <EmptyNotice>아직 등록된 자격·면허가 없다.</EmptyNotice>
       ),
     },
     {
@@ -250,20 +250,22 @@ export default async function CvPage() {
           </ol>
         </div>
       ) : (
-        <EmptyNotice>
-          등록된 연혁이 없다. Supabase 의 <code>timeline</code> 테이블에 행을 추가한다.
-        </EmptyNotice>
+        <EmptyNotice>아직 등록된 연혁이 없다.</EmptyNotice>
       ),
     },
     {
       id: "skills",
       title: "역량",
       children: [
-        {
-          id: "skills-expertise",
-          title: "전문 분야",
-          body: <ExpertiseGrid />,
-        },
+        ...(profile.expertise.length
+          ? [
+              {
+                id: "skills-expertise",
+                title: "전문 분야",
+                body: <ExpertiseGrid areas={profile.expertise} />,
+              } satisfies DocSection,
+            ]
+          : []),
         {
           id: "skills-stack",
           title: "프로젝트에서 실제로 쓴 기술",
@@ -271,40 +273,50 @@ export default async function CvPage() {
             <div className="space-y-3">
               <TagList items={stack} label="사용 기술" />
               <p className="text-sm text-ink-muted">
-                위 전문 분야와 달리, 이 목록은 등록된 프로젝트의 스택에서 자동으로
-                모은 것이다. 손으로 관리하지 않으므로 실제 작업과 어긋나지 않는다.
+                이 목록은 등록된 프로젝트의 스택에서 자동으로 모은 것이다. 손으로
+                관리하지 않으므로 실제 작업과 어긋나지 않는다.
               </p>
             </div>
           ) : (
-            <EmptyNotice>
-              프로젝트에 <code>tech_stack</code> 을 채우면 여기에 자동으로 모인다.
-            </EmptyNotice>
+            <EmptyNotice>프로젝트에 기술 스택을 채우면 여기에 자동으로 모인다.</EmptyNotice>
           ),
         },
-        {
-          id: "skills-target",
-          title: "지향 직무",
-          body: (
-            <dl className="max-w-prose divide-y divide-line-soft border-y border-line">
-              <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
-                <dt className="text-sm font-semibold text-ink-muted">우선</dt>
-                <dd className="leading-relaxed text-ink-soft">
-                  {site.targetRoles.primary}
-                </dd>
-              </div>
-              <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
-                <dt className="text-sm font-semibold text-ink-muted">확장</dt>
-                <dd className="leading-relaxed text-ink-soft">
-                  {site.targetRoles.secondary}
-                </dd>
-              </div>
-              <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
-                <dt className="text-sm font-semibold text-ink-muted">차별점</dt>
-                <dd className="leading-relaxed text-ink-soft">{site.targetRoles.edge}</dd>
-              </div>
-            </dl>
-          ),
-        },
+        ...(profile.target_primary || profile.target_secondary || profile.target_edge
+          ? [
+              {
+                id: "skills-target",
+                title: "지향 직무",
+                body: (
+                  <dl className="max-w-prose divide-y divide-line-soft border-y border-line">
+                    {profile.target_primary ? (
+                      <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
+                        <dt className="text-sm font-semibold text-ink-muted">우선</dt>
+                        <dd className="leading-relaxed text-ink-soft">
+                          {profile.target_primary}
+                        </dd>
+                      </div>
+                    ) : null}
+                    {profile.target_secondary ? (
+                      <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
+                        <dt className="text-sm font-semibold text-ink-muted">확장</dt>
+                        <dd className="leading-relaxed text-ink-soft">
+                          {profile.target_secondary}
+                        </dd>
+                      </div>
+                    ) : null}
+                    {profile.target_edge ? (
+                      <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
+                        <dt className="text-sm font-semibold text-ink-muted">차별점</dt>
+                        <dd className="leading-relaxed text-ink-soft">
+                          {profile.target_edge}
+                        </dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                ),
+              } satisfies DocSection,
+            ]
+          : []),
       ],
     },
   ];
@@ -314,7 +326,9 @@ export default async function CvPage() {
       <DocHeader
         kicker="이력"
         title="이력"
-        lead={<p>경력, 학력, 역량을 한 문서에 모았다. 세부 작업 내용은 작업 문서로 나눠 두었다.</p>}
+        lead={
+          <p>경력, 학력, 역량을 한 문서에 모았다. 세부 작업 내용은 작업 문서로 나눠 두었다.</p>
+        }
       />
 
       <InfoBox title="이력 개요" rows={infoRows} />

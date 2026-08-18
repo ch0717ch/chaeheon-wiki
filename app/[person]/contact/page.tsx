@@ -1,49 +1,62 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink, RefList, type RefItem } from "@/components/Links";
 import { EmptyNotice } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
-import { site } from "@/lib/site";
+import { getProfileBySlug } from "@/lib/queries";
 
-export const metadata: Metadata = {
-  title: "연락",
-  description: `${site.name}에게 연락하는 방법과 외부 프로필 링크.`,
-};
+export const revalidate = 300;
+
+type PageProps = { params: Promise<{ person: string }> };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { person } = await params;
+  const profile = await getProfileBySlug(person);
+  return {
+    title: "연락",
+    description: profile ? `${profile.name}에게 연락하는 방법.` : undefined,
+  };
+}
 
 type Channel = { label: string; href: string; note: string };
 
-export default function ContactPage() {
+export default async function ContactPage({ params }: PageProps) {
+  const { person } = await params;
+  const profile = await getProfileBySlug(person);
+  if (!profile) notFound();
+
   // 값이 비어 있는 채널은 목록에서 통째로 빠진다.
   const channels: Channel[] = (
     [
       {
         label: "이메일",
-        href: site.links.email ? `mailto:${site.links.email}` : "",
+        href: profile.link_email ? `mailto:${profile.link_email}` : "",
         note: "가장 확실한 경로. 협업이나 연구 관련 문의는 여기로.",
       },
       {
         label: "GitHub",
-        href: site.links.github,
+        href: profile.link_github,
         note: "프로젝트 저장소와 진행 중인 코드.",
       },
       {
-        label: "블로그 (전공·IT)",
-        href: site.links.blog,
-        note: "전공과 개발·자동화 작업 기록. 약 1년 운영, 누적 방문자 7만 명 이상.",
+        label: "블로그",
+        href: profile.link_blog,
+        note: "작업과 전공 기록.",
       },
       {
-        label: "블로그 (일상)",
-        href: site.links.blogPersonal,
+        label: "블로그 2",
+        href: profile.link_blog2,
         note: "일상과 대외활동 기록.",
       },
       {
         label: "Instagram",
-        href: site.links.instagram,
-        note: "@eddiequate · 일렉기타 연주 콘텐츠. 팔로워 약 500명, 릴스 최고 조회 1만 회 이상.",
+        href: profile.link_instagram,
+        note: "일상·창작 활동.",
       },
       {
         label: "LinkedIn",
-        href: site.links.linkedin,
+        href: profile.link_linkedin,
         note: "경력 요약과 이력 관련 문의.",
       },
     ] as Channel[]
@@ -52,19 +65,19 @@ export default function ContactPage() {
   const refs: RefItem[] = channels.map(({ label, href }) => ({ label, href }));
 
   const infoRows: InfoRow[] = [
-    ...(site.links.email
+    ...(profile.link_email
       ? [
           {
             label: "이메일",
             value: (
-              <a href={`mailto:${site.links.email}`} className="doc-link break-all">
-                {site.links.email}
+              <a href={`mailto:${profile.link_email}`} className="doc-link break-all">
+                {profile.link_email}
               </a>
             ),
           },
         ]
       : []),
-    { label: "지역", value: site.location },
+    ...(profile.location ? [{ label: "지역", value: profile.location }] : []),
     { label: "채널", value: `${channels.length}개` },
   ];
 
@@ -90,10 +103,7 @@ export default function ContactPage() {
           ))}
         </dl>
       ) : (
-        <EmptyNotice>
-          <code>lib/site.ts</code> 의 <code>links</code> 값을 채우면 연락 채널이 여기에
-          표시된다.
-        </EmptyNotice>
+        <EmptyNotice>등록된 연락 채널이 없다.</EmptyNotice>
       ),
     },
     {
@@ -102,9 +112,8 @@ export default function ContactPage() {
       body: (
         <div className="max-w-prose space-y-4 leading-[1.85] text-ink-soft">
           <p>
-            이 사이트는 개인 작업 아카이브다. 별도의 문의 양식은 두지 않았다. 폼을 만들면
-            받는 쪽에도 보내는 쪽에도 관리할 것이 하나 늘어나는데, 이메일 하나로 충분한
-            규모이기 때문이다.
+            이 사이트는 개인 작업 아카이브다. 별도의 문의 양식은 두지 않았다. 이메일
+            하나로 충분한 규모이기 때문이다.
           </p>
           <p>
             협업이나 연구 관련 문의라면 어떤 문서를 보고 연락하는지 한 줄 적어 주면 답이
@@ -113,11 +122,15 @@ export default function ContactPage() {
         </div>
       ),
     },
-    {
-      id: "refs",
-      title: "링크 목록",
-      body: refs.length ? <RefList items={refs} /> : <EmptyNotice>등록된 링크가 없다.</EmptyNotice>,
-    },
+    ...(refs.length
+      ? [
+          {
+            id: "refs",
+            title: "링크 목록",
+            body: <RefList items={refs} />,
+          } satisfies DocSection,
+        ]
+      : []),
   ];
 
   return (

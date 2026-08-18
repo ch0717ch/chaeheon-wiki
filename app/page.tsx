@@ -1,148 +1,76 @@
 import Link from "next/link";
-import ExpertiseGrid from "@/components/ExpertiseGrid";
-import { RefList, type RefItem } from "@/components/Links";
-import ProfileCard from "@/components/ProfileCard";
-import { EmptyNotice, TagList } from "@/components/Prose";
-import ProjectEntry from "@/components/ProjectEntry";
-import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
-import { getFeaturedProjects } from "@/lib/queries";
+import { getProfiles } from "@/lib/queries";
 import { docTree, site } from "@/lib/site";
 
-// 콘텐츠는 Supabase 대시보드에서 가끔 바뀐다. 5분마다 다시 만들면 충분하다.
+// 대문 — 문서(인물) 목록. 나무위키의 대문에 해당한다.
 export const revalidate = 300;
 
-export default async function HomePage() {
-  const featured = await getFeaturedProjects(3);
-
-  const refs: RefItem[] = [
-    site.links.github ? { label: "GitHub", href: site.links.github } : null,
-    site.links.blog
-      ? { label: `블로그 — ${site.linkNotes.blog}`, href: site.links.blog }
-      : null,
-    site.links.blogPersonal
-      ? {
-          label: `블로그 — ${site.linkNotes.blogPersonal}`,
-          href: site.links.blogPersonal,
-        }
-      : null,
-    site.links.instagram
-      ? { label: `Instagram ${site.linkNotes.instagram}`, href: site.links.instagram }
-      : null,
-    site.links.linkedin ? { label: "LinkedIn", href: site.links.linkedin } : null,
-    site.links.email ? { label: "이메일", href: `mailto:${site.links.email}` } : null,
-  ].filter((r): r is RefItem => r !== null);
-
-  const sections: DocSection[] = [
-    {
-      id: "keywords",
-      title: "핵심 키워드",
-      body: (
-        <div className="space-y-4">
-          <TagList items={[...site.keywords]} label="핵심 키워드" />
-          <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
-            각 키워드가 실제로 어떤 작업으로 이어졌는지는{" "}
-            <Link href="/work" className="doc-link">
-              작업
-            </Link>{" "}
-            문서에 케이스 스터디로 정리해 두었다.
-          </p>
-        </div>
-      ),
-    },
-    {
-      id: "expertise",
-      title: "전문 분야",
-      body: (
-        <div className="space-y-5">
-          <dl className="max-w-prose space-y-2 text-[0.9375rem]">
-            <div className="flex gap-3">
-              <dt className="w-16 shrink-0 font-semibold text-ink-muted">주 분야</dt>
-              <dd className="text-ink">{site.fieldMain}</dd>
-            </div>
-            <div className="flex gap-3">
-              <dt className="w-16 shrink-0 font-semibold text-ink-muted">부 분야</dt>
-              <dd className="text-ink">{site.fieldSub}</dd>
-            </div>
-          </dl>
-          <ExpertiseGrid />
-        </div>
-      ),
-    },
-    {
-      id: "featured",
-      title: "대표 작업",
-      body: featured.length ? (
-        <div>
-          <div className="border-t border-line">
-            {featured.map((project) => (
-              <ProjectEntry key={project.id} project={project} />
-            ))}
-          </div>
-          <p className="mt-6 text-sm">
-            <Link href="/work" className="doc-link">
-              전체 프로젝트 목록 보기 →
-            </Link>
-          </p>
-        </div>
-      ) : (
-        <EmptyNotice>
-          아직 등록된 프로젝트가 없다. Supabase 의 <code>projects</code> 테이블에 행을
-          추가하면 이 자리에 나타난다.
-        </EmptyNotice>
-      ),
-    },
-    {
-      id: "documents",
-      title: "문서 안내",
-      body: (
-        <dl className="max-w-prose divide-y divide-line-soft border-y border-line">
-          {docTree
-            .filter((doc) => doc.href !== "/")
-            .map((doc) => (
-              <div key={doc.href} className="grid grid-cols-[5rem_1fr] gap-4 py-3">
-                <dt className="font-semibold">
-                  <Link href={doc.href} className="doc-link">
-                    {doc.label}
-                  </Link>
-                </dt>
-                <dd className="text-sm leading-relaxed text-ink-soft">{doc.note}</dd>
-              </div>
-            ))}
-        </dl>
-      ),
-    },
-    {
-      id: "links",
-      title: "외부 링크",
-      body: refs.length ? (
-        <div className="space-y-4">
-          <RefList items={refs} />
-          <p className="text-sm">
-            <Link href="/contact" className="doc-link">
-              연락 문서에서 전체 목록 보기 →
-            </Link>
-          </p>
-        </div>
-      ) : (
-        <EmptyNotice>
-          <code>lib/site.ts</code> 의 <code>links</code> 값을 채우면 여기에 표시된다.
-        </EmptyNotice>
-      ),
-    },
-  ];
+export default async function FrontPage() {
+  const profiles = await getProfiles();
 
   return (
-    <article>
-      <DocHeader
-        kicker="개요"
-        title={`${site.name} — ${site.title}`}
-        lead={<p>{site.intro}</p>}
-      />
+    <div className="mx-auto w-full max-w-3xl px-5 pb-24 sm:px-8">
+      <header className="border-b-2 border-rule pb-8 pt-14">
+        <p className="eyebrow mb-2">{site.nameEn}</p>
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{site.name}</h1>
+        <p className="mt-4 max-w-prose leading-[1.85] text-ink-soft">{site.tagline}</p>
+      </header>
 
-      <ProfileCard />
+      <main id="main">
+        <section aria-labelledby="doc-list" className="mt-10">
+          <h2 id="doc-list" className="text-lg font-bold tracking-tight">
+            문서 목록
+            <span className="ml-2 font-mono text-sm font-normal text-ink-muted">
+              {profiles.length}
+            </span>
+          </h2>
 
-      <Toc sections={sections} />
-      <DocSections sections={sections} />
-    </article>
+          {profiles.length ? (
+            <ul className="mt-4 border-t-2 border-rule">
+              {profiles.map((p) => (
+                <li key={p.id} className="border-b border-line">
+                  <Link
+                    href={`/${p.slug}`}
+                    className="group block py-5 transition-colors hover:bg-paper-deep"
+                  >
+                    <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <span className="text-lg font-bold tracking-tight text-ink group-hover:underline group-hover:underline-offset-4">
+                        {p.name}
+                      </span>
+                      {p.name_en ? (
+                        <span className="text-sm text-ink-muted">{p.name_en}</span>
+                      ) : null}
+                    </span>
+                    {p.title ? (
+                      <span className="mt-1 block text-sm leading-relaxed text-ink-soft">
+                        {p.title}
+                      </span>
+                    ) : null}
+                    <span className="mt-2 block text-xs text-ink-muted">
+                      {docTree.map((d) => d.label).join(" · ")}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-4 max-w-prose border border-dashed border-line px-4 py-6 text-sm leading-relaxed text-ink-muted">
+              아직 문서가 없다. 관리 화면에서 첫 인물 문서를 만들면 여기에 나타난다.
+            </p>
+          )}
+        </section>
+
+        <footer className="mt-20 border-t-2 border-rule pt-6 text-xs leading-relaxed text-ink-muted">
+          <p>© {new Date().getFullYear()} {site.name}. 이 사이트는 공개 읽기 전용이다.</p>
+          <p className="mt-1">
+            문서 작성·수정은 인증키를 가진 관리자만{" "}
+            <Link href="/admin" className="doc-link">
+              관리 화면
+            </Link>
+            에서 할 수 있다.
+          </p>
+        </footer>
+      </main>
+    </div>
   );
 }

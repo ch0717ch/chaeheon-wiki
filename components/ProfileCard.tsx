@@ -1,54 +1,60 @@
 import type { ReactNode } from "react";
 import { BlogIcon, GithubIcon, InstagramIcon, MailIcon } from "@/components/Icons";
 import ProfilePhoto from "@/components/ProfilePhoto";
-import { site } from "@/lib/site";
+import type { Profile } from "@/types";
 
 type Row = { label: string; value: ReactNode };
-
-/** 값이 있는 링크만 아이콘 줄에 세운다. */
-const socialLinks = [
-  { key: "github", href: site.links.github, label: "GitHub", Icon: GithubIcon },
-  { key: "blog", href: site.links.blog, label: "블로그 (IT)", Icon: BlogIcon },
-  {
-    key: "blogPersonal",
-    href: site.links.blogPersonal,
-    label: "블로그 (일상)",
-    Icon: BlogIcon,
-  },
-  { key: "instagram", href: site.links.instagram, label: "Instagram", Icon: InstagramIcon },
-  {
-    key: "email",
-    href: site.links.email ? `mailto:${site.links.email}` : "",
-    label: "이메일",
-    Icon: MailIcon,
-  },
-].filter((l) => Boolean(l.href));
 
 /**
  * 위키 인물 문서의 프로필 상자.
  * 사진 → 이름 → 항목표 → 아이콘 링크 순서로, 한눈에 사람을 파악하는 용도다.
+ * 값이 비어 있는 행은 표에서 통째로 뺀다. 빈 칸을 남기면 미완성으로 보인다.
  */
-export default function ProfileCard() {
-  const rows: Row[] = [
-    { label: "이름", value: `${site.name} (${site.nameEn})` },
-    // 값이 비어 있는 줄은 표에서 통째로 뺀다. 빈 칸을 남기면 미완성으로 보인다.
-    ...(site.birthDate ? [{ label: "생년월일", value: site.birthDate }] : []),
-    { label: "주 분야", value: site.fieldMain },
-    { label: "부 분야", value: site.fieldSub },
+export default function ProfileCard({ profile }: { profile: Profile }) {
+  const socialLinks = [
+    { key: "github", href: profile.link_github, label: "GitHub", Icon: GithubIcon },
+    { key: "blog", href: profile.link_blog, label: "블로그", Icon: BlogIcon },
+    { key: "blog2", href: profile.link_blog2, label: "블로그 2", Icon: BlogIcon },
     {
-      label: "학력",
-      value: (
-        <ul className="space-y-0.5">
-          {site.educationSummary.map((line) => (
-            <li key={line}>{line}</li>
-          ))}
-        </ul>
-      ),
+      key: "instagram",
+      href: profile.link_instagram,
+      label: "Instagram",
+      Icon: InstagramIcon,
     },
-    { label: "언어", value: site.languages },
-    { label: "MBTI", value: site.mbti },
-    { label: "지역", value: site.location },
-  ];
+    {
+      key: "email",
+      href: profile.link_email ? `mailto:${profile.link_email}` : "",
+      label: "이메일",
+      Icon: MailIcon,
+    },
+  ].filter((l) => Boolean(l.href));
+
+  const rows: Row[] = (
+    [
+      {
+        label: "이름",
+        value: profile.name_en ? `${profile.name} (${profile.name_en})` : profile.name,
+      },
+      profile.birth_date ? { label: "생년월일", value: profile.birth_date } : null,
+      profile.field_main ? { label: "주 분야", value: profile.field_main } : null,
+      profile.field_sub ? { label: "부 분야", value: profile.field_sub } : null,
+      profile.education_summary.length
+        ? {
+            label: "학력",
+            value: (
+              <ul className="space-y-0.5">
+                {profile.education_summary.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            ),
+          }
+        : null,
+      profile.languages ? { label: "언어", value: profile.languages } : null,
+      profile.mbti ? { label: "MBTI", value: profile.mbti } : null,
+      profile.location ? { label: "지역", value: profile.location } : null,
+    ] as (Row | null)[]
+  ).filter((r): r is Row => r !== null);
 
   return (
     <aside
@@ -62,7 +68,7 @@ export default function ProfileCard() {
       <div className="flex justify-center border-b border-line px-4 py-5">
         {/* 폭은 이 래퍼가 정하고, 사진은 그 안을 채운다. */}
         <div className="w-36">
-          <ProfilePhoto />
+          <ProfilePhoto photoUrl={profile.photo_url} name={profile.name} />
         </div>
       </div>
 
@@ -87,7 +93,6 @@ export default function ProfileCard() {
                     href={href}
                     {...(isMail ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                     title={label}
-                    // 터치 목표 44px 확보. 아이콘만 있으므로 라벨은 sr-only 로 남긴다.
                     className="flex h-11 w-11 items-center justify-center border border-line bg-paper text-ink transition-colors hover:bg-slab hover:text-on-slab"
                   >
                     <Icon />

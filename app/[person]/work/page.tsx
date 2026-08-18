@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { EmptyNotice } from "@/components/Prose";
 import ProjectEntry from "@/components/ProjectEntry";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
-import { getProjects } from "@/lib/queries";
-import { site } from "@/lib/site";
+import { getProfileBySlug, getProjects } from "@/lib/queries";
 import type { Project } from "@/types";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "작업",
-  description: `${site.name}의 프로젝트 목록. 각 항목은 문제·역할·판단·결과로 정리된 케이스 스터디로 이어진다.`,
-};
+type PageProps = { params: Promise<{ person: string }> };
 
-/** 분류가 없는 프로젝트는 "기타"로 묶는다. 분류 축이 비어 목록이 깨지지 않게 한다. */
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { person } = await params;
+  const profile = await getProfileBySlug(person);
+  return {
+    title: "작업",
+    description: profile ? `${profile.name}의 프로젝트 목록.` : undefined,
+  };
+}
+
+/** 분류가 없는 프로젝트는 "기타"로 묶는다. */
 function groupByCategory(projects: Project[]): [string, Project[]][] {
   const groups = new Map<string, Project[]>();
   for (const project of projects) {
@@ -24,15 +30,21 @@ function groupByCategory(projects: Project[]): [string, Project[]][] {
   return [...groups.entries()];
 }
 
-export default async function WorkPage() {
-  const projects = await getProjects();
+export default async function WorkPage({ params }: PageProps) {
+  const { person } = await params;
+  const profile = await getProfileBySlug(person);
+  if (!profile) notFound();
+
+  const projects = await getProjects(profile.id);
   const groups = groupByCategory(projects);
   const ongoing = projects.filter((p) => p.is_ongoing);
 
   const infoRows: InfoRow[] = [
     { label: "총 프로젝트", value: `${projects.length}건` },
     ...(ongoing.length ? [{ label: "진행 중", value: `${ongoing.length}건` }] : []),
-    ...(groups.length ? [{ label: "분류", value: groups.map(([g]) => g).join(", ") }] : []),
+    ...(groups.length
+      ? [{ label: "분류", value: groups.map(([g]) => g).join(", ") }]
+      : []),
   ];
 
   const sections: DocSection[] = projects.length
@@ -42,7 +54,7 @@ export default async function WorkPage() {
         body: (
           <div className="border-t border-line">
             {items.map((project) => (
-              <ProjectEntry key={project.id} project={project} />
+              <ProjectEntry key={project.id} project={project} person={profile.slug} />
             ))}
           </div>
         ),
@@ -51,12 +63,7 @@ export default async function WorkPage() {
         {
           id: "empty",
           title: "등록된 프로젝트",
-          body: (
-            <EmptyNotice>
-              아직 등록된 프로젝트가 없다. Supabase 의 <code>projects</code> 테이블에
-              행을 추가하면 이 목록과 개별 케이스 스터디 페이지가 함께 만들어진다.
-            </EmptyNotice>
-          ),
+          body: <EmptyNotice>아직 등록된 프로젝트가 없다.</EmptyNotice>,
         },
       ];
 

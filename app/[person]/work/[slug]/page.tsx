@@ -7,29 +7,23 @@ import PdfViewer from "@/components/PdfViewer";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import { formatPeriod } from "@/lib/format";
-import { getProjectBySlug, getProjects } from "@/lib/queries";
+import { getProfileBySlug, getProjectBySlug } from "@/lib/queries";
 import type { Project } from "@/types";
 
 export const revalidate = 300;
 
-// 등록된 프로젝트는 빌드 시점에 미리 만든다. 새로 추가된 slug 는
-// 아래 dynamicParams(기본값 true) 덕분에 요청 시점에 생성된다.
-export async function generateStaticParams() {
-  const projects = await getProjects();
-  return projects.map((p) => ({ slug: p.slug }));
-}
-
-type PageProps = { params: Promise<{ slug: string }> };
+type PageProps = { params: Promise<{ person: string; slug: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const { person, slug } = await params;
+  const profile = await getProfileBySlug(person);
+  if (!profile) return { title: "찾을 수 없는 문서" };
+  const project = await getProjectBySlug(profile.id, slug);
   if (!project) return { title: "찾을 수 없는 프로젝트" };
 
   return {
     title: project.title,
     description: project.summary || undefined,
-    openGraph: { title: project.title, description: project.summary || undefined },
   };
 }
 
@@ -41,23 +35,23 @@ function buildRefs(project: Project): RefItem[] {
     { label: "데모", href: project.demo_url },
     { label: "PDF 자료", href: project.pdf_url },
   ];
-
   return candidates
     .filter((item): item is RefItem => Boolean(item.href))
     .map(({ label, href }) => ({ label, href }));
 }
 
 export default async function ProjectPage({ params }: PageProps) {
-  const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const { person, slug } = await params;
+  const profile = await getProfileBySlug(person);
+  if (!profile) notFound();
 
+  const project = await getProjectBySlug(profile.id, slug);
   if (!project) notFound();
 
   const period = formatPeriod(project.period_start, project.period_end, project.is_ongoing);
   const refs = buildRefs(project);
 
-  // 개요 상자에는 한 줄로 끝나는 값만 넣는다. 역할처럼 긴 문장은
-  // 상자를 세로로 늘려 본문을 밀어내므로 아래 섹션에만 둔다.
+  // 개요 상자에는 한 줄로 끝나는 값만 넣는다.
   const infoRows: InfoRow[] = [
     ...(project.category ? [{ label: "분류", value: project.category }] : []),
     ...(period ? [{ label: "기간", value: period }] : []),
@@ -75,9 +69,7 @@ export default async function ProjectPage({ params }: PageProps) {
       body: project.problem ? (
         <Paragraphs text={project.problem} />
       ) : (
-        <EmptyNotice>
-          <code>projects.problem</code> 이 비어 있다.
-        </EmptyNotice>
+        <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
     },
     {
@@ -86,9 +78,7 @@ export default async function ProjectPage({ params }: PageProps) {
       body: project.role ? (
         <Paragraphs text={project.role} />
       ) : (
-        <EmptyNotice>
-          <code>projects.role</code> 이 비어 있다.
-        </EmptyNotice>
+        <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
     },
     {
@@ -102,9 +92,7 @@ export default async function ProjectPage({ params }: PageProps) {
           <Bullets items={project.key_decisions} />
         </div>
       ) : (
-        <EmptyNotice>
-          <code>projects.key_decisions</code> 배열이 비어 있다.
-        </EmptyNotice>
+        <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
     },
     {
@@ -113,20 +101,18 @@ export default async function ProjectPage({ params }: PageProps) {
       body: project.outcome ? (
         <Paragraphs text={project.outcome} />
       ) : (
-        <EmptyNotice>
-          <code>projects.outcome</code> 이 비어 있다.
-        </EmptyNotice>
+        <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
     },
-    {
-      id: "stack",
-      title: "사용 기술",
-      body: project.tech_stack.length ? (
-        <TagList items={project.tech_stack} label="사용 기술" />
-      ) : (
-        <EmptyNotice>등록된 기술 스택이 없다.</EmptyNotice>
-      ),
-    },
+    ...(project.tech_stack.length
+      ? [
+          {
+            id: "stack",
+            title: "사용 기술",
+            body: <TagList items={project.tech_stack} label="사용 기술" />,
+          } satisfies DocSection,
+        ]
+      : []),
     ...(project.pdf_url
       ? [
           {
@@ -150,10 +136,7 @@ export default async function ProjectPage({ params }: PageProps) {
       body: refs.length ? (
         <RefList items={refs} />
       ) : (
-        <EmptyNotice>
-          연결된 외부 링크가 없다. <code>github_url</code>, <code>blog_url</code>,{" "}
-          <code>demo_url</code>, <code>pdf_url</code> 중 값이 있는 것만 표시된다.
-        </EmptyNotice>
+        <EmptyNotice>연결된 외부 링크가 없다.</EmptyNotice>
       ),
     },
   ];
@@ -161,7 +144,7 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <article>
       <p className="no-print mb-6 text-sm">
-        <Link href="/work" className="doc-link">
+        <Link href={`/${profile.slug}/work`} className="doc-link">
           ← 작업 목록
         </Link>
       </p>

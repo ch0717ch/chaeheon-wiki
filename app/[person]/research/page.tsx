@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
 import PdfViewer from "@/components/PdfViewer";
-import {
-  Bullets,
-  EmptyNotice,
-  NumberedList,
-  Paragraphs,
-  TagList,
-} from "@/components/Prose";
+import { Bullets, EmptyNotice, NumberedList, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
-import { getResearchPlans } from "@/lib/queries";
-import { site } from "@/lib/site";
+import { getProfileBySlug, getResearchPlans } from "@/lib/queries";
 import type { ResearchPlan, ResearchPlanStatus } from "@/types";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "연구",
-  description: `${site.name}의 연구 관심사, 연구 질문, 연구계획서 요약.`,
-};
+type PageProps = { params: Promise<{ person: string }> };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { person } = await params;
+  const profile = await getProfileBySlug(person);
+  return {
+    title: "연구",
+    description: profile ? `${profile.name}의 연구 관심사와 연구계획서.` : undefined,
+  };
+}
 
 const STATUS_LABEL: Record<ResearchPlanStatus, string> = {
   draft: "초안",
@@ -44,9 +44,7 @@ function planSection(plan: ResearchPlan, index: number): DocSection {
       body: plan.abstract ? (
         <Paragraphs text={plan.abstract} />
       ) : (
-        <EmptyNotice>
-          <code>research_plans.abstract</code> 가 비어 있다.
-        </EmptyNotice>
+        <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
     },
     {
@@ -68,21 +66,18 @@ function planSection(plan: ResearchPlan, index: number): DocSection {
     });
   }
 
-  children.push({
-    id: `${base}-files`,
-    title: "자료 및 참조",
-    body: refs.length ? (
-      <div className="space-y-5">
-        {plan.pdf_url ? <PdfViewer src={plan.pdf_url} title={plan.title} /> : null}
-        <RefList items={refs} />
-      </div>
-    ) : (
-      <EmptyNotice>
-        아직 공개된 파일이 없다. <code>research_plans.pdf_url</code> 에 링크를 넣으면
-        내려받기 버튼이 생긴다.
-      </EmptyNotice>
-    ),
-  });
+  if (refs.length) {
+    children.push({
+      id: `${base}-files`,
+      title: "자료 및 참조",
+      body: (
+        <div className="space-y-5">
+          {plan.pdf_url ? <PdfViewer src={plan.pdf_url} title={plan.title} /> : null}
+          <RefList items={refs} />
+        </div>
+      ),
+    });
+  }
 
   return {
     id: base,
@@ -97,17 +92,22 @@ function planSection(plan: ResearchPlan, index: number): DocSection {
   };
 }
 
-export default async function ResearchPage() {
-  const plans = await getResearchPlans();
+export default async function ResearchPage({ params }: PageProps) {
+  const { person } = await params;
+  const profile = await getProfileBySlug(person);
+  if (!profile) notFound();
 
-  // 관심사 키워드는 모든 계획서에서 모은다. 중복은 제거한다.
+  const plans = await getResearchPlans(profile.id);
+
   const interests = Array.from(new Set(plans.flatMap((p) => p.interests)));
   const allQuestions = plans.flatMap((p) => p.research_questions);
   const hasPdf = plans.some((p) => p.pdf_url);
 
   const infoRows: InfoRow[] = [
     { label: "계획서", value: `${plans.length}편` },
-    ...(allQuestions.length ? [{ label: "연구 질문", value: `${allQuestions.length}개` }] : []),
+    ...(allQuestions.length
+      ? [{ label: "연구 질문", value: `${allQuestions.length}개` }]
+      : []),
     ...(interests.length ? [{ label: "관심 키워드", value: `${interests.length}개` }] : []),
     { label: "PDF", value: hasPdf ? "제공" : "준비 중" },
   ];
@@ -124,9 +124,7 @@ export default async function ResearchPage() {
           </p>
         </div>
       ) : (
-        <EmptyNotice>
-          Supabase 의 <code>research_plans.interests</code> 배열을 채우면 여기에 모인다.
-        </EmptyNotice>
+        <EmptyNotice>아직 등록된 연구 키워드가 없다.</EmptyNotice>
       ),
     },
     // 계획서가 하나뿐이면 아래 계획서 섹션의 연구 질문과 그대로 겹친다.
@@ -154,13 +152,7 @@ export default async function ResearchPage() {
           {
             id: "plans-empty",
             title: "연구계획서",
-            body: (
-              <EmptyNotice>
-                아직 등록된 연구계획서가 없다. Supabase 의 <code>research_plans</code>{" "}
-                테이블에 행을 추가하면 요약·연구 질문·방법·PDF 링크가 이 자리에 문서로
-                펼쳐진다.
-              </EmptyNotice>
-            ),
+            body: <EmptyNotice>아직 등록된 연구계획서가 없다.</EmptyNotice>,
           } satisfies DocSection,
         ]),
   ];
@@ -170,12 +162,7 @@ export default async function ResearchPage() {
       <DocHeader
         kicker="연구"
         title="연구 관심사와 계획"
-        lead={
-          <p>
-            조직에 쌓인 경험이 사람이 바뀌어도 남게 하는 조건을 다룬다. 아래는 현재
-            진행 중인 연구 질문과 계획서 요약이다.
-          </p>
-        }
+        lead={<p>현재 진행 중인 연구 질문과 계획서 요약이다.</p>}
       />
 
       <InfoBox title="연구 개요" rows={infoRows} />
