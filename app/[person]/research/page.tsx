@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import EditLink from "@/components/EditLink";
-import { FootnoteList } from "@/components/Footnotes";
+import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
 import PdfViewer from "@/components/PdfViewer";
@@ -94,7 +94,12 @@ function planSection(
     body: (
       <p className="text-sm text-ink-muted">
         상태: {STATUS_LABEL[plan.status]}
-        {plan.interests.length ? ` · 키워드: ${plan.interests.join(", ")}` : ""}{" "}
+        {plan.interests.length ? (
+          <>
+            {" · 키워드: "}
+            <FnText text={plan.interests.join(", ")} registry={fn} />
+          </>
+        ) : null}{" "}
         <EditLink table="research_plans" id={plan.id} person={person} back={backHere} />
       </p>
     ),
@@ -130,7 +135,7 @@ export default async function ResearchPage({ params }: PageProps) {
       title: "연구 관심사",
       body: interests.length ? (
         <div className="space-y-4">
-          <TagList items={interests} label="연구 관심사" />
+          <TagList items={interests} label="연구 관심사" fn={fn} />
           <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
             등록된 연구계획서에서 모은 키워드다. 계획서를 추가하면 이 목록도 함께 늘어난다.
           </p>
@@ -152,7 +157,7 @@ export default async function ResearchPage({ params }: PageProps) {
                   지금 붙들고 있는 질문들이다. 각 질문이 어느 계획서에 속하는지는 아래
                   계획서 항목에서 확인할 수 있다.
                 </p>
-                <Bullets items={allQuestions} />
+                <Bullets items={allQuestions} fn={fn} />
               </div>
             ),
           } satisfies DocSection,
@@ -186,10 +191,10 @@ export default async function ResearchPage({ params }: PageProps) {
         />
       </p>
 
-      <InfoBox title="연구 개요" rows={infoRows} />
+      <InfoBox title="연구 개요" rows={infoRows} fn={fn} />
 
       <Toc sections={sections} />
-      <DocSections sections={sections} />
+      <DocSections sections={sections} fn={fn} />
       <FootnoteList registry={fn} />
     </article>
   );

@@ -64,7 +64,15 @@ export function NumberedList({ items, fn }: { items: string[]; fn?: FootnoteRegi
 }
 
 /** 키워드·기술 스택용 태그. 색을 쓰지 않고 테두리로만 구분한다. */
-export function TagList({ items, label }: { items: string[]; label?: string }) {
+export function TagList({
+  items,
+  label,
+  fn,
+}: {
+  items: string[];
+  label?: string;
+  fn?: FootnoteRegistry;
+}) {
   if (!items.length) return null;
 
   return (
@@ -74,7 +82,7 @@ export function TagList({ items, label }: { items: string[]; label?: string }) {
           key={item}
           className="border border-line px-2.5 py-1 text-[0.8125rem] leading-5 text-ink-soft"
         >
-          {item}
+          <FnText text={item} registry={fn} />
         </li>
       ))}
     </ul>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import EditLink from "@/components/EditLink";
-import { FootnoteList } from "@/components/Footnotes";
+import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
 import PdfViewer from "@/components/PdfViewer";
@@ -113,7 +113,7 @@ export default async function ProjectPage({ params }: PageProps) {
           {
             id: "stack",
             title: "사용 기술",
-            body: <TagList items={project.tech_stack} label="사용 기술" />,
+            body: <TagList items={project.tech_stack} label="사용 기술" fn={fn} />,
           } satisfies DocSection,
         ]
       : []),
@@ -162,15 +162,21 @@ export default async function ProjectPage({ params }: PageProps) {
 
       <DocHeader
         kicker="케이스 스터디"
-        title={project.title}
-        lead={project.summary ? <p>{project.summary}</p> : undefined}
+        title={<FnText text={project.title} registry={fn} />}
+        lead={
+          project.summary ? (
+            <p>
+              <FnText text={project.summary} registry={fn} />
+            </p>
+          ) : undefined
+        }
         meta={period ? <span className="font-mono">{period}</span> : undefined}
       />
 
-      <InfoBox title="프로젝트 개요" rows={infoRows} />
+      <InfoBox title="프로젝트 개요" rows={infoRows} fn={fn} />
 
       <Toc sections={sections} />
-      <DocSections sections={sections} />
+      <DocSections sections={sections} fn={fn} />
       <FootnoteList registry={fn} />
     </article>
   );

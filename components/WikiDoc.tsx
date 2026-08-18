@@ -1,9 +1,15 @@
 import type { ReactNode } from "react";
+import { FnText } from "@/components/Footnotes";
+import { stripFootnotes, type FootnoteRegistry } from "@/lib/footnotes";
 
 /**
  * 위키식 문서 한 편을 구성하는 단위.
  * 페이지가 이 배열을 선언하면 목차 번호와 본문 제목이 같은 소스에서 만들어진다.
  * DOM 을 훑어 목차를 만드는 방식과 달리 서버 렌더 결과가 항상 일치한다.
+ *
+ * title 에 [*각주] 가 들어 있으면 본문 제목에서만 번호가 붙고,
+ * 목차와 aria-label 에서는 문법을 지운 텍스트만 쓴다.
+ * (목차에서도 번호를 매기면 같은 각주가 두 번 등록된다.)
  */
 export type DocSection = {
   id: string;
@@ -33,7 +39,7 @@ function TocList({ sections, path = [] }: { sections: DocSection[]; path?: numbe
             >
               <span className="sec-num shrink-0">{label(current)}</span>
               <span className="group-hover:underline group-hover:underline-offset-2">
-                {section.title}
+                {stripFootnotes(section.title)}
               </span>
             </a>
             {section.children?.length ? (
@@ -65,7 +71,15 @@ export function Toc({ sections }: { sections: DocSection[] }) {
 /* ---------------------------------------------------------------------
    본문 섹션
    --------------------------------------------------------------------- */
-function SectionBlock({ section, path }: { section: DocSection; path: number[] }) {
+function SectionBlock({
+  section,
+  path,
+  fn,
+}: {
+  section: DocSection;
+  path: number[];
+  fn?: FootnoteRegistry;
+}) {
   const depth = path.length; // 1 = 최상위
   const Heading = (depth === 1 ? "h2" : depth === 2 ? "h3" : "h4") as
     | "h2"
@@ -84,10 +98,10 @@ function SectionBlock({ section, path }: { section: DocSection; path: number[] }
     <section aria-labelledby={section.id} className="scroll-mt-24">
       <Heading id={section.id} className={`${headingStyle} scroll-mt-24 text-ink`}>
         <span className="sec-num mr-2">{label(path)}</span>
-        {section.title}
+        <FnText text={section.title} registry={fn} />
         <a
           href={`#${section.id}`}
-          aria-label={`${section.title} 섹션 링크`}
+          aria-label={`${stripFootnotes(section.title)} 섹션 링크`}
           className="anchor-mark no-print ml-2 text-sm"
         >
           #
@@ -97,17 +111,23 @@ function SectionBlock({ section, path }: { section: DocSection; path: number[] }
       {section.body ? <div className="mt-4">{section.body}</div> : null}
 
       {section.children?.map((child, i) => (
-        <SectionBlock key={child.id} section={child} path={[...path, i + 1]} />
+        <SectionBlock key={child.id} section={child} path={[...path, i + 1]} fn={fn} />
       ))}
     </section>
   );
 }
 
-export function DocSections({ sections }: { sections: DocSection[] }) {
+export function DocSections({
+  sections,
+  fn,
+}: {
+  sections: DocSection[];
+  fn?: FootnoteRegistry;
+}) {
   return (
     <>
       {sections.map((section, i) => (
-        <SectionBlock key={section.id} section={section} path={[i + 1]} />
+        <SectionBlock key={section.id} section={section} path={[i + 1]} fn={fn} />
       ))}
     </>
   );
@@ -123,7 +143,7 @@ export function DocHeader({
   meta,
 }: {
   kicker?: string;
-  title: string;
+  title: ReactNode;
   lead?: ReactNode;
   meta?: ReactNode;
 }) {

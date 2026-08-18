@@ -21,8 +21,12 @@ export function FnText({
         if (p.kind === "text") return <span key={i}>{p.value}</span>;
         if (!registry) return null;
         const n = registry.add(p.value);
+        // 같은 각주가 두 곳에 나올 수 있으므로 id 는 첫 번째 것만 갖는다.
+        // (id 가 겹치면 각주에서 돌아갈 위치가 애매해진다.)
+        const isFirst = !registry.marked(n);
+        if (isFirst) registry.mark(n);
         return (
-          <sup key={i} id={`fnref-${n}`} className="fn-ref">
+          <sup key={i} id={isFirst ? `fnref-${n}` : undefined} className="fn-ref">
             <a href={`#fn-${n}`} title={p.value} aria-label={`각주 ${n}: ${p.value}`}>
               [{n}]
             </a>

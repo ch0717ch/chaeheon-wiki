@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { FnText } from "@/components/Footnotes";
+import type { FootnoteRegistry } from "@/lib/footnotes";
 import { formatPeriod } from "@/lib/format";
 import type { Project } from "@/types";
 
@@ -10,11 +12,13 @@ export default function ProjectEntry({
   project,
   person,
   editLink,
+  fn,
 }: {
   project: Project;
   person: string; // 인물 slug — 케이스 스터디 링크 경로에 필요하다
   /** 나무위키식 [수정] 링크. 넣는 쪽에서 EditLink 를 만들어 전달한다. */
   editLink?: React.ReactNode;
+  fn?: FootnoteRegistry;
 }) {
   const period = formatPeriod(project.period_start, project.period_end, project.is_ongoing);
 
@@ -37,7 +41,9 @@ export default function ProjectEntry({
       ) : null}
 
       {project.summary ? (
-        <p className="mt-3 max-w-prose leading-[1.8] text-ink-soft">{project.summary}</p>
+        <p className="mt-3 max-w-prose leading-[1.8] text-ink-soft">
+          <FnText text={project.summary} registry={fn} />
+        </p>
       ) : null}
 
       {project.tech_stack.length ? (

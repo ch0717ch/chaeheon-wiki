@@ -13,12 +13,31 @@ export type Footnote = { n: number; text: string };
 
 export class FootnoteRegistry {
   private notes: Footnote[] = [];
+  private byText = new Map<string, number>();
 
-  /** 각주 하나를 등록하고 번호를 돌려준다. */
+  /**
+   * 각주 하나를 등록하고 번호를 돌려준다.
+   * 같은 내용이 페이지 안에서 다시 나오면(예: 프로필 상자와 본문에 같은 값이
+   * 두 번 렌더될 때) 새 번호를 매기지 않고 처음 번호를 다시 쓴다.
+   */
   add(text: string): number {
+    const key = text.trim();
+    const seen = this.byText.get(key);
+    if (seen) return seen;
     const n = this.notes.length + 1;
-    this.notes.push({ n, text: text.trim() });
+    this.notes.push({ n, text: key });
+    this.byText.set(key, n);
     return n;
+  }
+
+  private markedIds = new Set<number>();
+
+  /** 본문에 id 앵커를 이미 붙였는지 — 되돌아갈 위치는 하나만 둔다. */
+  marked(n: number): boolean {
+    return this.markedIds.has(n);
+  }
+  mark(n: number): void {
+    this.markedIds.add(n);
   }
 
   all(): Footnote[] {

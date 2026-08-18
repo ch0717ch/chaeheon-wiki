@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import EditLink from "@/components/EditLink";
+import { FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { EmptyNotice } from "@/components/Prose";
 import ProjectEntry from "@/components/ProjectEntry";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
+import { FootnoteRegistry } from "@/lib/footnotes";
 import { getProfileBySlug, getProjects } from "@/lib/queries";
 import type { Project } from "@/types";
 
@@ -49,6 +51,7 @@ export default async function WorkPage({ params }: PageProps) {
   ];
 
   const backHere = `/${profile.slug}/work`;
+  const fn = new FootnoteRegistry();
 
   const sections: DocSection[] = projects.length
     ? groups.map(([category, items], i) => ({
@@ -61,6 +64,7 @@ export default async function WorkPage({ params }: PageProps) {
                 key={project.id}
                 project={project}
                 person={profile.slug}
+                fn={fn}
                 editLink={
                   <EditLink
                     table="projects"
@@ -99,10 +103,11 @@ export default async function WorkPage({ params }: PageProps) {
         <EditLink table="projects" person={profile.slug} back={backHere} label="+ 새 프로젝트" />
       </p>
 
-      <InfoBox title="목록 개요" rows={infoRows} />
+      <InfoBox title="목록 개요" rows={infoRows} fn={fn} />
 
       <Toc sections={sections} />
-      <DocSections sections={sections} />
+      <DocSections sections={sections} fn={fn} />
+      <FootnoteList registry={fn} />
     </article>
   );
 }

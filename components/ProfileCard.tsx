@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
+import { FnText } from "@/components/Footnotes";
 import { BlogIcon, GithubIcon, InstagramIcon, MailIcon } from "@/components/Icons";
 import ProfilePhoto from "@/components/ProfilePhoto";
+import type { FootnoteRegistry } from "@/lib/footnotes";
 import type { Profile } from "@/types";
 
 type Row = { label: string; value: ReactNode };
@@ -9,8 +11,18 @@ type Row = { label: string; value: ReactNode };
  * 위키 인물 문서의 프로필 상자.
  * 사진 → 이름 → 항목표 → 아이콘 링크 순서로, 한눈에 사람을 파악하는 용도다.
  * 값이 비어 있는 행은 표에서 통째로 뺀다. 빈 칸을 남기면 미완성으로 보인다.
+ *
+ * 모든 값은 FnText 를 거치므로 MBTI 같은 짧은 칸에도 [*각주] 를 쓸 수 있다.
  */
-export default function ProfileCard({ profile }: { profile: Profile }) {
+export default function ProfileCard({
+  profile,
+  fn,
+}: {
+  profile: Profile;
+  fn?: FootnoteRegistry;
+}) {
+  // 짧은 값도 각주 문법이 살아나도록 전부 이 함수를 거친다.
+  const T = (s: string) => <FnText text={s} registry={fn} />;
   const socialLinks = [
     { key: "github", href: profile.link_github, label: "GitHub", Icon: GithubIcon },
     { key: "blog", href: profile.link_blog, label: "블로그", Icon: BlogIcon },
@@ -33,26 +45,26 @@ export default function ProfileCard({ profile }: { profile: Profile }) {
     [
       {
         label: "이름",
-        value: profile.name_en ? `${profile.name} (${profile.name_en})` : profile.name,
+        value: T(profile.name_en ? `${profile.name} (${profile.name_en})` : profile.name),
       },
-      profile.birth_date ? { label: "생년월일", value: profile.birth_date } : null,
-      profile.field_main ? { label: "주 분야", value: profile.field_main } : null,
-      profile.field_sub ? { label: "부 분야", value: profile.field_sub } : null,
+      profile.birth_date ? { label: "생년월일", value: T(profile.birth_date) } : null,
+      profile.field_main ? { label: "주 분야", value: T(profile.field_main) } : null,
+      profile.field_sub ? { label: "부 분야", value: T(profile.field_sub) } : null,
       profile.education_summary.length
         ? {
             label: "학력",
             value: (
               <ul className="space-y-0.5">
                 {profile.education_summary.map((line) => (
-                  <li key={line}>{line}</li>
+                  <li key={line}>{T(line)}</li>
                 ))}
               </ul>
             ),
           }
         : null,
-      profile.languages ? { label: "언어", value: profile.languages } : null,
-      profile.mbti ? { label: "MBTI", value: profile.mbti } : null,
-      profile.location ? { label: "지역", value: profile.location } : null,
+      profile.languages ? { label: "언어", value: T(profile.languages) } : null,
+      profile.mbti ? { label: "MBTI", value: T(profile.mbti) } : null,
+      profile.location ? { label: "지역", value: T(profile.location) } : null,
     ] as (Row | null)[]
   ).filter((r): r is Row => r !== null);
 

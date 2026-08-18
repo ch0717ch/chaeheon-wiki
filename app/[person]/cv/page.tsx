@@ -69,14 +69,18 @@ function ExperienceItem({
   return (
     <article className="border-b border-line py-6 first:pt-0">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className="text-lg font-bold tracking-tight text-ink">{item.title}</h3>
-        <span className="text-ink-soft">{item.org}</span>
+        <h3 className="text-lg font-bold tracking-tight text-ink">
+          <FnText text={item.title} registry={fn} />
+        </h3>
+        <span className="text-ink-soft">
+          <FnText text={item.org} registry={fn} />
+        </span>
         {editLink}
       </div>
 
       {/* 기간이 비어 있을 때 구분점만 남지 않도록 값이 있는 조각만 잇는다. */}
       <p className="mt-1 font-mono text-xs text-ink-muted">
-        {compact([period, sub]).join(" · ")}
+        <FnText text={compact([period, sub]).join(" · ")} registry={fn} />
       </p>
 
       <Paragraphs text={item.description} className="mt-3" fn={fn} />
@@ -108,13 +112,19 @@ function EducationItem({
   return (
     <article className="border-b border-line py-6 first:pt-0">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className="text-lg font-bold tracking-tight text-ink">{heading}</h3>
-        {sub ? <span className="text-ink-soft">{sub}</span> : null}
+        <h3 className="text-lg font-bold tracking-tight text-ink">
+          <FnText text={heading} registry={fn} />
+        </h3>
+        {sub ? (
+          <span className="text-ink-soft">
+            <FnText text={sub} registry={fn} />
+          </span>
+        ) : null}
         {editLink}
       </div>
 
       <p className="mt-1 font-mono text-xs text-ink-muted">
-        {compact([period, item.location]).join(" · ")}
+        <FnText text={compact([period, item.location]).join(" · ")} registry={fn} />
       </p>
 
       <Paragraphs text={item.note} className="mt-3" fn={fn} />
@@ -280,7 +290,7 @@ export default async function CvPage({ params }: PageProps) {
             {certifications.map((cert) => (
               <tr key={cert.id} className="border-b border-line align-top">
                 <td className="px-3 py-2 font-medium text-ink">
-                  {cert.name}{" "}
+                  <FnText text={cert.name} registry={fn} />{" "}
                   <EditLink
                     table="certifications"
                     id={cert.id}
@@ -289,13 +299,13 @@ export default async function CvPage({ params }: PageProps) {
                   />
                   {cert.note ? (
                     <span className="mt-0.5 block text-xs font-normal text-ink-muted">
-                      {cert.note}
+                      <FnText text={cert.note} registry={fn} />
                     </span>
                   ) : null}
                 </td>
                 <td className="px-3 py-2 text-ink-muted">{CERT_KIND_LABEL[cert.kind]}</td>
                 <td className="px-3 py-2 text-ink-muted">
-                  {compact([cert.issuer, formatMonth(cert.issued_on)]).join(" · ") || "—"}
+                  <FnText text={compact([cert.issuer, formatMonth(cert.issued_on)]).join(" · ") || "—"} registry={fn} />
                 </td>
               </tr>
             ))}
@@ -330,7 +340,7 @@ export default async function CvPage({ params }: PageProps) {
                   </span>
                   <span>
                     <span className="block leading-relaxed text-ink">
-                      {entry.title}{" "}
+                      <FnText text={entry.title} registry={fn} />{" "}
                       <EditLink
                         table="timeline"
                         id={entry.id}
@@ -339,7 +349,7 @@ export default async function CvPage({ params }: PageProps) {
                       />
                     </span>
                     <span className="mt-0.5 block text-xs text-ink-muted">
-                      {compact([entry.category, entry.note]).join(" · ")}
+                      <FnText text={compact([entry.category, entry.note]).join(" · ")} registry={fn} />
                     </span>
                   </span>
                 </li>
@@ -360,7 +370,7 @@ export default async function CvPage({ params }: PageProps) {
               {
                 id: "skills-expertise",
                 title: "전문 분야",
-                body: <ExpertiseGrid areas={profile.expertise} />,
+                body: <ExpertiseGrid areas={profile.expertise} fn={fn} />,
               } satisfies DocSection,
             ]
           : []),
@@ -369,7 +379,7 @@ export default async function CvPage({ params }: PageProps) {
           title: "프로젝트에서 실제로 쓴 기술",
           body: stack.length ? (
             <div className="space-y-3">
-              <TagList items={stack} label="사용 기술" />
+              <TagList items={stack} label="사용 기술" fn={fn} />
               <p className="text-sm text-ink-muted">
                 이 목록은 등록된 프로젝트의 스택에서 자동으로 모은 것이다. 손으로
                 관리하지 않으므로 실제 작업과 어긋나지 않는다.
@@ -390,7 +400,7 @@ export default async function CvPage({ params }: PageProps) {
                       <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
                         <dt className="text-sm font-semibold text-ink-muted">우선</dt>
                         <dd className="leading-relaxed text-ink-soft">
-                          {profile.target_primary}
+                          <FnText text={profile.target_primary} registry={fn} />
                         </dd>
                       </div>
                     ) : null}
@@ -398,7 +408,7 @@ export default async function CvPage({ params }: PageProps) {
                       <div className="grid grid-cols-[4.5rem_1fr] gap-3 py-3">
                         <dt className="text-sm font-semibold text-ink-muted">확장</dt>
                         <dd className="leading-relaxed text-ink-soft">
-                          {profile.target_secondary}
+                          <FnText text={profile.target_secondary} registry={fn} />
                         </dd>
                       </div>
                     ) : null}
@@ -429,10 +439,10 @@ export default async function CvPage({ params }: PageProps) {
         }
       />
 
-      <InfoBox title="이력 개요" rows={infoRows} />
+      <InfoBox title="이력 개요" rows={infoRows} fn={fn} />
 
       <Toc sections={sections} />
-      <DocSections sections={sections} />
+      <DocSections sections={sections} fn={fn} />
       <FootnoteList registry={fn} />
     </article>
   );

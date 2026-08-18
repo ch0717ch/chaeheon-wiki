@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import EditLink from "@/components/EditLink";
+import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink, RefList, type RefItem } from "@/components/Links";
 import { EmptyNotice } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
+import { FootnoteRegistry } from "@/lib/footnotes";
 import { getProfileBySlug } from "@/lib/queries";
 
 export const revalidate = 300;
@@ -26,6 +28,8 @@ export default async function ContactPage({ params }: PageProps) {
   const { person } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) notFound();
+
+  const fn = new FootnoteRegistry();
 
   // 값이 비어 있는 채널은 목록에서 통째로 빠진다.
   const channels: Channel[] = (
@@ -78,7 +82,9 @@ export default async function ContactPage({ params }: PageProps) {
           },
         ]
       : []),
-    ...(profile.location ? [{ label: "지역", value: profile.location }] : []),
+    ...(profile.location
+      ? [{ label: "지역", value: <FnText text={profile.location} registry={fn} /> }]
+      : []),
     { label: "채널", value: `${channels.length}개` },
   ];
 
@@ -152,10 +158,11 @@ export default async function ContactPage({ params }: PageProps) {
         />
       </p>
 
-      <InfoBox title="연락 개요" rows={infoRows} />
+      <InfoBox title="연락 개요" rows={infoRows} fn={fn} />
 
       <Toc sections={sections} />
-      <DocSections sections={sections} />
+      <DocSections sections={sections} fn={fn} />
+      <FootnoteList registry={fn} />
     </article>
   );
 }

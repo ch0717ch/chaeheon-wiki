@@ -47,7 +47,7 @@ export default async function OverviewPage({ params }: PageProps) {
             title: "핵심 키워드",
             body: (
               <div className="space-y-4">
-                <TagList items={profile.keywords} label="핵심 키워드" />
+                <TagList items={profile.keywords} label="핵심 키워드" fn={fn} />
                 <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
                   각 키워드가 실제로 어떤 작업으로 이어졌는지는{" "}
                   <Link href={`${base}/work`} className="doc-link">
@@ -74,7 +74,9 @@ export default async function OverviewPage({ params }: PageProps) {
                         <dt className="w-16 shrink-0 font-semibold text-ink-muted">
                           주 분야
                         </dt>
-                        <dd className="text-ink">{profile.field_main}</dd>
+                        <dd className="text-ink">
+                          <FnText text={profile.field_main} registry={fn} />
+                        </dd>
                       </div>
                     ) : null}
                     {profile.field_sub ? (
@@ -82,12 +84,14 @@ export default async function OverviewPage({ params }: PageProps) {
                         <dt className="w-16 shrink-0 font-semibold text-ink-muted">
                           부 분야
                         </dt>
-                        <dd className="text-ink">{profile.field_sub}</dd>
+                        <dd className="text-ink">
+                          <FnText text={profile.field_sub} registry={fn} />
+                        </dd>
                       </div>
                     ) : null}
                   </dl>
                 ) : null}
-                <ExpertiseGrid areas={profile.expertise} />
+                <ExpertiseGrid areas={profile.expertise} fn={fn} />
               </div>
             ),
           } satisfies DocSection,
@@ -100,7 +104,7 @@ export default async function OverviewPage({ params }: PageProps) {
         <div>
           <div className="border-t border-line">
             {featured.map((project) => (
-              <ProjectEntry key={project.id} project={project} person={profile.slug} />
+              <ProjectEntry key={project.id} project={project} person={profile.slug} fn={fn} />
             ))}
           </div>
           <p className="mt-6 text-sm">
@@ -157,7 +161,12 @@ export default async function OverviewPage({ params }: PageProps) {
     <article>
       <DocHeader
         kicker="개요"
-        title={profile.title ? `${profile.name} — ${profile.title}` : profile.name}
+        title={
+          <FnText
+            text={profile.title ? `${profile.name} — ${profile.title}` : profile.name}
+            registry={fn}
+          />
+        }
         lead={
           profile.intro ? (
             <p>
@@ -172,10 +181,10 @@ export default async function OverviewPage({ params }: PageProps) {
         <EditLink table="people" id={profile.id} back={base} label="문서 수정" />
       </p>
 
-      <ProfileCard profile={profile} />
+      <ProfileCard profile={profile} fn={fn} />
 
       <Toc sections={sections} />
-      <DocSections sections={sections} />
+      <DocSections sections={sections} fn={fn} />
       <FootnoteList registry={fn} />
     </article>
   );
