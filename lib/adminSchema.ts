@@ -32,7 +32,8 @@ export type TableSpec = {
 };
 
 /** 본문형 필드에 공통으로 붙는 안내. 각주 문법을 알려준다. */
-const FN_HINT = "각주는 [*내용] — 예: 문장 끝에[*출처 설명]. 자동으로 [1] 번호가 붙는다";
+const FN_HINT =
+  "각주 [*장문] → 번호[1] + 하단 목록 · 툴팁 [**단문] → * 표시, 마우스 올리면 말풍선";
 
 const COMMON_TAIL: FieldSpec[] = [
   { key: "sort_order", label: "정렬 순서", type: "int", hint: "작을수록 위" },

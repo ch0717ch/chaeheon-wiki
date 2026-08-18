@@ -49,20 +49,30 @@ export class FootnoteRegistry {
   }
 }
 
-/** 각주 문법: [*내용]. 대괄호 안에 ] 가 없다는 가정으로 단순하게 잡는다. */
-export const FOOTNOTE_RE = /\[\*([^\]]+)\]/g;
+/**
+ * 각주 문법 두 종류. 대괄호 안에 ] 가 없다는 가정으로 단순하게 잡는다.
+ *   [*내용]  → 번호 각주. [n] 이 붙고 문서 하단 목록에 모인다. 장문용.
+ *   [**내용] → 툴팁 각주. * 표시만 붙고 마우스를 대면 말풍선으로 보인다. 단문용.
+ * ** 를 먼저 시도해야 * 로 잘못 잡히지 않는다.
+ */
+export const FOOTNOTE_RE = /\[(\*\*?)([^\]]+)\]/g;
+
+export type FootnotePart =
+  | { kind: "text"; value: string }
+  | { kind: "note"; value: string } // 번호 각주
+  | { kind: "tip"; value: string }; // 툴팁 각주
 
 /**
- * 텍스트를 "일반 조각"과 "각주 조각"으로 자른다.
- * 렌더 쪽에서 각주 조각을 만나면 registry.add 로 번호를 받는다.
+ * 텍스트를 일반 조각·번호각주·툴팁각주로 자른다.
+ * 렌더 쪽에서 번호 각주를 만나면 registry.add 로 번호를 받는다.
  */
-export function splitFootnotes(text: string): Array<{ kind: "text" | "note"; value: string }> {
-  const parts: Array<{ kind: "text" | "note"; value: string }> = [];
+export function splitFootnotes(text: string): FootnotePart[] {
+  const parts: FootnotePart[] = [];
   let last = 0;
   for (const m of text.matchAll(FOOTNOTE_RE)) {
     const idx = m.index ?? 0;
     if (idx > last) parts.push({ kind: "text", value: text.slice(last, idx) });
-    parts.push({ kind: "note", value: m[1] });
+    parts.push({ kind: m[1] === "**" ? "tip" : "note", value: m[2] });
     last = idx + m[0].length;
   }
   if (last < text.length) parts.push({ kind: "text", value: text.slice(last) });

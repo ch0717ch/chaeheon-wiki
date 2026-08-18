@@ -172,6 +172,80 @@ h4:hover .anchor-mark,
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
+/* 툴팁 각주([**])의 * 표시. 링크가 아니라 버튼이지만 각주 번호와 같은 옷을 입힌다. */
+.fn-tip-trigger {
+  color: var(--color-ink);
+  background: none;
+  border: 0;
+  padding: 0 0.15em;
+  font: inherit;
+  cursor: help;
+}
+.fn-tip-trigger:hover {
+  background-color: var(--color-paper-deep);
+}
+
+/* ---------------------------------------------------------------------
+   말풍선 — CSS 만으로 hover / focus-within 에 뜬다.
+   서버 컴포넌트에서 JS 없이 동작하고, 키보드·터치(탭=포커스)도 같은 경로다.
+   --------------------------------------------------------------------- */
+.fn-tip {
+  position: relative;
+  display: inline-block;
+}
+.fn-tip-bubble {
+  /* 위첨자 안에 있어서 상속된 크기·정렬을 전부 되돌린다. */
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.5rem);
+  transform: translateX(-50%);
+  z-index: 40;
+  min-width: 12rem;
+  max-width: min(22rem, 80vw);
+  padding: 0.55rem 0.75rem;
+  background-color: var(--color-slab);
+  color: var(--color-on-slab);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: left;
+  vertical-align: baseline;
+  white-space: normal;
+  word-break: keep-all;
+  border: 1px solid var(--color-slab-soft);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  /* 표시/숨김은 visibility 하나로만 한다. opacity 페이드까지 얹으면
+     합성이 멈춘 탭·인쇄·오래된 브라우저에서 영영 0 에 머무는 경우가 있다. */
+  visibility: hidden;
+  pointer-events: none;
+}
+/* 말풍선 꼬리 */
+.fn-tip-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--color-slab);
+}
+.fn-tip:hover .fn-tip-bubble,
+.fn-tip:focus-within .fn-tip-bubble {
+  visibility: visible;
+}
+/* 좁은 화면에서는 가운데 정렬 대신 왼쪽에 붙여 잘림을 막는다. */
+@media (max-width: 640px) {
+  .fn-tip-bubble {
+    left: 0;
+    transform: none;
+  }
+  .fn-tip-bubble::after {
+    left: 0.75rem;
+    transform: none;
+  }
+}
+
 /* 앵커로 도착한 각주/본문 위치를 잠깐 강조한다. */
 :target.fn-ref,
 li:target {
