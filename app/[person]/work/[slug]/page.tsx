@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import EditLink from "@/components/EditLink";
+import { FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
 import PdfViewer from "@/components/PdfViewer";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
+import { FootnoteRegistry, stripFootnotes } from "@/lib/footnotes";
 import { formatPeriod } from "@/lib/format";
 import { getProfileBySlug, getProjectBySlug } from "@/lib/queries";
 import type { Project } from "@/types";
@@ -24,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: project.title,
-    description: project.summary || undefined,
+    description: stripFootnotes(project.summary) || undefined,
   };
 }
 
@@ -51,6 +53,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
   const period = formatPeriod(project.period_start, project.period_end, project.is_ongoing);
   const refs = buildRefs(project);
+  const fn = new FootnoteRegistry();
 
   // 개요 상자에는 한 줄로 끝나는 값만 넣는다.
   const infoRows: InfoRow[] = [
@@ -68,7 +71,7 @@ export default async function ProjectPage({ params }: PageProps) {
       id: "problem",
       title: "문제",
       body: project.problem ? (
-        <Paragraphs text={project.problem} />
+        <Paragraphs text={project.problem} fn={fn} />
       ) : (
         <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
@@ -77,7 +80,7 @@ export default async function ProjectPage({ params }: PageProps) {
       id: "role",
       title: "역할",
       body: project.role ? (
-        <Paragraphs text={project.role} />
+        <Paragraphs text={project.role} fn={fn} />
       ) : (
         <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
@@ -90,7 +93,7 @@ export default async function ProjectPage({ params }: PageProps) {
           <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
             선택지가 갈렸던 지점과 그때 고른 방향, 그리고 그렇게 고른 이유다.
           </p>
-          <Bullets items={project.key_decisions} />
+          <Bullets items={project.key_decisions} fn={fn} />
         </div>
       ) : (
         <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
@@ -100,7 +103,7 @@ export default async function ProjectPage({ params }: PageProps) {
       id: "outcome",
       title: "결과",
       body: project.outcome ? (
-        <Paragraphs text={project.outcome} />
+        <Paragraphs text={project.outcome} fn={fn} />
       ) : (
         <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
@@ -168,6 +171,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
       <Toc sections={sections} />
       <DocSections sections={sections} />
+      <FootnoteList registry={fn} />
     </article>
   );
 }

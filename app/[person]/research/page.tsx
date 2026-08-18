@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import EditLink from "@/components/EditLink";
+import { FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
 import PdfViewer from "@/components/PdfViewer";
 import { Bullets, EmptyNotice, NumberedList, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
+import { FootnoteRegistry } from "@/lib/footnotes";
 import { getProfileBySlug, getResearchPlans } from "@/lib/queries";
 import type { ResearchPlan, ResearchPlanStatus } from "@/types";
 
@@ -35,6 +37,7 @@ function planSection(
   index: number,
   person: string,
   backHere: string,
+  fn: FootnoteRegistry,
 ): DocSection {
   const base = `plan-${index + 1}`;
 
@@ -48,7 +51,7 @@ function planSection(
       id: `${base}-abstract`,
       title: "요약",
       body: plan.abstract ? (
-        <Paragraphs text={plan.abstract} />
+        <Paragraphs text={plan.abstract} fn={fn} />
       ) : (
         <EmptyNotice>아직 작성되지 않았다.</EmptyNotice>
       ),
@@ -57,7 +60,7 @@ function planSection(
       id: `${base}-questions`,
       title: "연구 질문",
       body: plan.research_questions.length ? (
-        <NumberedList items={plan.research_questions} />
+        <NumberedList items={plan.research_questions} fn={fn} />
       ) : (
         <EmptyNotice>등록된 연구 질문이 없다.</EmptyNotice>
       ),
@@ -68,7 +71,7 @@ function planSection(
     children.push({
       id: `${base}-method`,
       title: "연구 방법",
-      body: <Paragraphs text={plan.methodology} />,
+      body: <Paragraphs text={plan.methodology} fn={fn} />,
     });
   }
 
@@ -106,6 +109,7 @@ export default async function ResearchPage({ params }: PageProps) {
 
   const plans = await getResearchPlans(profile.id);
   const backHere = `/${profile.slug}/research`;
+  const fn = new FootnoteRegistry();
 
   const interests = Array.from(new Set(plans.flatMap((p) => p.interests)));
   const allQuestions = plans.flatMap((p) => p.research_questions);
@@ -155,7 +159,7 @@ export default async function ResearchPage({ params }: PageProps) {
         ]
       : []),
     ...(plans.length
-      ? plans.map((plan, i) => planSection(plan, i, profile.slug, backHere))
+      ? plans.map((plan, i) => planSection(plan, i, profile.slug, backHere, fn))
       : [
           {
             id: "plans-empty",
@@ -186,6 +190,7 @@ export default async function ResearchPage({ params }: PageProps) {
 
       <Toc sections={sections} />
       <DocSections sections={sections} />
+      <FootnoteList registry={fn} />
     </article>
   );
 }

@@ -147,12 +147,45 @@ h4:hover .anchor-mark,
   color: var(--color-on-slab);
 }
 
-/* 각주 번호 */
+/* ---------------------------------------------------------------------
+   각주 — 나무위키식 [n] 위첨자.
+   본문 링크와 구분되도록 밑줄 없이 두고, 앵커 이동 시 잠깐 배경을 밝혀
+   어디로 왔는지 보이게 한다.
+   --------------------------------------------------------------------- */
 .fn-ref {
-  font-size: 0.75em;
+  font-size: 0.72em;
   vertical-align: super;
   line-height: 0;
   font-family: var(--font-mono);
+  font-weight: 600;
+  margin-left: 0.08em;
+}
+.fn-ref a,
+.fn-ref-back {
+  color: var(--color-ink);
+  text-decoration: none;
+  padding: 0 0.15em;
+}
+.fn-ref a:hover,
+.fn-ref-back:hover {
+  background-color: var(--color-paper-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+/* 앵커로 도착한 각주/본문 위치를 잠깐 강조한다. */
+:target.fn-ref,
+li:target {
+  animation: fn-flash 1.6s ease-out 1;
+}
+@keyframes fn-flash {
+  0% {
+    background-color: var(--color-paper-deep);
+    box-shadow: 0 0 0 4px var(--color-paper-deep);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
 }
 
 /* 코드 조각 */

@@ -31,6 +31,9 @@ export type TableSpec = {
   fields: FieldSpec[];
 };
 
+/** 본문형 필드에 공통으로 붙는 안내. 각주 문법을 알려준다. */
+const FN_HINT = "각주는 [*내용] — 예: 문장 끝에[*출처 설명]. 자동으로 [1] 번호가 붙는다";
+
 const COMMON_TAIL: FieldSpec[] = [
   { key: "sort_order", label: "정렬 순서", type: "int", hint: "작을수록 위" },
   { key: "is_published", label: "공개", type: "bool", hint: "끄면 사이트에서 숨김(초안)" },
@@ -45,7 +48,7 @@ export const PROFILE_SPEC: TableSpec = {
     { key: "name", label: "이름", type: "text" },
     { key: "name_en", label: "영문 이름", type: "text" },
     { key: "title", label: "한 줄 정체성", type: "text" },
-    { key: "intro", label: "개요 소개문", type: "textarea" },
+    { key: "intro", label: "개요 소개문", type: "textarea", hint: FN_HINT },
     { key: "field_main", label: "주 분야", type: "text" },
     { key: "field_sub", label: "부 분야", type: "text" },
     { key: "keywords", label: "핵심 키워드", type: "lines" },
@@ -92,10 +95,10 @@ export const CONTENT_SPECS: TableSpec[] = [
       { key: "title", label: "제목", type: "text" },
       { key: "summary", label: "한 줄 요약", type: "textarea" },
       { key: "category", label: "분류", type: "text", hint: "예: 웹 서비스 / 데이터 / 창작" },
-      { key: "problem", label: "문제", type: "textarea" },
-      { key: "role", label: "역할", type: "textarea" },
-      { key: "key_decisions", label: "핵심 판단", type: "lines" },
-      { key: "outcome", label: "결과", type: "textarea" },
+      { key: "problem", label: "문제", type: "textarea", hint: FN_HINT },
+      { key: "role", label: "역할", type: "textarea", hint: FN_HINT },
+      { key: "key_decisions", label: "핵심 판단", type: "lines", hint: FN_HINT },
+      { key: "outcome", label: "결과", type: "textarea", hint: FN_HINT },
       { key: "tech_stack", label: "기술 스택", type: "lines" },
       { key: "period_start", label: "시작", type: "date" },
       { key: "period_end", label: "종료", type: "date" },
@@ -120,8 +123,8 @@ export const CONTENT_SPECS: TableSpec[] = [
       { key: "period_start", label: "시작", type: "date" },
       { key: "period_end", label: "종료", type: "date" },
       { key: "is_current", label: "재직 중", type: "bool" },
-      { key: "description", label: "설명", type: "textarea" },
-      { key: "highlights", label: "주요 성과(불릿)", type: "lines" },
+      { key: "description", label: "설명", type: "textarea", hint: FN_HINT },
+      { key: "highlights", label: "주요 성과(불릿)", type: "lines", hint: FN_HINT },
       ...COMMON_TAIL,
     ],
   },
@@ -181,10 +184,10 @@ export const CONTENT_SPECS: TableSpec[] = [
     fields: [
       { key: "slug", label: "URL 조각", type: "text" },
       { key: "title", label: "제목", type: "text" },
-      { key: "abstract", label: "요약", type: "textarea" },
+      { key: "abstract", label: "요약", type: "textarea", hint: FN_HINT },
       { key: "interests", label: "관심 키워드", type: "lines" },
-      { key: "research_questions", label: "연구 질문", type: "lines" },
-      { key: "methodology", label: "연구 방법", type: "textarea" },
+      { key: "research_questions", label: "연구 질문", type: "lines", hint: FN_HINT },
+      { key: "methodology", label: "연구 방법", type: "textarea", hint: FN_HINT },
       {
         key: "status",
         label: "상태",

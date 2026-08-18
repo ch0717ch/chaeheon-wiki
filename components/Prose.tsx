@@ -1,32 +1,44 @@
 import type { ReactNode } from "react";
+import { FnText } from "@/components/Footnotes";
+import type { FootnoteRegistry } from "@/lib/footnotes";
 import { toParagraphs } from "@/lib/format";
 
+// 본문을 그리는 컴포넌트들은 선택적으로 각주 레지스트리를 받는다.
+// 넘기면 [*각주] 문법이 살아나고, 안 넘기면 문법이 조용히 지워진다.
+
 /** DB 의 긴 텍스트를 문단 단위로 나눠 렌더한다. 비어 있으면 아무것도 그리지 않는다. */
-export function Paragraphs({ text, className = "" }: { text: string; className?: string }) {
+export function Paragraphs({
+  text,
+  className = "",
+  fn,
+}: {
+  text: string;
+  className?: string;
+  fn?: FootnoteRegistry;
+}) {
   const paragraphs = toParagraphs(text);
   if (!paragraphs.length) return null;
 
   return (
     <div className={`max-w-prose space-y-4 leading-[1.85] text-ink-soft ${className}`}>
       {paragraphs.map((p, i) => (
-        <p key={i}>{p}</p>
+        <p key={i}>
+          <FnText text={p} registry={fn} />
+        </p>
       ))}
     </div>
   );
 }
 
 /** 불릿 목록. 위키처럼 들여쓰기 대신 얇은 세로선으로 계층을 표시한다. */
-export function Bullets({ items }: { items: string[] }) {
+export function Bullets({ items, fn }: { items: string[]; fn?: FootnoteRegistry }) {
   if (!items.length) return null;
 
   return (
     <ul className="max-w-prose space-y-3">
       {items.map((item, i) => (
-        <li
-          key={i}
-          className="border-l-2 border-line pl-4 leading-[1.85] text-ink-soft"
-        >
-          {item}
+        <li key={i} className="border-l-2 border-line pl-4 leading-[1.85] text-ink-soft">
+          <FnText text={item} registry={fn} />
         </li>
       ))}
     </ul>
@@ -34,7 +46,7 @@ export function Bullets({ items }: { items: string[] }) {
 }
 
 /** 번호가 의미를 갖는 목록(연구 질문 등)에 쓴다. */
-export function NumberedList({ items }: { items: string[] }) {
+export function NumberedList({ items, fn }: { items: string[]; fn?: FootnoteRegistry }) {
   if (!items.length) return null;
 
   return (
@@ -42,7 +54,9 @@ export function NumberedList({ items }: { items: string[] }) {
       {items.map((item, i) => (
         <li key={i} className="grid grid-cols-[1.75rem_1fr] items-baseline">
           <span className="sec-num">{i + 1}.</span>
-          <span className="leading-[1.85] text-ink-soft">{item}</span>
+          <span className="leading-[1.85] text-ink-soft">
+            <FnText text={item} registry={fn} />
+          </span>
         </li>
       ))}
     </ol>

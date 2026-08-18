@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
+import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink } from "@/components/Links";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import EditLink from "@/components/EditLink";
+import { FootnoteRegistry } from "@/lib/footnotes";
 import { compact, formatMonth, formatPeriod } from "@/lib/format";
 import {
   getCertifications,
@@ -55,9 +57,11 @@ function careerSpan(experiences: Experience[]): string {
 function ExperienceItem({
   item,
   editLink,
+  fn,
 }: {
   item: Experience;
   editLink?: React.ReactNode;
+  fn?: FootnoteRegistry;
 }) {
   const period = formatPeriod(item.period_start, item.period_end, item.is_current);
   const sub = compact([item.employment_type, item.location]).join(" · ");
@@ -75,11 +79,11 @@ function ExperienceItem({
         {compact([period, sub]).join(" · ")}
       </p>
 
-      <Paragraphs text={item.description} className="mt-3" />
+      <Paragraphs text={item.description} className="mt-3" fn={fn} />
 
       {item.highlights.length ? (
         <div className="mt-4">
-          <Bullets items={item.highlights} />
+          <Bullets items={item.highlights} fn={fn} />
         </div>
       ) : null}
     </article>
@@ -89,9 +93,11 @@ function ExperienceItem({
 function EducationItem({
   item,
   editLink,
+  fn,
 }: {
   item: Education;
   editLink?: React.ReactNode;
+  fn?: FootnoteRegistry;
 }) {
   const period = formatPeriod(item.period_start, item.period_end, item.is_current);
 
@@ -111,7 +117,7 @@ function EducationItem({
         {compact([period, item.location]).join(" · ")}
       </p>
 
-      <Paragraphs text={item.note} className="mt-3" />
+      <Paragraphs text={item.note} className="mt-3" fn={fn} />
     </article>
   );
 }
@@ -135,6 +141,7 @@ export default async function CvPage({ params }: PageProps) {
 
   // [수정] 링크가 저장 후 돌아올 곳 — 지금 보고 있는 이 문서.
   const backHere = `/${profile.slug}/cv`;
+  const fn = new FootnoteRegistry();
 
   const infoRows: InfoRow[] = (
     [
@@ -154,7 +161,11 @@ export default async function CvPage({ params }: PageProps) {
       title: "이력 요약",
       body: (
         <div className="max-w-prose space-y-4 leading-[1.85] text-ink-soft">
-          {profile.intro ? <p>{profile.intro}</p> : null}
+          {profile.intro ? (
+            <p>
+              <FnText text={profile.intro} registry={fn} />
+            </p>
+          ) : null}
           {experiences.length ? (
             <p>
               지금까지 {experiences.length}개 조직에서 일했다. 그 사이 진행한 작업은{" "}
@@ -187,6 +198,7 @@ export default async function CvPage({ params }: PageProps) {
                 <ExperienceItem
                   key={item.id}
                   item={item}
+                  fn={fn}
                   editLink={
                     <EditLink
                       table="experiences"
@@ -218,6 +230,7 @@ export default async function CvPage({ params }: PageProps) {
                 <EducationItem
                   key={item.id}
                   item={item}
+                  fn={fn}
                   editLink={
                     <EditLink
                       table="education"
@@ -420,6 +433,7 @@ export default async function CvPage({ params }: PageProps) {
 
       <Toc sections={sections} />
       <DocSections sections={sections} />
+      <FootnoteList registry={fn} />
     </article>
   );
 }

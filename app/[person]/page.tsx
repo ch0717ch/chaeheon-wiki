@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import EditLink from "@/components/EditLink";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
+import { FnText, FootnoteList } from "@/components/Footnotes";
+import { FootnoteRegistry } from "@/lib/footnotes";
 import { RefList, type RefItem } from "@/components/Links";
 import ProfileCard from "@/components/ProfileCard";
 import { EmptyNotice, TagList } from "@/components/Prose";
@@ -21,6 +23,8 @@ export default async function OverviewPage({ params }: PageProps) {
 
   const featured = await getFeaturedProjects(profile.id, 3);
   const base = `/${profile.slug}`;
+  // 각주 번호는 이 페이지 안에서 렌더 순서대로 이어진다.
+  const fn = new FootnoteRegistry();
 
   const refs: RefItem[] = (
     [
@@ -154,7 +158,13 @@ export default async function OverviewPage({ params }: PageProps) {
       <DocHeader
         kicker="개요"
         title={profile.title ? `${profile.name} — ${profile.title}` : profile.name}
-        lead={profile.intro ? <p>{profile.intro}</p> : undefined}
+        lead={
+          profile.intro ? (
+            <p>
+              <FnText text={profile.intro} registry={fn} />
+            </p>
+          ) : undefined
+        }
       />
 
       {/* 나무위키처럼 문서 자체를 그 자리에서 고친다. 키가 없으면 입력 화면에서 막힌다. */}
@@ -166,6 +176,7 @@ export default async function OverviewPage({ params }: PageProps) {
 
       <Toc sections={sections} />
       <DocSections sections={sections} />
+      <FootnoteList registry={fn} />
     </article>
   );
 }
