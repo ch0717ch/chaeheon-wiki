@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import MusicPlayer from "@/components/MusicPlayer";
 import { docTree, site } from "@/lib/site";
 
 /**
@@ -13,10 +14,15 @@ export default function SiteNav({
   person,
   name,
   title,
+  musicUrl = "",
+  musicTitle = "",
 }: {
   person: string; // 인물 slug
   name: string;
   title: string;
+  /** 문서 배경음악. 비어 있으면 재생 버튼을 그리지 않는다. */
+  musicUrl?: string;
+  musicTitle?: string;
 }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -102,6 +108,13 @@ export default function SiteNav({
               </span>
             ) : null}
           </Link>
+
+          {/* 문서별 배경음악. PC 사이드바에만 둔다 — 모바일 상단 바는 자리가 없다. */}
+          {musicUrl ? (
+            <div className="mt-5">
+              <MusicPlayer src={musicUrl} title={musicTitle} variant="slab" />
+            </div>
+          ) : null}
 
           <nav aria-label="문서 목록" className="mt-8">
             <p className="mb-3 text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-on-slab-muted">

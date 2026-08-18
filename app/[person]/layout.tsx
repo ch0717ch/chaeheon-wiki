@@ -52,7 +52,13 @@ export default async function PersonLayout({ children, params }: LayoutProps) {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col lg:flex-row">
-      <SiteNav person={profile.slug} name={profile.name} title={profile.title} />
+      <SiteNav
+        person={profile.slug}
+        name={profile.name}
+        title={profile.title}
+        musicUrl={profile.music_url}
+        musicTitle={profile.music_title}
+      />
 
       <main id="main" className="min-w-0 flex-1 px-5 pb-24 pt-8 sm:px-8 lg:px-12 lg:pt-14">
         {children}

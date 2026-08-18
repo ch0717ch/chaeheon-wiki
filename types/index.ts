@@ -24,6 +24,9 @@ export type Profile = {
   languages: string;
   photo_url: string;
   resume_pdf_url: string;
+  /** 문서 배경음악. 비어 있으면 재생 버튼을 숨긴다. */
+  music_url: string;
+  music_title: string;
   link_github: string;
   link_blog: string;
   link_blog2: string;

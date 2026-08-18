@@ -281,16 +281,48 @@ function TableEditor({
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
+    if (file.size > 40 * 1024 * 1024) {
+      setMsg("40MB 를 넘는 파일은 올릴 수 없다.");
+      return;
+    }
     setBusy(true);
-    setMsg("업로드 중...");
+    setMsg(`업로드 중... (${(file.size / 1024 / 1024).toFixed(1)}MB)`);
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      const data = await api<{ url: string }>("/api/admin/upload", {
-        method: "POST",
-        body: fd,
+      // 확장자로 MIME 을 보정한다. 브라우저가 wav/mp3 의 type 을 비우는 경우가 있다.
+      const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+      const guessed: Record<string, string> = {
+        mp3: "audio/mpeg",
+        wav: "audio/wav",
+        jpg: "image/jpeg",
+        jpeg: "image/jpeg",
+        png: "image/png",
+        webp: "image/webp",
+        pdf: "application/pdf",
+      };
+      const contentType = file.type || guessed[ext] || "";
+
+      // 1) 서버에서 서명 URL 을 받는다 (인증 확인은 여기서 이뤄진다)
+      const t = await api<{ signedUrl: string; publicUrl: string }>(
+        "/api/admin/upload-url",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contentType }),
+        },
+      );
+
+      // 2) 파일은 Supabase Storage 로 직접 올린다. Netlify 의 6MB 제한을 우회한다.
+      const put = await fetch(t.signedUrl, {
+        method: "PUT",
+        headers: { "Content-Type": contentType, "x-upsert": "false" },
+        body: file,
       });
-      setForm((f) => ({ ...f, [uploadTarget.current]: data.url }));
+      if (!put.ok) {
+        const txt = await put.text().catch(() => "");
+        throw new Error(`저장소 업로드 실패 (${put.status}) ${txt.slice(0, 120)}`);
+      }
+
+      setForm((f) => ({ ...f, [uploadTarget.current]: t.publicUrl }));
       setMsg("업로드 완료. 저장을 눌러야 반영된다.");
     } catch (err) {
       setMsg(`업로드 실패: ${err instanceof Error ? err.message : err}`);
@@ -326,7 +358,7 @@ function TableEditor({
           <input
             ref={fileRef}
             type="file"
-            accept=".jpg,.jpeg,.png,.webp,.pdf"
+            accept=".jpg,.jpeg,.png,.webp,.pdf,.mp3,.wav"
             className="hidden"
             onChange={onFile}
           />

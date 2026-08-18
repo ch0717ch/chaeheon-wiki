@@ -55,6 +55,13 @@ export const PROFILE_SPEC: TableSpec = {
     { key: "languages", label: "언어", type: "text" },
     { key: "photo_url", label: "사진 URL", type: "text", hint: "아래 업로드 버튼으로 채울 수 있음" },
     { key: "resume_pdf_url", label: "이력서 PDF URL", type: "text" },
+    {
+      key: "music_url",
+      label: "배경음악 URL",
+      type: "text",
+      hint: "mp3 / wav 를 업로드 버튼으로 올린다. 비우면 재생 버튼이 숨겨진다",
+    },
+    { key: "music_title", label: "곡 제목", type: "text", hint: "재생 버튼 옆에 표시" },
     { key: "link_github", label: "GitHub", type: "text" },
     { key: "link_blog", label: "블로그", type: "text" },
     { key: "link_blog2", label: "블로그 2", type: "text" },
