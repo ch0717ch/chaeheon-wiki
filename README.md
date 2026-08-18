@@ -278,14 +278,30 @@ http://localhost:7799 에서 확인한다.
 
 - 작업 시작 전: `git pull`
 - 작업 끝: `git add -A` → `git commit` → `git push`
-- **push 하면 Netlify 가 자동으로 빌드·배포한다.** 별도 배포 명령이 필요 없다.
-- 콘텐츠(프로젝트·경력 등)만 고칠 때는 코드 수정 없이 Supabase 대시보드에서 바꾸면 된다. 최대 5분 뒤 반영.
+- **push 해도 자동 배포되지 않는다.** (Netlify 의 자동 빌드를 꺼 두었다 — 아래 7.4 참고)
+- 콘텐츠(프로젝트·경력 등)는 코드 수정 없이 사이트의 [수정] 링크로 바꾼다. 배포 불필요, 즉시 반영.
+
+### 7.4. ★ 배포는 크레딧을 쓴다 — 반드시 의도적으로만
+
+Netlify 무료 플랜은 **프로덕션 배포 1회당 15크레딧**을 소모한다 (월 한도 있음).
+그래서 push → 자동배포 연결을 **꺼 두었다** (`stop_builds = true`).
+
+배포하려면 수정을 충분히 모은 뒤 **한 번만** 아래를 실행한다:
+
+```bash
+npx netlify deploy --build --prod
+```
+
+- 코드가 안 바뀌고 글만 고칠 때는 배포가 필요 없다 (Supabase 에서 바로 읽는다).
+- 자동배포를 다시 켜고 싶으면 Netlify 대시보드 → Site configuration → Build & deploy → "Stop builds" 해제.
+  단 그러면 push 마다 15크레딧이 나간다.
 
 ### 7.3. 배포 상태 확인
 
 - 배포 내역: https://app.netlify.com/projects/chaeheon-wiki/deploys
-- 빌드가 실패하면 위 페이지의 로그에 원인이 나온다. 대부분 타입 오류이므로
-  로컬에서 `npm run typecheck` 를 먼저 돌려보고 push 하는 습관을 들인다.
+- 크레딧 사용량: https://app.netlify.com/teams/ch0717ch/billing
+- 빌드가 실패해도 크레딧은 소모되므로 배포 전에 로컬에서 `npm run typecheck` 와
+  `npm run build` 를 먼저 통과시킨다.
 
 ## 8. 보안 메모
 
