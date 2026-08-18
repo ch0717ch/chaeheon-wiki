@@ -228,7 +228,50 @@ npx netlify-cli deploy --build --prod
 
 ---
 
-## 7. 보안 메모
+## 7. 다른 PC에서 이어서 작업하기
+
+저장소: https://github.com/ch0717ch/chaeheon-wiki
+
+### 7.1. 처음 받는 PC
+
+```bash
+git clone https://github.com/ch0717ch/chaeheon-wiki.git
+```
+
+```bash
+cd chaeheon-wiki
+npm install
+```
+
+`.env.local` 은 git 에 올라가지 않으므로 직접 만든다. 아래 값을 그대로 복사하면 된다.
+(publishable 키는 공개용으로 설계된 키라 README 에 적어도 안전하다. RLS 로 읽기만 허용된다.)
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://pbmkuzfyfnevsubywpnp.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_ORy88orY5kzMA8beKSvBaw_CRRHeW8J
+NEXT_PUBLIC_SITE_URL=https://chaeheon-wiki.netlify.app
+```
+
+```bash
+npm run dev
+```
+
+http://localhost:7799 에서 확인한다.
+
+### 7.2. 작업 흐름
+
+- 작업 시작 전: `git pull`
+- 작업 끝: `git add -A` → `git commit` → `git push`
+- **push 하면 Netlify 가 자동으로 빌드·배포한다.** 별도 배포 명령이 필요 없다.
+- 콘텐츠(프로젝트·경력 등)만 고칠 때는 코드 수정 없이 Supabase 대시보드에서 바꾸면 된다. 최대 5분 뒤 반영.
+
+### 7.3. 배포 상태 확인
+
+- 배포 내역: https://app.netlify.com/projects/chaeheon-wiki/deploys
+- 빌드가 실패하면 위 페이지의 로그에 원인이 나온다. 대부분 타입 오류이므로
+  로컬에서 `npm run typecheck` 를 먼저 돌려보고 push 하는 습관을 들인다.
+
+## 8. 보안 메모
 
 - 이 사이트에는 쓰기 경로가 없다. RLS 에 `select` 정책만 있으므로 anon 키로는 insert/update/delete 가 전부 거부된다.
 - `service_role` 키는 어디에도 두지 않는다. 넣을 자리가 없다.
