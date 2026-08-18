@@ -37,7 +37,11 @@ export async function generateMetadata({
       siteName: site.name,
       title: `${profile.name} — ${profile.title}`,
       description: profile.intro || undefined,
+      // 하위 openGraph 는 루트를 통째로 대체하므로 썸네일을 다시 지정한다.
+      // 얼굴 사진이 아니라 사이트 명패가 썸네일로 나가야 한다.
+      images: [{ url: "/og.png", width: 1200, height: 630, alt: site.name }],
     },
+    twitter: { card: "summary_large_image", images: ["/og.png"] },
   };
 }
 

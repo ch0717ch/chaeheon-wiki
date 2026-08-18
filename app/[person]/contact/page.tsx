@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import EditLink from "@/components/EditLink";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink, RefList, type RefItem } from "@/components/Links";
 import { EmptyNotice } from "@/components/Prose";
@@ -140,6 +141,16 @@ export default async function ContactPage({ params }: PageProps) {
         title="연락처"
         lead={<p>아래 채널 중 편한 곳으로 연락하면 된다.</p>}
       />
+
+      {/* 연락처는 인물 문서(people)의 링크 필드다. */}
+      <p className="no-print mt-3 text-sm">
+        <EditLink
+          table="people"
+          id={profile.id}
+          back={`/${profile.slug}/contact`}
+          label="연락처 수정"
+        />
+      </p>
 
       <InfoBox title="연락 개요" rows={infoRows} />
 

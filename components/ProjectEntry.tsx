@@ -9,9 +9,12 @@ import type { Project } from "@/types";
 export default function ProjectEntry({
   project,
   person,
+  editLink,
 }: {
   project: Project;
   person: string; // 인물 slug — 케이스 스터디 링크 경로에 필요하다
+  /** 나무위키식 [수정] 링크. 넣는 쪽에서 EditLink 를 만들어 전달한다. */
+  editLink?: React.ReactNode;
 }) {
   const period = formatPeriod(project.period_start, project.period_end, project.is_ongoing);
 
@@ -26,6 +29,7 @@ export default function ProjectEntry({
         {project.category ? (
           <span className="text-xs text-ink-muted">{project.category}</span>
         ) : null}
+        {editLink}
       </div>
 
       {period ? (

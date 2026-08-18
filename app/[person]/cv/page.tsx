@@ -6,6 +6,7 @@ import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink } from "@/components/Links";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
+import EditLink from "@/components/EditLink";
 import { compact, formatMonth, formatPeriod } from "@/lib/format";
 import {
   getCertifications,
@@ -51,7 +52,13 @@ function careerSpan(experiences: Experience[]): string {
   return `${formatMonth(starts[0])} – 현재`;
 }
 
-function ExperienceItem({ item }: { item: Experience }) {
+function ExperienceItem({
+  item,
+  editLink,
+}: {
+  item: Experience;
+  editLink?: React.ReactNode;
+}) {
   const period = formatPeriod(item.period_start, item.period_end, item.is_current);
   const sub = compact([item.employment_type, item.location]).join(" · ");
 
@@ -60,6 +67,7 @@ function ExperienceItem({ item }: { item: Experience }) {
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-lg font-bold tracking-tight text-ink">{item.title}</h3>
         <span className="text-ink-soft">{item.org}</span>
+        {editLink}
       </div>
 
       {/* 기간이 비어 있을 때 구분점만 남지 않도록 값이 있는 조각만 잇는다. */}
@@ -78,7 +86,13 @@ function ExperienceItem({ item }: { item: Experience }) {
   );
 }
 
-function EducationItem({ item }: { item: Education }) {
+function EducationItem({
+  item,
+  editLink,
+}: {
+  item: Education;
+  editLink?: React.ReactNode;
+}) {
   const period = formatPeriod(item.period_start, item.period_end, item.is_current);
 
   // 기관명을 밝히지 않는 학력은 전공이 제목 자리를 대신한다.
@@ -90,6 +104,7 @@ function EducationItem({ item }: { item: Education }) {
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-lg font-bold tracking-tight text-ink">{heading}</h3>
         {sub ? <span className="text-ink-soft">{sub}</span> : null}
+        {editLink}
       </div>
 
       <p className="mt-1 font-mono text-xs text-ink-muted">
@@ -117,6 +132,9 @@ export default async function CvPage({ params }: PageProps) {
   // 역량 목록은 따로 관리하지 않고 실제 프로젝트에서 쓴 스택을 모아 만든다.
   const stack = Array.from(new Set(projects.flatMap((p) => p.tech_stack))).sort();
   const span = careerSpan(experiences);
+
+  // [수정] 링크가 저장 후 돌아올 곳 — 지금 보고 있는 이 문서.
+  const backHere = `/${profile.slug}/cv`;
 
   const infoRows: InfoRow[] = (
     [
@@ -158,33 +176,79 @@ export default async function CvPage({ params }: PageProps) {
     {
       id: "experience",
       title: "경력",
-      body: experiences.length ? (
-        <div className="border-t border-line">
-          {experiences.map((item) => (
-            <ExperienceItem key={item.id} item={item} />
-          ))}
+      body: (
+        <div>
+          <p className="no-print mb-2 text-right">
+            <EditLink table="experiences" person={profile.slug} back={backHere} label="+ 추가" />
+          </p>
+          {experiences.length ? (
+            <div className="border-t border-line">
+              {experiences.map((item) => (
+                <ExperienceItem
+                  key={item.id}
+                  item={item}
+                  editLink={
+                    <EditLink
+                      table="experiences"
+                      id={item.id}
+                      person={profile.slug}
+                      back={backHere}
+                    />
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <EmptyNotice>아직 등록된 경력이 없다.</EmptyNotice>
+          )}
         </div>
-      ) : (
-        <EmptyNotice>아직 등록된 경력이 없다.</EmptyNotice>
       ),
     },
     {
       id: "education",
       title: "학력",
-      body: education.length ? (
-        <div className="border-t border-line">
-          {education.map((item) => (
-            <EducationItem key={item.id} item={item} />
-          ))}
+      body: (
+        <div>
+          <p className="no-print mb-2 text-right">
+            <EditLink table="education" person={profile.slug} back={backHere} label="+ 추가" />
+          </p>
+          {education.length ? (
+            <div className="border-t border-line">
+              {education.map((item) => (
+                <EducationItem
+                  key={item.id}
+                  item={item}
+                  editLink={
+                    <EditLink
+                      table="education"
+                      id={item.id}
+                      person={profile.slug}
+                      back={backHere}
+                    />
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <EmptyNotice>아직 등록된 학력이 없다.</EmptyNotice>
+          )}
         </div>
-      ) : (
-        <EmptyNotice>아직 등록된 학력이 없다.</EmptyNotice>
       ),
     },
     {
       id: "certifications",
       title: "자격 및 면허",
-      body: certifications.length ? (
+      body: (
+        <div>
+          <p className="no-print mb-2 text-right">
+            <EditLink
+              table="certifications"
+              person={profile.slug}
+              back={backHere}
+              label="+ 추가"
+            />
+          </p>
+          {certifications.length ? (
         <table className="w-full max-w-prose border-collapse text-sm">
           <thead>
             <tr className="bg-slab text-on-slab">
@@ -203,7 +267,13 @@ export default async function CvPage({ params }: PageProps) {
             {certifications.map((cert) => (
               <tr key={cert.id} className="border-b border-line align-top">
                 <td className="px-3 py-2 font-medium text-ink">
-                  {cert.name}
+                  {cert.name}{" "}
+                  <EditLink
+                    table="certifications"
+                    id={cert.id}
+                    person={profile.slug}
+                    back={backHere}
+                  />
                   {cert.note ? (
                     <span className="mt-0.5 block text-xs font-normal text-ink-muted">
                       {cert.note}
@@ -217,40 +287,55 @@ export default async function CvPage({ params }: PageProps) {
               </tr>
             ))}
           </tbody>
-        </table>
-      ) : (
-        <EmptyNotice>아직 등록된 자격·면허가 없다.</EmptyNotice>
+          </table>
+          ) : (
+            <EmptyNotice>아직 등록된 자격·면허가 없다.</EmptyNotice>
+          )}
+        </div>
       ),
     },
     {
       id: "timeline",
       title: "연혁",
-      body: timeline.length ? (
+      body: (
         <div className="space-y-3">
-          <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
-            경력·학력에 담기지 않는 활동까지 연도순으로 늘어놓았다.
-          </p>
-          <ol className="max-w-prose border-t-2 border-rule">
-            {timeline.map((entry) => (
-              <li
-                key={entry.id}
-                className="grid grid-cols-[5.5rem_1fr] gap-3 border-b border-line py-3"
-              >
-                <span className="font-mono text-sm font-semibold text-ink">
-                  {timelineLabel(entry)}
-                </span>
-                <span>
-                  <span className="block leading-relaxed text-ink">{entry.title}</span>
-                  <span className="mt-0.5 block text-xs text-ink-muted">
-                    {compact([entry.category, entry.note]).join(" · ")}
+          <div className="no-print flex items-center justify-between">
+            <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
+              경력·학력에 담기지 않는 활동까지 연도순으로 늘어놓았다.
+            </p>
+            <EditLink table="timeline" person={profile.slug} back={backHere} label="+ 추가" />
+          </div>
+          {timeline.length ? (
+            <ol className="max-w-prose border-t-2 border-rule">
+              {timeline.map((entry) => (
+                <li
+                  key={entry.id}
+                  className="grid grid-cols-[5.5rem_1fr] gap-3 border-b border-line py-3"
+                >
+                  <span className="font-mono text-sm font-semibold text-ink">
+                    {timelineLabel(entry)}
                   </span>
-                </span>
-              </li>
-            ))}
-          </ol>
+                  <span>
+                    <span className="block leading-relaxed text-ink">
+                      {entry.title}{" "}
+                      <EditLink
+                        table="timeline"
+                        id={entry.id}
+                        person={profile.slug}
+                        back={backHere}
+                      />
+                    </span>
+                    <span className="mt-0.5 block text-xs text-ink-muted">
+                      {compact([entry.category, entry.note]).join(" · ")}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <EmptyNotice>아직 등록된 연혁이 없다.</EmptyNotice>
+          )}
         </div>
-      ) : (
-        <EmptyNotice>아직 등록된 연혁이 없다.</EmptyNotice>
       ),
     },
     {

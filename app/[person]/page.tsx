@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import EditLink from "@/components/EditLink";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
 import { RefList, type RefItem } from "@/components/Links";
 import ProfileCard from "@/components/ProfileCard";
@@ -155,6 +156,11 @@ export default async function OverviewPage({ params }: PageProps) {
         title={profile.title ? `${profile.name} — ${profile.title}` : profile.name}
         lead={profile.intro ? <p>{profile.intro}</p> : undefined}
       />
+
+      {/* 나무위키처럼 문서 자체를 그 자리에서 고친다. 키가 없으면 입력 화면에서 막힌다. */}
+      <p className="no-print mt-3 text-sm">
+        <EditLink table="people" id={profile.id} back={base} label="문서 수정" />
+      </p>
 
       <ProfileCard profile={profile} />
 

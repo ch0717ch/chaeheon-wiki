@@ -11,6 +11,20 @@ export const metadata: Metadata = {
     template: `%s — ${site.name}`,
   },
   description: site.tagline,
+  // 링크 공유 썸네일. 이게 없으면 카톡 등이 페이지의 첫 큰 이미지
+  // (프로필 사진)를 집어간다.
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    siteName: site.name,
+    title: `${site.name} — 개인 작업 아카이브`,
+    description: site.tagline,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: site.name }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og.png"],
+  },
   // 링크를 직접 받은 사람만 보도록 검색 색인을 막는다.
   // 노출을 원하게 되면 여기와 app/robots.ts 두 곳을 함께 바꾼다.
   robots: { index: false, follow: false },

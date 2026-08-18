@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import EditLink from "@/components/EditLink";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
 import PdfViewer from "@/components/PdfViewer";
@@ -143,10 +144,17 @@ export default async function ProjectPage({ params }: PageProps) {
 
   return (
     <article>
-      <p className="no-print mb-6 text-sm">
+      <p className="no-print mb-6 flex items-center justify-between text-sm">
         <Link href={`/${profile.slug}/work`} className="doc-link">
           ← 작업 목록
         </Link>
+        <EditLink
+          table="projects"
+          id={project.id}
+          person={profile.slug}
+          back={`/${profile.slug}/work/${project.slug}`}
+          label="이 문서 수정"
+        />
       </p>
 
       <DocHeader

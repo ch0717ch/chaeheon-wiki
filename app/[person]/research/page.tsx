@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import EditLink from "@/components/EditLink";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
 import PdfViewer from "@/components/PdfViewer";
@@ -29,7 +30,12 @@ const STATUS_LABEL: Record<ResearchPlanStatus, string> = {
 };
 
 /** 계획서 한 편을 하위 섹션(요약 · 연구 질문 · 방법 · 자료)으로 펼친다. */
-function planSection(plan: ResearchPlan, index: number): DocSection {
+function planSection(
+  plan: ResearchPlan,
+  index: number,
+  person: string,
+  backHere: string,
+): DocSection {
   const base = `plan-${index + 1}`;
 
   const refs: RefItem[] = [
@@ -85,7 +91,8 @@ function planSection(plan: ResearchPlan, index: number): DocSection {
     body: (
       <p className="text-sm text-ink-muted">
         상태: {STATUS_LABEL[plan.status]}
-        {plan.interests.length ? ` · 키워드: ${plan.interests.join(", ")}` : ""}
+        {plan.interests.length ? ` · 키워드: ${plan.interests.join(", ")}` : ""}{" "}
+        <EditLink table="research_plans" id={plan.id} person={person} back={backHere} />
       </p>
     ),
     children,
@@ -98,6 +105,7 @@ export default async function ResearchPage({ params }: PageProps) {
   if (!profile) notFound();
 
   const plans = await getResearchPlans(profile.id);
+  const backHere = `/${profile.slug}/research`;
 
   const interests = Array.from(new Set(plans.flatMap((p) => p.interests)));
   const allQuestions = plans.flatMap((p) => p.research_questions);
@@ -147,7 +155,7 @@ export default async function ResearchPage({ params }: PageProps) {
         ]
       : []),
     ...(plans.length
-      ? plans.map(planSection)
+      ? plans.map((plan, i) => planSection(plan, i, profile.slug, backHere))
       : [
           {
             id: "plans-empty",
@@ -164,6 +172,15 @@ export default async function ResearchPage({ params }: PageProps) {
         title="연구 관심사와 계획"
         lead={<p>현재 진행 중인 연구 질문과 계획서 요약이다.</p>}
       />
+
+      <p className="no-print mt-3 text-sm">
+        <EditLink
+          table="research_plans"
+          person={profile.slug}
+          back={backHere}
+          label="+ 새 연구계획"
+        />
+      </p>
 
       <InfoBox title="연구 개요" rows={infoRows} />
 

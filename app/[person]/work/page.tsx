@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import EditLink from "@/components/EditLink";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { EmptyNotice } from "@/components/Prose";
 import ProjectEntry from "@/components/ProjectEntry";
@@ -47,6 +48,8 @@ export default async function WorkPage({ params }: PageProps) {
       : []),
   ];
 
+  const backHere = `/${profile.slug}/work`;
+
   const sections: DocSection[] = projects.length
     ? groups.map(([category, items], i) => ({
         id: `category-${i + 1}`,
@@ -54,7 +57,19 @@ export default async function WorkPage({ params }: PageProps) {
         body: (
           <div className="border-t border-line">
             {items.map((project) => (
-              <ProjectEntry key={project.id} project={project} person={profile.slug} />
+              <ProjectEntry
+                key={project.id}
+                project={project}
+                person={profile.slug}
+                editLink={
+                  <EditLink
+                    table="projects"
+                    id={project.id}
+                    person={profile.slug}
+                    back={backHere}
+                  />
+                }
+              />
             ))}
           </div>
         ),
@@ -79,6 +94,10 @@ export default async function WorkPage({ params }: PageProps) {
           </p>
         }
       />
+
+      <p className="no-print mt-3 text-sm">
+        <EditLink table="projects" person={profile.slug} back={backHere} label="+ 새 프로젝트" />
+      </p>
 
       <InfoBox title="목록 개요" rows={infoRows} />
 

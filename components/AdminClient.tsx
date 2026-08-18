@@ -139,10 +139,18 @@ function TableEditor({
   spec,
   profileId,
   onProfilesChanged,
+  initialEditId,
+  onInitialConsumed,
+  onExit,
 }: {
   spec: TableSpec;
   profileId: string | null; // profiles 편집일 때는 null
   onProfilesChanged?: () => void;
+  /** 딥링크로 곧장 열 행 id. "new" 면 새 항목 작성. */
+  initialEditId?: string;
+  onInitialConsumed?: () => void;
+  /** 있으면 저장·취소 시 목록 대신 이 콜백(원래 페이지 복귀)을 부른다. */
+  onExit?: () => void;
 }) {
   const [rows, setRows] = useState<Row[]>([]);
   const [editing, setEditing] = useState<Row | null>(null); // null=목록, id 없는 Row=새 행
@@ -151,6 +159,7 @@ function TableEditor({
   const [msg, setMsg] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const uploadTarget = useRef<string>("");
+  const initialConsumed = useRef(false);
 
   const isProfiles = spec.table === "people";
 
@@ -175,6 +184,30 @@ function TableEditor({
     setMsg("");
   }
 
+  /** 딥링크([수정] 링크)로 들어왔으면 목록을 거치지 않고 바로 폼을 연다. */
+  useEffect(() => {
+    if (!initialEditId || initialConsumed.current) return;
+    if (initialEditId === "new") {
+      initialConsumed.current = true;
+      onInitialConsumed?.();
+      startEdit(null);
+      return;
+    }
+    const row = rows.find((r) => r.id === initialEditId);
+    if (row) {
+      initialConsumed.current = true;
+      onInitialConsumed?.();
+      startEdit(row);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rows, initialEditId]);
+
+  /** 편집 종료 — 딥링크면 원래 보던 페이지로, 아니면 목록으로. */
+  function exitEditor() {
+    if (onExit) onExit();
+    else setEditing(null);
+  }
+
   async function save() {
     setBusy(true);
     setMsg("");
@@ -190,6 +223,11 @@ function TableEditor({
           row: form,
         }),
       });
+      // 딥링크로 들어온 편집이면 저장 즉시 보던 페이지로 돌아간다.
+      if (onExit) {
+        onExit();
+        return;
+      }
       setEditing(null);
       await load();
       onProfilesChanged?.();
@@ -269,8 +307,8 @@ function TableEditor({
           <p className="text-xs font-bold uppercase tracking-[0.15em]">
             {spec.label} — {editing.id ? "수정" : "새 항목"}
           </p>
-          <button type="button" onClick={() => setEditing(null)} className="text-sm underline">
-            목록으로
+          <button type="button" onClick={exitEditor} className="text-sm underline">
+            {onExit ? "문서로 돌아가기" : "목록으로"}
           </button>
         </div>
 
@@ -299,7 +337,7 @@ function TableEditor({
             </button>
             <button
               type="button"
-              onClick={() => setEditing(null)}
+              onClick={exitEditor}
               disabled={busy}
               className={btnGhostCls}
             >
@@ -378,6 +416,59 @@ export default function AdminClient() {
   const [profiles, setProfiles] = useState<Row[]>([]);
   const [profileId, setProfileId] = useState<string | null>(null);
   const [tab, setTab] = useState<string>("people");
+
+  // 문서의 [수정] 링크로 들어온 딥링크: ?table=..&id=..&person=..&back=..
+  const [deepLink, setDeepLink] = useState<{
+    table: string;
+    id?: string;
+    person?: string;
+    back?: string;
+  } | null>(null);
+  const [initialEditId, setInitialEditId] = useState<string | null>(null);
+  const [backUrl, setBackUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    const table = sp.get("table");
+    if (!table) return;
+    setDeepLink({
+      table,
+      id: sp.get("id") ?? undefined,
+      person: sp.get("person") ?? undefined,
+      back: sp.get("back") ?? undefined,
+    });
+  }, []);
+
+  // 로그인과 문서 목록이 준비되면 딥링크를 실제 상태로 옮긴다.
+  useEffect(() => {
+    if (!deepLink || !authed) return;
+    // back 은 내부 경로만 허용한다. 외부 주소로 튕기는 데 쓰이면 안 된다.
+    const backOk =
+      deepLink.back && deepLink.back.startsWith("/") && !deepLink.back.startsWith("//")
+        ? deepLink.back
+        : null;
+
+    if (deepLink.table === "people") {
+      setTab("people");
+      setInitialEditId(deepLink.id ?? "new");
+      setBackUrl(backOk);
+      setDeepLink(null);
+      return;
+    }
+    if (!profiles.length) return; // 문서 목록 로드를 기다린다
+    const prof = deepLink.person
+      ? profiles.find((p) => String(p.slug) === deepLink.person)
+      : null;
+    if (prof) {
+      setProfileId(prof.id);
+      setTab(deepLink.table);
+      setInitialEditId(deepLink.id ?? "new");
+      setBackUrl(backOk);
+    }
+    setDeepLink(null);
+  }, [deepLink, authed, profiles]);
+
+  const exitToBack = backUrl ? () => window.location.assign(backUrl) : undefined;
 
   const loadProfiles = useCallback(async () => {
     try {
@@ -559,12 +650,18 @@ export default function AdminClient() {
             spec={PROFILE_SPEC}
             profileId={null}
             onProfilesChanged={loadProfiles}
+            initialEditId={initialEditId ?? undefined}
+            onInitialConsumed={() => setInitialEditId(null)}
+            onExit={exitToBack}
           />
         ) : profileId ? (
           <TableEditor
             key={`${tab}-${profileId}`}
             spec={CONTENT_SPECS.find((s) => s.table === tab)!}
             profileId={profileId}
+            initialEditId={initialEditId ?? undefined}
+            onInitialConsumed={() => setInitialEditId(null)}
+            onExit={exitToBack}
           />
         ) : (
           <p className="text-sm text-ink-muted">먼저 위에서 문서를 선택한다.</p>

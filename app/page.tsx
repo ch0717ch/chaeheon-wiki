@@ -1,4 +1,5 @@
 import Link from "next/link";
+import EditLink from "@/components/EditLink";
 import { getProfiles } from "@/lib/queries";
 import { docTree, site } from "@/lib/site";
 
@@ -18,12 +19,15 @@ export default async function FrontPage() {
 
       <main id="main">
         <section aria-labelledby="doc-list" className="mt-10">
-          <h2 id="doc-list" className="text-lg font-bold tracking-tight">
-            문서 목록
-            <span className="ml-2 font-mono text-sm font-normal text-ink-muted">
-              {profiles.length}
-            </span>
-          </h2>
+          <div className="flex items-baseline justify-between">
+            <h2 id="doc-list" className="text-lg font-bold tracking-tight">
+              문서 목록
+              <span className="ml-2 font-mono text-sm font-normal text-ink-muted">
+                {profiles.length}
+              </span>
+            </h2>
+            <EditLink table="people" back="/" label="+ 새 문서" />
+          </div>
 
           {profiles.length ? (
             <ul className="mt-4 border-t-2 border-rule">
