@@ -208,12 +208,21 @@ function TableEditor({
       : `"${name}" 을(를) 삭제할까? 되돌릴 수 없다.`;
     if (!window.confirm(warn)) return;
 
+    // 문서 삭제는 인증키를 그 자리에서 다시 받는다.
+    // 서버도 같은 검사를 하므로 여기서 건너뛰어도 삭제되지 않는다.
+    let confirmKey: string | undefined;
+    if (isProfiles) {
+      const input = window.prompt(`삭제를 확정하려면 인증키를 다시 입력한다.`);
+      if (input === null) return; // 취소
+      confirmKey = input;
+    }
+
     setBusy(true);
     try {
       await api("/api/admin/rows", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", table: spec.table, id: row.id }),
+        body: JSON.stringify({ action: "delete", table: spec.table, id: row.id, confirmKey }),
       });
       await load();
       onProfilesChanged?.();

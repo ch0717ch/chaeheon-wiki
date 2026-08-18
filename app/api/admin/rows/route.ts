@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE, verifyToken } from "@/lib/adminAuth";
+import { ADMIN_COOKIE, verifyKey, verifyToken } from "@/lib/adminAuth";
 import { findSpec, type FieldSpec } from "@/lib/adminSchema";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
@@ -24,6 +24,8 @@ type Body = {
   profileId?: string;
   id?: string;
   row?: Record<string, unknown>;
+  /** 인물 문서 삭제처럼 파급이 큰 동작에서 요구하는 인증키 재입력 값 */
+  confirmKey?: string;
 };
 
 /** 명세에 따라 값 하나를 DB 에 넣을 형태로 강제한다. */
@@ -142,6 +144,18 @@ export async function POST(req: Request) {
       if (!body.id) {
         return NextResponse.json({ error: "id 가 필요하다." }, { status: 400 });
       }
+
+      // 인물 문서 삭제는 딸린 콘텐츠까지 연쇄 삭제되는 되돌릴 수 없는
+      // 동작이다. 세션 쿠키만으로는 부족하며 인증키를 그 자리에서 다시
+      // 받는다. 화면이 아니라 서버에서 검사해야 API 직접 호출로도
+      // 우회할 수 없다.
+      if (isProfileTable && !verifyKey(body.confirmKey ?? "")) {
+        return NextResponse.json(
+          { error: "문서 삭제에는 인증키 재입력이 필요하다." },
+          { status: 403 },
+        );
+      }
+
       const { error } = await admin.from(spec.table).delete().eq("id", body.id);
       if (error) throw new Error(error.message);
 
