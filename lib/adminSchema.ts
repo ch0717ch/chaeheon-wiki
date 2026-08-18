@@ -45,7 +45,12 @@ export const PROFILE_SPEC: TableSpec = {
   label: "인물 문서",
   titleKey: "name",
   fields: [
-    { key: "slug", label: "URL 조각", type: "text", hint: "영문 소문자·하이픈. 예: chaeheon → /chaeheon" },
+    {
+      key: "slug",
+      label: "URL 조각",
+      type: "text",
+      hint: "슬래시 없이 영문 소문자로. 예: eunsj 라고 적으면 주소가 사이트/eunsj 가 된다",
+    },
     { key: "name", label: "이름", type: "text" },
     { key: "name_en", label: "영문 이름", type: "text" },
     { key: "title", label: "한 줄 정체성", type: "text" },
@@ -92,7 +97,7 @@ export const CONTENT_SPECS: TableSpec[] = [
     label: "프로젝트",
     titleKey: "title",
     fields: [
-      { key: "slug", label: "URL 조각", type: "text" },
+      { key: "slug", label: "URL 조각", type: "text", hint: "슬래시 없이 영문 소문자·하이픈. 예: my-project" },
       { key: "title", label: "제목", type: "text" },
       { key: "summary", label: "한 줄 요약", type: "textarea" },
       { key: "category", label: "분류", type: "text", hint: "예: 웹 서비스 / 데이터 / 창작" },
@@ -183,7 +188,7 @@ export const CONTENT_SPECS: TableSpec[] = [
     label: "연구계획",
     titleKey: "title",
     fields: [
-      { key: "slug", label: "URL 조각", type: "text" },
+      { key: "slug", label: "URL 조각", type: "text", hint: "슬래시 없이 영문 소문자·하이픈. 예: my-project" },
       { key: "title", label: "제목", type: "text" },
       { key: "abstract", label: "요약", type: "textarea", hint: FN_HINT },
       { key: "interests", label: "관심 키워드", type: "lines" },

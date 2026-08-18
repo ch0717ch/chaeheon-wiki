@@ -28,8 +28,34 @@ type Body = {
   confirmKey?: string;
 };
 
+/**
+ * slug 정규화. 사용자가 "/eunsj", " Eunsj ", "eun sj" 처럼 넣어도
+ * URL 조각으로 쓸 수 있는 형태로 맞춘다.
+ *   - 앞뒤 공백·슬래시 제거
+ *   - 소문자
+ *   - 공백·밑줄 → 하이픈, 허용 문자(a-z 0-9 - 한글) 외 제거, 연속 하이픈 축약
+ * 한글 slug 도 허용한다 — Next 가 URL 인코딩을 처리하므로 /조은성 도 동작한다.
+ */
+function normalizeSlug(raw: string): string {
+  return raw
+    .trim()
+    .replace(/^\/+|\/+$/g, "")
+    .toLowerCase()
+    .replace(/[\s_]+/g, "-")
+    .replace(/[^a-z0-9\-ㄱ-ㆎ가-힣]/g, "")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 /** 명세에 따라 값 하나를 DB 에 넣을 형태로 강제한다. */
 function coerce(field: FieldSpec, value: unknown): unknown {
+  // slug 컬럼은 타입과 무관하게 항상 정규화한다.
+  if (field.key === "slug") {
+    const s = normalizeSlug(String(value ?? ""));
+    if (!s) throw new Error("URL 조각(slug)이 비어 있다. 영문·숫자·하이픈으로 적는다.");
+    return s;
+  }
+
   switch (field.type) {
     case "bool":
       return Boolean(value);
