@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE, verifyToken } from "@/lib/adminAuth";
+import { ADMIN_COOKIE, docCookieName, verifyDocToken, verifyToken } from "@/lib/adminAuth";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 export const runtime = "nodejs";
@@ -28,8 +28,15 @@ const ALLOWED: Record<string, string> = {
 
 export async function POST(req: Request) {
   const jar = await cookies();
-  if (!verifyToken(jar.get(ADMIN_COOKIE)?.value)) {
-    return NextResponse.json({ error: "인증이 필요하다." }, { status: 401 });
+
+  let contentType = "";
+  let profileId = "";
+  try {
+    const body = await req.json();
+    contentType = typeof body?.contentType === "string" ? body.contentType : "";
+    profileId = typeof body?.profileId === "string" ? body.profileId : "";
+  } catch {
+    /* 아래에서 거른다 */
   }
 
   const admin = getSupabaseAdmin();
@@ -37,12 +44,23 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "service role 키가 설정되지 않았다." }, { status: 500 });
   }
 
-  let contentType = "";
-  try {
-    const body = await req.json();
-    contentType = typeof body?.contentType === "string" ? body.contentType : "";
-  } catch {
-    /* 아래에서 거른다 */
+  // 마스터 세션, 해당 문서의 편집 세션, 또는 열린 문서면 업로드할 수 있다.
+  const isMaster = verifyToken(jar.get(ADMIN_COOKIE)?.value);
+  let allowed = isMaster;
+  if (!allowed && profileId) {
+    if (verifyDocToken(jar.get(docCookieName(profileId))?.value, profileId)) {
+      allowed = true;
+    } else {
+      const { data: doc } = await admin
+        .from("people")
+        .select("edit_password_hash, is_protected")
+        .eq("id", profileId)
+        .maybeSingle();
+      allowed = Boolean(doc && !doc.is_protected && !doc.edit_password_hash);
+    }
+  }
+  if (!allowed) {
+    return NextResponse.json({ error: "인증이 필요하다." }, { status: 401 });
   }
 
   const ext = ALLOWED[contentType];

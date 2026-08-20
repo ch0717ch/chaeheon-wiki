@@ -38,6 +38,10 @@ export type Profile = {
   target_primary: string;
   target_secondary: string;
   target_edge: string;
+  /** 켜면 문서 비밀번호(또는 마스터 키) 없이는 열람 불가. */
+  view_locked: boolean;
+  /** 보호 문서 — 비밀번호가 없어도 마스터 키로만 수정 가능. */
+  is_protected: boolean;
   sort_order: number;
   is_published: boolean;
   created_at: string;

@@ -103,6 +103,24 @@ export const PROFILE_SPEC: TableSpec = {
     { key: "target_primary", label: "지향 직무: 우선", type: "text" },
     { key: "target_secondary", label: "지향 직무: 확장", type: "text" },
     { key: "target_edge", label: "차별점", type: "text" },
+    {
+      key: "view_locked",
+      label: "문서 잠금",
+      type: "bool",
+      hint: "켜면 문서 비밀번호(또는 마스터 인증키)를 입력해야 열람 가능",
+    },
+    {
+      key: "new_password",
+      label: "문서 비밀번호 변경",
+      type: "text",
+      hint: "새 비밀번호(4자 이상). 비워 두면 기존 유지. 비밀번호가 없는 문서는 누구나 수정 가능",
+    },
+    {
+      key: "is_protected",
+      label: "보호 문서",
+      type: "bool",
+      hint: "마스터 인증키로만 수정 가능. 이 설정 자체도 마스터만 바꿀 수 있다",
+    },
     ...COMMON_TAIL,
   ],
 };

@@ -1,21 +1,27 @@
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE, verifyKey, verifyToken } from "@/lib/adminAuth";
+import {
+  ADMIN_COOKIE,
+  docCookieName,
+  hashDocPassword,
+  verifyDocToken,
+  verifyKey,
+  verifyToken,
+} from "@/lib/adminAuth";
 import { findSpec, type FieldSpec } from "@/lib/adminSchema";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 export const runtime = "nodejs";
 
 // =====================================================================
-// 관리자 쓰기 API.
+// 관리자 쓰기 API — 두 가지 권한.
 //
-// POST { action, table, profileId?, id?, row? }
-//   - list   : 해당 테이블 전체(미공개 포함) 조회
-//   - upsert : 생성 또는 수정. row 의 컬럼은 adminSchema 화이트리스트로 제한
-//   - delete : id 로 삭제
+//   master : 인증키 세션. 모든 문서의 모든 동작.
+//   doc    : 문서 비밀번호 세션. 자기 문서(people 1행 + 딸린 콘텐츠)만
+//            읽고 쓴다. 문서 삭제는 못 한다.
 //
-// 모든 요청은 로그인 쿠키를 검증하고, service role 클라이언트로만 쓴다.
+// POST { action, table, profileId?, id?, row?, confirmKey? }
 // =====================================================================
 
 type Body = {
@@ -24,18 +30,16 @@ type Body = {
   profileId?: string;
   id?: string;
   row?: Record<string, unknown>;
-  /** 인물 문서 삭제처럼 파급이 큰 동작에서 요구하는 인증키 재입력 값 */
   confirmKey?: string;
 };
 
-/**
- * slug 정규화. 사용자가 "/eunsj", " Eunsj ", "eun sj" 처럼 넣어도
- * URL 조각으로 쓸 수 있는 형태로 맞춘다.
- *   - 앞뒤 공백·슬래시 제거
- *   - 소문자
- *   - 공백·밑줄 → 하이픈, 허용 문자(a-z 0-9 - 한글) 외 제거, 연속 하이픈 축약
- * 한글 slug 도 허용한다 — Next 가 URL 인코딩을 처리하므로 /조은성 도 동작한다.
- */
+/** people 행에서 클라이언트로 절대 나가면 안 되는 컬럼. */
+function stripSecret<T extends Record<string, unknown>>(row: T): T {
+  const copy = { ...row };
+  delete copy.edit_password_hash;
+  return copy;
+}
+
 function normalizeSlug(raw: string): string {
   return raw
     .trim()
@@ -49,7 +53,6 @@ function normalizeSlug(raw: string): string {
 
 /** 명세에 따라 값 하나를 DB 에 넣을 형태로 강제한다. */
 function coerce(field: FieldSpec, value: unknown): unknown {
-  // slug 컬럼은 타입과 무관하게 항상 정규화한다.
   if (field.key === "slug") {
     const s = normalizeSlug(String(value ?? ""));
     if (!s) throw new Error("URL 조각(slug)이 비어 있다. 영문·숫자·하이픈으로 적는다.");
@@ -58,7 +61,6 @@ function coerce(field: FieldSpec, value: unknown): unknown {
 
   switch (field.type) {
     case "textarea": {
-      // 붙여넣기·타 도구에서 온 리터럴 \n 도 진짜 줄바꿈으로 바꿔 준다.
       return String(value ?? "")
         .replace(/\r\n/g, "\n")
         .replace(/\\n/g, "\n")
@@ -97,21 +99,13 @@ function coerce(field: FieldSpec, value: unknown): unknown {
       }
       return s;
     }
-    default: {
-      const s = String(value ?? "").trim();
-      // 링크·URL 계열 컬럼은 빈 문자열 대신 null 을 원하는 곳이 있다.
-      // 스키마상 not null default '' 인 컬럼도 있어, 빈 값은 그대로 둔다.
-      return s;
-    }
+    default:
+      return String(value ?? "").trim();
   }
 }
 
 export async function POST(req: Request) {
   const jar = await cookies();
-  if (!verifyToken(jar.get(ADMIN_COOKIE)?.value)) {
-    return NextResponse.json({ error: "인증이 필요하다." }, { status: 401 });
-  }
-
   const admin = getSupabaseAdmin();
   if (!admin) {
     return NextResponse.json({ error: "service role 키가 설정되지 않았다." }, { status: 500 });
@@ -124,6 +118,35 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "요청 본문이 JSON 이 아니다." }, { status: 400 });
   }
 
+  // ---------- 권한 스코프 판별 ----------
+  const isMaster = verifyToken(jar.get(ADMIN_COOKIE)?.value);
+  let docId: string | null = null;
+  if (!isMaster) {
+    // 문서 세션: profileId(콘텐츠) 또는 id(people 자기 행) 기준으로 확인한다.
+    // people 목록 조회는 id 가 없으므로 profileId 로도 받아 준다.
+    const candidate =
+      body.table === "people"
+        ? (body.id ?? body.profileId ?? "")
+        : (body.profileId ?? "");
+    if (candidate && verifyDocToken(jar.get(docCookieName(candidate))?.value, candidate)) {
+      docId = candidate;
+    } else if (candidate) {
+      // 열린 문서: 비밀번호도 없고 보호 문서도 아니면 누구나 편집한다.
+      // (생성 화면에서 빨간 경고로 고지하는 정책과 한 몸이다)
+      const { data: doc } = await admin
+        .from("people")
+        .select("edit_password_hash, is_protected")
+        .eq("id", candidate)
+        .maybeSingle();
+      if (doc && !doc.is_protected && !doc.edit_password_hash) {
+        docId = candidate;
+      }
+    }
+  }
+  if (!isMaster && !docId) {
+    return NextResponse.json({ error: "인증이 필요하다." }, { status: 401 });
+  }
+
   const spec = findSpec(body.table ?? "");
   if (!spec) {
     return NextResponse.json({ error: `허용되지 않는 테이블: ${body.table}` }, { status: 400 });
@@ -133,14 +156,28 @@ export async function POST(req: Request) {
   try {
     /* ---------------- list ---------------- */
     if (body.action === "list") {
-      let q = admin.from(spec.table).select("*");
-      if (!isProfileTable) {
-        if (!body.profileId) {
-          return NextResponse.json({ error: "profileId 가 필요하다." }, { status: 400 });
-        }
-        q = q.eq("profile_id", body.profileId);
+      if (isProfileTable) {
+        let q = admin.from(spec.table).select("*");
+        // 문서 세션은 자기 행만 본다.
+        if (!isMaster) q = q.eq("id", docId!);
+        const { data, error } = await q.order("sort_order", { ascending: true });
+        if (error) throw new Error(error.message);
+        return NextResponse.json({
+          rows: (data ?? []).map((r) => stripSecret(r as Record<string, unknown>)),
+        });
       }
-      const { data, error } = await q.order("sort_order", { ascending: true });
+
+      if (!body.profileId) {
+        return NextResponse.json({ error: "profileId 가 필요하다." }, { status: 400 });
+      }
+      if (!isMaster && body.profileId !== docId) {
+        return NextResponse.json({ error: "이 문서에 대한 권한이 없다." }, { status: 403 });
+      }
+      const { data, error } = await admin
+        .from(spec.table)
+        .select("*")
+        .eq("profile_id", body.profileId)
+        .order("sort_order", { ascending: true });
       if (error) throw new Error(error.message);
       return NextResponse.json({ rows: data ?? [] });
     }
@@ -152,11 +189,57 @@ export async function POST(req: Request) {
       for (const field of spec.fields) {
         if (field.key in input) clean[field.key] = coerce(field, input[field.key]);
       }
-      if (!isProfileTable) {
+
+      if (isProfileTable) {
+        // 문서 비밀번호 변경: new_password 는 컬럼이 아니라 특수 입력이다.
+        const np = String((input as Record<string, unknown>).new_password ?? "");
+        delete clean.new_password;
+        if (np) {
+          if (np.length < 4) throw new Error("문서 비밀번호는 4자 이상이어야 한다.");
+          clean.edit_password_hash = hashDocPassword(np);
+        }
+
+        // 보호 문서 지정은 마스터만 바꿀 수 있다.
+        if (!isMaster) delete clean.is_protected;
+
+        // 잠금은 비밀번호가 있어야 켤 수 있다 — 아니면 아무도 못 여는 문서가 된다.
+        if (clean.view_locked === true && !np && body.id) {
+          const { data: cur } = await admin
+            .from("people")
+            .select("edit_password_hash")
+            .eq("id", body.id)
+            .maybeSingle();
+          if (!cur?.edit_password_hash) {
+            throw new Error("문서 잠금은 비밀번호를 먼저 설정해야 켤 수 있다.");
+          }
+        }
+
+        if (!isMaster) {
+          // 문서 세션은 자기 행 수정만. 새 문서 생성은 /api/doc/create 로.
+          if (!body.id || body.id !== docId) {
+            return NextResponse.json({ error: "이 문서에 대한 권한이 없다." }, { status: 403 });
+          }
+        }
+      } else {
         if (!body.profileId) {
           return NextResponse.json({ error: "profileId 가 필요하다." }, { status: 400 });
         }
+        if (!isMaster && body.profileId !== docId) {
+          return NextResponse.json({ error: "이 문서에 대한 권한이 없다." }, { status: 403 });
+        }
         clean.profile_id = body.profileId;
+
+        // 문서 세션이 남의 행 id 를 넘겨 덮어쓰는 것을 막는다.
+        if (!isMaster && body.id) {
+          const { data: owned } = await admin
+            .from(spec.table)
+            .select("profile_id")
+            .eq("id", body.id)
+            .maybeSingle();
+          if (!owned || owned.profile_id !== docId) {
+            return NextResponse.json({ error: "이 항목에 대한 권한이 없다." }, { status: 403 });
+          }
+        }
       }
 
       let result;
@@ -167,9 +250,11 @@ export async function POST(req: Request) {
       }
       if (result.error) throw new Error(result.error.message);
 
-      // 사이트 전체 캐시를 비워 수정이 즉시 보이게 한다.
       revalidatePath("/", "layout");
-      return NextResponse.json({ row: result.data });
+      const row = isProfileTable
+        ? stripSecret(result.data as Record<string, unknown>)
+        : result.data;
+      return NextResponse.json({ row });
     }
 
     /* ---------------- delete ---------------- */
@@ -178,15 +263,25 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "id 가 필요하다." }, { status: 400 });
       }
 
-      // 인물 문서 삭제는 딸린 콘텐츠까지 연쇄 삭제되는 되돌릴 수 없는
-      // 동작이다. 세션 쿠키만으로는 부족하며 인증키를 그 자리에서 다시
-      // 받는다. 화면이 아니라 서버에서 검사해야 API 직접 호출로도
-      // 우회할 수 없다.
-      if (isProfileTable && !verifyKey(body.confirmKey ?? "")) {
-        return NextResponse.json(
-          { error: "문서 삭제에는 인증키 재입력이 필요하다." },
-          { status: 403 },
-        );
+      if (isProfileTable) {
+        // 문서 전체 삭제는 마스터 + 인증키 재입력만. 문서 세션은 불가 —
+        // 비밀번호 하나로 문서가 통째로 사라지는 사고를 막는다.
+        if (!isMaster || !verifyKey(body.confirmKey ?? "")) {
+          return NextResponse.json(
+            { error: "문서 삭제에는 마스터 인증키 재입력이 필요하다." },
+            { status: 403 },
+          );
+        }
+      } else if (!isMaster) {
+        // 문서 세션: 자기 문서에 딸린 행인지 확인하고 지운다.
+        const { data: owned } = await admin
+          .from(spec.table)
+          .select("profile_id")
+          .eq("id", body.id)
+          .maybeSingle();
+        if (!owned || owned.profile_id !== docId) {
+          return NextResponse.json({ error: "이 항목에 대한 권한이 없다." }, { status: 403 });
+        }
       }
 
       const { error } = await admin.from(spec.table).delete().eq("id", body.id);

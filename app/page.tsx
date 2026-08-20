@@ -1,5 +1,4 @@
 import Link from "next/link";
-import EditLink from "@/components/EditLink";
 import { getProfiles } from "@/lib/queries";
 import { docTree, site } from "@/lib/site";
 
@@ -26,7 +25,12 @@ export default async function FrontPage() {
                 {profiles.length}
               </span>
             </h2>
-            <EditLink table="people" back="/" label="+ 새 문서" />
+            <Link
+              href="/admin?create=1"
+              className="no-print font-mono text-xs font-normal text-ink-muted underline-offset-2 hover:text-ink hover:underline"
+            >
+              [+ 새 문서]
+            </Link>
           </div>
 
           {profiles.length ? (
@@ -39,6 +43,11 @@ export default async function FrontPage() {
                   >
                     <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                       <span className="text-lg font-bold tracking-tight text-ink group-hover:underline group-hover:underline-offset-4">
+                        {p.view_locked ? (
+                          <span aria-label="잠긴 문서" className="mr-1.5">
+                            🔒
+                          </span>
+                        ) : null}
                         {p.name}
                       </span>
                       {p.name_en ? (
@@ -67,11 +76,17 @@ export default async function FrontPage() {
         <footer className="mt-20 border-t-2 border-rule pt-6 text-xs leading-relaxed text-ink-muted">
           <p>© {new Date().getFullYear()} {site.name}. 이 사이트는 공개 읽기 전용이다.</p>
           <p className="mt-1">
-            문서 작성·수정은 인증키를 가진 관리자만{" "}
-            <Link href="/admin" className="doc-link">
-              관리 화면
+            <Link href="/admin?create=1" className="doc-link">
+              누구나 문서를 만들 수 있다
             </Link>
-            에서 할 수 있다.
+            . 비밀번호를 설정한 문서는 소유자만 수정하며, 잠근 문서(🔒)는 비밀번호를
+            입력해야 열람된다.
+          </p>
+          {/* 열린 편집 정책 고지 — 대문에서 항상 보이는 짧은 면책 문구 */}
+          <p className="mt-2 font-semibold text-red-700">
+            비밀번호가 없는 문서는 누구나 수정·삭제할 수 있다. 문서 생성 시 비밀번호
+            설정을 권장하며, 미설정 문서의 변형·삭제·수정으로 발생하는 문제는 책임지지
+            않는다.
           </p>
         </footer>
       </main>

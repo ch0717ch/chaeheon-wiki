@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import DocLockGate from "@/components/DocLockGate";
 import SiteNav from "@/components/SiteNav";
+import {
+  ADMIN_COOKIE,
+  docCookieName,
+  verifyDocToken,
+  verifyToken,
+} from "@/lib/adminAuth";
 import { stripFootnotes } from "@/lib/footnotes";
 import { getProfileBySlug, getProfiles } from "@/lib/queries";
 import { site } from "@/lib/site";
@@ -26,6 +34,11 @@ export async function generateMetadata({
   const profile = await getProfileBySlug(person);
   if (!profile) return { title: "문서 없음" };
 
+  // 잠긴 문서는 메타데이터로도 내용을 흘리지 않는다.
+  if (profile.view_locked) {
+    return { title: `${profile.name} (잠긴 문서)`, description: undefined };
+  }
+
   return {
     title: {
       default: `${profile.name} — ${profile.title || site.name}`,
@@ -50,6 +63,17 @@ export default async function PersonLayout({ children, params }: LayoutProps) {
   const { person } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) notFound();
+
+  // 잠긴 문서: 마스터 세션 또는 이 문서의 비밀번호 세션이 있어야 본다.
+  // cookies() 는 잠긴 문서에서만 호출한다 — 안 잠긴 문서는 정적 캐시를 유지한다.
+  if (profile.view_locked) {
+    const jar = await cookies();
+    const master = verifyToken(jar.get(ADMIN_COOKIE)?.value);
+    const doc = verifyDocToken(jar.get(docCookieName(profile.id))?.value, profile.id);
+    if (!master && !doc) {
+      return <DocLockGate person={profile.slug} name={profile.name} />;
+    }
+  }
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col lg:flex-row">

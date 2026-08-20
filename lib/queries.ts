@@ -20,20 +20,55 @@ function logFailure(scope: string, error: unknown) {
 
 /* ---------------------------------------------------------------------
    profiles — 인물 문서
+
+   비밀번호 해시 컬럼은 DB 에서 anon 의 열람 권한을 회수했다.
+   그래서 select("*") 는 실패하며, 반드시 컬럼을 명시해서 읽는다.
    --------------------------------------------------------------------- */
+const PEOPLE_COLUMNS = [
+  "id", "slug", "name", "name_en", "title", "intro",
+  "field_main", "field_sub", "keywords", "mbti", "birth_date",
+  "location", "languages", "photo_url", "resume_pdf_url",
+  "music_url", "music_title",
+  "link_github", "link_blog", "link_blog2", "link_instagram",
+  "link_email", "link_linkedin",
+  "education_summary", "expertise",
+  "target_primary", "target_secondary", "target_edge",
+  "view_locked", "is_protected", "sort_order", "is_published", "created_at", "updated_at",
+].join(",");
+
+// schema_v7 이전 DB(view_locked 없음)에서도 동작하도록 한 번 물러선다.
+const PEOPLE_COLUMNS_LEGACY = PEOPLE_COLUMNS.replace(",view_locked", "").replace(
+  ",is_protected",
+  "",
+);
+
 export async function getProfiles(): Promise<Profile[]> {
   const supabase = getSupabase();
   if (!supabase) return [];
 
-  const { data, error } = await supabase
+  const first = await supabase
     .from("people")
-    .select("*")
+    .select(PEOPLE_COLUMNS)
     .eq("is_published", true)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: true });
 
-  logFailure("people", error);
-  return (data as Profile[]) ?? [];
+  if (!first.error) return (first.data as unknown as Profile[]) ?? [];
+
+  const legacy = await supabase
+    .from("people")
+    .select(PEOPLE_COLUMNS_LEGACY)
+    .eq("is_published", true)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  logFailure("people", legacy.error);
+  const rows = (legacy.data as unknown as Profile[]) ?? [];
+  return rows.map((r) => ({
+    ...r,
+    view_locked: r.view_locked ?? false,
+    is_protected: r.is_protected ?? false,
+  }));
 }
 
 // 레이아웃과 페이지가 같은 요청 안에서 두 번 부르므로 React cache 로 감싼다.
@@ -41,15 +76,27 @@ export const getProfileBySlug = cache(async (slug: string): Promise<Profile | nu
   const supabase = getSupabase();
   if (!supabase) return null;
 
-  const { data, error } = await supabase
+  const first = await supabase
     .from("people")
-    .select("*")
+    .select(PEOPLE_COLUMNS)
     .eq("slug", slug)
     .eq("is_published", true)
     .maybeSingle();
 
-  logFailure(`profile(${slug})`, error);
-  return (data as Profile) ?? null;
+  if (!first.error) return (first.data as unknown as Profile) ?? null;
+
+  const legacy = await supabase
+    .from("people")
+    .select(PEOPLE_COLUMNS_LEGACY)
+    .eq("slug", slug)
+    .eq("is_published", true)
+    .maybeSingle();
+
+  logFailure(`profile(${slug})`, legacy.error);
+  const row = (legacy.data as unknown as Profile) ?? null;
+  return row
+    ? { ...row, view_locked: row.view_locked ?? false, is_protected: row.is_protected ?? false }
+    : null;
 });
 
 /* ---------------------------------------------------------------------

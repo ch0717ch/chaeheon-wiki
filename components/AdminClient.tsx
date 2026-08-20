@@ -142,6 +142,8 @@ function TableEditor({
   initialEditId,
   onInitialConsumed,
   onExit,
+  canDeleteProfile = true,
+  canCreate = true,
 }: {
   spec: TableSpec;
   profileId: string | null; // profiles 편집일 때는 null
@@ -151,6 +153,9 @@ function TableEditor({
   onInitialConsumed?: () => void;
   /** 있으면 저장·취소 시 목록 대신 이 콜백(원래 페이지 복귀)을 부른다. */
   onExit?: () => void;
+  /** 문서 세션은 문서(people) 삭제·신규 생성이 불가하다. */
+  canDeleteProfile?: boolean;
+  canCreate?: boolean;
 }) {
   const [rows, setRows] = useState<Row[]>([]);
   const [editing, setEditing] = useState<Row | null>(null); // null=목록, id 없는 Row=새 행
@@ -307,7 +312,8 @@ function TableEditor({
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contentType }),
+          // 문서 세션은 자기 문서 id 로 업로드 권한을 증명한다.
+          body: JSON.stringify({ contentType, profileId: profileId ?? editing?.id ?? "" }),
         },
       );
 
@@ -386,9 +392,13 @@ function TableEditor({
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <button type="button" onClick={() => startEdit(null)} className={btnCls}>
-          + 새 {spec.label}
-        </button>
+        {canCreate ? (
+          <button type="button" onClick={() => startEdit(null)} className={btnCls}>
+            + 새 {spec.label}
+          </button>
+        ) : (
+          <span className="text-sm text-ink-muted">내 문서만 관리할 수 있다.</span>
+        )}
         {msg ? <p className="text-sm text-ink-soft">{msg}</p> : null}
       </div>
 
@@ -419,14 +429,16 @@ function TableEditor({
               >
                 수정
               </button>
-              <button
-                type="button"
-                onClick={() => remove(row)}
-                disabled={busy}
-                className={`${btnGhostCls} min-h-9 px-3 text-red-800`}
-              >
-                삭제
-              </button>
+              {!isProfiles || canDeleteProfile ? (
+                <button
+                  type="button"
+                  onClick={() => remove(row)}
+                  disabled={busy}
+                  className={`${btnGhostCls} min-h-9 px-3 text-red-800`}
+                >
+                  삭제
+                </button>
+              ) : null}
             </div>
           </li>
         ))}
@@ -442,14 +454,16 @@ function TableEditor({
    메인 — 로그인 → 문서 선택 → 탭
    --------------------------------------------------------------------- */
 export default function AdminClient() {
-  const [authed, setAuthed] = useState<boolean | null>(null);
+  // scope: master = 인증키(모든 문서) / doc = 문서 비밀번호(자기 문서만)
+  const [scope, setScope] = useState<"master" | "doc" | null | "checking">("checking");
+  const [docInfo, setDocInfo] = useState<{ id: string; slug: string } | null>(null);
   const [key, setKey] = useState("");
   const [loginMsg, setLoginMsg] = useState("");
   const [profiles, setProfiles] = useState<Row[]>([]);
   const [profileId, setProfileId] = useState<string | null>(null);
   const [tab, setTab] = useState<string>("people");
 
-  // 문서의 [수정] 링크로 들어온 딥링크: ?table=..&id=..&person=..&back=..
+  // 문서의 [수정] 링크 딥링크: ?table=..&id=..&person=..&back=..
   const [deepLink, setDeepLink] = useState<{
     table: string;
     id?: string;
@@ -459,22 +473,69 @@ export default function AdminClient() {
   const [initialEditId, setInitialEditId] = useState<string | null>(null);
   const [backUrl, setBackUrl] = useState<string | null>(null);
 
+  // ?create=1 — 인증 없이 새 문서 만들기
+  const [createMode, setCreateMode] = useState(false);
+  const [cName, setCName] = useState("");
+  const [cSlug, setCSlug] = useState("");
+  const [cPw, setCPw] = useState("");
+  const [cLocked, setCLocked] = useState(false);
+  const [cMsg, setCMsg] = useState("");
+
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
+    if (sp.get("create")) setCreateMode(true);
     const table = sp.get("table");
-    if (!table) return;
-    setDeepLink({
-      table,
-      id: sp.get("id") ?? undefined,
-      person: sp.get("person") ?? undefined,
-      back: sp.get("back") ?? undefined,
-    });
+    if (table) {
+      setDeepLink({
+        table,
+        id: sp.get("id") ?? undefined,
+        person: sp.get("person") ?? undefined,
+        back: sp.get("back") ?? undefined,
+      });
+    }
+    // 세션 확인 — 딥링크에 person 이 있으면 그 문서 세션도 함께 본다.
+    const person = sp.get("person") ?? "";
+    api<{ master: boolean; doc: { id: string; slug: string } | null }>(
+      `/api/admin/login${person ? `?person=${encodeURIComponent(person)}` : ""}`,
+    )
+      .then((d) => {
+        if (d.master) setScope("master");
+        else if (d.doc) {
+          setScope("doc");
+          setDocInfo(d.doc);
+        } else setScope(null);
+      })
+      .catch(() => setScope(null));
   }, []);
 
-  // 로그인과 문서 목록이 준비되면 딥링크를 실제 상태로 옮긴다.
+  const loadProfiles = useCallback(async () => {
+    try {
+      const body: Record<string, unknown> = { action: "list", table: "people" };
+      // 문서 세션은 자기 id 로 권한을 증명한다.
+      if (docInfo) body.profileId = docInfo.id;
+      const data = await api<{ rows: Row[] }>("/api/admin/rows", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      setProfiles(data.rows);
+      setProfileId((cur) => {
+        if (cur && data.rows.some((r) => r.id === cur)) return cur;
+        // 문서 세션은 선택지가 하나뿐이니 바로 고른다.
+        return data.rows.length === 1 ? data.rows[0].id : null;
+      });
+    } catch {
+      /* 로그인 전이면 실패가 정상 */
+    }
+  }, [docInfo]);
+
   useEffect(() => {
-    if (!deepLink || !authed) return;
-    // back 은 내부 경로만 허용한다. 외부 주소로 튕기는 데 쓰이면 안 된다.
+    if (scope === "master" || scope === "doc") loadProfiles();
+  }, [scope, loadProfiles]);
+
+  // 딥링크를 실제 상태로 옮긴다.
+  useEffect(() => {
+    if (!deepLink || scope === "checking" || scope === null) return;
     const backOk =
       deepLink.back && deepLink.back.startsWith("/") && !deepLink.back.startsWith("//")
         ? deepLink.back
@@ -487,7 +548,7 @@ export default function AdminClient() {
       setDeepLink(null);
       return;
     }
-    if (!profiles.length) return; // 문서 목록 로드를 기다린다
+    if (!profiles.length) return;
     const prof = deepLink.person
       ? profiles.find((p) => String(p.slug) === deepLink.person)
       : null;
@@ -498,47 +559,26 @@ export default function AdminClient() {
       setBackUrl(backOk);
     }
     setDeepLink(null);
-  }, [deepLink, authed, profiles]);
+  }, [deepLink, scope, profiles]);
 
   const exitToBack = backUrl ? () => window.location.assign(backUrl) : undefined;
-
-  const loadProfiles = useCallback(async () => {
-    try {
-      const data = await api<{ rows: Row[] }>("/api/admin/rows", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "list", table: "people" }),
-      });
-      setProfiles(data.rows);
-      // 선택된 문서가 삭제됐으면 선택을 비운다.
-      setProfileId((cur) => (cur && data.rows.some((r) => r.id === cur) ? cur : null));
-    } catch {
-      /* 로그인 전이면 실패가 정상 */
-    }
-  }, []);
-
-  useEffect(() => {
-    api<{ authed: boolean }>("/api/admin/login")
-      .then((d) => setAuthed(d.authed))
-      .catch(() => setAuthed(false));
-  }, []);
-
-  useEffect(() => {
-    if (authed) loadProfiles();
-  }, [authed, loadProfiles]);
 
   async function login(e: React.FormEvent) {
     e.preventDefault();
     setLoginMsg("확인 중...");
     try {
-      await api("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key }),
-      });
+      const d = await api<{ scope: "master" | "doc"; doc?: { id: string; slug: string } }>(
+        "/api/admin/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key, person: deepLink?.person }),
+        },
+      );
       setKey("");
       setLoginMsg("");
-      setAuthed(true);
+      if (d.scope === "doc" && d.doc) setDocInfo(d.doc);
+      setScope(d.scope);
     } catch (err) {
       setLoginMsg(err instanceof Error ? err.message : "실패");
     }
@@ -546,28 +586,109 @@ export default function AdminClient() {
 
   async function logout() {
     await api("/api/admin/login", { method: "DELETE" }).catch(() => {});
-    setAuthed(false);
+    setScope(null);
+    setDocInfo(null);
     setProfiles([]);
     setProfileId(null);
   }
 
-  /* ---------------- 로그인 화면 ---------------- */
-  if (authed === null) {
+  async function createDoc(e: React.FormEvent) {
+    e.preventDefault();
+    setCMsg("만드는 중...");
+    try {
+      const d = await api<{ doc: { id: string; slug: string } }>("/api/doc/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: cName, slug: cSlug, password: cPw, viewLocked: cLocked }),
+      });
+      // 생성 즉시 그 문서의 편집 세션이 발급된다 — 프로필 편집으로 이동.
+      window.location.assign(
+        `/admin?person=${encodeURIComponent(d.doc.slug)}&table=people&id=${d.doc.id}&back=/${d.doc.slug}`,
+      );
+    } catch (err) {
+      setCMsg(err instanceof Error ? err.message : "실패");
+    }
+  }
+
+  /* ---------------- 로딩 ---------------- */
+  if (scope === "checking") {
     return <main id="main" className="p-10 text-sm text-ink-muted">확인 중...</main>;
   }
 
-  if (!authed) {
+  /* ---------------- 새 문서 만들기 (인증 불필요) ---------------- */
+  if (scope === null && createMode) {
+    return (
+      <main id="main" className="mx-auto w-full max-w-md px-5 pb-24 pt-20">
+        <p className="eyebrow mb-2">{site.name}</p>
+        <h1 className="text-2xl font-bold tracking-tight">새 문서 만들기</h1>
+        <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+          누구나 문서를 만들 수 있다. 문서 비밀번호는 이 문서를 수정할 때(잠갔다면
+          열람할 때도) 쓰이니 잊지 않게 보관한다.
+        </p>
+
+        <form onSubmit={createDoc} className="mt-6 space-y-4">
+          <div>
+            <label htmlFor="c-name" className="mb-1 block text-xs font-bold">
+              이름 (문서 제목)
+            </label>
+            <input id="c-name" value={cName} onChange={(e) => setCName(e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label htmlFor="c-slug" className="mb-1 block text-xs font-bold">
+              URL 조각 <span className="font-normal text-ink-muted">비우면 이름으로 만든다</span>
+            </label>
+            <input id="c-slug" value={cSlug} onChange={(e) => setCSlug(e.target.value)} placeholder="예: gildong" className={inputCls} />
+          </div>
+          <div>
+            <label htmlFor="c-pw" className="mb-1 block text-xs font-bold">
+              문서 비밀번호{" "}
+              <span className="font-normal text-ink-muted">선택 · 4자 이상</span>
+            </label>
+            <input id="c-pw" type="password" value={cPw} onChange={(e) => { setCPw(e.target.value); if (!e.target.value) setCLocked(false); }} autoComplete="new-password" className={inputCls} />
+            {/* 정책 고지 — 반드시 눈에 띄어야 하는 문구라 빨간색을 쓴다. */}
+            <p className="mt-2 border-l-2 border-red-700 pl-3 text-sm font-semibold leading-relaxed text-red-700">
+              비밀번호 설정을 강력히 권장한다. 비밀번호를 설정하지 않은 문서는{" "}
+              <strong>누구나 수정·삭제할 수 있으며</strong>, 그로 인한 문서의
+              변형·삭제·수정에 대해 운영자는 책임지지 않는다.
+            </p>
+          </div>
+          <label className={`flex items-center gap-2 text-sm ${cPw ? "" : "opacity-40"}`}>
+            <input type="checkbox" checked={cLocked} disabled={!cPw} onChange={(e) => setCLocked(e.target.checked)} className="h-4 w-4" />
+            문서 잠금 — 비밀번호를 입력해야 열람 가능 (비밀번호 설정 시에만)
+          </label>
+          <button type="submit" className={`${btnCls} w-full`}>
+            문서 만들기
+          </button>
+          {cMsg ? <p className="text-sm text-red-800">{cMsg}</p> : null}
+        </form>
+
+        <p className="mt-8 space-x-4 text-sm">
+          <Link href="/" className="doc-link">
+            ← 대문으로
+          </Link>
+          <button type="button" onClick={() => setCreateMode(false)} className="doc-link">
+            이미 만든 문서 관리하기
+          </button>
+        </p>
+      </main>
+    );
+  }
+
+  /* ---------------- 로그인 ---------------- */
+  if (scope === null) {
     return (
       <main id="main" className="mx-auto w-full max-w-md px-5 pb-24 pt-20">
         <p className="eyebrow mb-2">{site.name}</p>
         <h1 className="text-2xl font-bold tracking-tight">관리</h1>
         <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-          문서 작성·수정은 인증키가 필요하다.
+          {deepLink?.person
+            ? `"${deepLink.person}" 문서의 비밀번호 또는 마스터 인증키를 입력한다.`
+            : "마스터 인증키를 입력한다. 내 문서만 고치려면 그 문서의 [수정] 링크로 들어온다."}
         </p>
 
         <form onSubmit={login} className="mt-6 space-y-3">
           <label htmlFor="admin-key" className="block text-xs font-bold">
-            인증키
+            {deepLink?.person ? "문서 비밀번호 / 인증키" : "인증키"}
           </label>
           <input
             id="admin-key"
@@ -583,16 +704,20 @@ export default function AdminClient() {
           {loginMsg ? <p className="text-sm text-red-800">{loginMsg}</p> : null}
         </form>
 
-        <p className="mt-8 text-sm">
+        <p className="mt-8 space-x-4 text-sm">
           <Link href="/" className="doc-link">
             ← 대문으로
           </Link>
+          <button type="button" onClick={() => setCreateMode(true)} className="doc-link">
+            + 새 문서 만들기
+          </button>
         </p>
       </main>
     );
   }
 
   /* ---------------- 관리 본화면 ---------------- */
+  const isMaster = scope === "master";
   const selected = profiles.find((p) => p.id === profileId) ?? null;
 
   return (
@@ -600,7 +725,12 @@ export default function AdminClient() {
       <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-rule pb-4">
         <div>
           <p className="eyebrow">{site.name}</p>
-          <h1 className="text-2xl font-bold tracking-tight">관리</h1>
+          <h1 className="text-2xl font-bold tracking-tight">
+            관리
+            <span className="ml-3 align-middle text-xs font-normal text-ink-muted">
+              {isMaster ? "마스터 — 모든 문서" : `문서 세션 — /${docInfo?.slug}`}
+            </span>
+          </h1>
         </div>
         <div className="flex items-center gap-4 text-sm">
           <Link href="/" className="doc-link">
@@ -625,25 +755,23 @@ export default function AdminClient() {
               setProfileId(e.target.value || null);
               if (e.target.value && tab === "people") setTab("projects");
             }}
+            disabled={!isMaster && profiles.length <= 1}
             className={`${inputCls} max-w-xs`}
           >
             <option value="">— 문서 선택 —</option>
             {profiles.map((p) => (
               <option key={p.id} value={p.id}>
                 {String(p.name)} (/{String(p.slug)})
+                {p.view_locked ? " · 잠금" : ""}
                 {p.is_published === false ? " · 초안" : ""}
               </option>
             ))}
           </select>
           <button type="button" onClick={() => setTab("people")} className={btnGhostCls}>
-            문서 관리 / 새 문서
+            {isMaster ? "문서 관리 / 새 문서" : "내 문서 정보"}
           </button>
           {selected ? (
-            <Link
-              href={`/${String(selected.slug)}`}
-              className={btnGhostCls}
-              target="_blank"
-            >
+            <Link href={`/${String(selected.slug)}`} className={btnGhostCls} target="_blank">
               문서 보기 ↗
             </Link>
           ) : null}
@@ -680,11 +808,13 @@ export default function AdminClient() {
         {tab === "people" ? (
           <TableEditor
             spec={PROFILE_SPEC}
-            profileId={null}
+            profileId={docInfo?.id ?? null}
             onProfilesChanged={loadProfiles}
             initialEditId={initialEditId ?? undefined}
             onInitialConsumed={() => setInitialEditId(null)}
             onExit={exitToBack}
+            canDeleteProfile={isMaster}
+            canCreate={isMaster}
           />
         ) : profileId ? (
           <TableEditor
