@@ -309,3 +309,7 @@ npx netlify deploy --build --prod
 - `service_role` 키는 어디에도 두지 않는다. 넣을 자리가 없다.
 - `.env.local` 은 `.gitignore` 에 있다. 커밋되지 않는다.
 - Storage `documents` 버킷은 공개다. 민감한 파일을 올리지 않는다.
+
+### 7.5. 배포 기록
+
+- 2026-08-20: 한글 slug 문서 404 수정 배포 (#1)
