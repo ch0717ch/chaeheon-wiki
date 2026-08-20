@@ -165,7 +165,7 @@ export default async function ProjectPage({ params }: PageProps) {
         title={<FnText text={project.title} registry={fn} />}
         lead={
           project.summary ? (
-            <p>
+            <p className="whitespace-pre-line">
               <FnText text={project.summary} registry={fn} />
             </p>
           ) : undefined

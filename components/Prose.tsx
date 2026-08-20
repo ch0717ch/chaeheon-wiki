@@ -22,7 +22,9 @@ export function Paragraphs({
   return (
     <div className={`max-w-prose space-y-4 leading-[1.85] text-ink-soft ${className}`}>
       {paragraphs.map((p, i) => (
-        <p key={i}>
+        // whitespace-pre-line: 문단 안의 한 줄 개행(Enter)을 그대로 보여준다.
+        // (빈 줄은 위의 toParagraphs 가 문단 나눔으로 처리한다)
+        <p key={i} className="whitespace-pre-line">
           <FnText text={p} registry={fn} />
         </p>
       ))}

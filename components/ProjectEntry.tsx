@@ -41,7 +41,7 @@ export default function ProjectEntry({
       ) : null}
 
       {project.summary ? (
-        <p className="mt-3 max-w-prose leading-[1.8] text-ink-soft">
+        <p className="mt-3 max-w-prose whitespace-pre-line leading-[1.8] text-ink-soft">
           <FnText text={project.summary} registry={fn} />
         </p>
       ) : null}

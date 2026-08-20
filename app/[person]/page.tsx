@@ -169,7 +169,7 @@ export default async function OverviewPage({ params }: PageProps) {
         }
         lead={
           profile.intro ? (
-            <p>
+            <p className="whitespace-pre-line">
               <FnText text={profile.intro} registry={fn} />
             </p>
           ) : undefined

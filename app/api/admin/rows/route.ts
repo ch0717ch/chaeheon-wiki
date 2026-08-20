@@ -57,6 +57,13 @@ function coerce(field: FieldSpec, value: unknown): unknown {
   }
 
   switch (field.type) {
+    case "textarea": {
+      // 붙여넣기·타 도구에서 온 리터럴 \n 도 진짜 줄바꿈으로 바꿔 준다.
+      return String(value ?? "")
+        .replace(/\r\n/g, "\n")
+        .replace(/\\n/g, "\n")
+        .trim();
+    }
     case "bool":
       return Boolean(value);
     case "int": {

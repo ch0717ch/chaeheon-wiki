@@ -186,7 +186,7 @@ export default async function CvPage({ params }: PageProps) {
       body: (
         <div className="max-w-prose space-y-4 leading-[1.85] text-ink-soft">
           {profile.intro ? (
-            <p>
+            <p className="whitespace-pre-line">
               <FnText text={profile.intro} registry={fn} />
             </p>
           ) : null}
