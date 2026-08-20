@@ -21,37 +21,61 @@ export default function ProjectEntry({
   fn?: FootnoteRegistry;
 }) {
   const period = formatPeriod(project.period_start, project.period_end, project.is_ongoing);
+  const href = `/${person}/work/${project.slug}`;
 
   return (
     <article className="border-b border-line py-6 first:pt-0">
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className="text-lg font-bold tracking-tight">
-          <Link href={`/${person}/work/${project.slug}`} className="doc-link">
-            {project.title}
+      <div className="flex items-start justify-between gap-5">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 className="text-lg font-bold tracking-tight">
+              <Link href={href} className="doc-link">
+                {project.title}
+              </Link>
+            </h3>
+            {project.category ? (
+              <span className="text-xs text-ink-muted">{project.category}</span>
+            ) : null}
+            {editLink}
+          </div>
+
+          {period ? (
+            <p className="mt-1 font-mono text-xs text-ink-muted">{period}</p>
+          ) : null}
+
+          {project.summary ? (
+            <p className="mt-3 max-w-prose whitespace-pre-line leading-[1.8] text-ink-soft">
+              <FnText text={project.summary} registry={fn} />
+            </p>
+          ) : null}
+
+          {project.tech_stack.length ? (
+            <p className="mt-3 text-[0.8125rem] text-ink-muted">
+              <span className="font-semibold">스택 </span>
+              {project.tech_stack.join(" · ")}
+            </p>
+          ) : null}
+        </div>
+
+        {/* 첨부 이미지가 있으면 오른쪽에 미리보기. 없으면 이 블록 자체가 없어
+            기존 배치가 그대로 유지된다. */}
+        {project.image_url ? (
+          <Link
+            href={href}
+            className="no-print hidden shrink-0 sm:block"
+            tabIndex={-1}
+            aria-hidden
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.image_url}
+              alt=""
+              loading="lazy"
+              className="h-24 w-36 border border-rule object-cover transition-opacity hover:opacity-85"
+            />
           </Link>
-        </h3>
-        {project.category ? (
-          <span className="text-xs text-ink-muted">{project.category}</span>
         ) : null}
-        {editLink}
       </div>
-
-      {period ? (
-        <p className="mt-1 font-mono text-xs text-ink-muted">{period}</p>
-      ) : null}
-
-      {project.summary ? (
-        <p className="mt-3 max-w-prose whitespace-pre-line leading-[1.8] text-ink-soft">
-          <FnText text={project.summary} registry={fn} />
-        </p>
-      ) : null}
-
-      {project.tech_stack.length ? (
-        <p className="mt-3 text-[0.8125rem] text-ink-muted">
-          <span className="font-semibold">스택 </span>
-          {project.tech_stack.join(" · ")}
-        </p>
-      ) : null}
     </article>
   );
 }
