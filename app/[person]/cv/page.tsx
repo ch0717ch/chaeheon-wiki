@@ -118,7 +118,9 @@ function EducationItem({
   const period = formatPeriod(item.period_start, item.period_end, item.is_current);
 
   // 기관명을 밝히지 않는 학력은 전공이 제목 자리를 대신한다.
-  const heading = item.school ?? item.field ?? item.degree ?? "";
+  // ?? 가 아니라 || 를 쓴다 — 관리 폼에서 저장하면 빈 칸이 null 이 아니라
+  // "" 로 들어오는데, "" 는 ?? 를 통과해 제목이 통째로 비어 보였다.
+  const heading = item.school || item.field || item.degree || "";
   const sub = compact(item.school ? [item.degree, item.field] : [item.degree]).join(" · ");
 
   return (
