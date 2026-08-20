@@ -55,6 +55,11 @@ export type Project = {
   role: string;
   key_decisions: string[];
   outcome: string;
+  /** 섹션 이름 덮어쓰기. 비우면 기본(문제/역할/핵심 판단/결과)이 쓰인다. */
+  label_problem: string;
+  label_role: string;
+  label_decisions: string;
+  label_outcome: string;
   tech_stack: string[];
   period_start: string | null;
   period_end: string | null;

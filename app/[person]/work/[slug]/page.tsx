@@ -66,10 +66,13 @@ export default async function ProjectPage({ params }: PageProps) {
     ...(refs.length ? [{ label: "참조", value: `${refs.length}건` }] : []),
   ];
 
+  // 섹션 이름은 문서별로 바꿀 수 있다. 비워 두면 기본 이름이 쓰인다.
+  const labelDecisions = project.label_decisions || "핵심 판단";
+
   const sections: DocSection[] = [
     {
       id: "problem",
-      title: "문제",
+      title: project.label_problem || "문제",
       body: project.problem ? (
         <Paragraphs text={project.problem} fn={fn} />
       ) : (
@@ -78,7 +81,7 @@ export default async function ProjectPage({ params }: PageProps) {
     },
     {
       id: "role",
-      title: "역할",
+      title: project.label_role || "역할",
       body: project.role ? (
         <Paragraphs text={project.role} fn={fn} />
       ) : (
@@ -87,12 +90,16 @@ export default async function ProjectPage({ params }: PageProps) {
     },
     {
       id: "decisions",
-      title: "핵심 판단",
+      title: labelDecisions,
       body: project.key_decisions.length ? (
         <div className="space-y-4">
-          <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
-            선택지가 갈렸던 지점과 그때 고른 방향, 그리고 그렇게 고른 이유다.
-          </p>
+          {/* 설명 문장은 기본 이름일 때만 — "라인업" 같은 이름으로 바꿨는데
+              판단 얘기가 나오면 어색하다. */}
+          {labelDecisions === "핵심 판단" ? (
+            <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
+              선택지가 갈렸던 지점과 그때 고른 방향, 그리고 그렇게 고른 이유다.
+            </p>
+          ) : null}
           <Bullets items={project.key_decisions} fn={fn} />
         </div>
       ) : (
@@ -101,7 +108,7 @@ export default async function ProjectPage({ params }: PageProps) {
     },
     {
       id: "outcome",
-      title: "결과",
+      title: project.label_outcome || "결과",
       body: project.outcome ? (
         <Paragraphs text={project.outcome} fn={fn} />
       ) : (
