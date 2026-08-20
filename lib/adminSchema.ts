@@ -131,6 +131,12 @@ export const CONTENT_SPECS: TableSpec[] = [
       { key: "is_current", label: "재직 중", type: "bool" },
       { key: "description", label: "설명", type: "textarea", hint: FN_HINT },
       { key: "highlights", label: "주요 성과(불릿)", type: "lines", hint: FN_HINT },
+      {
+        key: "pdf_url",
+        label: "포트폴리오 PDF URL",
+        type: "text",
+        hint: "인턴 일지 등 증빙 문서. 업로드 버튼으로 올리면 채워진다",
+      },
       ...COMMON_TAIL,
     ],
   },

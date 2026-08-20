@@ -82,6 +82,8 @@ export type Experience = {
   is_current: boolean;
   description: string;
   highlights: string[];
+  /** 인턴 일지 등 이 경력을 증빙하는 포트폴리오 PDF. 비우면 링크가 숨겨진다. */
+  pdf_url: string;
   sort_order: number;
   is_published: boolean;
   created_at: string;

@@ -90,6 +90,15 @@ function ExperienceItem({
           <Bullets items={item.highlights} fn={fn} />
         </div>
       ) : null}
+
+      {item.pdf_url ? (
+        <p className="mt-4 text-sm">
+          <span aria-hidden className="font-mono text-ink-muted">
+            ⎙{" "}
+          </span>
+          <ExternalLink href={item.pdf_url}>업무 포트폴리오 PDF 보기</ExternalLink>
+        </p>
+      ) : null}
     </article>
   );
 }
