@@ -33,11 +33,15 @@ type Body = {
   confirmKey?: string;
 };
 
-/** people 행에서 클라이언트로 절대 나가면 안 되는 컬럼. */
+/**
+ * people 행에서 해시는 절대 내보내지 않는다.
+ * 대신 "비밀번호가 설정돼 있는가"만 불리언으로 알려 화면이 상태를 보여줄 수 있게 한다.
+ */
 function stripSecret<T extends Record<string, unknown>>(row: T): T {
-  const copy = { ...row };
+  const copy = { ...row } as Record<string, unknown>;
+  copy.has_password = Boolean(copy.edit_password_hash);
   delete copy.edit_password_hash;
-  return copy;
+  return copy as T;
 }
 
 function normalizeSlug(raw: string): string {

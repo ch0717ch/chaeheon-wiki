@@ -43,12 +43,17 @@ export default async function FrontPage() {
                   >
                     <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                       <span className="text-lg font-bold tracking-tight text-ink group-hover:underline group-hover:underline-offset-4">
-                        {p.view_locked ? (
-                          <span aria-label="잠긴 문서" className="mr-1.5">
-                            🔒
-                          </span>
-                        ) : null}
                         {p.name}
+                      </span>
+                      {/* 열람 공개 여부. 잠긴 문서는 비밀번호를 입력해야 볼 수 있다. */}
+                      <span
+                        className={`border px-1.5 py-0.5 font-mono text-[0.625rem] font-bold tracking-wider ${
+                          p.view_locked
+                            ? "border-red-300 bg-red-50 text-red-700"
+                            : "border-green-300 bg-green-50 text-green-700"
+                        }`}
+                      >
+                        {p.view_locked ? "PRIVATE" : "PUBLIC"}
                       </span>
                       {p.name_en ? (
                         <span className="text-sm text-ink-muted">{p.name_en}</span>
@@ -79,7 +84,7 @@ export default async function FrontPage() {
             <Link href="/admin?create=1" className="doc-link">
               누구나 문서를 만들 수 있다
             </Link>
-            . 비밀번호를 설정한 문서는 소유자만 수정하며, 잠근 문서(🔒)는 비밀번호를
+            . 비밀번호를 설정한 문서는 소유자만 수정하며, PRIVATE 문서는 비밀번호를
             입력해야 열람된다.
           </p>
           {/* 열린 편집 정책 고지 — 대문에서 항상 보이는 짧은 면책 문구 */}

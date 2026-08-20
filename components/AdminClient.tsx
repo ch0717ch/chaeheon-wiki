@@ -351,6 +351,20 @@ function TableEditor({
         </div>
 
         <div className="space-y-4 p-4">
+          {/* 문서 비밀번호 상태 — "빈 칸이면 풀리는 것 아닌가" 하는 혼동을 없앤다. */}
+          {isProfiles && editing.id ? (
+            <p
+              className={`border-l-2 pl-3 text-sm font-semibold leading-relaxed ${
+                editing.has_password
+                  ? "border-green-600 text-green-700"
+                  : "border-red-700 text-red-700"
+              }`}
+            >
+              {editing.has_password
+                ? "문서 비밀번호: 설정됨 · 아래 '비밀번호 변경' 칸을 비워 두면 지금 비밀번호가 그대로 유지된다."
+                : "문서 비밀번호: 없음 · 지금은 누구나 이 문서를 수정할 수 있다. 설정을 권장한다."}
+            </p>
+          ) : null}
           {spec.fields.map((f) => (
             <Field
               key={f.key}
@@ -418,7 +432,16 @@ function TableEditor({
                 ) : null}
               </p>
               {isProfiles ? (
-                <p className="text-xs text-ink-muted">/{String(row.slug ?? "")}</p>
+                <p className="text-xs text-ink-muted">
+                  /{String(row.slug ?? "")}
+                  {row.has_password ? (
+                    <span className="ml-2 text-green-700">비번 있음</span>
+                  ) : (
+                    <span className="ml-2 font-semibold text-red-700">
+                      비번 없음 — 누구나 수정 가능
+                    </span>
+                  )}
+                </p>
               ) : null}
             </div>
             <div className="flex shrink-0 gap-2">
