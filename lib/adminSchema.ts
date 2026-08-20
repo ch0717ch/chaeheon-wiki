@@ -107,7 +107,7 @@ export const PROFILE_SPEC: TableSpec = {
       key: "view_locked",
       label: "문서 잠금",
       type: "bool",
-      hint: "켜면 문서 비밀번호(또는 마스터 인증키)를 입력해야 열람 가능",
+      hint: "켜면 문서 비밀번호를 입력해야 열람 가능",
     },
     {
       key: "new_password",
@@ -119,7 +119,7 @@ export const PROFILE_SPEC: TableSpec = {
       key: "is_protected",
       label: "보호 문서",
       type: "bool",
-      hint: "마스터 인증키로만 수정 가능. 이 설정 자체도 마스터만 바꿀 수 있다",
+      hint: "운영자 전용 보호 설정 — 일반 편집으로는 바꿀 수 없다",
     },
     ...COMMON_TAIL,
   ],

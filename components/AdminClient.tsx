@@ -705,13 +705,13 @@ export default function AdminClient() {
         <h1 className="text-2xl font-bold tracking-tight">관리</h1>
         <p className="mt-3 text-sm leading-relaxed text-ink-soft">
           {deepLink?.person
-            ? `"${deepLink.person}" 문서의 비밀번호 또는 마스터 인증키를 입력한다.`
-            : "마스터 인증키를 입력한다. 내 문서만 고치려면 그 문서의 [수정] 링크로 들어온다."}
+            ? `"${deepLink.person}" 문서의 비밀번호를 입력한다.`
+            : "관리 비밀번호를 입력한다. 내 문서를 고치려면 그 문서의 [수정] 링크로 들어온다."}
         </p>
 
         <form onSubmit={login} className="mt-6 space-y-3">
           <label htmlFor="admin-key" className="block text-xs font-bold">
-            {deepLink?.person ? "문서 비밀번호 / 인증키" : "인증키"}
+            {deepLink?.person ? "문서 비밀번호" : "비밀번호"}
           </label>
           <input
             id="admin-key"

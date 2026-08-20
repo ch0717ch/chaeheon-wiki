@@ -103,7 +103,7 @@ export async function POST(req: Request) {
     const cur = rec && now - rec.ts < WINDOW_MS ? rec : { n: 0, ts: now };
     attempts.set(ip, { n: cur.n + 1, ts: cur.ts });
     return NextResponse.json(
-      { error: "인증키 또는 문서 비밀번호가 올바르지 않다." },
+      { error: "비밀번호가 올바르지 않다." },
       { status: 401 },
     );
   };

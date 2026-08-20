@@ -270,9 +270,13 @@ export async function POST(req: Request) {
       if (isProfileTable) {
         // 문서 전체 삭제는 마스터 + 인증키 재입력만. 문서 세션은 불가 —
         // 비밀번호 하나로 문서가 통째로 사라지는 사고를 막는다.
-        if (!isMaster || !verifyKey(body.confirmKey ?? "")) {
+        if (!isMaster) {
+          // 일반 사용자에게는 상위 권한의 존재를 드러내지 않는다.
+          return NextResponse.json({ error: "문서 삭제 권한이 없다." }, { status: 403 });
+        }
+        if (!verifyKey(body.confirmKey ?? "")) {
           return NextResponse.json(
-            { error: "문서 삭제에는 마스터 인증키 재입력이 필요하다." },
+            { error: "문서 삭제에는 인증키 재입력이 필요하다." },
             { status: 403 },
           );
         }
