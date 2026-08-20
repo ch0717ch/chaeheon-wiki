@@ -58,17 +58,24 @@ export function Paragraphs({
   );
 }
 
-/** 불릿 목록. 위키처럼 들여쓰기 대신 얇은 세로선으로 계층을 표시한다. */
+/**
+ * 불릿 목록. 위키처럼 들여쓰기 대신 얇은 세로선으로 계층을 표시한다.
+ * 항목이 통째로 유튜브 링크면 그 자리에 플레이어를 띄운다 —
+ * 곡 목록처럼 "제목 한 줄, 링크 한 줄" 로 쓰는 경우를 위해서다.
+ */
 export function Bullets({ items, fn }: { items: string[]; fn?: FootnoteRegistry }) {
   if (!items.length) return null;
 
   return (
     <ul className="max-w-prose space-y-3">
-      {items.map((item, i) => (
-        <li key={i} className="border-l-2 border-line pl-4 leading-[1.85] text-ink-soft">
-          <FnText text={item} registry={fn} />
-        </li>
-      ))}
+      {items.map((item, i) => {
+        const yt = extractYouTubeId(item);
+        return (
+          <li key={i} className="border-l-2 border-line pl-4 leading-[1.85] text-ink-soft">
+            {yt ? <YouTubeEmbed id={yt} /> : <FnText text={item} registry={fn} />}
+          </li>
+        );
+      })}
     </ul>
   );
 }
