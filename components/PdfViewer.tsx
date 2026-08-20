@@ -1,4 +1,5 @@
 import { ExternalLink } from "@/components/Links";
+import PdfDownload from "@/components/PdfDownload";
 
 /**
  * 원본 PDF 열람 영역.
@@ -21,15 +22,16 @@ export default function PdfViewer({
     <figure className="max-w-prose">
       <div className="flex flex-wrap items-center justify-between gap-3 border-2 border-rule bg-slab px-4 py-2.5 text-on-slab">
         <span className="text-xs font-bold uppercase tracking-[0.15em]">원본 문서</span>
-        <a
-          href={src}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="slab-link text-sm font-semibold"
-        >
-          새 탭에서 열기
-          <span className="sr-only"> (새 창에서 열림)</span>
-        </a>
+        <span className="flex items-center gap-3 text-sm font-semibold">
+          <a href={src} target="_blank" rel="noopener noreferrer" className="slab-link">
+            새 탭에서 열기
+            <span className="sr-only"> (새 창에서 열림)</span>
+          </a>
+          <span aria-hidden className="text-on-slab-muted">
+            ·
+          </span>
+          <PdfDownload href={src} filename={`${title}.pdf`} className="slab-link" />
+        </span>
       </div>
 
       {/* 세로가 긴 문서라 A4 비율에 가깝게 잡되, 모바일에서는 높이를 줄인다. */}

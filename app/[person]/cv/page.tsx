@@ -5,6 +5,7 @@ import ExpertiseGrid from "@/components/ExpertiseGrid";
 import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink } from "@/components/Links";
+import PdfDownload from "@/components/PdfDownload";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import EditLink from "@/components/EditLink";
@@ -97,6 +98,8 @@ function ExperienceItem({
             ⎙{" "}
           </span>
           <ExternalLink href={item.pdf_url}>업무 포트폴리오 PDF 보기</ExternalLink>
+          <span className="text-ink-muted"> · </span>
+          <PdfDownload href={item.pdf_url} filename={`${item.org} 포트폴리오.pdf`} />
         </p>
       ) : null}
     </article>
@@ -197,7 +200,12 @@ export default async function CvPage({ params }: PageProps) {
           {profile.resume_pdf_url ? (
             <p>
               PDF 이력서:{" "}
-              <ExternalLink href={profile.resume_pdf_url}>이력서 내려받기</ExternalLink>
+              <ExternalLink href={profile.resume_pdf_url}>보기</ExternalLink>
+              <span className="text-ink-muted"> · </span>
+              <PdfDownload
+                href={profile.resume_pdf_url}
+                filename={`${profile.name} 이력서.pdf`}
+              />
             </p>
           ) : null}
         </div>

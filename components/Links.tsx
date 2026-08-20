@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PdfDownload from "@/components/PdfDownload";
 import { prettyUrl } from "@/lib/format";
 
 /**
@@ -41,6 +42,8 @@ export function RefList({ items }: { items: RefItem[] }) {
       {items.map((item, i) => {
         const isExternal = /^https?:\/\//.test(item.href);
         const isMail = item.href.startsWith("mailto:");
+        // PDF 는 열람 링크 옆에 저장 링크를 함께 둔다.
+        const isPdf = /\.pdf($|\?)/i.test(item.href);
 
         return (
           <li key={item.href + i} className="grid grid-cols-[2rem_1fr] items-baseline">
@@ -58,6 +61,12 @@ export function RefList({ items }: { items: RefItem[] }) {
                   {item.href}
                 </Link>
               )}
+              {isPdf ? (
+                <>
+                  <span className="text-ink-muted"> · </span>
+                  <PdfDownload href={item.href} filename={`${item.label}.pdf`} />
+                </>
+              ) : null}
             </span>
           </li>
         );
