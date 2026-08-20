@@ -60,6 +60,10 @@ export type Project = {
   label_role: string;
   label_decisions: string;
   label_outcome: string;
+  /** 항목 상단 이미지. 비우면 표시 안 함. */
+  image_url: string;
+  /** 본문 폭 대비 % (10~100). null 이면 100. */
+  image_width: number | null;
   tech_stack: string[];
   period_start: string | null;
   period_end: string | null;
@@ -89,6 +93,10 @@ export type Experience = {
   highlights: string[];
   /** 인턴 일지 등 이 경력을 증빙하는 포트폴리오 PDF. 비우면 링크가 숨겨진다. */
   pdf_url: string;
+  /** 항목 상단 이미지. 비우면 표시 안 함. */
+  image_url: string;
+  /** 본문 폭 대비 % (10~100). null 이면 100. */
+  image_width: number | null;
   sort_order: number;
   is_published: boolean;
   created_at: string;
@@ -107,6 +115,10 @@ export type Education = {
   period_end: string | null;
   is_current: boolean;
   note: string;
+  /** 항목 상단 이미지. 비우면 표시 안 함. */
+  image_url: string;
+  /** 본문 폭 대비 % (10~100). null 이면 100. */
+  image_width: number | null;
   sort_order: number;
   is_published: boolean;
   created_at: string;
@@ -157,6 +169,10 @@ export type ResearchPlan = {
   methodology: string;
   status: ResearchPlanStatus;
   pdf_url: string | null;
+  /** 항목 상단 이미지. 비우면 표시 안 함. */
+  image_url: string;
+  /** 본문 폭 대비 % (10~100). null 이면 100. */
+  image_width: number | null;
   reference_urls: string[];
   sort_order: number;
   is_published: boolean;

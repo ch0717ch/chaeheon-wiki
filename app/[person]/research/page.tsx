@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ContentImage from "@/components/ContentImage";
 import EditLink from "@/components/EditLink";
 import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
@@ -92,16 +93,19 @@ function planSection(
     id: base,
     title: plan.title,
     body: (
-      <p className="text-sm text-ink-muted">
-        상태: {STATUS_LABEL[plan.status]}
-        {plan.interests.length ? (
-          <>
-            {" · 키워드: "}
-            <FnText text={plan.interests.join(", ")} registry={fn} />
-          </>
-        ) : null}{" "}
-        <EditLink table="research_plans" id={plan.id} person={person} back={backHere} />
-      </p>
+      <div>
+        <p className="text-sm text-ink-muted">
+          상태: {STATUS_LABEL[plan.status]}
+          {plan.interests.length ? (
+            <>
+              {" · 키워드: "}
+              <FnText text={plan.interests.join(", ")} registry={fn} />
+            </>
+          ) : null}{" "}
+          <EditLink table="research_plans" id={plan.id} person={person} back={backHere} />
+        </p>
+        <ContentImage src={plan.image_url} width={plan.image_width} alt={`${plan.title} 이미지`} />
+      </div>
     ),
     children,
   };

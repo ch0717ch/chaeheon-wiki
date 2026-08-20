@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ContentImage from "@/components/ContentImage";
 import EditLink from "@/components/EditLink";
 import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
@@ -181,6 +182,9 @@ export default async function ProjectPage({ params }: PageProps) {
       />
 
       <InfoBox title="프로젝트 개요" rows={infoRows} fn={fn} />
+
+      {/* 대표 이미지 — 문서 머리와 목차 사이. 없으면 기존 배치 그대로. */}
+      <ContentImage src={project.image_url} width={project.image_width} alt={project.title} />
 
       <Toc sections={sections} />
       <DocSections sections={sections} fn={fn} />

@@ -35,6 +35,22 @@ export type TableSpec = {
 const FN_HINT =
   "각주 [*장문] → 번호[1] + 하단 목록 · 툴팁 [**단문] → * 표시, 마우스 올리면 말풍선";
 
+/** 항목 이미지 두 칸. image_url 은 _url 로 끝나 업로드 버튼이 자동으로 붙는다. */
+const IMAGE_FIELDS: FieldSpec[] = [
+  {
+    key: "image_url",
+    label: "이미지 URL",
+    type: "text",
+    hint: "글 상단에 표시. 비우면 이미지 없음 — 업로드 버튼으로 올린다",
+  },
+  {
+    key: "image_width",
+    label: "이미지 폭 %",
+    type: "int",
+    hint: "10~100. 비우면 100(본문 폭 가득)",
+  },
+];
+
 const COMMON_TAIL: FieldSpec[] = [
   { key: "sort_order", label: "정렬 순서", type: "int", hint: "작을수록 위" },
   { key: "is_published", label: "공개", type: "bool", hint: "끄면 사이트에서 숨김(초안)" },
@@ -101,6 +117,7 @@ export const CONTENT_SPECS: TableSpec[] = [
       { key: "title", label: "제목", type: "text" },
       { key: "summary", label: "한 줄 요약", type: "textarea" },
       { key: "category", label: "분류", type: "text", hint: "예: 웹 서비스 / 데이터 / 창작" },
+      ...IMAGE_FIELDS,
       { key: "label_problem", label: "1절 이름", type: "text", hint: "비우면 '문제'. 공연이면 '기획 배경' 처럼 바꿀 수 있다" },
       { key: "problem", label: "1절 본문 (기본: 문제)", type: "textarea", hint: FN_HINT },
       { key: "label_role", label: "2절 이름", type: "text", hint: "비우면 '역할'" },
@@ -141,6 +158,7 @@ export const CONTENT_SPECS: TableSpec[] = [
         type: "text",
         hint: "인턴 일지 등 증빙 문서. 업로드 버튼으로 올리면 채워진다",
       },
+      ...IMAGE_FIELDS,
       ...COMMON_TAIL,
     ],
   },
@@ -157,6 +175,7 @@ export const CONTENT_SPECS: TableSpec[] = [
       { key: "period_end", label: "종료", type: "date" },
       { key: "is_current", label: "재학 중", type: "bool" },
       { key: "note", label: "비고", type: "textarea" },
+      ...IMAGE_FIELDS,
       ...COMMON_TAIL,
     ],
   },
@@ -212,6 +231,7 @@ export const CONTENT_SPECS: TableSpec[] = [
         hint: "draft=초안 in_progress=진행 submitted=제출 published=게재",
       },
       { key: "pdf_url", label: "PDF URL", type: "text" },
+      ...IMAGE_FIELDS,
       { key: "reference_urls", label: "참고 링크", type: "lines" },
       ...COMMON_TAIL,
     ],

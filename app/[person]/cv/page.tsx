@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ContentImage from "@/components/ContentImage";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
 import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
@@ -84,6 +85,8 @@ function ExperienceItem({
         <FnText text={compact([period, sub]).join(" · ")} registry={fn} />
       </p>
 
+      <ContentImage src={item.image_url} width={item.image_width} alt={`${item.org} 이미지`} />
+
       <Paragraphs text={item.description} className="mt-3" fn={fn} />
 
       {item.highlights.length ? (
@@ -140,6 +143,8 @@ function EducationItem({
       <p className="mt-1 font-mono text-xs text-ink-muted">
         <FnText text={compact([period, item.location]).join(" · ")} registry={fn} />
       </p>
+
+      <ContentImage src={item.image_url} width={item.image_width} alt={`${heading} 이미지`} />
 
       <Paragraphs text={item.note} className="mt-3" fn={fn} />
     </article>
