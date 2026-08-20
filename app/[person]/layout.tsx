@@ -10,20 +10,18 @@ import {
   verifyToken,
 } from "@/lib/adminAuth";
 import { stripFootnotes } from "@/lib/footnotes";
-import { getProfileBySlug, getProfiles } from "@/lib/queries";
+import { getProfileBySlug } from "@/lib/queries";
 import { site } from "@/lib/site";
 
-export const revalidate = 300;
+// 인물 페이지는 동적 렌더로 강제한다. 잠긴 문서의 열람 판정이 쿠키를
+// 읽어야 하는데, 정적 생성(ISR) 중에는 쿠키 접근이 불가능해 프로덕션에서
+// 500 이 났다. 동적 전환의 부수 효과로 수정이 캐시 지연 없이 즉시 보인다.
+export const dynamic = "force-dynamic";
 
 type LayoutProps = {
   children: React.ReactNode;
   params: Promise<{ person: string }>;
 };
-
-export async function generateStaticParams() {
-  const profiles = await getProfiles();
-  return profiles.map((p) => ({ person: p.slug }));
-}
 
 export async function generateMetadata({
   params,

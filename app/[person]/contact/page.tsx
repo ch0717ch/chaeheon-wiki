@@ -9,8 +9,6 @@ import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiD
 import { FootnoteRegistry } from "@/lib/footnotes";
 import { getProfileBySlug } from "@/lib/queries";
 
-export const revalidate = 300;
-
 type PageProps = { params: Promise<{ person: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

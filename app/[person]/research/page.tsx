@@ -12,8 +12,6 @@ import { FootnoteRegistry } from "@/lib/footnotes";
 import { getProfileBySlug, getResearchPlans } from "@/lib/queries";
 import type { ResearchPlan, ResearchPlanStatus } from "@/types";
 
-export const revalidate = 300;
-
 type PageProps = { params: Promise<{ person: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

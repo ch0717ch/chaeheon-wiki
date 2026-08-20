@@ -12,8 +12,6 @@ import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiD
 import { getFeaturedProjects, getProfileBySlug } from "@/lib/queries";
 import { docTree } from "@/lib/site";
 
-export const revalidate = 300;
-
 type PageProps = { params: Promise<{ person: string }> };
 
 export default async function OverviewPage({ params }: PageProps) {

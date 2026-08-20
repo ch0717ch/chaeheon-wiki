@@ -14,8 +14,6 @@ import { formatPeriod } from "@/lib/format";
 import { getProfileBySlug, getProjectBySlug } from "@/lib/queries";
 import type { Project } from "@/types";
 
-export const revalidate = 300;
-
 type PageProps = { params: Promise<{ person: string; slug: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

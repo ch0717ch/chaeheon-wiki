@@ -22,8 +22,6 @@ import {
 } from "@/lib/queries";
 import type { Certification, Education, Experience, TimelineEntry } from "@/types";
 
-export const revalidate = 300;
-
 type PageProps = { params: Promise<{ person: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

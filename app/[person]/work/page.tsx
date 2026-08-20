@@ -10,8 +10,6 @@ import { FootnoteRegistry } from "@/lib/footnotes";
 import { getProfileBySlug, getProjects } from "@/lib/queries";
 import type { Project } from "@/types";
 
-export const revalidate = 300;
-
 type PageProps = { params: Promise<{ person: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
