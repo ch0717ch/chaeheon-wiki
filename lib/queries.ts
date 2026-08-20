@@ -18,6 +18,18 @@ function logFailure(scope: string, error: unknown) {
   if (error) console.error(`[queries] ${scope} 조회 실패:`, error);
 }
 
+// App Router 의 동적 세그먼트 값은 퍼센트 인코딩된 채로 넘어온다.
+// 한글 slug(/홍길동 → %ED%99%8D...)를 그대로 DB 에 조회하면 항상 404 가
+// 나므로, slug 로 찾기 전에 반드시 디코딩한다. NFC 정규화는 iOS 등에서
+// 자소 분리된 한글이 들어오는 경우를 흡수한다.
+function decodeSlug(raw: string): string {
+  try {
+    return decodeURIComponent(raw).normalize("NFC");
+  } catch {
+    return raw;
+  }
+}
+
 /* ---------------------------------------------------------------------
    profiles — 인물 문서
 
@@ -72,9 +84,10 @@ export async function getProfiles(): Promise<Profile[]> {
 }
 
 // 레이아웃과 페이지가 같은 요청 안에서 두 번 부르므로 React cache 로 감싼다.
-export const getProfileBySlug = cache(async (slug: string): Promise<Profile | null> => {
+export const getProfileBySlug = cache(async (rawSlug: string): Promise<Profile | null> => {
   const supabase = getSupabase();
   if (!supabase) return null;
+  const slug = decodeSlug(rawSlug);
 
   const first = await supabase
     .from("people")
@@ -128,10 +141,11 @@ export async function getFeaturedProjects(profileId: string, limit = 3): Promise
 
 export async function getProjectBySlug(
   profileId: string,
-  slug: string,
+  rawSlug: string,
 ): Promise<Project | null> {
   const supabase = getSupabase();
   if (!supabase) return null;
+  const slug = decodeSlug(rawSlug);
 
   const { data, error } = await supabase
     .from("projects")
