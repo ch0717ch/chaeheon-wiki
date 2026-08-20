@@ -176,7 +176,13 @@ export default async function OverviewPage({ params }: PageProps) {
 
       {/* 나무위키처럼 문서 자체를 그 자리에서 고친다. 키가 없으면 입력 화면에서 막힌다. */}
       <p className="no-print mt-3 text-sm">
-        <EditLink table="people" id={profile.id} back={base} label="문서 수정" />
+        <EditLink
+          table="people"
+          id={profile.id}
+          person={profile.slug}
+          back={base}
+          label="문서 수정"
+        />
       </p>
 
       <ProfileCard profile={profile} fn={fn} />

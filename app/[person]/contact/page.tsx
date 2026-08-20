@@ -151,6 +151,7 @@ export default async function ContactPage({ params }: PageProps) {
         <EditLink
           table="people"
           id={profile.id}
+          person={profile.slug}
           back={`/${profile.slug}/contact`}
           label="연락처 수정"
         />
