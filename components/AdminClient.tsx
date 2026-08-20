@@ -144,6 +144,7 @@ function TableEditor({
   onExit,
   canDeleteProfile = true,
   canCreate = true,
+  masterScope = true,
 }: {
   spec: TableSpec;
   profileId: string | null; // profiles 편집일 때는 null
@@ -156,6 +157,8 @@ function TableEditor({
   /** 문서 세션은 문서(people) 삭제·신규 생성이 불가하다. */
   canDeleteProfile?: boolean;
   canCreate?: boolean;
+  /** 문서 세션에는 운영 전용 필드(보호 문서)를 아예 보여주지 않는다. */
+  masterScope?: boolean;
 }) {
   const [rows, setRows] = useState<Row[]>([]);
   const [editing, setEditing] = useState<Row | null>(null); // null=목록, id 없는 Row=새 행
@@ -365,7 +368,9 @@ function TableEditor({
                 : "문서 비밀번호: 없음 · 지금은 누구나 이 문서를 수정할 수 있다. 설정을 권장한다."}
             </p>
           ) : null}
-          {spec.fields.map((f) => (
+          {spec.fields
+            .filter((f) => masterScope || f.key !== "is_protected")
+            .map((f) => (
             <Field
               key={f.key}
               field={f}
@@ -838,6 +843,7 @@ export default function AdminClient() {
             onExit={exitToBack}
             canDeleteProfile={isMaster}
             canCreate={isMaster}
+            masterScope={isMaster}
           />
         ) : profileId ? (
           <TableEditor

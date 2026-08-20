@@ -105,9 +105,9 @@ export const PROFILE_SPEC: TableSpec = {
     { key: "target_edge", label: "차별점", type: "text" },
     {
       key: "view_locked",
-      label: "문서 잠금",
+      label: "문서 잠금(열람 제한)",
       type: "bool",
-      hint: "켜면 문서 비밀번호를 입력해야 열람 가능",
+      hint: "켜고 저장해야 열람이 막힌다. 비밀번호만 설정하면 수정만 막히고 열람은 공개 — 열람까지 막으려면 반드시 이 스위치를 켠다",
     },
     {
       key: "new_password",
@@ -119,7 +119,7 @@ export const PROFILE_SPEC: TableSpec = {
       key: "is_protected",
       label: "보호 문서",
       type: "bool",
-      hint: "운영자 전용 보호 설정 — 일반 편집으로는 바꿀 수 없다",
+      hint: "보호 문서는 일반 편집으로 바꿀 수 없다",
     },
     ...COMMON_TAIL,
   ],
