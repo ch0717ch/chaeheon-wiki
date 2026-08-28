@@ -7,6 +7,7 @@ import { ExternalLink, RefList, type RefItem } from "@/components/Links";
 import { EmptyNotice } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import { FootnoteRegistry } from "@/lib/footnotes";
+import { buildChannels } from "@/lib/links";
 import { getProfileBySlug } from "@/lib/queries";
 
 type PageProps = { params: Promise<{ person: string }> };
@@ -20,8 +21,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-type Channel = { label: string; href: string; note: string };
-
 export default async function ContactPage({ params }: PageProps) {
   const { person } = await params;
   const profile = await getProfileBySlug(person);
@@ -29,47 +28,8 @@ export default async function ContactPage({ params }: PageProps) {
 
   const fn = new FootnoteRegistry();
 
-  // 값이 비어 있는 채널은 목록에서 통째로 빠진다.
-  const channels: Channel[] = (
-    [
-      {
-        label: "이메일",
-        href: profile.link_email ? `mailto:${profile.link_email}` : "",
-        note: "가장 확실한 경로. 협업이나 연구 관련 문의는 여기로.",
-      },
-      {
-        label: "GitHub",
-        href: profile.link_github,
-        note: "프로젝트 저장소와 진행 중인 코드.",
-      },
-      {
-        label: "블로그",
-        href: profile.link_blog,
-        note: "작업과 전공 기록.",
-      },
-      {
-        label: "블로그 2",
-        href: profile.link_blog2,
-        note: "일상과 대외활동 기록.",
-      },
-      {
-        label: "Instagram",
-        href: profile.link_instagram,
-        note: "일상·창작 활동.",
-      },
-      {
-        label: "LinkedIn",
-        href: profile.link_linkedin,
-        note: "경력 요약과 이력 관련 문의.",
-      },
-      // 고정 칸 밖의 채널. 목록이라 개수 제한이 없다.
-      ...(profile.links_extra ?? []).map((link) => ({
-        label: link.label,
-        href: link.url,
-        note: link.note ?? "",
-      })),
-    ] as Channel[]
-  ).filter((c) => Boolean(c.href));
+  // 값이 비어 있는 채널은 목록에서 통째로 빠진다. 순서는 lib/links 가 정한다.
+  const channels = buildChannels(profile);
 
   const refs: RefItem[] = channels.map(({ label, href }) => ({ label, href }));
 

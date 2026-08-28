@@ -1,8 +1,15 @@
 import type { ReactNode } from "react";
 import { FnText } from "@/components/Footnotes";
-import { BlogIcon, GithubIcon, InstagramIcon, MailIcon } from "@/components/Icons";
+import {
+  BlogIcon,
+  BlogspotIcon,
+  GithubIcon,
+  InstagramIcon,
+  MailIcon,
+} from "@/components/Icons";
 import ProfilePhoto from "@/components/ProfilePhoto";
 import type { FootnoteRegistry } from "@/lib/footnotes";
+import { buildChannels, type ChannelKind } from "@/lib/links";
 import type { Profile } from "@/types";
 
 type Row = { label: string; value: ReactNode };
@@ -23,34 +30,21 @@ export default function ProfileCard({
 }) {
   // 짧은 값도 각주 문법이 살아나도록 전부 이 함수를 거친다.
   const T = (s: string) => <FnText text={s} registry={fn} />;
-  const socialLinks = [
-    { key: "github", href: profile.link_github, label: "GitHub", Icon: GithubIcon },
-    { key: "blog", href: profile.link_blog, label: "블로그", Icon: BlogIcon },
-    { key: "blog2", href: profile.link_blog2, label: "블로그 2", Icon: BlogIcon },
-    {
-      key: "instagram",
-      href: profile.link_instagram,
-      label: "Instagram",
-      Icon: InstagramIcon,
-    },
-    // 추가 채널. 주소로 종류를 알아내 같은 아이콘 체계에 태운다.
-    ...(profile.links_extra ?? []).map((link, i) => ({
-      key: `extra-${i}`,
-      href: link.url,
-      label: link.label,
-      Icon: /instagram\.com/i.test(link.url)
-        ? InstagramIcon
-        : /github\.com/i.test(link.url)
-          ? GithubIcon
-          : BlogIcon,
-    })),
-    {
-      key: "email",
-      href: profile.link_email ? `mailto:${profile.link_email}` : "",
-      label: "이메일",
-      Icon: MailIcon,
-    },
-  ].filter((l) => Boolean(l.href));
+  // 순서와 이름은 lib/links 가 정한다. 여기서는 아이콘만 붙인다.
+  // 블로그는 네이버(N)와 Blogspot(G)이 나란히 놓이므로 주소로 갈라 준다.
+  const iconFor = (kind: ChannelKind, href: string) => {
+    if (kind === "email") return MailIcon;
+    if (kind === "github") return GithubIcon;
+    if (kind === "instagram") return InstagramIcon;
+    return /blogspot\.com|blogger\.com/i.test(href) ? BlogspotIcon : BlogIcon;
+  };
+
+  const socialLinks = buildChannels(profile).map((channel, i) => ({
+    key: `${channel.kind}-${i}`,
+    href: channel.href,
+    label: channel.label,
+    Icon: iconFor(channel.kind, channel.href),
+  }));
 
   const rows: Row[] = (
     [

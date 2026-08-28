@@ -34,6 +34,30 @@ export function BlogIcon({ className = "h-5 w-5" }: IconProps) {
   );
 }
 
+/**
+ * Blogspot(구글) 블로그 — 네이버 N 과 나란히 놓이므로 G 로 구분한다.
+ * 원 안의 G. 획 두께를 N 사각형과 비슷하게 맞춰 나란히 놔도 무게가 같다.
+ */
+export function BlogspotIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      aria-hidden="true"
+      className={`${base} ${className}`}
+    >
+      <circle cx="8" cy="8" r="6.3" />
+      <path
+        d="M10.9 5.6a3.6 3.6 0 1 0 .55 3.15H8.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function InstagramIcon({ className = "h-5 w-5" }: IconProps) {
   return (
     <svg
