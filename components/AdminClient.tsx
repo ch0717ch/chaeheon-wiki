@@ -323,7 +323,7 @@ function TableEditor({
         },
       );
 
-      // 2) 파일은 Supabase Storage 로 직접 올린다. Netlify 의 6MB 제한을 우회한다.
+      // 2) 파일은 Supabase Storage 로 직접 올린다. 서버리스 본문 크기 제한을 우회한다.
       const put = await fetch(t.signedUrl, {
         method: "PUT",
         headers: { "Content-Type": contentType, "x-upsert": "false" },

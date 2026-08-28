@@ -1,5 +1,5 @@
 import "server-only";
-// node: 접두사는 과거 Netlify 배포에서 문제를 일으킨 적이 있어 쓰지 않는다.
+// node: 접두사는 과거 배포 환경에서 문제를 일으킨 적이 있어 쓰지 않는다.
 import { createHmac, createHash, randomBytes, timingSafeEqual } from "crypto";
 
 // =====================================================================

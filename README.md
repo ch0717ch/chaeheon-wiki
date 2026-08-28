@@ -18,7 +18,7 @@
 - 인물 문서 = `people` 테이블 행 하나. 콘텐츠 6개 테이블은 `profile_id` 로 연결.
 - 관리 쓰기는 서버 API(`/api/admin/*`)가 service role 로만 수행한다.
   브라우저에는 쓰기 권한이 없고, RLS 는 여전히 select 만 허용한다.
-- 인증키(`ADMIN_KEY`)와 service role 키는 Netlify 환경변수에 있다.
+- 인증키(`ADMIN_KEY`)와 service role 키는 Cloudflare Workers 시크릿에 있다.
 - 구 V1 주소(`/cv` 등)는 `/chaeheon/...` 으로 자동 리다이렉트된다.
 
 | 항목 | 내용 |
@@ -76,7 +76,10 @@ types/index.ts  DB 행 타입
 4. **Project Settings → Data API** 에서 `Project URL` 을 복사한다.
 5. **Project Settings → API Keys** 에서 `Publishable key`(또는 `anon` 키)를 복사한다.
 
-> `service_role` / `secret` 키는 이 프로젝트에서 쓰지 않는다. 쓰기 경로가 없다.
+> 로컬 개발에는 publishable(anon) 키만 있으면 된다. 읽기는 그 키로 전부 처리한다.
+> `service_role` 키는 관리자 쓰기(`/api/admin/*`)를 실제로 굴릴 때만 필요하며,
+> 배포 환경에서는 Cloudflare 시크릿으로만 넣는다. `.env.local` 에 넣더라도
+> `NEXT_PUBLIC_` 접두사는 절대 붙이지 않는다 — 붙는 순간 브라우저로 노출된다.
 
 ### 3.2. 환경변수
 
@@ -185,55 +188,60 @@ npm run lint
 
 > 공개 버킷이므로 URL 을 아는 사람은 누구나 받을 수 있다. 개인정보가 들어간 파일은 올리지 않는다.
 
-수정한 내용은 최대 5분 뒤 사이트에 반영된다(`revalidate = 300`). 즉시 반영하려면 Netlify 에서 재배포한다.
+수정한 내용은 최대 5분 뒤 사이트에 반영된다(`revalidate = 300`). 즉시 반영하려면 `npm run cf:deploy` 로 재배포한다.
 
 ---
 
-## 5. Netlify 배포
+## 5. Cloudflare Workers 배포
+
+OpenNext 어댑터로 Next.js 를 Workers 용으로 빌드해 올린다. 무료이고 크레딧이 들지 않는다.
 
 ### 5.1. 저장소 올리기
 
 ```bash
-git remote add origin https://github.com/GITHUB_USERNAME/portfolio-site.git
+git remote add origin https://github.com/ch0717ch/chaeheon-wiki.git
 ```
 
 ```bash
 git push -u origin main
 ```
 
-### 5.2. Netlify 사이트 만들기
-
-1. [app.netlify.com](https://app.netlify.com) → **Add new site → Import an existing project**
-2. GitHub 저장소를 선택한다.
-3. 빌드 설정은 `netlify.toml` 이 이미 정의하고 있으므로 그대로 둔다.
-   - Build command: `npm run build`
-   - Publish directory: `.next`
-   - Node version: 22
-   - Plugin: `@netlify/plugin-nextjs` (자동 설치)
-
-### 5.3. 환경변수 등록
-
-**Site configuration → Environment variables** 에서 세 개를 추가한다.
-빌드 시점에 필요하므로 **Deploy 전에** 넣어야 한다.
-
-| Key | Value |
-| --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase 프로젝트 URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Publishable / anon 키 |
-| `NEXT_PUBLIC_SITE_URL` | 배포 주소 (예: `https://my-archive.netlify.app`) |
-
-`NEXT_PUBLIC_SITE_URL` 은 첫 배포로 도메인을 받은 뒤 값을 채우고 한 번 더 배포한다.
-
-### 5.4. 배포
-
-**Deploys → Trigger deploy → Deploy site** 를 누른다.
-빌드가 끝나면 `/`, `/cv`, `/work`, `/research`, `/contact` 를 차례로 열어 확인한다.
-
-### 5.5. CLI 로 배포할 때
+### 5.2. 배포
 
 ```bash
-npx netlify-cli deploy --build --prod
+npm run cf:deploy
 ```
+
+한 줄이면 끝난다. 빌드가 끝나면 `/`, `/{인물}/cv`, `/work`, `/research`, `/contact` 를
+차례로 열어 확인한다. 로컬에서 미리 보려면 `npm run cf:preview`.
+
+> **push 해도 자동 배포되지 않는다.** 배포는 위 명령으로 직접 실행한다.
+
+### 5.3. 빌드 시점 공개 환경변수
+
+빌드에 값이 박히므로 `.env.production.local` 을 먼저 만든다.
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://pbmkuzfyfnevsubywpnp.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_ORy88orY5kzMA8beKSvBaw_CRRHeW8J
+NEXT_PUBLIC_SITE_URL=https://chaeheon-wiki.co0717gjs.workers.dev
+```
+
+publishable 키는 공개용으로 설계된 키다. RLS 가 select 만 허용하므로 노출되어도 읽기만 가능하다.
+
+### 5.4. 서버 시크릿
+
+`ADMIN_KEY` 와 `SUPABASE_SERVICE_ROLE_KEY` 는 Cloudflare 시크릿으로만 둔다.
+**저장소에 절대 넣지 않는다.** 이미 등록돼 있어 다시 넣을 일은 거의 없다.
+
+```bash
+npx wrangler secret bulk secrets.json
+```
+
+`{"ADMIN_KEY":"...","SUPABASE_SERVICE_ROLE_KEY":"..."}` 형태이며 넣은 뒤 파일은 지운다.
+
+> `echo 값 | wrangler secret put` 은 **줄바꿈이 값에 딸려 들어가** 인증이 조용히 실패한다.
+> 반드시 `secret bulk` 나 파일 리다이렉션을 쓴다.
 
 ---
 
@@ -241,9 +249,10 @@ npx netlify-cli deploy --build --prod
 
 | 증상 | 원인과 해결 |
 | --- | --- |
-| 모든 섹션이 "등록된 항목이 없다" | 환경변수 누락. Netlify 에 세 변수를 넣고 **재배포**한다. 변수만 저장하면 반영되지 않는다 |
+| 모든 섹션이 "등록된 항목이 없다" | 환경변수 누락. `.env.production.local` 에 세 변수를 넣고 **다시 빌드·배포**한다. 값은 빌드 시점에 박히므로 저장만으로는 반영되지 않는다 |
 | 일부 항목만 안 보임 | 해당 행의 `is_published` 가 `false` 다 |
-| 수정했는데 그대로 | ISR 캐시. 최대 5분 기다리거나 Netlify 에서 재배포한다 |
+| 수정했는데 그대로 | ISR 캐시. 최대 5분 기다리거나 `npm run cf:deploy` 로 재배포한다 |
+| 관리자 인증이 계속 실패 | 시크릿에 줄바꿈이 딸려 들어간 경우다. `wrangler secret bulk` 로 다시 넣는다 |
 | `/work/새-slug` 가 404 | `is_published = true` 인지, `slug` 에 공백이나 한글이 없는지 확인한다 |
 | 빌드는 되는데 데이터가 안 옴 | RLS 정책 누락. `schema.sql` 의 5번 절을 다시 실행한다 |
 
@@ -270,7 +279,7 @@ npm install
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://pbmkuzfyfnevsubywpnp.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_ORy88orY5kzMA8beKSvBaw_CRRHeW8J
-NEXT_PUBLIC_SITE_URL=https://chaeheon-wiki.netlify.app
+NEXT_PUBLIC_SITE_URL=https://chaeheon-wiki.co0717gjs.workers.dev
 ```
 
 ```bash
@@ -283,56 +292,48 @@ http://localhost:7799 에서 확인한다.
 
 - 작업 시작 전: `git pull`
 - 작업 끝: `git add -A` → `git commit` → `git push`
-- **push 해도 자동 배포되지 않는다.** (Netlify 의 자동 빌드를 꺼 두었다 — 아래 7.4 참고)
+- **push 해도 자동 배포되지 않는다.** 배포는 `npm run cf:deploy` 로 직접 한다 (5장 참고)
 - 콘텐츠(프로젝트·경력 등)는 코드 수정 없이 사이트의 [수정] 링크로 바꾼다. 배포 불필요, 즉시 반영.
 
-### 7.4. 배포 — Cloudflare Workers
+### 7.3. 배포
 
-```bash
-npm run cf:deploy
-```
-
-OpenNext 로 빌드해 Workers 에 올린다. **크레딧이 들지 않는다.**
+배포 절차는 5장에 정리돼 있다. 요약하면 `npm run cf:deploy` 한 줄이다.
 wrangler 는 co0717gjs@naver.com 으로 이미 로그인돼 있다.
 
 - 코드가 안 바뀌고 글만 고칠 때는 배포가 필요 없다 (Supabase 에서 바로 읽는다).
-- 로컬 프리뷰는 `npm run cf:preview`.
+- 처음 받는 PC 라면 `.env.production.local` 부터 만든다 (5.3 참고).
+- 올리기 전에 `npm run typecheck` 와 `npm run build` 를 로컬에서 통과시킨다.
 
-**처음 받는 PC 에서 배포하려면** 두 가지가 더 필요하다.
+### 7.4. 배포 상태 확인
 
-1. `.env.production.local` — 빌드 시점에 들어가는 공개 값
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=https://pbmkuzfyfnevsubywpnp.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_ORy88orY5kzMA8beKSvBaw_CRRHeW8J
-   NEXT_PUBLIC_SITE_URL=https://chaeheon-wiki.co0717gjs.workers.dev
-   ```
-2. 서버 시크릿 두 개 — 이미 Cloudflare 에 등록돼 있어 다시 넣을 일은 없다.
-   다시 넣어야 한다면 JSON 파일로 한 번에 넣는다.
-   ```bash
-   npx wrangler secret bulk secrets.json
-   ```
-   `{"ADMIN_KEY":"...","SUPABASE_SERVICE_ROLE_KEY":"..."}` 형태이며, 넣은 뒤 파일은 지운다.
-   `echo 값 | wrangler secret put` 방식은 **줄바꿈이 값에 딸려 들어가** 인증이 조용히 실패하니 쓰지 않는다.
+- 배포 내역: https://dash.cloudflare.com → Workers 및 Pages → `chaeheon-wiki`
+- 실시간 로그: `npx wrangler tail`
 
-### 7.4.1. 옛 Netlify 배포 (더 이상 불가)
+### 7.5. 옛 Netlify 배포 (2026-08-28 종료)
 
-기존 주소 `chaeheon-wiki.netlify.app` 은 옛 내용을 계속 서빙하지만
-새 배포는 계정 크레딧 소진으로 거부된다
-(`Skipped due to account credit usage exceeded`, 2026-08-28 확인).
+Netlify 계정 크레딧이 소진돼 새 배포가 거부된다
+(`Skipped due to account credit usage exceeded`).
+기존 주소 `chaeheon-wiki.netlify.app` 은 옛 내용을 계속 서빙하므로 참고용으로만 본다.
 
-### 7.3. 배포 상태 확인
-
-- 배포 내역: https://app.netlify.com/projects/chaeheon-wiki/deploys
-- 크레딧 사용량: https://app.netlify.com/teams/ch0717ch/billing
-- 빌드가 실패해도 크레딧은 소모되므로 배포 전에 로컬에서 `npm run typecheck` 와
-  `npm run build` 를 먼저 통과시킨다.
+저장소에 남아 있는 `netlify.toml` 과 `@netlify/plugin-nextjs` 설정은 그때의 잔재다.
+Netlify 로 돌아갈 계획이 없다면 지워도 된다.
 
 ## 8. 보안 메모
 
-- 이 사이트에는 쓰기 경로가 없다. RLS 에 `select` 정책만 있으므로 anon 키로는 insert/update/delete 가 전부 거부된다.
-- `service_role` 키는 어디에도 두지 않는다. 넣을 자리가 없다.
-- `.env.local` 은 `.gitignore` 에 있다. 커밋되지 않는다.
-- Storage `documents` 버킷은 공개다. 민감한 파일을 올리지 않는다.
+V1 은 읽기 전용이었지만 **V2 부터는 `/api/admin/*` 이라는 쓰기 경로가 있다.**
+아래 전제가 지켜져야 안전하다.
+
+- **브라우저에는 쓰기 권한이 없다.** RLS 는 여전히 `select` 정책만 있어서,
+  공개된 publishable(anon) 키로는 insert/update/delete 가 전부 거부된다.
+- **쓰기는 서버 API 만 한다.** `/api/admin/*` 이 `SUPABASE_SERVICE_ROLE_KEY` 로 수행하며,
+  이 키는 Cloudflare Workers 시크릿에만 존재한다. 클라이언트 번들에 절대 들어가면 안 된다.
+  `NEXT_PUBLIC_` 접두사를 붙이는 순간 브라우저로 노출되므로 붙이지 않는다.
+- **`ADMIN_KEY` 가 사실상 유일한 관문이다.** 이 값이 새면 모든 문서를 수정·삭제할 수 있다.
+  길게 잡고, 저장소·문서·채팅 어디에도 적지 않는다.
+- `.env.local` 과 `.env.production.local` 은 `.gitignore` 에 있다. 커밋되지 않는다.
+- Storage `documents` 버킷은 공개다. URL 을 아는 사람은 누구나 받을 수 있으므로
+  민감한 파일을 올리지 않는다.
+- 이 저장소는 **공개**다. 커밋 전에 시크릿이 섞이지 않았는지 확인한다.
 
 ### 7.5. 배포 기록
 

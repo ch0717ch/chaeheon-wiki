@@ -8,7 +8,7 @@ const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // 환경변수가 비어 있어도 빌드가 죽지 않게 한다.
-// Netlify 첫 배포처럼 아직 키를 넣지 않은 상태에서도 페이지는 떠야 한다.
+// 첫 배포처럼 아직 키를 넣지 않은 상태에서도 페이지는 떠야 한다.
 export const hasSupabaseEnv = Boolean(url && anonKey);
 
 let cached: SupabaseClient | null = null;
