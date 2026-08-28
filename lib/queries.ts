@@ -217,7 +217,10 @@ export async function getTimeline(profileId: string): Promise<TimelineEntry[]> {
     .eq("profile_id", profileId)
     .eq("is_published", true)
     .order("year", { ascending: false })
-    .order("month", { ascending: false, nullsFirst: false });
+    .order("month", { ascending: false, nullsFirst: false })
+    // 같은 해·같은 달 안의 순서는 sort_order 로 정한다.
+    // 이게 없으면 순서가 DB 가 돌려주는 대로라 매번 달라질 수 있다.
+    .order("sort_order", { ascending: true });
 
   logFailure("timeline", error);
   return (data as TimelineEntry[]) ?? [];
