@@ -26,7 +26,12 @@
 | 프레임워크 | Next.js 15 (App Router) + TypeScript |
 | 스타일 | Tailwind CSS v4 (CSS-first `@theme`) |
 | 데이터 | Supabase (PostgreSQL + RLS) |
-| 배포 | Netlify (`@netlify/plugin-nextjs`) |
+| 배포 | Cloudflare Workers (OpenNext 어댑터) — 크레딧 없음 |
+
+> **운영 주소: https://chaeheon-wiki.co0717gjs.workers.dev**
+> 2026-08-28 부터 Cloudflare Workers 에서 돌아간다. Netlify 는 계정 크레딧이
+> 소진돼 새 배포가 거부된다(`Skipped due to account credit usage exceeded`).
+> 배포는 `npm run cf:deploy` 한 줄이고 비용이 들지 않는다.
 
 ---
 
@@ -281,20 +286,39 @@ http://localhost:7799 에서 확인한다.
 - **push 해도 자동 배포되지 않는다.** (Netlify 의 자동 빌드를 꺼 두었다 — 아래 7.4 참고)
 - 콘텐츠(프로젝트·경력 등)는 코드 수정 없이 사이트의 [수정] 링크로 바꾼다. 배포 불필요, 즉시 반영.
 
-### 7.4. ★ 배포는 크레딧을 쓴다 — 반드시 의도적으로만
-
-Netlify 무료 플랜은 **프로덕션 배포 1회당 15크레딧**을 소모한다 (월 한도 있음).
-그래서 push → 자동배포 연결을 **꺼 두었다** (`stop_builds = true`).
-
-배포하려면 수정을 충분히 모은 뒤 **한 번만** 아래를 실행한다:
+### 7.4. 배포 — Cloudflare Workers
 
 ```bash
-npx netlify deploy --build --prod
+npm run cf:deploy
 ```
 
+OpenNext 로 빌드해 Workers 에 올린다. **크레딧이 들지 않는다.**
+wrangler 는 co0717gjs@naver.com 으로 이미 로그인돼 있다.
+
 - 코드가 안 바뀌고 글만 고칠 때는 배포가 필요 없다 (Supabase 에서 바로 읽는다).
-- 자동배포를 다시 켜고 싶으면 Netlify 대시보드 → Site configuration → Build & deploy → "Stop builds" 해제.
-  단 그러면 push 마다 15크레딧이 나간다.
+- 로컬 프리뷰는 `npm run cf:preview`.
+
+**처음 받는 PC 에서 배포하려면** 두 가지가 더 필요하다.
+
+1. `.env.production.local` — 빌드 시점에 들어가는 공개 값
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://pbmkuzfyfnevsubywpnp.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_ORy88orY5kzMA8beKSvBaw_CRRHeW8J
+   NEXT_PUBLIC_SITE_URL=https://chaeheon-wiki.co0717gjs.workers.dev
+   ```
+2. 서버 시크릿 두 개 — 이미 Cloudflare 에 등록돼 있어 다시 넣을 일은 없다.
+   다시 넣어야 한다면 JSON 파일로 한 번에 넣는다.
+   ```bash
+   npx wrangler secret bulk secrets.json
+   ```
+   `{"ADMIN_KEY":"...","SUPABASE_SERVICE_ROLE_KEY":"..."}` 형태이며, 넣은 뒤 파일은 지운다.
+   `echo 값 | wrangler secret put` 방식은 **줄바꿈이 값에 딸려 들어가** 인증이 조용히 실패하니 쓰지 않는다.
+
+### 7.4.1. 옛 Netlify 배포 (더 이상 불가)
+
+기존 주소 `chaeheon-wiki.netlify.app` 은 옛 내용을 계속 서빙하지만
+새 배포는 계정 크레딧 소진으로 거부된다
+(`Skipped due to account credit usage exceeded`, 2026-08-28 확인).
 
 ### 7.3. 배포 상태 확인
 

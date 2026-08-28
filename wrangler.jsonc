@@ -1,0 +1,16 @@
+// Cloudflare Workers 배포 설정
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "chaeheon-wiki",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-08-01",
+  // nodejs_compat: 서버 코드가 쓰는 crypto 등 Node 내장 모듈 지원
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
