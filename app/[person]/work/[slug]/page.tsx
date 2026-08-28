@@ -6,6 +6,7 @@ import EditLink from "@/components/EditLink";
 import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { RefList, type RefItem } from "@/components/Links";
+import PdfDownload, { attachmentFilename, fileKind } from "@/components/PdfDownload";
 import PdfViewer from "@/components/PdfViewer";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
@@ -35,7 +36,8 @@ function buildRefs(project: Project): RefItem[] {
     { label: "GitHub 저장소", href: project.github_url },
     { label: "블로그 글", href: project.blog_url },
     { label: "데모", href: project.demo_url },
-    { label: "PDF 자료", href: project.pdf_url },
+    { label: project.label_pdf || "PDF 자료", href: project.pdf_url },
+    { label: project.file_label || "작업물 원본 파일", href: project.file_url },
   ];
   return candidates
     .filter((item): item is RefItem => Boolean(item.href))
@@ -127,15 +129,47 @@ export default async function ProjectPage({ params }: PageProps) {
       ? [
           {
             id: "original",
-            title: "원본 포트폴리오",
+            title: project.label_pdf || "원본 포트폴리오",
             body: (
               <div className="space-y-4">
-                <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
-                  아래 요약은 이 문서에서 뽑아낸 것이다. 편집된 원본을 그대로 보려면 아래
-                  뷰어를 사용한다.
-                </p>
+                {/* 절 이름을 따로 붙였다면 이 문서는 요약의 출처가 아니다. */}
+                {project.label_pdf ? null : (
+                  <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
+                    아래 요약은 이 문서에서 뽑아낸 것이다. 편집된 원본을 그대로 보려면 아래
+                    뷰어를 사용한다.
+                  </p>
+                )}
                 <PdfViewer src={project.pdf_url} title={project.title} />
               </div>
+            ),
+          } satisfies DocSection,
+        ]
+      : []),
+    ...(project.file_url
+      ? [
+          {
+            id: "file",
+            title: "작업물 원본 파일",
+            body: (
+              <p className="text-sm">
+                <span aria-hidden className="font-mono text-ink-muted">
+                  ⇩{" "}
+                </span>
+                <PdfDownload
+                  href={project.file_url}
+                  filename={attachmentFilename(
+                    project.file_url,
+                    project.file_label,
+                    project.title,
+                  )}
+                  kind={fileKind(project.file_url)}
+                >
+                  {project.file_label || "작업물 원본 파일"} 내려받기
+                </PdfDownload>
+                <span className="ml-2 font-mono text-xs uppercase text-ink-muted">
+                  {fileKind(project.file_url)}
+                </span>
+              </p>
             ),
           } satisfies DocSection,
         ]

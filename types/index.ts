@@ -64,6 +64,8 @@ export type Project = {
   label_role: string;
   label_decisions: string;
   label_outcome: string;
+  /** PDF 절 이름. 비우면 '원본 포트폴리오'. */
+  label_pdf: string;
   /** 항목 상단 이미지. 비우면 표시 안 함. */
   image_url: string;
   /** 본문 폭 대비 % (10~100). null 이면 100. */
@@ -76,6 +78,9 @@ export type Project = {
   blog_url: string | null;
   demo_url: string | null;
   pdf_url: string | null;
+  /** 실제 결과물 파일(pptx 등) 원본. 비우면 링크가 숨겨진다. */
+  file_url: string | null;
+  file_label: string | null;
   is_featured: boolean;
   sort_order: number;
   is_published: boolean;
@@ -97,6 +102,9 @@ export type Experience = {
   highlights: string[];
   /** 인턴 일지 등 이 경력을 증빙하는 포트폴리오 PDF. 비우면 링크가 숨겨진다. */
   pdf_url: string;
+  /** 실제 결과물 파일(pptx 등) 원본. 비우면 링크가 숨겨진다. */
+  file_url: string;
+  file_label: string;
   /** 항목 상단 이미지. 비우면 표시 안 함. */
   image_url: string;
   /** 본문 폭 대비 % (10~100). null 이면 100. */

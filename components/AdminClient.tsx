@@ -306,6 +306,9 @@ function TableEditor({
         png: "image/png",
         webp: "image/webp",
         pdf: "application/pdf",
+        pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       };
       const contentType = file.type || guessed[ext] || "";
 
@@ -383,7 +386,7 @@ function TableEditor({
           <input
             ref={fileRef}
             type="file"
-            accept=".jpg,.jpeg,.png,.webp,.pdf,.mp3,.wav"
+            accept=".jpg,.jpeg,.png,.webp,.pdf,.mp3,.wav,.pptx,.docx,.xlsx"
             className="hidden"
             onChange={onFile}
           />

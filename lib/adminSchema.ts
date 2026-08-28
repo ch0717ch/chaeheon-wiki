@@ -51,6 +51,25 @@ const IMAGE_FIELDS: FieldSpec[] = [
   },
 ];
 
+/**
+ * 원본 작업물 첨부 한 칸. PDF 말고 실제 결과물 파일(pptx·docx·xlsx)을 그대로 올린다.
+ * _url 로 끝나 업로드 버튼이 자동으로 붙는다.
+ */
+const FILE_FIELDS: FieldSpec[] = [
+  {
+    key: "file_url",
+    label: "작업물 파일 URL",
+    type: "text",
+    hint: "PPTX·DOCX·XLSX 등 실제 결과물. 업로드 버튼으로 올리면 채워진다",
+  },
+  {
+    key: "file_label",
+    label: "작업물 파일 이름",
+    type: "text",
+    hint: "화면에 보일 이름. 비우면 '작업물 원본 파일'",
+  },
+];
+
 const COMMON_TAIL: FieldSpec[] = [
   { key: "sort_order", label: "정렬 순서", type: "int", hint: "작을수록 위" },
   { key: "is_published", label: "공개", type: "bool", hint: "끄면 사이트에서 숨김(초안)" },
@@ -152,6 +171,13 @@ export const CONTENT_SPECS: TableSpec[] = [
       { key: "blog_url", label: "블로그 URL", type: "text" },
       { key: "demo_url", label: "데모 URL", type: "text" },
       { key: "pdf_url", label: "PDF URL", type: "text" },
+      {
+        key: "label_pdf",
+        label: "PDF 절 이름",
+        type: "text",
+        hint: "비우면 '원본 포트폴리오'. 안내서를 붙일 때는 '이용 가이드' 처럼 바꾼다",
+      },
+      ...FILE_FIELDS,
       { key: "is_featured", label: "대표 작업", type: "bool", hint: "개요의 대표 3개 후보" },
       ...COMMON_TAIL,
     ],
@@ -176,6 +202,7 @@ export const CONTENT_SPECS: TableSpec[] = [
         type: "text",
         hint: "인턴 일지 등 증빙 문서. 업로드 버튼으로 올리면 채워진다",
       },
+      ...FILE_FIELDS,
       ...IMAGE_FIELDS,
       ...COMMON_TAIL,
     ],

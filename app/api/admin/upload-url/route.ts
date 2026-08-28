@@ -24,6 +24,10 @@ const ALLOWED: Record<string, string> = {
   "audio/wav": "wav",
   "audio/x-wav": "wav",
   "audio/wave": "wav",
+  // 실제 작업 결과물(발표자료·문서·시트)을 원본 그대로 첨부하기 위한 형식.
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
 };
 
 export async function POST(req: Request) {

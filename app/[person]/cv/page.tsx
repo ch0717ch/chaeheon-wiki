@@ -6,7 +6,7 @@ import ExpertiseGrid from "@/components/ExpertiseGrid";
 import { FnText, FootnoteList } from "@/components/Footnotes";
 import InfoBox, { type InfoRow } from "@/components/InfoBox";
 import { ExternalLink } from "@/components/Links";
-import PdfDownload from "@/components/PdfDownload";
+import PdfDownload, { attachmentFilename, fileKind } from "@/components/PdfDownload";
 import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import EditLink from "@/components/EditLink";
@@ -101,6 +101,25 @@ function ExperienceItem({
           <ExternalLink href={item.pdf_url}>업무 포트폴리오 PDF 보기</ExternalLink>
           <span className="text-ink-muted"> · </span>
           <PdfDownload href={item.pdf_url} filename={`${item.org} 포트폴리오.pdf`} />
+        </p>
+      ) : null}
+
+      {/* 실제 결과물 원본(pptx 등). 브라우저로 열 수 없는 형식이라 저장만 건다. */}
+      {item.file_url ? (
+        <p className="mt-2 text-sm">
+          <span aria-hidden className="font-mono text-ink-muted">
+            ⇩{" "}
+          </span>
+          <PdfDownload
+            href={item.file_url}
+            filename={attachmentFilename(item.file_url, item.file_label, item.org)}
+            kind={fileKind(item.file_url)}
+          >
+            {item.file_label || "작업물 원본 파일"} 내려받기
+          </PdfDownload>
+          <span className="ml-2 font-mono text-xs uppercase text-ink-muted">
+            {fileKind(item.file_url)}
+          </span>
         </p>
       ) : null}
     </article>
