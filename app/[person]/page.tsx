@@ -31,6 +31,9 @@ export default async function OverviewPage({ params }: PageProps) {
       profile.link_blog2 ? { label: "블로그 2", href: profile.link_blog2 } : null,
       profile.link_instagram ? { label: "Instagram", href: profile.link_instagram } : null,
       profile.link_linkedin ? { label: "LinkedIn", href: profile.link_linkedin } : null,
+      ...(profile.links_extra ?? []).map((link) =>
+        link.url ? { label: link.label, href: link.url } : null,
+      ),
       profile.link_email
         ? { label: "이메일", href: `mailto:${profile.link_email}` }
         : null,

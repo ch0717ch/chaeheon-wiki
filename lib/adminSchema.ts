@@ -112,6 +112,12 @@ export const PROFILE_SPEC: TableSpec = {
     { key: "link_instagram", label: "Instagram", type: "text" },
     { key: "link_email", label: "이메일", type: "text" },
     { key: "link_linkedin", label: "LinkedIn", type: "text" },
+    {
+      key: "links_extra",
+      label: "추가 링크(JSON)",
+      type: "json",
+      hint: '위 칸으로 모자랄 때. [{"label":"블로그 3","url":"https://...","note":"설명"}, ...]',
+    },
     { key: "education_summary", label: "학력 요약(프로필 상자)", type: "lines" },
     {
       key: "expertise",

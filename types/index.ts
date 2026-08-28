@@ -7,6 +7,14 @@ export type ExpertiseArea = {
   skills: string[];
 };
 
+/** 고정 링크 칸(GitHub·블로그·Instagram…) 밖의 추가 채널. people.links_extra 의 원소. */
+export type ExtraLink = {
+  label: string;
+  url: string;
+  /** 연락 문서에서 링크 아래 한 줄로 붙는 설명. 비워도 된다. */
+  note?: string;
+};
+
 /** 인물 문서 하나. 나무위키의 문서에 해당한다. */
 export type Profile = {
   id: string;
@@ -33,6 +41,8 @@ export type Profile = {
   link_instagram: string;
   link_email: string;
   link_linkedin: string;
+  /** 고정 칸으로 모자란 채널들. 채널이 늘 때 컬럼을 더하지 않기 위한 목록. */
+  links_extra: ExtraLink[];
   education_summary: string[];
   expertise: ExpertiseArea[];
   target_primary: string;

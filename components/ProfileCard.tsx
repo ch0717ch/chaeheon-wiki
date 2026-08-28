@@ -33,6 +33,17 @@ export default function ProfileCard({
       label: "Instagram",
       Icon: InstagramIcon,
     },
+    // 추가 채널. 주소로 종류를 알아내 같은 아이콘 체계에 태운다.
+    ...(profile.links_extra ?? []).map((link, i) => ({
+      key: `extra-${i}`,
+      href: link.url,
+      label: link.label,
+      Icon: /instagram\.com/i.test(link.url)
+        ? InstagramIcon
+        : /github\.com/i.test(link.url)
+          ? GithubIcon
+          : BlogIcon,
+    })),
     {
       key: "email",
       href: profile.link_email ? `mailto:${profile.link_email}` : "",

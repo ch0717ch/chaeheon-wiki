@@ -62,6 +62,12 @@ export default async function ContactPage({ params }: PageProps) {
         href: profile.link_linkedin,
         note: "경력 요약과 이력 관련 문의.",
       },
+      // 고정 칸 밖의 채널. 목록이라 개수 제한이 없다.
+      ...(profile.links_extra ?? []).map((link) => ({
+        label: link.label,
+        href: link.url,
+        note: link.note ?? "",
+      })),
     ] as Channel[]
   ).filter((c) => Boolean(c.href));
 

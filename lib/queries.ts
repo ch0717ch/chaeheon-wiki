@@ -42,17 +42,17 @@ const PEOPLE_COLUMNS = [
   "location", "languages", "photo_url", "resume_pdf_url",
   "music_url", "music_title",
   "link_github", "link_blog", "link_blog2", "link_instagram",
-  "link_email", "link_linkedin",
+  "link_email", "link_linkedin", "links_extra",
   "education_summary", "expertise",
   "target_primary", "target_secondary", "target_edge",
   "view_locked", "is_protected", "sort_order", "is_published", "created_at", "updated_at",
 ].join(",");
 
-// schema_v7 이전 DB(view_locked 없음)에서도 동작하도록 한 번 물러선다.
-const PEOPLE_COLUMNS_LEGACY = PEOPLE_COLUMNS.replace(",view_locked", "").replace(
-  ",is_protected",
-  "",
-);
+// 구버전 DB(v7 이전: view_locked 없음 / v9 이전: links_extra 없음)에서도
+// 동작하도록 한 번 물러선다.
+const PEOPLE_COLUMNS_LEGACY = PEOPLE_COLUMNS.replace(",view_locked", "")
+  .replace(",is_protected", "")
+  .replace(",links_extra", "");
 
 export async function getProfiles(): Promise<Profile[]> {
   const supabase = getSupabase();
