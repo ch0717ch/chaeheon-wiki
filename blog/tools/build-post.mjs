@@ -161,6 +161,7 @@ function toDailyMemo(date, posts) {
     const titles = meta.titles.map((t, i) => `  ${i + 1}) ${t}  (${kinds[i]})${i === pickIdx ? "  ★추천" : ""}`).join("\n");
     const checks = (meta.check ?? meta.checklist ?? []).slice(0, 2).map((c) => `  - ${c}`).join("\n");
     return `[${name}]
+카테고리: ${meta.category}
 제목
 ${titles}
 태그
@@ -178,11 +179,21 @@ const dirs = readdirSync(root, { withFileTypes: true })
   .map((d) => join(root, d.name))
   .sort();
 
+// 주제가 여러 개인 블로그(blogs.json 의 categoryInFilename)는 HTML 파일 이름에 세부주제를 넣는다
+// 예: "[경제] 01-10월-금통위-기준금리.html"
+const blogKey = basename(resolve(root, ".."));
+const blogsPath = resolve(root, "../../../blogs.json");
+const blogConf = existsSync(blogsPath) ? (JSON.parse(readFileSync(blogsPath, "utf8"))[blogKey] ?? {}) : {};
+const htmlName = (dir, meta) => (blogConf.categoryInFilename ? `[${meta.category}] ${basename(dir)}.html` : "post.html");
+
 const posts = [];
 for (const dir of dirs) {
   const meta = JSON.parse(readFileSync(join(dir, "meta.json"), "utf8"));
+  if (blogConf.categories && !blogConf.categories.includes(meta.category))
+    console.warn(`! ${basename(dir)}: category "${meta.category}" 가 blogs.json 목록(${blogConf.categories.join("/")})에 없음`);
   const blocks = parse(readFileSync(join(dir, "source.md"), "utf8"));
-  writeFileSync(join(dir, "post.html"), toHtml(blocks, meta));
+  for (const f of readdirSync(dir)) if (f.endsWith(".html") && !f.startsWith("thumb")) rmSync(join(dir, f)); // 이전 이름 정리
+  writeFileSync(join(dir, htmlName(dir, meta)), toHtml(blocks, meta));
   rmSync(join(dir, "발행메모.txt"), { force: true }); // 예전 형식 정리
   posts.push({ name: basename(dir), meta });
   const chars = toText(blocks).replace(/\s/g, "").length;

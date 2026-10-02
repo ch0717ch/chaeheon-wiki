@@ -2,19 +2,49 @@
   "biz": {
     "label": "1번블로그_비즈니스경제",
     "name": "1번 블로그 — 비즈니스·경제·사회",
-    "themes": ["economy", "finance", "society"],
-    "strategy": "blog/strategy/biz.md"
+    "themes": [
+      "economy",
+      "finance",
+      "society"
+    ],
+    "strategy": "blog/strategy/biz.md",
+    "categories": [
+      "비즈니스",
+      "경제",
+      "사회"
+    ],
+    "categoryInFilename": true
   },
   "campus": {
     "label": "2번블로그_대학생활",
     "name": "2번 블로그 — 대학생활 정보노트 : 장학금·봉사·대외활동 (에디)",
-    "themes": ["scholarship", "volunteer", "activity"],
-    "strategy": "blog/strategy/campus.md"
+    "themes": [
+      "scholarship",
+      "volunteer",
+      "activity"
+    ],
+    "strategy": "blog/strategy/campus.md",
+    "categories": [
+      "장학금",
+      "봉사활동",
+      "대외활동"
+    ],
+    "categoryInFilename": false
   },
   "tech": {
     "label": "3번블로그_게임IT",
     "name": "3번 블로그 — 게임·AI/IT·기술",
-    "themes": ["game", "ai", "it"],
-    "strategy": "blog/strategy/tech.md"
+    "themes": [
+      "game",
+      "ai",
+      "it"
+    ],
+    "strategy": "blog/strategy/tech.md",
+    "categories": [
+      "게임",
+      "AI",
+      "IT"
+    ],
+    "categoryInFilename": true
   }
 }
