@@ -38,3 +38,4 @@ yarn-error.log*
 .wrangler/
 blog/tools/fonts/
 blog/posts/**/thumb.preview.html
+blog/out/

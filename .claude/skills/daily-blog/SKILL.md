@@ -26,15 +26,17 @@ description: 네이버 블로그 '대학생활 정보노트 : 장학금·봉사�
 각 글마다 `blog/posts/<날짜>/<번호>-<짧은-한글-슬러그>/` 에 아래 3개 파일을 쓴다.
 형식은 `blog/posts/2026-10-02/` 의 세 글을 그대로 따라 한다(가장 좋은 예시).
 
+번호는 그날 폴더의 마지막 번호 다음부터 이어 붙인다(같은 날 두 번째 실행이면 04, 05, 06…).
+
 **source.md** — 본문. 문법은 `blog/tools/build-post.mjs` 상단 주석 참고.
-- 첫 줄 `[사진] thumb.png — 대표 이미지로 지정`
+- `[사진]` 줄은 쓰지 않는다 (사용자가 HTML을 통째로 복붙하므로 자리 표시가 남으면 안 됨).
 - 도입 2~3문단(독자 상황 → 답의 방향), 질문형/결론형 `##` 소제목 4~6개
-- 비교가 실제로 쉬워질 때만 표, 체크리스트, 자주 나오는 질문 2~3개, `:::summary 정리하면` 박스
+- 비교가 실제로 쉬워질 때만 표, 체크리스트, 자주 나오는 질문 2~3개, 마지막에 `:::summary 정리하면` (HTML에서는 표로 바뀐다 — 네이버에서 div 박스는 깨지므로 박스·정리는 항상 `:::box`/`:::summary` 문법으로만 쓰고 HTML을 직접 꾸미지 말 것)
 - 마지막 줄 `※ <날짜> 기준 …` 출처·기준일
 - 공백 제외 1,700~2,500자. 글자 수 채우기용 문단 금지.
 - 확인 못 한 정보는 "확인되지 않았다/공지 전"이라고 쓴다. 경험담 지어내기 금지.
 
-**meta.json** — 키: `no, theme(scholarship|volunteer|activity), category, keyword, subKeywords[], intent, angle, titles[3](검색형·궁금증형·인간형 순), pick, tags[10](# 없이), photos[], checklist[], sources[]`
+**meta.json** — 키: `no, theme(scholarship|volunteer|activity), category, keyword, subKeywords[], intent, angle, titles[3](검색형·궁금증형·인간형 순), pick("A|B|C — 이유"), tags[10](# 없이), check[1~2](발행 전 체크, 한 줄 20자 안팎: 사실 재확인·캡처 추가 정도만), sources[]`
 
 **thumb.json** — 썸네일. 레퍼런스(쓰리휴먼스 블로그) 스타일 = **잡지 표지형**. 반드시 이 형식으로 만든다.
 구성: 빨간 붓터치 배너 → 흰/노랑/하늘 외곽선 초대형 제목 3줄 → 오른쪽 주제 소품 → 노란 포스트잇 손글씨 체크리스트 → 하단 4칸 타일(검정/빨강 캡션)
@@ -56,9 +58,16 @@ description: 네이버 블로그 '대학생활 정보노트 : 장학금·봉사�
 ## 3단계 — 빌드
 
 ```bash
-node blog/tools/build-post.mjs blog/posts/<날짜>      # post.html + 발행메모.txt 생성
-node blog/tools/render-thumbs.mjs blog/posts/<날짜>   # thumb.png 생성 (첫 실행 시 폰트 자동 다운로드)
+node blog/tools/build-post.mjs blog/posts/<날짜> --only 04,05,06    # 글 폴더마다 post.html + 날짜 폴더에 발행메모_<날짜>.txt
+node blog/tools/render-thumbs.mjs blog/posts/<날짜>                 # thumb.png (첫 실행 시 폰트 자동 다운로드)
+python3 blog/tools/pack.py blog/posts/<날짜> --only 04,05,06 --out <스크래치패드>   # 압축파일
 ```
+`--only` 에는 이번에 만든 글 번호만 넣는다(그날 첫 실행이면 생략 가능).
+
+결과물 형식 (사용자 요청으로 고정):
+- `post.html`: 안내문·`[사진]` 자리 표시 없음. 열어서 Ctrl+A → Ctrl+C 하면 본문만 복사된다.
+- `발행메모_<날짜>.txt`: 글 폴더 밖에 **하나만**. 글별로 제목 3안(★추천 표시) + 태그 + 짧은 발행 전 체크만. 본문 텍스트·키워드 분석·출처는 넣지 않는다.
+- 압축파일: `발행메모_<날짜>.txt` + 글 폴더마다 `post.html`, `thumb.png` 만. **사용법 파일은 만들지 않는다.**
 
 생성된 `thumb.png` 3장을 Read 로 직접 열어 확인한다: 제목·배너가 잘리지 않았는지, 포스트잇 4줄이 타일에 가려지지 않았는지, 소품 글자가 서로 겹치지 않았는지. 문제가 있으면 글자 수를 줄여 다시 렌더링한다.
 
@@ -71,5 +80,5 @@ node blog/tools/render-thumbs.mjs blog/posts/<날짜>   # thumb.png 생성 (첫 
 ## 5단계 — 전달
 
 1. 현재 브랜치에 커밋하고 `git push -u origin <브랜치>`
-2. `SendUserFile` 로 세 글의 `thumb.png` 3장(render), `발행메모.txt` 3개(attach), `post.html` 3개(attach)를 보낸다.
-3. 채팅에는 짧게: 오늘 고른 키워드 3개와 고른 이유 한 줄씩, 발행 전 사용자가 직접 확인해야 할 것(checklist 중 사실 재확인 항목).
+2. `SendUserFile` 로 `thumb.png` 3장(render)과 압축파일 1개(attach)를 보낸다. 사용자는 폰에서 받아 컴퓨터로 옮겨 작업하므로 압축파일이 기본 전달물이다.
+3. 채팅에는 짧게: 오늘 고른 키워드 3개와 고른 이유 한 줄씩, 발행 전 사용자가 직접 확인해야 할 것(check 항목).

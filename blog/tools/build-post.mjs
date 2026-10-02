@@ -1,18 +1,23 @@
-// 글 소스(source.md + meta.json) → 네이버 복붙용 post.html + 발행메모.txt
-// 사용법: node blog/tools/build-post.mjs blog/posts/2026-10-02
+// 글 소스(source.md + meta.json) → 네이버 복붙용 post.html (글 폴더마다)
+//                                 + 발행메모_<날짜>.txt (날짜 폴더에 1개: 글별 제목 3안·태그·발행 전 체크)
+// 사용법: node blog/tools/build-post.mjs blog/posts/2026-10-02 [--only 04,05,06]
+//         (--only: 같은 날 두 번째 실행처럼 일부 글만 빌드하고 발행메모에도 그 글만 넣을 때)
+//
+// post.html 은 열자마자 Ctrl+A → Ctrl+C 로 통째로 붙여넣는 용도라 안내문·사진 자리 표시를 넣지 않는다.
+// 네이버 스마트에디터는 div 배경·둥근 모서리를 버리므로 강조/정리 박스는 표(table)로 만든다.
 //
 // source.md 문법 (네이버 스마트에디터에 붙여도 깨지지 않는 것만 지원)
 //   ## 소제목             → 색 막대 소제목
 //   빈 줄                 → 문단 구분, 문단 안 줄바꿈은 그대로 유지
 //   - 항목                → 목록
 //   | a | b |             → 표 (첫 줄 = 머리글, |---| 줄은 무시)
-//   :::box ... :::        → 노란 강조 박스
-//   :::summary 제목 ... ::: → 진한 요약 박스
-//   [사진] 설명           → 사진 넣을 자리 표시
+//   :::box ... :::        → 강조 박스 (1칸 표)
+//   :::summary 제목 ... ::: → 정리 표 (머리글 + 항목별 1줄)
+//   [사진] 설명           → 무시 (예전 소스 호환용)
 //   ※ 문장               → 작은 회색 글씨(출처·기준일)
 //   **굵게**
-import { readdirSync, readFileSync, existsSync, writeFileSync } from "node:fs";
-import { join, resolve, dirname, basename } from "node:path";
+import { readdirSync, readFileSync, existsSync, writeFileSync, rmSync } from "node:fs";
+import { join, resolve, basename } from "node:path";
 
 const COLORS = { scholarship: "#0b1f44", volunteer: "#0b3d2e", activity: "#3a0d1e" };
 const ACCENTS = { scholarship: "#ffd400", volunteer: "#c6ff3d", activity: "#ff8a3d" };
@@ -69,7 +74,7 @@ function toHtml(blocks, meta) {
       case "ul":
         return `<ul>\n${b.items.map((t) => `<li>${inline(t)}</li>`).join("\n")}\n</ul>`;
       case "photo":
-        return `<p style="text-align:center;color:#888;font-size:14px;background:#f3f3f3;padding:28px 0;border-radius:8px;">[사진] ${esc(b.text)}</p>`;
+        return "";
       case "note":
         return `<p style="font-size:13px;color:#888;">${inline(b.text)}</p>`;
       case "table": {
@@ -80,9 +85,17 @@ ${rows.map((r, i) => `<tr${i % 2 ? ' style="background:#fafafa;"' : ""}>${r.map(
 </table>`;
       }
       case "box":
-        return `<div style="background:#fffbe6;border:2px solid ${a};border-radius:12px;padding:18px 20px;"><p style="margin:0;">${b.body.filter(Boolean).map(inline).join("<br>\n")}</p></div>`;
-      case "summary":
-        return `<p><br></p>\n<div style="background:${c};color:#fff;border-radius:12px;padding:20px;"><p style="margin:0 0 8px;font-weight:700;color:${a};">${esc(b.title || "정리하면")}</p><p style="margin:0;">${b.body.filter(Boolean).map(inline).join("<br>\n")}</p></div>`;
+        return `<table style="width:100%;border-collapse:collapse;font-size:16px;">
+<tr><td style="padding:16px 18px;border:2px solid ${a};background:#fffbe6;line-height:1.8;">${b.body.filter(Boolean).map(inline).join("<br>\n")}</td></tr>
+</table>`;
+      case "summary": {
+        const items = b.body.filter(Boolean).map((l) => l.replace(/^[·\-]\s*/, ""));
+        return `<p><br></p>
+<table style="width:100%;border-collapse:collapse;font-size:16px;">
+<tr style="background:${c};color:#fff;"><th style="padding:12px;border:1px solid ${c};text-align:left;">✔ ${esc(b.title || "정리하면")}</th></tr>
+${items.map((t, i) => `<tr${i % 2 ? ' style="background:#fafafa;"' : ""}><td style="${td}text-align:left;">${i + 1}. ${inline(t)}</td></tr>`).join("\n")}
+</table>`;
+      }
       default:
         return "";
     }
@@ -92,19 +105,11 @@ ${rows.map((r, i) => `<tr${i % 2 ? ' style="background:#fafafa;"' : ""}>${r.map(
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(meta.slugTitle ?? meta.titles[0])} — 네이버 복붙용</title>
+<title>${esc(meta.titles[0])}</title>
 </head>
-<body style="margin:0;background:#f4f5f7;">
-<div style="max-width:720px;margin:0 auto;padding:24px 16px;font-family:'Noto Sans KR','Malgun Gothic',sans-serif;">
-<div style="background:#e9ecf1;border-radius:10px;padding:14px 16px;font-size:13px;color:#555;margin-bottom:24px;line-height:1.7;">
-<b>복붙 가이드</b> (이 회색 박스는 복사하지 마세요)<br>
-1) 아래 흰 영역 첫 글자부터 끝까지 드래그 → 복사 → 네이버 스마트에디터 본문에 붙여넣기<br>
-2) 회색 [사진] 자리에 사진 업로드 (첫 사진 = 같은 폴더 thumb.png, 대표 이미지 지정)<br>
-3) 제목·태그는 발행메모.txt 에서 복사
-</div>
-<div style="background:#fff;padding:32px 24px;border-radius:12px;color:#222;font-size:16px;line-height:1.9;word-break:keep-all;">
-${out.join("\n\n")}
-</div>
+<body style="margin:0;background:#fff;">
+<div style="max-width:720px;margin:0 auto;padding:24px 16px;color:#222;font-size:16px;line-height:1.9;word-break:keep-all;font-family:'Noto Sans KR','Malgun Gothic',sans-serif;">
+${out.filter(Boolean).join("\n\n")}
 </div>
 </body>
 </html>
@@ -140,52 +145,41 @@ function toText(blocks) {
     .join("\n\n");
 }
 
-function toMemo(meta, blocks, date) {
-  const bar = "━".repeat(36);
-  const labels = ["A. [검색형]  ", "B. [궁금증형]", "C. [인간형]  "];
-  return `${bar}
-[발행메모 ${meta.no}] ${date} · 카테고리: ${meta.category}
-${bar}
-
-■ 메인 키워드 : ${meta.keyword}
-■ 서브 키워드 : ${meta.subKeywords.join(", ")}
-■ 검색 의도  : ${meta.intent}
-■ 차별 포인트 : ${meta.angle}
-
-━━ 제목 추천 3안 ━━━━━━━━━━━━━━━━━━━
-${meta.titles.map((t, i) => `${labels[i]} ${t}`).join("\n")}
-→ 추천: ${meta.pick}
-
-━━ 태그 (${meta.tags.length}개, 그대로 복사) ━━━━━━━━━━
-${meta.tags.map((t) => `#${t}`).join(" ")}
-
-━━ 사진 배치 ━━━━━━━━━━━━━━━━━━━━━━
-${meta.photos.map((p, i) => `${i + 1}) ${p}`).join("\n")}
-
-━━ 본문 (텍스트 버전 · 서식 없이 붙일 때) ━━━━━
-
-${toText(blocks)}
-
-━━ 발행 전 체크 ━━━━━━━━━━━━━━━━━━━
-${meta.checklist.map((c) => `[ ] ${c}`).join("\n")}
-
-━━ 참고 출처 ━━━━━━━━━━━━━━━━━━━━━━
-${meta.sources.map((s) => `- ${s}`).join("\n")}
-`;
+// 날짜 폴더에 하나: 글별 제목 3안(추천 표시) + 태그 + 짧은 발행 전 체크
+function toDailyMemo(date, posts) {
+  const kinds = ["검색형", "궁금증형", "인간형"];
+  const parts = posts.map(({ name, meta }) => {
+    const pickIdx = "ABC".indexOf((meta.pick ?? "").trim()[0]);
+    const titles = meta.titles.map((t, i) => `  ${i + 1}) ${t}  (${kinds[i]})${i === pickIdx ? "  ★추천" : ""}`).join("\n");
+    const checks = (meta.check ?? meta.checklist ?? []).slice(0, 2).map((c) => `  - ${c}`).join("\n");
+    return `[${name}]
+제목
+${titles}
+태그
+  ${meta.tags.map((t) => `#${t}`).join(" ")}${checks ? `\n발행 전 체크\n${checks}` : ""}`;
+  });
+  return `${date} 발행메모\n\n${parts.join("\n\n" + "-".repeat(40) + "\n\n")}\n`;
 }
 
 const root = resolve(process.argv[2] ?? ".");
-const dirs = existsSync(join(root, "source.md"))
-  ? [root]
-  : readdirSync(root, { withFileTypes: true })
-      .filter((d) => d.isDirectory() && existsSync(join(root, d.name, "source.md")))
-      .map((d) => join(root, d.name));
+const onlyIdx = process.argv.indexOf("--only");
+const only = onlyIdx > 0 ? process.argv[onlyIdx + 1].split(",") : null;
+const dirs = readdirSync(root, { withFileTypes: true })
+  .filter((d) => d.isDirectory() && existsSync(join(root, d.name, "source.md")))
+  .filter((d) => !only || only.some((n) => d.name.startsWith(n + "-")))
+  .map((d) => join(root, d.name))
+  .sort();
 
+const posts = [];
 for (const dir of dirs) {
   const meta = JSON.parse(readFileSync(join(dir, "meta.json"), "utf8"));
   const blocks = parse(readFileSync(join(dir, "source.md"), "utf8"));
   writeFileSync(join(dir, "post.html"), toHtml(blocks, meta));
-  writeFileSync(join(dir, "발행메모.txt"), toMemo(meta, blocks, meta.date ?? basename(dirname(dir))));
+  rmSync(join(dir, "발행메모.txt"), { force: true }); // 예전 형식 정리
+  posts.push({ name: basename(dir), meta });
   const chars = toText(blocks).replace(/\s/g, "").length;
   console.log(`built ${dir}  (본문 ${chars}자, 공백 제외)`);
 }
+const date = basename(root);
+writeFileSync(join(root, `발행메모_${date}.txt`), toDailyMemo(date, posts));
+console.log(`memo  ${join(root, `발행메모_${date}.txt`)}`);
