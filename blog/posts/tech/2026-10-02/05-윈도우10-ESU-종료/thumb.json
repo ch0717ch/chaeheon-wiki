@@ -1,0 +1,18 @@
+{
+  "theme": "it",
+  "banner": "윈도우10 **진짜 끝?!**",
+  "title": ["보안 업데이트", "10월 13일", "종료 D-11"],
+  "note": ["끝나는 것", "종료 후 변화", "선택지 3개", "업그레이드 전"],
+  "hero": {
+    "type": "laptop",
+    "header": "Windows 업데이트",
+    "lines": ["확장 보안 업데이트(ESU) 등록됨", "2026년 10월 13일 종료 예정", "이후 보안 패치가 제공되지 않습니다", "Windows 11 업그레이드 가능 여부 확인"],
+    "badge": "D-11"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "10월 13일", "bottom": "ESU 종료" },
+    { "icon": "shield", "top": "보안 패치", "bottom": "중단" },
+    { "icon": "check", "top": "선택지", "bottom": "3가지" },
+    { "icon": "warning", "top": "업그레이드", "bottom": "전 백업" }
+  ]
+}

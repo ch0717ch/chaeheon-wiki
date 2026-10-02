@@ -1,0 +1,23 @@
+{
+  "no": "03",
+  "theme": "game",
+  "category": "e스포츠",
+  "keyword": "2026 롤드컵 일정",
+  "subKeywords": ["롤드컵 2026 한국시간", "롤드컵 LCK 진출팀", "롤드컵 결승 날짜", "롤드컵 스위스 스테이지"],
+  "intent": "롤드컵 일정과 LCK 팀, 한국 시간으로 언제 보는지 확인하려는 정보 탐색형",
+  "angle": "단계별 일정을 한국 시간 기준으로 재정리 + 새벽 경기 시청 전략 + 스위스 방식 설명",
+  "titles": [
+    "2026 롤드컵 일정 한국시간 정리, LCK 진출팀 4팀과 결승 날짜",
+    "롤드컵 2026 새벽 경기? 한국 시간으로 언제 봐야 하는지 정리",
+    "올해 롤드컵, LCK 경기만 챙겨 보는 법"
+  ],
+  "pick": "A — '롤드컵 일정 한국시간'이 이 시기 가장 많이 찾는 조합",
+  "tags": ["롤드컵", "2026롤드컵", "롤드컵일정", "롤드컵한국시간", "LCK", "T1", "젠지", "한화생명", "디플러스기아", "e스포츠"],
+  "check": ["LoL e스포츠 공식 일정으로 경기 시간 재확인"],
+  "sources": [
+    "Wikipedia 2026 LoL World Championship — https://en.wikipedia.org/wiki/2026_League_of_Legends_World_Championship",
+    "나무위키 2026 월드 챔피언십 — https://namu.wiki/w/%EB%A6%AC%EA%B7%B8%20%EC%98%A4%EB%B8%8C%20%EB%A0%88%EC%A0%84%EB%93%9C%202026%20%EC%9B%94%EB%93%9C%20%EC%B1%94%ED%94%BC%EC%96%B8%EC%8B%AD",
+    "다음 T1 롤드컵 진출 확정 — https://v.daum.net/v/20260901210639121",
+    "인벤 2027 롤드컵 한국 개최 — https://www.inven.co.kr/webzine/news/?news=302235&site=lol"
+  ]
+}

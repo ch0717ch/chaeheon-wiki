@@ -1,0 +1,22 @@
+{
+  "theme": "finance",
+  "banner": "대출 한도 **줄었다?!**",
+  "title": ["연봉 5천이면", "얼마까지", "DSR 계산"],
+  "note": ["DSR 한 줄 정리", "스트레스 DSR", "연봉별 계산", "한도 늘리기"],
+  "hero": {
+    "type": "chart",
+    "paper": "대출 상담 결과",
+    "label": "연봉 5천만 원 · 최대 한도",
+    "value": "2.4억",
+    "change": "▼0.9억",
+    "up": false,
+    "points": [3.3, 3.2, 3.0, 2.8, 2.6, 2.4],
+    "rows": [["실제 금리만", "3.3억"], ["스트레스 반영", "2.4억"], ["DSR 기준", "40%"]]
+  },
+  "tiles": [
+    { "icon": "table", "top": "DSR", "bottom": "한 줄 정리" },
+    { "icon": "chart", "top": "스트레스", "bottom": "금리 효과" },
+    { "icon": "house", "top": "LTV·상한", "bottom": "같이 확인" },
+    { "icon": "check", "top": "한도", "bottom": "늘리는 법" }
+  ]
+}

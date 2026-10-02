@@ -1,0 +1,23 @@
+{
+  "no": "01",
+  "theme": "game",
+  "category": "게임",
+  "keyword": "GTA6 출시일",
+  "subKeywords": ["GTA6 출시일 연기", "GTA6 PC", "GTA6 플랫폼", "GTA6 11월 19일"],
+  "intent": "GTA6가 정말 11월 19일에 나오는지, 어떤 기기로 하는지 확인하려는 정보 탐색형",
+  "angle": "연기 타임라인 + '실적 발표'로 연기 가능성 가늠하는 법 + PC 미발표·출시 전 체크",
+  "titles": [
+    "GTA6 출시일 11월 19일, 연기 과정과 PC 출시 여부 정리",
+    "GTA6 진짜 11월에 나올까? 또 연기될지 가늠하는 방법",
+    "GTA6 기다리는 사람이 출시 전에 해둘 것"
+  ],
+  "pick": "B — 두 번 연기된 게임이라 '진짜 나올까'가 가장 큰 궁금증",
+  "tags": ["GTA6", "GTA6출시일", "GTA6연기", "GTA6PC", "락스타게임즈", "테이크투", "PS5게임", "신작게임", "게임출시", "게임뉴스"],
+  "check": ["발행 전 출시일 변동(추가 연기) 뉴스 확인"],
+  "sources": [
+    "디스이즈게임 GTA6 11월 19일 연기 — https://www.thisisgame.com/articles/406561",
+    "인벤 GTA6 연기 — https://www.inven.co.kr/webzine/news/?news=311084",
+    "Variety GTA 6 delayed to November 2026 — https://variety.com/2025/gaming/news/gta-6-release-delayed-november-2026-1236571679/",
+    "디지털투데이 GTA6 출시 확정 — https://www.digitaltoday.co.kr/news/articleView.html?idxno=603338"
+  ]
+}

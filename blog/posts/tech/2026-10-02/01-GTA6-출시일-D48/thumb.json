@@ -1,0 +1,19 @@
+{
+  "theme": "game",
+  "banner": "GTA6 **또 연기?!**",
+  "title": ["GTA 6", "D-48", "진짜 나올까?"],
+  "note": ["연기 타임라인", "또 연기될까", "PC 출시?", "출시 전 체크"],
+  "hero": {
+    "type": "console",
+    "sub": "GRAND THEFT AUTO",
+    "title": "VI",
+    "date": "2026.11.19",
+    "badge": "D-48"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "연기", "bottom": "타임라인" },
+    { "icon": "question", "top": "또 연기", "bottom": "될까?" },
+    { "icon": "gamepad", "top": "PS5·엑박", "bottom": "PC는?" },
+    { "icon": "check", "top": "출시 전", "bottom": "체크" }
+  ]
+}
