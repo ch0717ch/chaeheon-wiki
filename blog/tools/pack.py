@@ -4,7 +4,7 @@
 
 압축 구성 (사용법 파일은 만들지 않는다)
   <label>_<날짜>/발행메모_<날짜>.txt   ← 글별 제목 3안·태그·발행 전 체크
-  <label>_<날짜>/<글폴더>/post.html     ← 열어서 Ctrl+A, Ctrl+C → 네이버에 붙여넣기
+  <label>_<날짜>/<글폴더>/[카테고리] <글폴더>.html  ← (1·3번 블로그, 2번은 post.html) 열어서 Ctrl+A, Ctrl+C → 네이버에 붙여넣기
   <label>_<날짜>/<글폴더>/thumb.png     ← 대표 이미지
 """
 import json
@@ -29,11 +29,14 @@ with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
     z.write(os.path.join(root, f"발행메모_{date}.txt"), f"{top}/발행메모_{date}.txt")
     for d in sorted(os.listdir(root)):
         post = os.path.join(root, d)
-        if not os.path.isfile(os.path.join(post, "post.html")):
+        if not os.path.isdir(post):
+            continue
+        htmls = [f for f in os.listdir(post) if f.endswith(".html") and not f.startswith("thumb")]
+        if not htmls:
             continue
         if only and not any(d.startswith(n + "-") for n in only):
             continue
-        for f in ("post.html", "thumb.png"):
+        for f in htmls + ["thumb.png"]:
             z.write(os.path.join(post, f), f"{top}/{d}/{f}")
 
 print(out)
