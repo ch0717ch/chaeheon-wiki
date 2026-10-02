@@ -36,3 +36,5 @@ yarn-error.log*
 # Cloudflare Workers 빌드 산출물
 .open-next/
 .wrangler/
+blog/tools/fonts/
+blog/posts/**/thumb.preview.html
