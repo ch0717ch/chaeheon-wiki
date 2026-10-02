@@ -1,0 +1,21 @@
+{
+  "theme": "volunteer",
+  "banner": "겨울 해외봉사 **늦었다?!**",
+  "title": ["대학생", "해외봉사", "언제 지원?"],
+  "note": ["모집 달력", "비용 비교", "10월에 할 일", "탈락 이유"],
+  "hero": {
+    "type": "passport",
+    "label": "해외봉사단",
+    "from": "ICN",
+    "to": "VOL",
+    "ticketNote": "WINTER · SUMMER",
+    "seat": "D-90",
+    "stamp": "모집중?"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "모집 시기", "bottom": "달력 정리" },
+    { "icon": "coin", "top": "전액지원 vs", "bottom": "본인부담" },
+    { "icon": "globe", "top": "지금 할 수", "bottom": "있는 3가지" },
+    { "icon": "warning", "top": "지원서", "bottom": "탈락 이유" }
+  ]
+}
