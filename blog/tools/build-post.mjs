@@ -1,6 +1,6 @@
 // 글 소스(source.md + meta.json) → 네이버 복붙용 post.html (글 폴더마다)
 //                                 + 발행메모_<날짜>.txt (날짜 폴더에 1개: 글별 제목 3안·태그·발행 전 체크)
-// 사용법: node blog/tools/build-post.mjs blog/posts/2026-10-02 [--only 04,05,06]
+// 사용법: node blog/tools/build-post.mjs blog/posts/<블로그키>/<날짜> [--only 04,05,06]
 //         (--only: 같은 날 두 번째 실행처럼 일부 글만 빌드하고 발행메모에도 그 글만 넣을 때)
 //
 // post.html 은 열자마자 Ctrl+A → Ctrl+C 로 통째로 붙여넣는 용도라 안내문·사진 자리 표시를 넣지 않는다.
@@ -19,8 +19,16 @@
 import { readdirSync, readFileSync, existsSync, writeFileSync, rmSync } from "node:fs";
 import { join, resolve, basename } from "node:path";
 
-const COLORS = { scholarship: "#0b1f44", volunteer: "#0b3d2e", activity: "#3a0d1e" };
-const ACCENTS = { scholarship: "#ffd400", volunteer: "#c6ff3d", activity: "#ff8a3d" };
+const COLORS = {
+  scholarship: "#0b1f44", volunteer: "#0b3d2e", activity: "#3a0d1e",
+  economy: "#0a3a25", finance: "#0b1f44", society: "#2b1650",
+  game: "#24103d", ai: "#08332f", it: "#0f172a",
+};
+const ACCENTS = {
+  scholarship: "#ffd400", volunteer: "#c6ff3d", activity: "#ff8a3d",
+  economy: "#2bb673", finance: "#ffd400", society: "#b18cff",
+  game: "#c77dff", ai: "#2dd4bf", it: "#94a3b8",
+};
 
 const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]);
 const inline = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");

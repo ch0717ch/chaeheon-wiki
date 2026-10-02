@@ -1,0 +1,21 @@
+{
+  "theme": "game",
+  "banner": "지스타 표 **현장 구매 X?!**",
+  "title": ["지스타 2026", "11.19~22", "예매 했나?"],
+  "note": ["기본 정보", "예매 전 결정", "참가사", "자주 묻는 질문"],
+  "hero": {
+    "type": "passport",
+    "label": "G-STAR 2026",
+    "from": "GMP",
+    "to": "PUS",
+    "ticketNote": "BEXCO · NOV 19-22",
+    "seat": "BTC",
+    "stamp": "예매제"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "11월 19~22일", "bottom": "부산 벡스코" },
+    { "icon": "warning", "top": "100%", "bottom": "사전 예매" },
+    { "icon": "gamepad", "top": "대형 부스", "bottom": "참가사" },
+    { "icon": "check", "top": "평일 vs 주말", "bottom": "고르는 법" }
+  ]
+}

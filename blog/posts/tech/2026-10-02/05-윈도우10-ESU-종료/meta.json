@@ -1,0 +1,22 @@
+{
+  "no": "05",
+  "theme": "it",
+  "category": "IT",
+  "keyword": "윈도우10 ESU 종료",
+  "subKeywords": ["윈도우10 지원 종료", "윈도우10 보안 업데이트", "윈도우11 업그레이드", "ESU 10월 13일"],
+  "intent": "ESU 종료 후 무엇이 달라지고 무엇을 해야 하는지 알고 싶은 문제 해결형",
+  "angle": "'등록 시점과 무관하게 같은 날 종료'라는 오해 정리 + 선택지 3개 + 업그레이드 전 체크",
+  "titles": [
+    "윈도우10 ESU 10월 13일 종료, 이후 달라지는 것과 대처법",
+    "윈도우10 보안 업데이트 진짜 끝? 10월 13일 전에 할 일",
+    "아직 윈도우10 쓰는 사람이 이번 달 꼭 알아야 할 것"
+  ],
+  "pick": "B — 마감일과 '할 일'을 함께 담아 지금 검색하는 사람과 맞음",
+  "tags": ["윈도우10", "윈도우10지원종료", "윈도우10ESU", "확장보안업데이트", "윈도우11", "윈도우11업그레이드", "마이크로소프트", "PC보안", "IT정보", "컴퓨터팁"],
+  "check": ["10월 13일 이후 발행이면 '종료됐다'로 문장 수정"],
+  "sources": [
+    "Microsoft 수명 주기 FAQ - 추가 보안 업데이트 — https://learn.microsoft.com/ko-kr/lifecycle/faq/extended-security-updates",
+    "Microsoft Q&A ESU enrollment 2026-10-13 — https://learn.microsoft.com/en-us/answers/questions/5805066/windows-esu-does-enrollment-end-on-13-oct-2026-or",
+    "다음 윈도우10 무료 보안 업데이트 — https://v.daum.net/v/xN9LDqGkf1?f=p"
+  ]
+}

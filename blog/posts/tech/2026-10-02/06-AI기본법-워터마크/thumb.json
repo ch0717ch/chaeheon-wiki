@@ -1,0 +1,18 @@
+{
+  "theme": "ai",
+  "banner": "AI 이미지 **과태료?!**",
+  "title": ["AI 기본법", "워터마크", "나도 대상?"],
+  "note": ["법 핵심만", "워터마크 방식", "블로거는?", "과태료 시점"],
+  "hero": {
+    "type": "laptop",
+    "header": "AI 이미지 생성",
+    "lines": ["블로그 대표 이미지 만들어줘", "생성 완료 · AI 생성물 표시 포함", "이거 그냥 올려도 돼?", "표시 의무는 서비스 사업자 기준"],
+    "badge": "AI"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "2026.1.22", "bottom": "시행" },
+    { "icon": "chip", "top": "워터마크", "bottom": "두 가지" },
+    { "icon": "question", "top": "개인 블로거", "bottom": "표시해야?" },
+    { "icon": "warning", "top": "과태료", "bottom": "1년 계도" }
+  ]
+}

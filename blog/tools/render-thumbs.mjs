@@ -1,5 +1,5 @@
 // 네이버 블로그 썸네일 렌더러 (1080x1080 PNG) — "잡지 표지형" 스타일
-// 사용법: node blog/tools/render-thumbs.mjs blog/posts/2026-10-02
+// 사용법: node blog/tools/render-thumbs.mjs blog/posts/<블로그키>/<날짜>
 // 각 글 폴더의 thumb.json 을 읽어 같은 폴더에 thumb.png 를 만든다.
 //
 // 구성 (레퍼런스: 쓰리휴먼스 블로그 썸네일)
@@ -13,8 +13,8 @@
 //   banner   "국가장학금 **바뀐다?!**"   (**강조** = 노란 글씨)
 //   title    ["학자금 구간", "10→5개", "대개편?"]  (1줄 흰색, 2줄 노랑, 3줄 하늘)
 //   note     ["구간 변환표", ...] 4개
-//   hero     { "type": "phone|passport|certificate", ...내용 }
-//   tiles    [{ "icon": "table|coin|calendar|check|globe|warning|doc|phone|stamp|question", "top": "", "bottom": "" }] 4개
+//   hero     { "type": "phone|passport|certificate|chart|laptop|console", ...내용 }
+//   tiles    [{ "icon": "table|coin|calendar|check|globe|warning|doc|phone|stamp|question|chart|won|house|people|chip|gamepad|trophy|shield", "top": "", "bottom": "" }] 4개
 //   bg       (선택) 배경 사진 경로 — 있으면 그려진 책상 장면 대신 사용
 import { createRequire } from "node:module";
 import { readdirSync, readFileSync, existsSync, writeFileSync, mkdirSync } from "node:fs";
@@ -53,6 +53,14 @@ const THEMES = {
   scholarship: { main: "#1f4fa3", soft: "#dbe7ff", deep: "#0b1f44" },
   volunteer: { main: "#1d7a55", soft: "#d9f5e6", deep: "#0b3d2e" },
   activity: { main: "#b4234a", soft: "#ffe0e8", deep: "#3a0d1e" },
+  // 1번 블로그 (비즈니스·경제·사회)
+  economy: { main: "#0f7a4a", soft: "#d8f3e4", deep: "#0a3a25" },
+  finance: { main: "#1f4fa3", soft: "#dbe7ff", deep: "#0b1f44" },
+  society: { main: "#6a3fb5", soft: "#ece3ff", deep: "#2b1650" },
+  // 3번 블로그 (게임·AI/IT·기술)
+  game: { main: "#7b2cbf", soft: "#efe0ff", deep: "#24103d" },
+  ai: { main: "#0f766e", soft: "#d5f5f1", deep: "#08332f" },
+  it: { main: "#334155", soft: "#e2e8f0", deep: "#0f172a" },
 };
 
 /* ───────────── 배경: 창가 햇살 + 원목 책상 장면 ───────────── */
@@ -127,7 +135,7 @@ function heroPassport(h, t) {
     <div class="tl"><small>BOARDING PASS</small><b>${esc(h.from ?? "ICN")} <span>✈</span> ${esc(h.to ?? "???")}</b><small>${esc(h.ticketNote ?? "")}</small></div>
     <div class="tr"><small>SEAT</small><b>${esc(h.seat ?? "VOL")}</b></div>
   </div>
-  <div class="stampc" style="left:20px;top:250px;border-color:#e5383b;color:#e5383b">${esc(h.stamp ?? "합격")}</div>
+  <div class="stampc" style="left:300px;top:-40px;border-color:#e5383b;color:#e5383b">${esc(h.stamp ?? "합격")}</div>
 </div>`;
 }
 
@@ -147,7 +155,53 @@ function heroCertificate(h, t) {
 </div>`;
 }
 
-const HEROES = { phone: heroPhone, passport: heroPassport, certificate: heroCertificate };
+// 경제 지표 카드: label, value, change("+0.25%p"), up(true/false), points[숫자...], rows[[항목,값]] 최대 3개
+function heroChart(h, t) {
+  const pts = h.points?.length ? h.points : [3, 4, 3.5, 5, 6, 7];
+  const min = Math.min(...pts), max = Math.max(...pts);
+  const xy = pts.map((v, i) => [20 + (i * 360) / (pts.length - 1), 180 - ((v - min) / (max - min || 1)) * 150]);
+  const line = xy.map(([x, y]) => `${x},${y}`).join(" ");
+  const color = h.up === false ? "#1f6fe0" : "#e5383b";
+  const rows = (h.rows ?? []).map(([a, b]) => `<div class="crow"><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join("");
+  return `<div class="hero" style="left:560px;top:110px;">
+  <div class="paper" style="left:-30px;top:150px;transform:rotate(-8deg);">
+    <div class="ptitle" style="color:${t.main}">${esc(h.paper ?? "")}</div><i></i><i></i><i style="width:70%"></i><i></i><i style="width:60%"></i>
+  </div>
+  <div class="chartcard" style="transform:rotate(3deg);">
+    <div class="clabel" style="color:${t.main}">${esc(h.label ?? "")}</div>
+    <div class="cval">${esc(h.value ?? "")}<small style="color:${color}">${esc(h.change ?? "")}</small></div>
+    <svg viewBox="0 0 400 200" width="400" height="200"><polyline points="20,180 ${line} 380,180" fill="${color}" opacity=".12"/><polyline points="${line}" fill="none" stroke="${color}" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>${xy.length ? `<circle cx="${xy.at(-1)[0]}" cy="${xy.at(-1)[1]}" r="12" fill="${color}"/>` : ""}</svg>
+    ${rows}
+  </div>
+</div>`;
+}
+
+// 노트북 화면: header, lines[문장...] 최대 5개 (AI 채팅·코드·설정 화면 느낌), badge
+function heroLaptop(h, t) {
+  const lines = (h.lines ?? []).map((l, i) => `<div class="lline ${i % 2 ? "me" : ""}">${esc(l)}</div>`).join("");
+  return `<div class="hero" style="left:600px;top:190px;">
+  <div class="laptop" style="transform:rotate(-3deg);">
+    <div class="lscreen"><div class="lhead" style="background:${t.main}">${esc(h.header ?? "")}</div>${lines}</div>
+    <div class="lbase"></div>
+  </div>
+  ${h.badge ? `<div class="stampc" style="left:330px;top:-110px;border-color:#e5383b;color:#e5383b">${esc(h.badge)}</div>` : ""}
+</div>`;
+}
+
+// 게임 화면 + 패드: title, sub, date, badge
+function heroConsole(h, t) {
+  return `<div class="hero" style="left:520px;top:120px;">
+  <div class="tv" style="transform:rotate(4deg);background:linear-gradient(135deg,${t.deep},${t.main});">
+    <div class="tvsub">${esc(h.sub ?? "")}</div>
+    <div class="tvtitle">${esc(h.title ?? "")}</div>
+    <div class="tvdate">${esc(h.date ?? "")}</div>
+  </div>
+  <svg class="pad" viewBox="0 0 300 190" width="330" height="210"><path d="M60 30 h180 a50 50 0 0 1 48 62 l-22 70 a28 28 0 0 1 -48 8 l-30 -40 h-76 l-30 40 a28 28 0 0 1 -48 -8 l-22 -70 a50 50 0 0 1 48 -62z" fill="#f4f4f6" stroke="#222" stroke-width="5"/><rect x="62" y="72" width="16" height="48" rx="4" fill="#333"/><rect x="46" y="88" width="48" height="16" rx="4" fill="#333"/><circle cx="222" cy="78" r="11" fill="#e5383b"/><circle cx="246" cy="100" r="11" fill="#1f6fe0"/><circle cx="198" cy="100" r="11" fill="#2bb673"/><circle cx="222" cy="122" r="11" fill="#ffd400"/></svg>
+  ${h.badge ? `<div class="stampc" style="left:300px;top:-50px;border-color:#e5383b;color:#e5383b">${esc(h.badge)}</div>` : ""}
+</div>`;
+}
+
+const HEROES = { phone: heroPhone, passport: heroPassport, certificate: heroCertificate, chart: heroChart, laptop: heroLaptop, console: heroConsole };
 
 /* ───────────── 하단 타일 미니 그림 ───────────── */
 const ICONS = {
@@ -161,6 +215,14 @@ const ICONS = {
   phone: `<rect x="78" y="10" width="64" height="116" rx="12" fill="#222"/><rect x="84" y="20" width="52" height="96" rx="4" fill="#fff"/>${[0, 1, 2].map((i) => `<circle cx="96" cy="${38 + i * 28}" r="8" fill="#e5383b"/><text x="96" y="${43 + i * 28}" font-size="12" text-anchor="middle" fill="#fff" font-weight="900">${i + 1}</text><rect x="108" y="${34 + i * 28}" width="22" height="8" rx="4" fill="#bbb"/>`).join("")}`,
   stamp: `<rect x="50" y="20" width="100" height="100" rx="6" fill="#fff" stroke="#333" stroke-width="3"/><path d="M62 44H138M62 62H130M62 80H138" stroke="#bbb" stroke-width="6"/><circle cx="140" cy="88" r="32" fill="none" stroke="#e5383b" stroke-width="6"/><text x="140" y="96" font-size="22" text-anchor="middle" font-weight="900" fill="#e5383b">반려</text>`,
   question: `<circle cx="80" cy="60" r="42" fill="#7fd3ff" stroke="#333" stroke-width="3"/><text x="80" y="76" font-size="48" text-anchor="middle" font-weight="900" fill="#fff">Q</text><circle cx="150" cy="80" r="34" fill="#ffd400" stroke="#333" stroke-width="3"/><text x="150" y="94" font-size="38" text-anchor="middle" font-weight="900" fill="#333">A</text>`,
+  chart: `<rect x="40" y="16" width="140" height="104" rx="8" fill="#fff" stroke="#333" stroke-width="3"/><polyline points="54,100 84,78 110,88 138,52 166,34" fill="none" stroke="#e5383b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M152 30 l16 2 -4 16" fill="none" stroke="#e5383b" stroke-width="6" stroke-linecap="round"/>`,
+  won: `<circle cx="110" cy="68" r="50" fill="#2bb673" stroke="#1a6b44" stroke-width="4"/><text x="110" y="88" font-size="56" text-anchor="middle" font-weight="900" fill="#fff">₩</text>`,
+  house: `<path d="M50 70 L110 22 L170 70" fill="none" stroke="#333" stroke-width="6" stroke-linejoin="round"/><rect x="66" y="64" width="88" height="56" fill="#fff" stroke="#333" stroke-width="4"/><rect x="98" y="84" width="24" height="36" fill="#e5383b"/>`,
+  people: `<circle cx="80" cy="50" r="20" fill="#7fd3ff" stroke="#333" stroke-width="3"/><path d="M48 118 q32 -60 64 0z" fill="#7fd3ff" stroke="#333" stroke-width="3"/><circle cx="140" cy="50" r="20" fill="#ffd400" stroke="#333" stroke-width="3"/><path d="M108 118 q32 -60 64 0z" fill="#ffd400" stroke="#333" stroke-width="3"/>`,
+  chip: `<rect x="66" y="26" width="88" height="88" rx="10" fill="#222"/><rect x="82" y="42" width="56" height="56" rx="6" fill="#0f766e"/><text x="110" y="78" font-size="24" text-anchor="middle" font-weight="900" fill="#fff">AI</text>${[0, 1, 2, 3].map((i) => `<rect x="${78 + i * 20}" y="12" width="6" height="14" fill="#555"/><rect x="${78 + i * 20}" y="114" width="6" height="14" fill="#555"/>`).join("")}`,
+  gamepad: `<path d="M64 40 h92 a30 30 0 0 1 28 38 l-12 34 a16 16 0 0 1 -28 4 l-14 -18 h-40 l-14 18 a16 16 0 0 1 -28 -4 l-12 -34 a30 30 0 0 1 28 -38z" fill="#fff" stroke="#333" stroke-width="4"/><rect x="68" y="62" width="8" height="26" fill="#333"/><rect x="59" y="71" width="26" height="8" fill="#333"/><circle cx="148" cy="64" r="7" fill="#e5383b"/><circle cx="160" cy="80" r="7" fill="#1f6fe0"/>`,
+  trophy: `<path d="M80 24 h60 v34 a30 30 0 0 1 -60 0z" fill="#ffd45c" stroke="#9a6b00" stroke-width="4"/><path d="M80 34 h-18 a14 14 0 0 0 18 26 M140 34 h18 a14 14 0 0 1 -18 26" fill="none" stroke="#9a6b00" stroke-width="4"/><rect x="102" y="88" width="16" height="16" fill="#c9971c"/><rect x="84" y="104" width="52" height="14" rx="4" fill="#9a6b00"/>`,
+  shield: `<path d="M110 16 L160 34 V70 q0 34 -50 52 q-50 -18 -50 -52 V34z" fill="#1f6fe0" stroke="#123" stroke-width="4"/><path d="M88 68 l16 16 l28 -32" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>`,
 };
 const TILE_BG = ["#e7f0ff", "#fff3d6", "#ffe6e6", "#e6f7ea"];
 
@@ -236,7 +298,7 @@ html,body{width:1080px;height:1080px;overflow:hidden;font-family:'Noto Sans KR',
 .ticket .tl{flex:1;padding:20px 24px;display:flex;flex-direction:column;justify-content:space-between;border-right:4px dashed #ccc}
 .ticket .tr{width:120px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;background:#ffd400}
 .ticket small{font-size:18px;font-weight:800;color:#888;letter-spacing:2px}
-.ticket b{font-family:'Black Han Sans';font-size:48px;color:#222}
+.ticket b{font-family:'Black Han Sans';font-size:44px;color:#222;white-space:nowrap}
 .ticket .tr b{font-size:32px;white-space:nowrap}
 .stampc{position:absolute;width:150px;height:150px;border:8px solid;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Black Han Sans';font-size:34px;transform:rotate(-16deg);opacity:.85;background:rgba(255,255,255,.35)}
 .cert{position:absolute;left:20px;top:20px;width:430px;height:580px;background:#fffdf7;border-radius:8px;box-shadow:16px 26px 36px rgba(40,25,10,.45);padding:36px 34px}
@@ -247,6 +309,22 @@ html,body{width:1080px;height:1080px;overflow:hidden;font-family:'Noto Sans KR',
 .cert td:first-child{background:#f0eadc;width:40%}
 .cert i{display:block;height:11px;border-radius:6px;background:#e3e0d6;margin:18px 0;width:100%}
 .cstamp{position:absolute;right:40px;bottom:42px;width:120px;height:120px;border:7px solid #e5383b;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#e5383b;font-family:'Black Han Sans';font-size:40px;transform:rotate(-14deg);opacity:.9}
+.chartcard{position:absolute;left:40px;top:0;width:440px;background:#fff;border-radius:26px;box-shadow:18px 28px 40px rgba(40,25,10,.45);padding:28px 20px 18px}
+.clabel{font-family:'Jua';font-size:32px;padding:0 10px}
+.cval{font-family:'Black Han Sans';font-size:76px;color:#111;padding:0 10px;line-height:1.1}
+.cval small{font-size:36px;margin-left:12px}
+.crow{display:grid;grid-template-columns:1fr auto;align-items:center;line-height:1.2;font-size:26px;font-weight:800;color:#333;border-top:2px solid #eee;padding:10px 12px}
+.laptop{position:absolute;left:0;top:0;width:450px}
+.lscreen{height:400px;background:#f7f8fb;border:16px solid #1b1b22;border-radius:22px 22px 0 0;overflow:hidden;box-shadow:16px 26px 36px rgba(40,25,10,.4)}
+.lhead{color:#fff;font-family:'Jua';font-size:30px;padding:14px 20px}
+.lline{margin:12px 14px;max-width:86%;line-height:1.3;background:#fff;border-radius:16px;padding:10px 16px;font-size:22px;font-weight:700;color:#222;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.lline.me{margin-left:auto;background:#ffe14a}
+.lbase{height:30px;background:linear-gradient(#cfd2d8,#9ea3ab);border-radius:0 0 30px 30px;margin:0 -30px}
+.tv{position:absolute;left:0;top:0;width:520px;height:360px;border:18px solid #111;border-radius:24px;box-shadow:18px 28px 40px rgba(40,25,10,.45);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;color:#fff;text-align:center}
+.tvsub{font-family:'Jua';font-size:30px;opacity:.85}
+.tvtitle{font-family:'Black Han Sans';font-size:84px;line-height:1;text-shadow:0 6px 0 rgba(0,0,0,.35)}
+.tvdate{font-family:'Black Han Sans';font-size:44px;color:#ffe14a}
+.pad{position:absolute;left:150px;top:370px;transform:rotate(-10deg);filter:drop-shadow(10px 16px 14px rgba(40,25,10,.4))}
 .banner{position:absolute;left:18px;top:40px;transform:rotate(-6deg);overflow:visible}
 .spark{position:absolute;left:640px;top:14px}
 .title{position:absolute;left:14px;top:168px;transform:rotate(-5deg);overflow:visible}
