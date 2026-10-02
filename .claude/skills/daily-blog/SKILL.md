@@ -48,7 +48,7 @@ description: 네이버 블로그 '대학생활 정보노트 : 장학금·봉사�
   "tiles": [{ "icon": "table", "top": "내 구간", "bottom": "어디로?" }]  // 정확히 4개, 각 줄 6자 안팎
 }
 ```
-- hero 종류: `phone`(앱 화면 목록 rows 최대 5개) / `passport`(label, from, to, ticketNote, seat, stamp) / `certificate`(paper, title, no, rows[[항목,값]] 4개, stamp). 주제에 맞는 게 없으면 가장 가까운 것을 고르고 글자를 주제에 맞게 바꾼다.
+- hero 종류: `phone`(앱 화면 목록 rows 최대 5개) / `passport`(label, from, to, ticketNote, seat, stamp) / `certificate`(paper, title, no 또는 noText(발급번호 대신 쓸 문구), rows[[항목,값]] 4개, stamp). 주제에 맞는 게 없으면 가장 가까운 것을 고르고 글자를 주제에 맞게 바꾼다.
 - tile icon: `table coin calendar check globe warning doc phone stamp question`
 - 사용자가 배경 사진(AI 생성 이미지 등)을 주면 글 폴더에 넣고 `"bg": "bg.jpg"` 를 추가 → 그려진 책상 대신 그 사진 위에 같은 구성을 얹는다.
 - 썸네일의 모든 문구는 본문에 실제로 있는 내용이어야 한다(낚시 금지). 개인정보처럼 보이는 실제 이름·번호는 넣지 말고 OO 처리.

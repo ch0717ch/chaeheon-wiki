@@ -139,7 +139,7 @@ function heroCertificate(h, t) {
   </div>
   <div class="cert" style="transform:rotate(-5deg);">
     <div class="ctop" style="border-color:${t.main}">${esc(h.title ?? "확인서")}</div>
-    <div class="cno">발급번호 ${esc(h.no ?? "2026-0000-0000")}</div>
+    <div class="cno">${esc(h.noText ?? "발급번호 " + (h.no ?? "2026-0000-0000"))}</div>
     <table>${rows}</table>
     <i></i><i style="width:70%"></i><i style="width:85%"></i>
     <div class="cstamp">${esc(h.stamp ?? "확인")}</div>
