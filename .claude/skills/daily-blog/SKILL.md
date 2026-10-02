@@ -36,9 +36,22 @@ description: 네이버 블로그 '대학생활 정보노트 : 장학금·봉사�
 
 **meta.json** — 키: `no, theme(scholarship|volunteer|activity), category, keyword, subKeywords[], intent, angle, titles[3](검색형·궁금증형·인간형 순), pick, tags[10](# 없이), photos[], checklist[], sources[]`
 
-**thumb.json** — 키: `theme, badge(10자 내외), category(선택), lines[3](헤드라인, **강조** 1군데), sub, points[3](본문에 실제 있는 내용만), footRight`
-- 헤드라인 한 줄 9자 안팎. 길면 `headlineSize`(기본 118)를 100 정도로 줄인다.
-- 썸네일 문구가 본문 내용과 반드시 일치해야 한다(낚시 금지).
+**thumb.json** — 썸네일. 레퍼런스(쓰리휴먼스 블로그) 스타일 = **잡지 표지형**. 반드시 이 형식으로 만든다.
+구성: 빨간 붓터치 배너 → 흰/노랑/하늘 외곽선 초대형 제목 3줄 → 오른쪽 주제 소품 → 노란 포스트잇 손글씨 체크리스트 → 하단 4칸 타일(검정/빨강 캡션)
+```json
+{
+  "theme": "scholarship | volunteer | activity",
+  "banner": "국가장학금 **바뀐다?!**",          // 12자 안팎, 끝은 ?! 로. **강조** = 노란 글씨
+  "title": ["학자금 구간", "10→5개", "대개편?"], // 1줄 흰(6자), 2줄 노랑(핵심 숫자·단어, 5자), 3줄 하늘(질문, 6자)
+  "note": ["구간 변환표", "금액 변화", "1차 신청 일정", "신청 전 체크"], // 본문 소제목 순서대로 4개, 7자 안팎
+  "hero": { "type": "phone", "paper": "", "header": "", "sub": "", "rows": [["왼쪽", "칩"]] },
+  "tiles": [{ "icon": "table", "top": "내 구간", "bottom": "어디로?" }]  // 정확히 4개, 각 줄 6자 안팎
+}
+```
+- hero 종류: `phone`(앱 화면 목록 rows 최대 5개) / `passport`(label, from, to, ticketNote, seat, stamp) / `certificate`(paper, title, no, rows[[항목,값]] 4개, stamp). 주제에 맞는 게 없으면 가장 가까운 것을 고르고 글자를 주제에 맞게 바꾼다.
+- tile icon: `table coin calendar check globe warning doc phone stamp question`
+- 사용자가 배경 사진(AI 생성 이미지 등)을 주면 글 폴더에 넣고 `"bg": "bg.jpg"` 를 추가 → 그려진 책상 대신 그 사진 위에 같은 구성을 얹는다.
+- 썸네일의 모든 문구는 본문에 실제로 있는 내용이어야 한다(낚시 금지). 개인정보처럼 보이는 실제 이름·번호는 넣지 말고 OO 처리.
 
 ## 3단계 — 빌드
 
@@ -47,7 +60,7 @@ node blog/tools/build-post.mjs blog/posts/<날짜>      # post.html + 발행메�
 node blog/tools/render-thumbs.mjs blog/posts/<날짜>   # thumb.png 생성 (첫 실행 시 폰트 자동 다운로드)
 ```
 
-생성된 `thumb.png` 3장을 Read 로 직접 열어 글자 넘침·겹침이 없는지 확인하고, 있으면 thumb.json 을 고쳐 다시 렌더링한다.
+생성된 `thumb.png` 3장을 Read 로 직접 열어 확인한다: 제목·배너가 잘리지 않았는지, 포스트잇 4줄이 타일에 가려지지 않았는지, 소품 글자가 서로 겹치지 않았는지. 문제가 있으면 글자 수를 줄여 다시 렌더링한다.
 
 ## 4단계 — 검수 (adsense-blog-writing 28번 체크리스트)
 
