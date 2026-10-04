@@ -12,6 +12,7 @@ import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiD
 import EditLink from "@/components/EditLink";
 import { FootnoteRegistry } from "@/lib/footnotes";
 import { compact, formatMonth, formatPeriod } from "@/lib/format";
+import { canViewProfile } from "@/lib/docAccess";
 import {
   getCertifications,
   getEducation,
@@ -172,6 +173,8 @@ export default async function CvPage({ params }: PageProps) {
   const { person } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) notFound();
+  // 잠긴 문서는 본문을 아예 만들지 않는다. 잠금 화면은 레이아웃이 그린다.
+  if (!(await canViewProfile(profile))) return null;
 
   const [experiences, education, projects, certifications, timeline] = await Promise.all([
     getExperiences(profile.id),

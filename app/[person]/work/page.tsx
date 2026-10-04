@@ -7,6 +7,7 @@ import { EmptyNotice } from "@/components/Prose";
 import ProjectEntry from "@/components/ProjectEntry";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import { FootnoteRegistry } from "@/lib/footnotes";
+import { canViewProfile } from "@/lib/docAccess";
 import { getProfileBySlug, getProjects } from "@/lib/queries";
 import type { Project } from "@/types";
 
@@ -35,6 +36,8 @@ export default async function WorkPage({ params }: PageProps) {
   const { person } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) notFound();
+  // 잠긴 문서는 본문을 아예 만들지 않는다. 잠금 화면은 레이아웃이 그린다.
+  if (!(await canViewProfile(profile))) return null;
 
   const projects = await getProjects(profile.id);
   const groups = groupByCategory(projects);

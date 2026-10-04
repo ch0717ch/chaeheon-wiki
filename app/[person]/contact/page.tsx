@@ -8,6 +8,7 @@ import { EmptyNotice } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import { FootnoteRegistry } from "@/lib/footnotes";
 import { buildChannels } from "@/lib/links";
+import { canViewProfile } from "@/lib/docAccess";
 import { getProfileBySlug } from "@/lib/queries";
 
 type PageProps = { params: Promise<{ person: string }> };
@@ -25,6 +26,8 @@ export default async function ContactPage({ params }: PageProps) {
   const { person } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) notFound();
+  // 잠긴 문서는 본문을 아예 만들지 않는다. 잠금 화면은 레이아웃이 그린다.
+  if (!(await canViewProfile(profile))) return null;
 
   const fn = new FootnoteRegistry();
 

@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import DocLockGate from "@/components/DocLockGate";
 import SiteNav from "@/components/SiteNav";
-import {
-  ADMIN_COOKIE,
-  docCookieName,
-  verifyDocToken,
-  verifyToken,
-} from "@/lib/adminAuth";
+import { canViewProfile } from "@/lib/docAccess";
 import { stripFootnotes } from "@/lib/footnotes";
 import { getProfileBySlug } from "@/lib/queries";
 import { site } from "@/lib/site";
@@ -63,14 +57,9 @@ export default async function PersonLayout({ children, params }: LayoutProps) {
   if (!profile) notFound();
 
   // 잠긴 문서: 마스터 세션 또는 이 문서의 비밀번호 세션이 있어야 본다.
-  // cookies() 는 잠긴 문서에서만 호출한다 — 안 잠긴 문서는 정적 캐시를 유지한다.
-  if (profile.view_locked) {
-    const jar = await cookies();
-    const master = verifyToken(jar.get(ADMIN_COOKIE)?.value);
-    const doc = verifyDocToken(jar.get(docCookieName(profile.id))?.value, profile.id);
-    if (!master && !doc) {
-      return <DocLockGate person={profile.slug} name={profile.name} />;
-    }
+  // 각 페이지도 같은 판정으로 본문을 만들지 않는다(lib/docAccess 참고).
+  if (!(await canViewProfile(profile))) {
+    return <DocLockGate person={profile.slug} name={profile.name} />;
   }
 
   return (
