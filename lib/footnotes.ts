@@ -66,20 +66,30 @@ export type FootnotePart =
  * 텍스트를 일반 조각·번호각주·툴팁각주로 자른다.
  * 렌더 쪽에서 번호 각주를 만나면 registry.add 로 번호를 받는다.
  */
+/** 문자열이 아닌 값이 흘러들어왔을 때 쓸 수 있는 만큼만 건진다. */
+function asFallbackText(value: unknown): string {
+  return typeof value === "number" || typeof value === "boolean" ? String(value) : "";
+}
+
 export function splitFootnotes(text: string): FootnotePart[] {
+  // 본문은 결국 사람이 적은 값에서 온다. 타입상으로는 문자열이지만 JSON 칸을
+  // 거쳐 숫자나 null 이 섞여 들어오면 matchAll 에서 터져 문서 전체가 500 이
+  // 되므로, 마지막 길목인 여기서 한 번 더 막는다.
+  const source = typeof text === "string" ? text : asFallbackText(text);
   const parts: FootnotePart[] = [];
   let last = 0;
-  for (const m of text.matchAll(FOOTNOTE_RE)) {
+  for (const m of source.matchAll(FOOTNOTE_RE)) {
     const idx = m.index ?? 0;
-    if (idx > last) parts.push({ kind: "text", value: text.slice(last, idx) });
+    if (idx > last) parts.push({ kind: "text", value: source.slice(last, idx) });
     parts.push({ kind: m[1] === "**" ? "tip" : "note", value: m[2] });
     last = idx + m[0].length;
   }
-  if (last < text.length) parts.push({ kind: "text", value: text.slice(last) });
+  if (last < source.length) parts.push({ kind: "text", value: source.slice(last) });
   return parts;
 }
 
 /** 각주 문법을 떼어낸 순수 텍스트. 메타 설명 등 각주가 들어가면 안 되는 곳에 쓴다. */
 export function stripFootnotes(text: string): string {
-  return text.replace(FOOTNOTE_RE, "").replace(/\s{2,}/g, " ").trim();
+  const source = typeof text === "string" ? text : asFallbackText(text);
+  return source.replace(FOOTNOTE_RE, "").replace(/\s{2,}/g, " ").trim();
 }

@@ -56,6 +56,21 @@ function normalizeSlug(raw: string): string {
 }
 
 /** 명세에 따라 값 하나를 DB 에 넣을 형태로 강제한다. */
+/**
+ * JSON 칸의 모양 검사.
+ *
+ * 목록이 아닌 값(통째로 중괄호를 쓰거나 문자열 하나만 적은 경우)만 돌려보낸다.
+ * 항목 하나하나의 흠(빠진 칸 등)은 막지 않는다 — 읽는 쪽에서 다듬어 주므로
+ * 문서가 깨지지 않고, 저장까지 막으면 고치려고 들어온 사람이 아무것도
+ * 저장하지 못하게 된다.
+ */
+function checkJsonShape(field: FieldSpec, parsed: unknown): void {
+  if (Array.isArray(parsed)) return;
+  throw new Error(
+    `${field.label}: 대괄호 [ ] 로 둘러싼 목록이어야 한다. 예) ${field.hint ?? "[{...}]"}`,
+  );
+}
+
 function coerce(field: FieldSpec, value: unknown): unknown {
   if (field.key === "slug") {
     const s = normalizeSlug(String(value ?? ""));
@@ -89,12 +104,20 @@ function coerce(field: FieldSpec, value: unknown): unknown {
         .filter(Boolean);
     }
     case "json": {
-      if (typeof value === "object" && value !== null) return value;
-      try {
-        return JSON.parse(String(value ?? "[]"));
-      } catch {
-        throw new Error(`${field.label}: JSON 형식이 올바르지 않다.`);
+      let parsed: unknown;
+      if (typeof value === "object" && value !== null) {
+        parsed = value;
+      } else {
+        try {
+          parsed = JSON.parse(String(value ?? "[]"));
+        } catch {
+          throw new Error(`${field.label}: JSON 형식이 올바르지 않다.`);
+        }
       }
+      // 문법만 맞고 모양이 어긋난 값은 저장돼도 문서 화면에서 비어 버린다.
+      // 사용자가 무엇을 고쳐야 하는지 알 수 있게 여기서 되돌려 준다.
+      checkJsonShape(field, parsed);
+      return parsed;
     }
     case "select": {
       const s = String(value ?? "").trim();

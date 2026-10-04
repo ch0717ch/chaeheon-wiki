@@ -4,6 +4,8 @@ import type {
   Certification,
   Education,
   Experience,
+  ExpertiseArea,
+  ExtraLink,
   Profile,
   Project,
   ResearchPlan,
@@ -28,6 +30,81 @@ function decodeSlug(raw: string): string {
   } catch {
     return raw;
   }
+}
+
+/* ---------------------------------------------------------------------
+   사람이 직접 적는 값 다듬기
+
+   expertise·links_extra 는 관리 화면에서 JSON 을 손으로 적는 칸이고,
+   목록 칸도 구버전 행에서는 null 로 남아 있다. 모양이 어긋난 값 하나가
+   렌더 도중 예외가 되면 그 문서만 통째로 500 이 되므로(화면은 배열과
+   문자열을 가정한다), 읽어 들이는 길목에서 한 번 맞춰 둔다.
+   살릴 수 있는 값은 살리고, 쓸 수 없는 원소만 버린다.
+   --------------------------------------------------------------------- */
+function asText(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  return "";
+}
+
+function asTextList(value: unknown): string[] {
+  if (Array.isArray(value)) return value.map(asText).filter((s) => s.trim());
+  const one = asText(value).trim();
+  return one ? [one] : [];
+}
+
+function asExpertise(value: unknown): ExpertiseArea[] {
+  if (value === null || value === undefined) return [];
+  const rows = Array.isArray(value) ? value : [value];
+  return rows
+    .map((row) => {
+      // ["작곡", "편곡"] 처럼 제목만 늘어놓은 경우도 영역으로 받아 준다.
+      if (!row || typeof row !== "object" || Array.isArray(row)) {
+        const title = asText(row).trim();
+        return title ? { title, summary: "", skills: [] } : null;
+      }
+      const r = row as Record<string, unknown>;
+      const area: ExpertiseArea = {
+        title: asText(r.title).trim(),
+        summary: asText(r.summary).trim(),
+        skills: asTextList(r.skills),
+      };
+      return area.title || area.summary || area.skills.length ? area : null;
+    })
+    .filter((a): a is ExpertiseArea => a !== null);
+}
+
+function asExtraLinks(value: unknown): ExtraLink[] {
+  if (value === null || value === undefined) return [];
+  const rows = Array.isArray(value) ? value : [value];
+  return rows
+    .map((row) => {
+      if (!row || typeof row !== "object" || Array.isArray(row)) return null;
+      const r = row as Record<string, unknown>;
+      const url = asText(r.url).trim();
+      if (!url) return null; // 주소가 없으면 걸 데가 없다
+      const link: ExtraLink = {
+        label: asText(r.label).trim() || url,
+        url,
+        note: asText(r.note).trim(),
+      };
+      return link;
+    })
+    .filter((l): l is ExtraLink => l !== null);
+}
+
+/** DB 행 하나를 화면이 기대하는 모양으로 맞춘다. */
+function normalizeProfile(row: Profile): Profile {
+  return {
+    ...row,
+    keywords: asTextList(row.keywords),
+    languages: asText(row.languages),
+    education_summary: asTextList(row.education_summary),
+    expertise: asExpertise(row.expertise),
+    links_extra: asExtraLinks(row.links_extra),
+    view_locked: row.view_locked ?? false,
+    is_protected: row.is_protected ?? false,
+  };
 }
 
 /* ---------------------------------------------------------------------
@@ -65,7 +142,8 @@ export async function getProfiles(): Promise<Profile[]> {
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: true });
 
-  if (!first.error) return (first.data as unknown as Profile[]) ?? [];
+  if (!first.error)
+    return ((first.data as unknown as Profile[]) ?? []).map(normalizeProfile);
 
   const legacy = await supabase
     .from("people")
@@ -76,11 +154,7 @@ export async function getProfiles(): Promise<Profile[]> {
 
   logFailure("people", legacy.error);
   const rows = (legacy.data as unknown as Profile[]) ?? [];
-  return rows.map((r) => ({
-    ...r,
-    view_locked: r.view_locked ?? false,
-    is_protected: r.is_protected ?? false,
-  }));
+  return rows.map(normalizeProfile);
 }
 
 // 레이아웃과 페이지가 같은 요청 안에서 두 번 부르므로 React cache 로 감싼다.
@@ -96,7 +170,10 @@ export const getProfileBySlug = cache(async (rawSlug: string): Promise<Profile |
     .eq("is_published", true)
     .maybeSingle();
 
-  if (!first.error) return (first.data as unknown as Profile) ?? null;
+  if (!first.error) {
+    const row = (first.data as unknown as Profile) ?? null;
+    return row ? normalizeProfile(row) : null;
+  }
 
   const legacy = await supabase
     .from("people")
@@ -107,9 +184,7 @@ export const getProfileBySlug = cache(async (rawSlug: string): Promise<Profile |
 
   logFailure(`profile(${slug})`, legacy.error);
   const row = (legacy.data as unknown as Profile) ?? null;
-  return row
-    ? { ...row, view_locked: row.view_locked ?? false, is_protected: row.is_protected ?? false }
-    : null;
+  return row ? normalizeProfile(row) : null;
 });
 
 /* ---------------------------------------------------------------------
