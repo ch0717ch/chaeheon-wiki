@@ -11,6 +11,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   for (const profile of profiles) {
+    // 잠긴 문서는 비밀번호 없이는 볼 수 없으니 검색엔진에 알릴 이유가 없다.
+    if (profile.view_locked) continue;
     for (const doc of docTree) {
       entries.push({
         url: `${baseUrl}/${profile.slug}${doc.href}`,

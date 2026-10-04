@@ -10,6 +10,7 @@ import { EmptyNotice, TagList } from "@/components/Prose";
 import ProjectEntry from "@/components/ProjectEntry";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import { buildChannels } from "@/lib/links";
+import { canViewProfile } from "@/lib/docAccess";
 import { getFeaturedProjects, getProfileBySlug } from "@/lib/queries";
 import { docTree } from "@/lib/site";
 
@@ -19,6 +20,8 @@ export default async function OverviewPage({ params }: PageProps) {
   const { person } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) notFound();
+  // 잠긴 문서는 본문을 아예 만들지 않는다. 잠금 화면은 레이아웃이 그린다.
+  if (!(await canViewProfile(profile))) return null;
 
   const featured = await getFeaturedProjects(profile.id, 3);
   const base = `/${profile.slug}`;

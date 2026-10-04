@@ -12,6 +12,7 @@ import { Bullets, EmptyNotice, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import { FootnoteRegistry, stripFootnotes } from "@/lib/footnotes";
 import { formatPeriod } from "@/lib/format";
+import { canViewProfile } from "@/lib/docAccess";
 import { getProfileBySlug, getProjectBySlug } from "@/lib/queries";
 import type { Project } from "@/types";
 
@@ -21,6 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { person, slug } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) return { title: "찾을 수 없는 문서" };
+  if (!(await canViewProfile(profile))) return { title: "잠긴 문서" };
   const project = await getProjectBySlug(profile.id, slug);
   if (!project) return { title: "찾을 수 없는 프로젝트" };
 
@@ -48,6 +50,8 @@ export default async function ProjectPage({ params }: PageProps) {
   const { person, slug } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) notFound();
+  // 잠긴 문서는 본문을 아예 만들지 않는다. 잠금 화면은 레이아웃이 그린다.
+  if (!(await canViewProfile(profile))) return null;
 
   const project = await getProjectBySlug(profile.id, slug);
   if (!project) notFound();

@@ -9,6 +9,7 @@ import PdfViewer from "@/components/PdfViewer";
 import { Bullets, EmptyNotice, NumberedList, Paragraphs, TagList } from "@/components/Prose";
 import { DocHeader, DocSections, Toc, type DocSection } from "@/components/WikiDoc";
 import { FootnoteRegistry } from "@/lib/footnotes";
+import { canViewProfile } from "@/lib/docAccess";
 import { getProfileBySlug, getResearchPlans } from "@/lib/queries";
 import type { ResearchPlan, ResearchPlanStatus } from "@/types";
 
@@ -113,6 +114,8 @@ export default async function ResearchPage({ params }: PageProps) {
   const { person } = await params;
   const profile = await getProfileBySlug(person);
   if (!profile) notFound();
+  // 잠긴 문서는 본문을 아예 만들지 않는다. 잠금 화면은 레이아웃이 그린다.
+  if (!(await canViewProfile(profile))) return null;
 
   const plans = await getResearchPlans(profile.id);
   const backHere = `/${profile.slug}/research`;
