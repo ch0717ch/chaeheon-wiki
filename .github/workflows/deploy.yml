@@ -1,0 +1,54 @@
+# main 에 올라가면 Cloudflare Workers 로 배포한다.
+#
+# 배포는 그동안 PC 에서 `npm run cf:deploy` 를 직접 돌려야 했다. 그래서
+# 고친 코드가 올라가도 사이트는 예전 그대로인 일이 생겼다. 여기서 대신 돌린다.
+#
+# 준비물: 저장소 Secrets 에 CLOUDFLARE_API_TOKEN 하나.
+#   GitHub 저장소 → Settings → Secrets and variables → Actions → New secret
+#   토큰은 Cloudflare → My Profile → API Tokens → Create Token
+#          → "Edit Cloudflare Workers" 틀로 만든다.
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # 손으로 돌리고 싶을 때 (Actions 탭의 Run workflow)
+
+concurrency:
+  group: deploy-workers
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # 토큰이 없으면 빌드까지 해 놓고 마지막에 실패한다. 먼저 끊는다.
+      - name: Check deploy token
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "::error::CLOUDFLARE_API_TOKEN 이 없다. 저장소 Settings → Secrets and variables → Actions 에 추가한다."
+            exit 1
+          fi
+
+      - run: npm ci
+
+      # 배포 전에 걸러낸다. 여기서 막히면 사이트는 예전 버전 그대로 남는다.
+      - run: npm run typecheck
+      - run: npm run lint
+
+      # Supabase 주소와 publishable 키는 빌드 때 번들에 박힌다. 비어 있으면
+      # 배포는 성공해도 문서가 전부 빈 화면이 되므로 기본값을 들고 간다.
+      # (RLS 로 select 만 열려 있어 공개돼도 안전한 값. README 에도 적혀 있다.)
+      - name: Build and deploy
+        run: npx opennextjs-cloudflare build && npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://pbmkuzfyfnevsubywpnp.supabase.co' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_ORy88orY5kzMA8beKSvBaw_CRRHeW8J' }}

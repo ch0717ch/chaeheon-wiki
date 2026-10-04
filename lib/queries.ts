@@ -93,18 +93,37 @@ function asExtraLinks(value: unknown): ExtraLink[] {
     .filter((l): l is ExtraLink => l !== null);
 }
 
-/** DB 행 하나를 화면이 기대하는 모양으로 맞춘다. */
+/** 문자열이어야 하는 칸 전부. 하나라도 문자열이 아니면 화면이 터진다. */
+const TEXT_KEYS = [
+  "slug", "name", "name_en", "title", "intro",
+  "field_main", "field_sub", "mbti", "birth_date", "location", "languages",
+  "photo_url", "resume_pdf_url", "music_url", "music_title",
+  "link_github", "link_blog", "link_blog2", "link_instagram",
+  "link_email", "link_linkedin",
+  "target_primary", "target_secondary", "target_edge",
+] as const;
+
+/**
+ * DB 행 하나를 화면이 기대하는 모양으로 맞춘다.
+ *
+ * 글자 칸은 저장할 때 문자열로 맞춰지지만, DB 를 직접 고쳤거나 칸이 생기기
+ * 전에 들어온 행은 그 보장을 받지 않는다. 화면은 startsWith·trim 같은
+ * 문자열 기능을 그대로 쓰므로, 여기서 한 번 더 문자열로 만들어 둔다.
+ */
 function normalizeProfile(row: Profile): Profile {
+  const text = {} as Record<string, string>;
+  for (const key of TEXT_KEYS) text[key] = asText(row[key]);
+
   return {
     ...row,
+    ...text,
     keywords: asTextList(row.keywords),
-    languages: asText(row.languages),
     education_summary: asTextList(row.education_summary),
     expertise: asExpertise(row.expertise),
     links_extra: asExtraLinks(row.links_extra),
     view_locked: row.view_locked ?? false,
     is_protected: row.is_protected ?? false,
-  };
+  } as Profile;
 }
 
 /* ---------------------------------------------------------------------
