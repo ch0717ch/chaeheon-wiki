@@ -44,6 +44,11 @@ export type Profile = {
   /** 고정 칸으로 모자란 채널들. 채널이 늘 때 컬럼을 더하지 않기 위한 목록. */
   links_extra: ExtraLink[];
   education_summary: string[];
+  /**
+   * 프로필 상자에 더하는 행. 한 줄이 "이름: 내용" 하나다(예: "가족: 아버지 ○○○").
+   * 비어 있으면 아무것도 붙지 않는다. 화면에서 쓰는 모양은 lib/profileExtra 가 만든다.
+   */
+  profile_extra: string[];
   expertise: ExpertiseArea[];
   target_primary: string;
   target_secondary: string;

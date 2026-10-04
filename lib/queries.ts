@@ -119,6 +119,7 @@ function normalizeProfile(row: Profile): Profile {
     ...text,
     keywords: asTextList(row.keywords),
     education_summary: asTextList(row.education_summary),
+    profile_extra: asTextList(row.profile_extra),
     expertise: asExpertise(row.expertise),
     links_extra: asExtraLinks(row.links_extra),
     view_locked: row.view_locked ?? false,
@@ -139,41 +140,41 @@ const PEOPLE_COLUMNS = [
   "music_url", "music_title",
   "link_github", "link_blog", "link_blog2", "link_instagram",
   "link_email", "link_linkedin", "links_extra",
-  "education_summary", "expertise",
+  "education_summary", "profile_extra", "expertise",
   "target_primary", "target_secondary", "target_edge",
   "view_locked", "is_protected", "sort_order", "is_published", "created_at", "updated_at",
 ].join(",");
 
-// 구버전 DB(v7 이전: view_locked 없음 / v9 이전: links_extra 없음)에서도
-// 동작하도록 한 번 물러선다.
-const PEOPLE_COLUMNS_LEGACY = PEOPLE_COLUMNS.replace(",view_locked", "")
+// 구버전 DB 에서도 동작하도록 물러선다. 새 칸이 없을 뿐인 DB 에서
+// 잠금 칸까지 버리면 잠긴 문서가 열려 버리므로, 가장 최근 칸부터 하나씩 뺀다.
+//   v10 이전: profile_extra 없음
+//   v7·v9 이전: view_locked·is_protected·links_extra 없음
+const PEOPLE_COLUMNS_V9 = PEOPLE_COLUMNS.replace(",profile_extra", "");
+const PEOPLE_COLUMNS_LEGACY = PEOPLE_COLUMNS_V9.replace(",view_locked", "")
   .replace(",is_protected", "")
   .replace(",links_extra", "");
+const PEOPLE_COLUMN_SETS = [PEOPLE_COLUMNS, PEOPLE_COLUMNS_V9, PEOPLE_COLUMNS_LEGACY];
 
 export async function getProfiles(): Promise<Profile[]> {
   const supabase = getSupabase();
   if (!supabase) return [];
 
-  const first = await supabase
-    .from("people")
-    .select(PEOPLE_COLUMNS)
-    .eq("is_published", true)
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: true });
+  let error: unknown = null;
+  for (const columns of PEOPLE_COLUMN_SETS) {
+    const result = await supabase
+      .from("people")
+      .select(columns)
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true });
 
-  if (!first.error)
-    return ((first.data as unknown as Profile[]) ?? []).map(normalizeProfile);
+    if (!result.error)
+      return ((result.data as unknown as Profile[]) ?? []).map(normalizeProfile);
+    error = result.error;
+  }
 
-  const legacy = await supabase
-    .from("people")
-    .select(PEOPLE_COLUMNS_LEGACY)
-    .eq("is_published", true)
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: true });
-
-  logFailure("people", legacy.error);
-  const rows = (legacy.data as unknown as Profile[]) ?? [];
-  return rows.map(normalizeProfile);
+  logFailure("people", error);
+  return [];
 }
 
 // 레이아웃과 페이지가 같은 요청 안에서 두 번 부르므로 React cache 로 감싼다.
@@ -182,28 +183,24 @@ export const getProfileBySlug = cache(async (rawSlug: string): Promise<Profile |
   if (!supabase) return null;
   const slug = decodeSlug(rawSlug);
 
-  const first = await supabase
-    .from("people")
-    .select(PEOPLE_COLUMNS)
-    .eq("slug", slug)
-    .eq("is_published", true)
-    .maybeSingle();
+  let error: unknown = null;
+  for (const columns of PEOPLE_COLUMN_SETS) {
+    const result = await supabase
+      .from("people")
+      .select(columns)
+      .eq("slug", slug)
+      .eq("is_published", true)
+      .maybeSingle();
 
-  if (!first.error) {
-    const row = (first.data as unknown as Profile) ?? null;
-    return row ? normalizeProfile(row) : null;
+    if (!result.error) {
+      const row = (result.data as unknown as Profile) ?? null;
+      return row ? normalizeProfile(row) : null;
+    }
+    error = result.error;
   }
 
-  const legacy = await supabase
-    .from("people")
-    .select(PEOPLE_COLUMNS_LEGACY)
-    .eq("slug", slug)
-    .eq("is_published", true)
-    .maybeSingle();
-
-  logFailure(`profile(${slug})`, legacy.error);
-  const row = (legacy.data as unknown as Profile) ?? null;
-  return row ? normalizeProfile(row) : null;
+  logFailure(`profile(${slug})`, error);
+  return null;
 });
 
 /* ---------------------------------------------------------------------
