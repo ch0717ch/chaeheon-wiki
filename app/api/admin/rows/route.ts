@@ -10,6 +10,7 @@ import {
   verifyToken,
 } from "@/lib/adminAuth";
 import { findSpec, type FieldSpec } from "@/lib/adminSchema";
+import { splitExtraLine } from "@/lib/profileExtra";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 export const runtime = "nodejs";
@@ -97,11 +98,22 @@ function coerce(field: FieldSpec, value: unknown): unknown {
       return /^\d{4}-\d{2}-\d{2}$/.test(s) ? s : null;
     }
     case "lines": {
-      if (Array.isArray(value)) return value.map(String).filter((s) => s.trim());
-      return String(value ?? "")
-        .split(/\r?\n/)
-        .map((s) => s.trim())
-        .filter(Boolean);
+      const lines = Array.isArray(value)
+        ? value.map(String).filter((s) => s.trim())
+        : String(value ?? "")
+            .split(/\r?\n/)
+            .map((s) => s.trim())
+            .filter(Boolean);
+      // 화면은 형식이 어긋난 줄을 조용히 건너뛰므로, 저장 때 어느 줄인지 알려 준다.
+      if (field.key === "profile_extra") {
+        const bad = lines.find((line) => !splitExtraLine(line));
+        if (bad) {
+          throw new Error(
+            `${field.label}: "${bad}" — 한 줄에 '이름: 내용' 으로 적는다. 예) 가족: 아버지 ○○○`,
+          );
+        }
+      }
+      return lines;
     }
     case "json": {
       let parsed: unknown;

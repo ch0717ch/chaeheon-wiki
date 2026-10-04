@@ -10,6 +10,7 @@ import {
 import ProfilePhoto from "@/components/ProfilePhoto";
 import type { FootnoteRegistry } from "@/lib/footnotes";
 import { buildChannels, type ChannelKind } from "@/lib/links";
+import { parseProfileExtra } from "@/lib/profileExtra";
 import type { Profile } from "@/types";
 
 type Row = { label: string; value: ReactNode };
@@ -70,6 +71,20 @@ export default function ProfileCard({
       profile.languages ? { label: "언어", value: T(profile.languages) } : null,
       profile.mbti ? { label: "MBTI", value: T(profile.mbti) } : null,
       profile.location ? { label: "지역", value: T(profile.location) } : null,
+      // 문서마다 더한 행(가족 등). 비어 있으면 아무것도 붙지 않는다.
+      ...parseProfileExtra(profile.profile_extra).map(({ label, items }) => ({
+        label,
+        value:
+          items.length === 1 ? (
+            T(items[0])
+          ) : (
+            <ul className="space-y-0.5">
+              {items.map((item, i) => (
+                <li key={i}>{T(item)}</li>
+              ))}
+            </ul>
+          ),
+      })),
     ] as (Row | null)[]
   ).filter((r): r is Row => r !== null);
 
@@ -90,8 +105,8 @@ export default function ProfileCard({
       </div>
 
       <dl className="divide-y divide-line-soft">
-        {rows.map((row) => (
-          <div key={row.label} className="grid grid-cols-[3.5rem_1fr] gap-3 px-4 py-2.5">
+        {rows.map((row, i) => (
+          <div key={`${i}-${row.label}`} className="grid grid-cols-[3.5rem_1fr] gap-3 px-4 py-2.5">
             <dt className="text-xs font-semibold leading-6 text-ink-muted">{row.label}</dt>
             <dd className="leading-6 text-ink">{row.value}</dd>
           </div>

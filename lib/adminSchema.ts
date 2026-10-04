@@ -120,6 +120,12 @@ export const PROFILE_SPEC: TableSpec = {
     },
     { key: "education_summary", label: "학력 요약(프로필 상자)", type: "lines" },
     {
+      key: "profile_extra",
+      label: "프로필 상자 추가 항목",
+      type: "lines",
+      hint: "한 줄에 하나, '이름: 내용'. 예) 가족: 아버지 ○○○ — 같은 이름을 여러 줄 쓰면 한 칸에 모인다. 비우면 표시 안 함",
+    },
+    {
       key: "expertise",
       label: "전문 분야(JSON)",
       type: "json",
