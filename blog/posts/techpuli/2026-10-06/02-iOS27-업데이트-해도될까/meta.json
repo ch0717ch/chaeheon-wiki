@@ -1,0 +1,24 @@
+{
+  "no": "02",
+  "theme": "it",
+  "category": "IT",
+  "keyword": "iOS 27 업데이트",
+  "subKeywords": ["iOS 27 지원 기종", "iOS 27 업데이트 해도 될까", "iOS 27 배터리", "iOS 27 새 기능"],
+  "intent": "업데이트 여부를 고민하는 아이폰 사용자의 '해도 될까/하는 법' 가이드형",
+  "angle": "지원 기종 루머 정리 + 상황별 판단표 + 업데이트 직후 배터리 소모 설명 + 전후 체크리스트",
+  "description": "iOS 27 업데이트, 지금 해도 될까요? 지원 기종(아이폰 11·SE 2세대 이후), 새 기능, 업데이트 직후 배터리·발열 이유, 업데이트 전 백업과 체크리스트까지 정리했습니다.",
+  "titles": [
+    "iOS 27 업데이트 해도 될까? 지원 기종과 배터리, 업데이트 전 체크리스트",
+    "iOS 27 업데이트 후 배터리가 빨리 닳는 이유와 대처법",
+    "아이폰 11도 iOS 27 될까? 업데이트 전에 알아둘 것"
+  ],
+  "pick": "A — '해도 될까'와 핵심 정보(지원 기종·배터리)를 한 제목에 담아 검색 의도를 넓게 커버",
+  "tags": ["iOS27", "iOS27업데이트", "아이폰업데이트", "iOS27지원기종", "아이폰배터리", "아이폰", "애플", "IT풀이"],
+  "check": ["애플 공식 안내로 기능별 한국어 지원 확인"],
+  "sources": [
+    "ZDNet iOS 27 14일 정식 출시 — https://zdnet.co.kr/view/?no=20260910074836",
+    "AppleInsider iOS 27 keeps iPhone 11 and newer — https://appleinsider.com/articles/26/06/08/ios-27-keeps-iphone-11-and-newer-compatibility",
+    "MacRumors iOS 27 기능별 지원 기종 — https://www.macrumors.com/2026/08/17/which-iphones-support-every-ios-27-feature/",
+    "다음 iOS 27 공개 달라지는 점 — https://v.daum.net/v/20260609064204689"
+  ]
+}

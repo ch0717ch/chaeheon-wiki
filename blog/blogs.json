@@ -46,5 +46,22 @@
       "IT"
     ],
     "categoryInFilename": true
+  },
+  "techpuli": {
+    "label": "테크풀이_블로그스팟",
+    "name": "테크풀이 (Blogspot · 구글 애드센스) — IT·AI·게임 풀이",
+    "themes": [
+      "it",
+      "ai",
+      "game"
+    ],
+    "strategy": "blog/strategy/techpuli.md",
+    "categories": [
+      "IT",
+      "AI",
+      "게임"
+    ],
+    "categoryInFilename": true,
+    "platform": "blogspot"
   }
 }

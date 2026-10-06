@@ -1,0 +1,25 @@
+{
+  "no": "01",
+  "theme": "it",
+  "category": "IT",
+  "keyword": "램 가격 급등 이유",
+  "subKeywords": ["D램 가격 상승", "메모리 가격 2026", "램값 언제 내려", "스펙 다이어트"],
+  "intent": "램·전자제품 가격이 왜 오르는지, 지금 사도 되는지 알고 싶은 '왜' 풀이형",
+  "angle": "원인 3가지 + 실제 영향(갤럭시 출고가·스펙 다이어트·수출 기록) + 상황별 구매 판단표",
+  "description": "램(RAM) 가격이 역대 최고 수준으로 오른 이유를 세 가지로 풀었습니다. 갤럭시 S26 출고가 인상, 용량 줄인 신제품, 지금 PC·폰을 살 때 판단 기준까지 정리했습니다.",
+  "titles": [
+    "램 가격 급등 이유 3가지, PC·스마트폰 가격까지 오르는 구조",
+    "램값이 왜 이렇게 올랐을까? 지금 PC 맞춰도 되는지까지",
+    "컴퓨터 견적 내다 놀랐다면, 램 가격이 오른 진짜 이유"
+  ],
+  "pick": "A — 구글은 키워드가 앞에 오는 검색형이 유리",
+  "tags": ["램가격", "D램", "메모리가격", "PC견적", "조립PC", "갤럭시S26", "반도체", "IT풀이"],
+  "check": ["다나와 램 가격 추이 그래프 캡처 넣기"],
+  "sources": [
+    "글로벌이코노믹 4분기에도 메모리값 상승 — https://www.g-enews.com/article/Industry/2026/10/202610011433345377139bf6e4b2_1",
+    "다나와 DPG RAM 가격 역대 최고 — https://dpg.danawa.com/news/view?boardSeq=294&listSeq=5947740",
+    "ITWorld RAM 가격 대란 — https://www.itworld.co.kr/article/4104533/",
+    "한국아이 갤럭시 S26 최대 27만원 인상 — https://www.hankooki.com/news/articleView.html?idxno=344926",
+    "서울신문 9월 반도체 수출 603억 달러 — https://www.seoul.co.kr/news/economy/2026/10/01/20261001500024"
+  ]
+}

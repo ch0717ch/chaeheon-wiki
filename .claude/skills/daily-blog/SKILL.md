@@ -13,6 +13,8 @@ description: 사용자의 네이버 블로그 3개(1번 비즈니스·경제·�
 | 2번 | `campus` | 대학생활: 장학금·봉사·대외활동 | `blog/posts/campus/<날짜>/` | `blog/strategy/campus.md` |
 | 3번 | `tech` | 게임·AI/IT·기술 | `blog/posts/tech/<날짜>/` | `blog/strategy/tech.md` |
 
+**별도 요청**: "테크풀이"(구글 Blogspot, 키 `techpuli`)를 지정하면 이 표의 3개 대신 테크풀이 글 2개만 만든다 → `blog/strategy/techpuli.md`.
+
 블로그 이름·압축파일 이름·테마 목록은 `blog/blogs.json`. 세 방향 문서를 먼저 읽는다 (campus.md 2~3번은 공통 원칙).
 **블로그마다 글 3개 → 압축파일 3개**가 기본 결과물이다. 세 블로그를 순서대로(1번 → 2번 → 3번) 처리한다.
 글쓰기 규칙은 `anthropic-skills:adsense-blog-writing` 스킬을 함께 적용한다(사람 우선, AI 냄새 제거, 허위 금지).
