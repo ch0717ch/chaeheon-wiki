@@ -1,0 +1,21 @@
+{
+  "theme": "activity",
+  "banner": "교환학생 **벌써 마감?!**",
+  "title": ["교환학생", "언제 지원?", "준비 순서"],
+  "note": ["실제 지원 시기", "지원 자격", "준비 순서", "비용 구조"],
+  "hero": {
+    "type": "passport",
+    "label": "EXCHANGE",
+    "from": "ICN",
+    "to": "LHR",
+    "ticketNote": "2027 SPRING · FALL",
+    "seat": "2.7+",
+    "stamp": "선발"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "파견", "bottom": "5~7개월 전" },
+    { "icon": "check", "top": "평점·어학", "bottom": "지원 자격" },
+    { "icon": "globe", "top": "학교 고르기", "bottom": "부터" },
+    { "icon": "coin", "top": "학비 면제", "bottom": "생활비는?" }
+  ]
+}

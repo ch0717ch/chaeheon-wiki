@@ -1,0 +1,19 @@
+{
+  "theme": "game",
+  "banner": "10월 신작 **뭐 하지?!**",
+  "title": ["10월 대작", "CoD vs", "팬텀블레이드"],
+  "note": ["대작 2편 비교", "모던 워페어 4", "팬텀 블레이드", "11월 일정"],
+  "hero": {
+    "type": "console",
+    "sub": "OCTOBER 2026",
+    "title": "NEW GAMES",
+    "date": "10.23 · 10.29",
+    "badge": "10월"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "10월 23일", "bottom": "모던 워페어 4" },
+    { "icon": "gamepad", "top": "10월 29일", "bottom": "팬텀 블레이드" },
+    { "icon": "question", "top": "나한테 맞는", "bottom": "게임은?" },
+    { "icon": "trophy", "top": "11월엔", "bottom": "GTA 6" }
+  ]
+}

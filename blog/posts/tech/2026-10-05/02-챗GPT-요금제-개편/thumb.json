@@ -1,0 +1,18 @@
+{
+  "theme": "ai",
+  "banner": "챗GPT **월 79만원?!**",
+  "title": ["챗GPT 프로", "100·200·500", "뭐가 달라?"],
+  "note": ["요금제 한눈에", "200 한도 축소", "울트라패스트", "요금제 고르기"],
+  "hero": {
+    "type": "laptop",
+    "header": "ChatGPT 요금제",
+    "lines": ["프로 100 · 플러스의 5배", "프로 200 · 10배 (기존 20배)", "프로 500 · 25배 + 울트라패스트", "나한테 맞는 건 뭐야?"],
+    "badge": "NEW"
+  },
+  "tiles": [
+    { "icon": "table", "top": "요금제 3단계", "bottom": "한눈에" },
+    { "icon": "warning", "top": "프로 200", "bottom": "한도 절반" },
+    { "icon": "chip", "top": "GPT-6", "bottom": "솔·루나" },
+    { "icon": "check", "top": "나에게 맞는", "bottom": "요금제는?" }
+  ]
+}

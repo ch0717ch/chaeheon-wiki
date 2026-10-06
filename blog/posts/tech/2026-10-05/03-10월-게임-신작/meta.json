@@ -1,0 +1,23 @@
+{
+  "no": "03",
+  "theme": "game",
+  "category": "게임",
+  "keyword": "10월 출시 게임",
+  "subKeywords": ["모던 워페어 4 출시일", "팬텀 블레이드 제로 출시일", "2026 10월 신작 게임", "콜 오브 듀티 스위치 2"],
+  "intent": "이번 달 나오는 대작과 내 취향에 맞는 게임을 고르려는 정보·비교형",
+  "angle": "대작 2편 비교표 + 모드·장르별 '이런 사람에게 맞음' + 11월까지 일정 연결",
+  "titles": [
+    "10월 출시 게임 기대작, 모던 워페어 4와 팬텀 블레이드 제로",
+    "10월 신작 게임 뭐 할까? CoD 모던 워페어 4 vs 팬텀 블레이드 제로",
+    "GTA 6 전에 10월에 나오는 대작 두 편"
+  ],
+  "pick": "B — 두 대작 비교라는 선택 고민을 정면으로",
+  "tags": ["10월출시게임", "신작게임", "모던워페어4", "콜오브듀티", "팬텀블레이드제로", "PS5게임", "스위치2", "게임추천", "게임출시", "게임뉴스"],
+  "check": ["출시일 변경 여부 스토어에서 확인"],
+  "sources": [
+    "Xbox 모던 워페어 4 (10월 23일 출시) — https://www.xbox.com/ko-KR/games/call-of-duty-modern-warfare-4",
+    "위키백과 콜 오브 듀티: 모던 워페어 4 — https://ko.wikipedia.org/wiki/%EC%BD%9C_%EC%98%A4%EB%B8%8C_%EB%93%80%ED%8B%B0:_%EB%AA%A8%EB%8D%98_%EC%9B%8C%ED%8E%98%EC%96%B4_4_(2026%EB%85%84_%EB%B9%84%EB%94%94%EC%98%A4_%EA%B2%8C%EC%9E%84)",
+    "인벤 10월 주요 신작 12선 — https://www.inven.co.kr/webzine/news/?news=321685",
+    "PlayStation 블로그 하반기 PS5 게임 — https://blog.ko.playstation.com/2026/07/16/20260716-ps5"
+  ]
+}

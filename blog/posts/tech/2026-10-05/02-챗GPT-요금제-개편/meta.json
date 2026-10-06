@@ -1,0 +1,23 @@
+{
+  "no": "02",
+  "theme": "ai",
+  "category": "AI",
+  "keyword": "챗GPT 요금제",
+  "subKeywords": ["챗GPT 프로 500", "챗GPT 프로 200 한도", "GPT-6 솔", "챗GPT 가격"],
+  "intent": "바뀐 유료 요금제와 내게 맞는 요금제를 판단하려는 비교형",
+  "angle": "3단계 요금표 + 기존 200달러 사용자 한도 축소 + 사용 방식별 선택표",
+  "titles": [
+    "챗GPT 요금제 개편, 프로 100·200·500 차이와 가격 정리",
+    "챗GPT 월 79만 원 요금제 등장, 기존 프로 200은 한도 반토막?",
+    "챗GPT 유료 요금제, 나한테 맞는 건 어느 쪽일까"
+  ],
+  "pick": "B — '79만 원'과 '한도 반토막'이라는 두 화제를 정확히 담음",
+  "tags": ["챗GPT", "챗GPT요금제", "챗GPT프로", "ChatGPT", "GPT6", "오픈AI", "AI구독", "생성형AI", "AI뉴스", "IT정보"],
+  "check": ["챗GPT 요금제 페이지에서 원화 가격 재확인"],
+  "sources": [
+    "뉴시스 월 79만원 챗GPT — https://www.newsis.com/view/NISX20260930_0003808902",
+    "디지털투데이 프로 500 신설·기존 한도 절반 — https://www.digitaltoday.co.kr/news/articleView.html?idxno=703858",
+    "테크M 500달러 요금제 — https://www.techm.kr/news/articleView.html?idxno=155716",
+    "뉴데일리 GPT-6 솔·루나 — https://biz.newdaily.co.kr/site/data/html/2026/09/23/2026092300057.html"
+  ]
+}
