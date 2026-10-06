@@ -14,6 +14,10 @@
 - 제목은 adsense-blog-writing 7번 구글 제목 규칙: `핵심 키워드 + 구체적인 문제 + 궁금증`, 키워드를 앞쪽에.
 - meta.json 에 `description`(검색 설명, 120~150자) 필수 → 발행메모에 '검색 설명'으로 나간다. Blogger 글 설정의 '검색 설명'에 붙여넣기.
 - tags 는 Blogger '라벨'로 쓴다 (5~10개).
+- 본문 HTML은 네이버식 post.html 이 아니라 **Blogger 'HTML 보기'에 붙여넣는 본문 조각**(문서 뼈대 없음, 목차 점프 링크, h2/h3, FAQ는 h3).
+- meta.json 에 `permalink`(영문 맞춤 퍼머링크), `imageAlt`(대표 이미지 대체 텍스트)도 넣는다 → 발행메모에 출력.
+- 라벨 첫 번째는 카테고리(IT/AI/게임).
+- 실제 블로그 글(https://solving-it-tech.blogspot.com/2026/10/gta-6-5.html)을 크롬으로 읽을 수 있는 세션이 되면 이 형식을 그 글에 맞춰 다시 조정한다.
 - 결과 폴더: `blog/posts/techpuli/<날짜>/`, 압축파일 `테크풀이_블로그스팟_<날짜>.zip`
 
 ## 썸네일 테마

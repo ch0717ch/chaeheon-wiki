@@ -124,6 +124,68 @@ ${out.filter(Boolean).join("\n\n")}
 `;
 }
 
+// Blogspot(Blogger) 전용: 글 편집기 'HTML 보기'에 그대로 붙여넣는 본문 조각.
+// 문서 뼈대(<html>, <head>, <body>) 없이 본문만, 구글 검색에 맞춰 h2/h3 구조 + 목차(점프 링크)를 넣는다.
+function toBlogspotHtml(blocks, meta) {
+  const c = COLORS[meta.theme] ?? "#0f172a";
+  const a = ACCENTS[meta.theme] ?? "#94a3b8";
+  const td = "padding:10px 12px;border:1px solid #e2e8f0;";
+  const slug = (t, i) => `sec-${i + 1}`;
+  const heads = blocks.filter((b) => b.type === "h2");
+  let hi = 0;
+  const out = [];
+  let tocDone = false;
+  for (const b of blocks) {
+    if (b.type === "h2" && !tocDone) {
+      // 첫 소제목 바로 앞에 목차
+      out.push(`<div style="border:1px solid #e2e8f0;border-radius:10px;padding:14px 18px;margin:24px 0;background:#f8fafc;">
+<p style="margin:0 0 8px;font-weight:bold;">목차</p>
+<ol style="margin:0;padding-left:20px;line-height:1.9;">
+${heads.map((h, i) => `<li><a href="#${slug(h.text, i)}">${inline(h.text)}</a></li>`).join("\n")}
+</ol>
+</div>`);
+      tocDone = true;
+    }
+    switch (b.type) {
+      case "h2":
+        out.push(`<h2 id="${slug(b.text, hi++)}" style="border-left:5px solid ${c};padding-left:10px;">${inline(b.text)}</h2>`);
+        break;
+      case "p": {
+        // "**Q. 질문**" 으로 시작하는 FAQ 문단은 h3 + 답변 문단으로 나눈다
+        const m = b.lines[0].match(/^\*\*(Q\..+?)\*\*$/);
+        if (m) out.push(`<h3>${esc(m[1])}</h3>\n<p>${b.lines.slice(1).map(inline).join("<br />\n")}</p>`);
+        else out.push(`<p>${b.lines.map(inline).join("<br />\n")}</p>`);
+        break;
+      }
+      case "ul":
+        out.push(`<ul>\n${b.items.map((t) => `<li>${inline(t)}</li>`).join("\n")}\n</ul>`);
+        break;
+      case "note":
+        out.push(`<p style="font-size:13px;color:#64748b;">${inline(b.text)}</p>`);
+        break;
+      case "table": {
+        const [head, ...rows] = b.rows;
+        out.push(`<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:15px;">
+<thead><tr style="background:${c};color:#fff;">${head.map((h) => `<th style="${td}text-align:left;">${inline(h)}</th>`).join("")}</tr></thead>
+<tbody>
+${rows.map((r) => `<tr>${r.map((x) => `<td style="${td}">${inline(x)}</td>`).join("")}</tr>`).join("\n")}
+</tbody></table></div>`);
+        break;
+      }
+      case "box":
+        out.push(`<div style="border-left:5px solid ${a};background:#f8fafc;padding:14px 18px;margin:16px 0;">${b.body.filter(Boolean).map(inline).join("<br />\n")}</div>`);
+        break;
+      case "summary":
+        out.push(`<h2 id="summary" style="border-left:5px solid ${c};padding-left:10px;">${esc(b.title || "정리하면")}</h2>
+<ul>
+${b.body.filter(Boolean).map((l) => `<li>${inline(l.replace(/^[·\-]\s*/, ""))}</li>`).join("\n")}
+</ul>`);
+        break;
+    }
+  }
+  return out.join("\n\n") + "\n";
+}
+
 function toText(blocks) {
   return blocks
     .map((b) => {
@@ -163,7 +225,11 @@ function toDailyMemo(date, posts, conf = {}) {
     const checks = (meta.check ?? meta.checklist ?? []).slice(0, 2).map((c) => `  - ${c}`).join("\n");
     // Blogspot: 태그 대신 라벨(쉼표 구분), 검색 설명(meta description) 추가
     const tagLine = blogspot ? `라벨\n  ${meta.tags.join(", ")}` : `태그\n  ${meta.tags.map((t) => `#${t}`).join(" ")}`;
-    const desc = blogspot && meta.description ? `\n검색 설명\n  ${meta.description}` : "";
+    const desc = blogspot
+      ? (meta.description ? `\n검색 설명 (${meta.description.length}자)\n  ${meta.description}` : "") +
+        (meta.permalink ? `\n맞춤 퍼머링크\n  ${meta.permalink}` : "") +
+        (meta.imageAlt ? `\n대표 이미지 대체 텍스트(alt)\n  ${meta.imageAlt}` : "")
+      : "";
     return `[${name}]
 카테고리: ${meta.category}
 제목
@@ -196,7 +262,7 @@ for (const dir of dirs) {
     console.warn(`! ${basename(dir)}: category "${meta.category}" 가 blogs.json 목록(${blogConf.categories.join("/")})에 없음`);
   const blocks = parse(readFileSync(join(dir, "source.md"), "utf8"));
   for (const f of readdirSync(dir)) if (f.endsWith(".html") && !f.startsWith("thumb")) rmSync(join(dir, f)); // 이전 이름 정리
-  writeFileSync(join(dir, htmlName(dir, meta)), toHtml(blocks, meta));
+  writeFileSync(join(dir, htmlName(dir, meta)), blogConf.platform === "blogspot" ? toBlogspotHtml(blocks, meta) : toHtml(blocks, meta));
   rmSync(join(dir, "발행메모.txt"), { force: true }); // 예전 형식 정리
   posts.push({ name: basename(dir), meta });
   const chars = toText(blocks).replace(/\s/g, "").length;
