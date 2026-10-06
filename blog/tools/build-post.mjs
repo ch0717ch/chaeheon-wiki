@@ -154,18 +154,21 @@ function toText(blocks) {
 }
 
 // 날짜 폴더에 하나: 글별 제목 3안(추천 표시) + 태그 + 짧은 발행 전 체크
-function toDailyMemo(date, posts) {
+function toDailyMemo(date, posts, conf = {}) {
+  const blogspot = conf.platform === "blogspot";
   const kinds = ["검색형", "궁금증형", "인간형"];
   const parts = posts.map(({ name, meta }) => {
     const pickIdx = "ABC".indexOf((meta.pick ?? "").trim()[0]);
     const titles = meta.titles.map((t, i) => `  ${i + 1}) ${t}  (${kinds[i]})${i === pickIdx ? "  ★추천" : ""}`).join("\n");
     const checks = (meta.check ?? meta.checklist ?? []).slice(0, 2).map((c) => `  - ${c}`).join("\n");
+    // Blogspot: 태그 대신 라벨(쉼표 구분), 검색 설명(meta description) 추가
+    const tagLine = blogspot ? `라벨\n  ${meta.tags.join(", ")}` : `태그\n  ${meta.tags.map((t) => `#${t}`).join(" ")}`;
+    const desc = blogspot && meta.description ? `\n검색 설명\n  ${meta.description}` : "";
     return `[${name}]
 카테고리: ${meta.category}
 제목
 ${titles}
-태그
-  ${meta.tags.map((t) => `#${t}`).join(" ")}${checks ? `\n발행 전 체크\n${checks}` : ""}`;
+${tagLine}${desc}${checks ? `\n발행 전 체크\n${checks}` : ""}`;
   });
   return `${date} 발행메모\n\n${parts.join("\n\n" + "-".repeat(40) + "\n\n")}\n`;
 }
@@ -200,5 +203,5 @@ for (const dir of dirs) {
   console.log(`built ${dir}  (본문 ${chars}자, 공백 제외)`);
 }
 const date = basename(root);
-writeFileSync(join(root, `발행메모_${date}.txt`), toDailyMemo(date, posts));
+writeFileSync(join(root, `발행메모_${date}.txt`), toDailyMemo(date, posts, blogConf));
 console.log(`memo  ${join(root, `발행메모_${date}.txt`)}`);
