@@ -1,0 +1,44 @@
+{
+  "theme": "game",
+  "banner": "신작 데모 **공짜로?!**",
+  "title": [
+    "스팀",
+    "넥스트페스트",
+    "10.20 새벽"
+  ],
+  "note": [
+    "한국 시간 일정",
+    "넥스트 페스트란",
+    "국내 참가작",
+    "데모 고르는 법"
+  ],
+  "hero": {
+    "type": "console",
+    "sub": "STEAM NEXT FEST",
+    "title": "DEMO",
+    "date": "10.20~27",
+    "badge": "무료"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "10월 20일",
+      "bottom": "새벽 2시 시작"
+    },
+    {
+      "icon": "gamepad",
+      "top": "신작 데모",
+      "bottom": "무료 체험"
+    },
+    {
+      "icon": "trophy",
+      "top": "에픽세븐",
+      "bottom": "10월 8일 공개"
+    },
+    {
+      "icon": "check",
+      "top": "데모",
+      "bottom": "고르는 요령"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "no": "01", "theme": "game", "category": "게임",
+  "keyword": "스팀 넥스트 페스트 10월",
+  "subKeywords": ["스팀 넥스트 페스트 한국시간", "스팀 데모 무료", "에픽세븐 스팀", "스팀 세일 일정 2026"],
+  "intent": "넥스트 페스트 일정(한국 시간)과 즐기는 법을 알고 싶은 정보 탐색형",
+  "angle": "태평양 시간 → 한국 시간 변환표 + 국내 참가작 + 데모 고르는 요령",
+  "titles": [
+    "스팀 넥스트 페스트 10월 일정, 한국 시간 10월 20일 새벽 2시 시작",
+    "스팀 넥스트 페스트 언제? 무료 데모 즐기는 법과 국내 참가작",
+    "신작 게임 공짜로 먼저 해보는 일주일, 스팀 넥스트 페스트"
+  ],
+  "pick": "A — '넥스트 페스트 10월 한국 시간'이 그대로 검색됨",
+  "tags": ["스팀", "스팀넥스트페스트", "넥스트페스트", "스팀데모", "에픽세븐", "스팀세일", "인디게임", "PC게임", "게임추천", "게임뉴스"],
+  "check": ["스팀 공지로 시작 시간 재확인"],
+  "sources": [
+    "Steamworks Steam Next Fest 2026년 10월 에디션 — https://partner.steamgames.com/doc/marketing/upcoming_events/nextfest/2026october?l=koreana",
+    "게임메카 에픽세븐 10월 넥스트 페스트 참가 — https://www.gamemeca.com/view.php?gid=1780633",
+    "베타뉴스 에픽세븐 스팀 넥스트 페스트 — https://www.betanews.net/article/view/beta202609170069",
+    "게임메카 투 더 문 RPG 넥스트 페스트 — https://www.gamemeca.com/view.php?gid=1781341"
+  ]
+}

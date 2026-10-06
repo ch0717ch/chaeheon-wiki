@@ -1,0 +1,20 @@
+{
+  "no": "01", "theme": "activity", "category": "대외활동",
+  "keyword": "공공기관 체험형 인턴",
+  "subKeywords": ["체험형 인턴 채용형 차이", "체험형 청년인턴 모집", "공공기관 인턴 대학생", "잡알리오 인턴"],
+  "intent": "체험형 인턴이 뭔지, 언제·어디서 지원하는지 알고 싶은 정보 탐색형 (꾸준한 유입)",
+  "angle": "체험형·채용형 비교표 + 수시/기수제 모집 패턴 + 직무기술서 기반 서류 팁",
+  "titles": [
+    "공공기관 체험형 인턴, 채용형과 차이와 지원 시기 정리",
+    "체험형 인턴 처음이라면? 언제 어디서 찾고 어떻게 붙나",
+    "방학에 공공기관 인턴 해보고 싶은 대학생이 알아둘 것"
+  ],
+  "pick": "A — '체험형 인턴'과 '채용형 차이'가 함께 검색되는 핵심어",
+  "tags": ["체험형인턴", "공공기관인턴", "청년인턴", "채용형인턴", "잡알리오", "대학생인턴", "공기업취업", "대외활동", "대학생대외활동", "대학생활정보"],
+  "check": ["잡알리오에서 지금 열린 체험형 인턴 공고 1~2개 추가"],
+  "sources": [
+    "행정안전부 2026 제1기 청년인턴 채용 공고 — https://www.mois.go.kr/frt/bbs/type013/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000006&nttId=122386",
+    "인크루트 공공기관 채용일정 — https://job.incruit.com/entry/publicschedule/publicorgsched.asp",
+    "캐치 인턴 채용공고 — https://www.catch.co.kr/NCS/RecruitSearch?theme=99"
+  ]
+}
