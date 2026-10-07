@@ -1,0 +1,23 @@
+{
+  "no": "01", "theme": "game", "category": "게임",
+  "keyword": "기어스 오브 워 E-Day 출시",
+  "subKeywords": ["기어스 오브 워 E-Day 가격", "기어스 E-Day 게임패스", "기어스 E-Day PC 사양", "기어스 오브 워 신작", "기어스 E-Day 평가"],
+  "intent": "출시 당일 살지 게임패스로 할지, 내 PC로 돌아가는지 확인하려는 구매 판단형",
+  "angle": "출시 정보표 + 가격 vs 게임패스 판단 + 최소/권장 사양표(130GB SSD 강조) + 평가",
+  "titles": [
+    "기어스 오브 워 E-Day 출시, 가격·게임패스·PC 사양 정리",
+    "기어스 E-Day, 사지 말고 게임패스로 해도 될까?",
+    "기어스 오브 워 E-Day 시작 전 체크할 4가지"
+  ],
+  "pick": "A — 출시 당일이라 정보형 검색이 가장 많음",
+  "tags": ["기어스오브워", "기어스오브워EDay", "게임패스", "엑스박스", "PC게임", "게임사양", "신작게임", "10월출시게임", "게임정보", "슈팅게임"],
+  "check": ["국내 스토어 가격 확인해 추가"],
+  "sources": [
+    "인벤 기어스 오브 워 E-데이 10월 7일 출시 — https://www.inven.co.kr/webzine/news/?news=317223",
+    "인벤 리뷰 — https://m.inven.co.kr/webzine/wznews.php?idx=321524",
+    "게임톡 메타크리틱 87점 — https://www.gametoc.co.kr/news/articleView.html?idxno=111933",
+    "Xbox 공식 페이지 — https://www.xbox.com/ko-KR/games/gears-of-war-eday",
+    "TweakTown PC 사양 — https://tweaktown.com/news/112185/gears-of-war-e-day-pc-requirements-detailed-with-geforce-rtx-2060-minimum-and-rtx-5060-recommended/index.html",
+    "TechSpot 130GB SSD — https://www.techspot.com/community/topics/gears-of-war-e-day-pc-requirements-are-surprisingly-forgiving-apart-from-the-130gb-ssd-demand.297732/"
+  ]
+}

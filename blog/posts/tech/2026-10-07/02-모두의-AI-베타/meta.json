@@ -1,0 +1,23 @@
+{
+  "no": "02", "theme": "ai", "category": "AI",
+  "keyword": "모두의 AI 베타",
+  "subKeywords": ["모두의 AI 신청 방법", "모두의 AI 무료", "모두의 AI 출시일", "카카오 모두의 AI", "국민 AI"],
+  "intent": "무료 국민 AI 소식을 듣고 언제, 어디서, 어떻게 쓰는지 알고 싶은 정보형",
+  "angle": "한 줄 요약표 + 사업자별 베타 시기 + 신청 절차 없음(사칭 주의) + 기존 챗봇과 차이 + 기대·우려",
+  "titles": [
+    "모두의 AI 베타 10월 시작, 신청 방법과 출시일 정리",
+    "전 국민 무료 AI, 모두의 AI 어디서 신청하나?",
+    "챗GPT와 다른 점은? 모두의 AI 미리 보기"
+  ],
+  "pick": "B — '어디서 신청' 검색 의도에 정확히 답함",
+  "tags": ["모두의AI", "국민AI", "무료AI", "AI서비스", "카카오AI", "KT", "SK텔레콤", "AI에이전트", "IT뉴스", "인공지능"],
+  "check": ["베타 공개된 회사 있으면 추가"],
+  "sources": [
+    "서울신문 배경훈 연말 모두의 AI 출시 — https://www.seoul.co.kr/news/economy/2026/10/06/20261006500099",
+    "데일리안 2026 국감 전 국민 무료 모두의 AI — https://www.dailian.co.kr/news/view/1698170",
+    "ZDNet 국민 AI 10월 예고편 — https://zdnet.co.kr/view/?no=20260930161942",
+    "뉴스핌 SKT·KT·카카오 10월 베타 — https://www.newspim.com/news/view/20260904000615",
+    "뉴스핌 KT 모두의 AI 12월 정식 출시 — https://www.newspim.com/news/view/20261006001362",
+    "이투데이 카카오 모두의 AI 장학금 — https://www.etoday.co.kr/news/view/2626297"
+  ]
+}

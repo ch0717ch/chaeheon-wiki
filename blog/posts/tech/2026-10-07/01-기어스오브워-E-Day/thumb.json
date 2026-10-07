@@ -1,0 +1,44 @@
+{
+  "theme": "game",
+  "banner": "드디어 **출시됐다?!**",
+  "title": [
+    "기어스 신작",
+    "E-Day",
+    "할 만해?"
+  ],
+  "note": [
+    "출시 정보",
+    "가격 vs 게임패스",
+    "PC 사양",
+    "평가"
+  ],
+  "hero": {
+    "type": "console",
+    "sub": "GEARS OF WAR",
+    "title": "E-DAY",
+    "date": "10.07 출시",
+    "badge": "게임패스"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "10월 7일",
+      "bottom": "0시 출시"
+    },
+    {
+      "icon": "gamepad",
+      "top": "게임패스",
+      "bottom": "당일 포함"
+    },
+    {
+      "icon": "warning",
+      "top": "SSD",
+      "bottom": "130GB 필요"
+    },
+    {
+      "icon": "trophy",
+      "top": "메타크리틱",
+      "bottom": "87점"
+    }
+  ]
+}

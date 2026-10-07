@@ -1,0 +1,46 @@
+{
+  "theme": "volunteer",
+  "banner": "12월엔 **이미 늦어?!**",
+  "title": [
+    "겨울방학",
+    "봉사 모집",
+    "언제 해?"
+  ],
+  "note": [
+    "해외봉사 마감",
+    "국내 겨울 봉사",
+    "연간 달력",
+    "미리 준비할 것"
+  ],
+  "hero": {
+    "type": "passport",
+    "label": "VOLUNTEER",
+    "from": "SEOUL",
+    "to": "LAOS",
+    "ticketNote": "WFK 51기 · 1월 4~26일",
+    "seat": "9월",
+    "stamp": "봉사"
+  },
+  "tiles": [
+    {
+      "icon": "globe",
+      "top": "해외봉사",
+      "bottom": "9월 마감"
+    },
+    {
+      "icon": "calendar",
+      "top": "국내 봉사",
+      "bottom": "11월 공고"
+    },
+    {
+      "icon": "people",
+      "top": "지역돌봄",
+      "bottom": "100시간"
+    },
+    {
+      "icon": "check",
+      "top": "지금은",
+      "bottom": "서류 준비"
+    }
+  ]
+}
