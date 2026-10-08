@@ -1,0 +1,21 @@
+{
+  "no": "02", "theme": "finance", "category": "경제",
+  "keyword": "연말정산 카드 공제",
+  "subKeywords": ["신용카드 소득공제율", "체크카드 소득공제", "연말정산 미리보기", "총급여 25%", "대중교통 소득공제 폐지"],
+  "intent": "연말 전에 카드를 어떻게 써야 환급을 더 받을지 알고 싶은 직장인 실용형",
+  "angle": "2026 사용분 공제율·한도 표 + 25% 기준 카드 사용 순서 3단계 + 신용 vs 체크 계산 예시 + 2027 대중교통 폐지안",
+  "titles": [
+    "연말정산 카드 공제율 2026, 10~12월 신용·체크카드 쓰는 순서",
+    "연말정산 환급, 남은 3달 카드만 바꿔도 달라질까?",
+    "13월의 월급 늘리려면 지금 카드부터 바꾸세요"
+  ],
+  "pick": "B — 지금 행동할 이유를 바로 줌",
+  "tags": ["연말정산", "신용카드소득공제", "체크카드소득공제", "연말정산미리보기", "소득공제", "절세", "직장인", "13월의월급", "경제정보", "재테크"],
+  "check": ["자녀 추가 한도 국세청 자료로 확인"],
+  "sources": [
+    "MTN 대중교통 카드공제 축소 2026 세제개편 — https://news.mtn.co.kr/news-detail/2026080315521251297",
+    "KB Think 신용카드 vs 체크카드 공제율 — https://kbthink.com/year-end-tax/creditcard.html",
+    "KB Think 연말정산 미리보기 — https://kbthink.com/year-end-tax/preview.html",
+    "글로벌휴먼타임즈 2027년부터 대중교통 소득공제 폐지 — https://www.globalhumantimes.kr/news/articleView.html?idxno=5667"
+  ]
+}

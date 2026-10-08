@@ -1,0 +1,18 @@
+{
+  "theme": "economy",
+  "banner": "대출 이자 **또 올랐다?!**",
+  "title": ["주담대 금리", "4.66%", "고정? 변동?"],
+  "note": ["8월 금리", "오른 이유", "고르는 기준", "할 일"],
+  "hero": {
+    "type": "chart", "paper": "대출 금리", "label": "은행 주담대 금리 (8월)",
+    "value": "4.66%", "change": "", "up": true,
+    "points": [4.48, 4.66],
+    "rows": [["고정형", "4.88%"], ["변동형", "4.53%"], ["신용대출", "6.33%"]]
+  },
+  "tiles": [
+    { "icon": "chart", "top": "3년 9개월", "bottom": "만에 최고" },
+    { "icon": "question", "top": "고정 vs", "bottom": "변동" },
+    { "icon": "won", "top": "1억 기준", "bottom": "연 35만 차이" },
+    { "icon": "calendar", "top": "10월 22일", "bottom": "금리 결정" }
+  ]
+}

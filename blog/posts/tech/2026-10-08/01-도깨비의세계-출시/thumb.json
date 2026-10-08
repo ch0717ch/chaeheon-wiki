@@ -1,0 +1,13 @@
+{
+  "theme": "game",
+  "banner": "오늘 11시 **출시?!**",
+  "title": ["도깨비의세계", "오늘 출시", "PC는?"],
+  "note": ["기본 정보", "설치 방법", "출시 혜택", "당일 팁"],
+  "hero": { "type": "console", "sub": "KAKAO GAMES", "title": "도깨비", "date": "10.08 11:00", "badge": "출시" },
+  "tiles": [
+    { "icon": "calendar", "top": "10월 8일", "bottom": "오전 11시" },
+    { "icon": "phone", "top": "PC·모바일", "bottom": "모두 지원" },
+    { "icon": "won", "top": "PC 결제", "bottom": "최대 90%" },
+    { "icon": "gamepad", "top": "사전등록", "bottom": "갓 코스튬" }
+  ]
+}
