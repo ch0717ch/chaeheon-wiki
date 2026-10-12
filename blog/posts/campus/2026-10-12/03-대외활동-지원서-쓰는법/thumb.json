@@ -1,0 +1,17 @@
+{
+  "theme": "activity",
+  "banner": "서류에서 **또 떨어져?!**",
+  "title": ["대외활동", "지원서", "이렇게 써"],
+  "note": ["질문 3유형", "지원 동기", "경험·계획", "제출 전 체크"],
+  "hero": {
+    "type": "laptop", "header": "대외활동 지원서",
+    "lines": ["지원 동기: 왜 이 활동?", "관련 경험: 크기보다 연결", "활동 계획: 숫자로", "필수 교육 일정 확인"],
+    "badge": "합격"
+  },
+  "tiles": [
+    { "icon": "question", "top": "질문은", "bottom": "3가지뿐" },
+    { "icon": "people", "top": "경험은", "bottom": "연결이 핵심" },
+    { "icon": "chart", "top": "계획은", "bottom": "숫자로" },
+    { "icon": "check", "top": "제출 전", "bottom": "체크리스트" }
+  ]
+}

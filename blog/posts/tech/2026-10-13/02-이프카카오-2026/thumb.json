@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "카톡이 **대신 해준다?!**",
+  "title": [
+    "이프카카오",
+    "개막",
+    "AI는?"
+  ],
+  "note": [
+    "행사 정보",
+    "기조연설",
+    "에이전틱 AI",
+    "지켜볼 것"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "if(kakao)26",
+    "lines": [
+      "10월 13~14일",
+      "용인 카카오 AI 캠퍼스",
+      "모든 연결에 지능을",
+      "기술 세션 50여 개"
+    ],
+    "badge": "개막"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "10월",
+      "bottom": "13~14일"
+    },
+    {
+      "icon": "people",
+      "top": "기조연설",
+      "bottom": "3명"
+    },
+    {
+      "icon": "phone",
+      "top": "카카오톡",
+      "bottom": "AI 재편"
+    },
+    {
+      "icon": "shield",
+      "top": "개인정보",
+      "bottom": "동의 범위"
+    }
+  ]
+}

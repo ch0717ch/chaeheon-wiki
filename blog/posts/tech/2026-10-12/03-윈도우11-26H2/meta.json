@@ -1,0 +1,21 @@
+{
+  "no": "03", "theme": "it", "category": "IT",
+  "keyword": "윈도우 11 26H2 업데이트",
+  "subKeywords": ["윈도우 26H2", "윈도우 업데이트 해도 될까", "winver 버전 확인", "윈도우 11 지원 기간", "enablement package"],
+  "intent": "업데이트 알림을 본 사용자가 무엇이 바뀌고 지금 해도 되는지 알고 싶은 판단형",
+  "angle": "요약표 + 가벼운 이유(활성화 패키지) + 버전 확인법 + 새 기능 + 상황별 추천표 + 체크",
+  "titles": [
+    "윈도우 11 26H2 업데이트, 해도 될까? 변경점·설치 방법 정리",
+    "윈도우 업데이트 26H2 떴다면, 재부팅 한 번이면 끝?",
+    "윈도우 11 26H2 업데이트 전에 확인할 3가지"
+  ],
+  "pick": "A — '해도 될까' 검색 의도 정확히",
+  "tags": ["윈도우11", "윈도우26H2", "윈도우업데이트", "Windows11", "마이크로소프트", "코파일럿", "PC관리", "컴퓨터팁", "IT정보", "운영체제"],
+  "check": ["업데이트 화면 캡처 추가"],
+  "sources": [
+    "BetaNews Windows 11 26H2 rollout — https://betanews.com/article/windows-11-26h2-rollout/",
+    "PCWorld 26H2 arrives as a tiny unlock — https://pcworld.com/article/3171871/windows-11-26h2-arrives-as-a-tiny-unlock-not-a-massive-download.html",
+    "BleepingComputer 26H2 upgrade process — https://www.bleepingcomputer.com/news/microsoft/microsoft-says-windows-11-26h2-is-coming-soon-details-upgrade-process/amp/",
+    "IT-Connect 26H2 support through October 2028 — https://www.it-connect.tech/windows-11-26h2-confirmed-few-new-features-extended-support-through-october-2028/"
+  ]
+}

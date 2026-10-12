@@ -1,0 +1,44 @@
+{
+  "theme": "game",
+  "banner": "악마성 **돌아왔다?!**",
+  "title": [
+    "캐슬바니아",
+    "신작",
+    "살까?"
+  ],
+  "note": [
+    "출시 정보",
+    "어떤 게임",
+    "가격·에디션",
+    "체험판"
+  ],
+  "hero": {
+    "type": "console",
+    "sub": "CASTLEVANIA",
+    "title": "BELMONT",
+    "date": "10.15 출시",
+    "badge": "체험판"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "10월 15일",
+      "bottom": "출시"
+    },
+    {
+      "icon": "gamepad",
+      "top": "PS5·Xbox",
+      "bottom": "PC·스위치"
+    },
+    {
+      "icon": "globe",
+      "top": "한국어",
+      "bottom": "자막 지원"
+    },
+    {
+      "icon": "trophy",
+      "top": "40주년",
+      "bottom": "정통 신작"
+    }
+  ]
+}

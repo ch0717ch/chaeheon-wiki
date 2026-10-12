@@ -1,0 +1,44 @@
+{
+  "theme": "game",
+  "banner": "바다 DLC **연기됐다?!**",
+  "title": [
+    "붉은사막",
+    "연기",
+    "언제 나와?"
+  ],
+  "note": [
+    "바뀐 일정",
+    "DLC 내용",
+    "예약 구매자",
+    "기다리며 할 것"
+  ],
+  "hero": {
+    "type": "console",
+    "sub": "CRIMSON DESERT",
+    "title": "DLC",
+    "date": "10.16 → 10.30",
+    "badge": "연기"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "10월 30일",
+      "bottom": "2주 연기"
+    },
+    {
+      "icon": "globe",
+      "top": "바다 항해",
+      "bottom": "수중 탐험"
+    },
+    {
+      "icon": "house",
+      "top": "하우징",
+      "bottom": "시설 경영"
+    },
+    {
+      "icon": "won",
+      "top": "가격",
+      "bottom": "24.99달러"
+    }
+  ]
+}

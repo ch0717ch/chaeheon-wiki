@@ -1,0 +1,21 @@
+{
+  "no": "02", "theme": "finance", "category": "경제",
+  "keyword": "근로장려금 기한 후 신청",
+  "subKeywords": ["근로장려금 늦게 신청", "근로장려금 95%", "근로장려금 자격", "근로장려금 지급일", "자녀장려금 기한후"],
+  "intent": "5월 신청을 놓친 사람이 지금 신청 가능한지, 얼마나 받는지, 어떻게 하는지 알고 싶은 실행형",
+  "angle": "핵심 표(95%·4개월) + 대상 기본 구조 + 신청 방법 3가지 + 정기 지급 일정 + 놓치기 쉬운 경우",
+  "titles": [
+    "근로장려금 기한 후 신청 12월 1일까지, 95% 받는 방법",
+    "근로장려금 5월에 놓쳤다면? 지금 신청해도 받는다",
+    "늦어도 95%, 근로장려금 기한 후 신청 체크리스트"
+  ],
+  "pick": "B — 놓친 사람의 불안을 바로 해소",
+  "tags": ["근로장려금", "근로장려금기한후신청", "자녀장려금", "홈택스", "손택스", "장려금신청", "지원금", "세금환급", "경제정보", "생활정보"],
+  "check": ["홈택스 공지로 마감일 확인"],
+  "sources": [
+    "근로·자녀장려금 기한 후 신청 12/1까지 95% — https://asiatop.co.kr/gov-support/earned-income-tax-credit-late-application-d-day/",
+    "브런치 2026년 근로장려금 기한 후 신청 방법 — https://brunch.co.kr/@govern1004/294",
+    "근로장려금 기한후신청 수령액·지급일 — https://www.lifeinformations.com/2026/09/blog-post.html",
+    "토스뱅크 근로장려금 2026 — https://www.tossbank.com/articles/earned-income-tax-credit-2026"
+  ]
+}

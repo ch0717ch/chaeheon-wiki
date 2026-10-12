@@ -1,0 +1,22 @@
+{
+  "no": "01", "theme": "economy", "category": "경제",
+  "keyword": "IMF 한국 성장률 전망",
+  "subKeywords": ["IMF 세계경제전망 10월", "한국 경제성장률 2026", "OECD 한국 성장률", "성장률 상향", "이번 주 경제 일정"],
+  "intent": "IMF 발표 뉴스를 보고 한국 성장률이 얼마인지, 내 생활과 무슨 상관인지 알고 싶은 정보형",
+  "angle": "IMF 전망 변화표 + 3%대 상향 관측 + 생활 영향 3가지 + 이번 주 일정표 + 읽는 법",
+  "titles": [
+    "IMF 한국 성장률 전망 오늘 발표, 3%대로 올라갈까",
+    "IMF가 한국 성장률 또 올린다? 내 지갑엔 어떤 의미",
+    "IMF 세계경제전망 발표, 같이 봐야 할 이번 주 경제 일정"
+  ],
+  "pick": "A — 발표 당일 숫자 검색이 몰림",
+  "tags": ["IMF", "세계경제전망", "경제성장률", "한국경제", "성장률전망", "반도체", "기준금리", "경제일정", "경제정보", "경제뉴스"],
+  "check": ["IMF 발표 후 실제 수치로 갱신"],
+  "sources": [
+    "한국경제 IMF 한국 성장률 전망치 얼마나 더 높일까 — https://www.hankyung.com/article/2026101145061",
+    "시사저널 IMF 성장률 1.9→2.6% 상향 — https://www.sisajournal.com/news/articleView.html?idxno=379245",
+    "서울경제 IMF 韓 성장률 얼마나 올리나 — https://www.sedaily.com/article/20100026",
+    "이투데이 경제·사회부처 주간 일정 10월 12~16일 — https://www.etoday.co.kr/news/view/2634284",
+    "블루밍비트 한주간 주요 경제 일정 — https://bloomingbit.io/feed/news/121973"
+  ]
+}

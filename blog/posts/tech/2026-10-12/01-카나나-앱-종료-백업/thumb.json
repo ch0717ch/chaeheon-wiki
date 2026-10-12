@@ -1,0 +1,17 @@
+{
+  "theme": "ai",
+  "banner": "카나나 **없어진다?!**",
+  "title": ["카나나 종료", "백업은", "14일까지"],
+  "note": ["종료 일정", "백업할 것", "대체 서비스", "할 일 체크"],
+  "hero": {
+    "type": "laptop", "header": "카나나 서비스 종료",
+    "lines": ["10월 14일: 백업 마감", "10월 15일: 앱·PC 종료", "카톡 속 카나나는 유지", "챗GPT 인 카카오 유지"],
+    "badge": "D-3"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "10월 15일", "bottom": "서비스 종료" },
+    { "icon": "warning", "top": "백업", "bottom": "14일까지" },
+    { "icon": "phone", "top": "카톡 속 AI", "bottom": "계속 사용" },
+    { "icon": "check", "top": "지금 할 일", "bottom": "4가지" }
+  ]
+}

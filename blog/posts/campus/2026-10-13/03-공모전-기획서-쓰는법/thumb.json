@@ -1,0 +1,17 @@
+{
+  "theme": "activity",
+  "banner": "공모전 **처음이라면?!**",
+  "title": ["공모전", "기획서", "5단계"],
+  "note": ["기본 구조", "심사 기준", "흔한 실수", "한 장 요약"],
+  "hero": {
+    "type": "laptop", "header": "공모전 기획서",
+    "lines": ["① 문제: 누가 불편한가", "② 근거: 통계·조사", "③ 해결책 ④ 실현 방법", "⑤ 기대 효과"],
+    "badge": "예선"
+  },
+  "tiles": [
+    { "icon": "table", "top": "기획서", "bottom": "5단계 구조" },
+    { "icon": "check", "top": "심사 기준", "bottom": "먼저 보기" },
+    { "icon": "warning", "top": "흔한 실수", "bottom": "4가지" },
+    { "icon": "people", "top": "팀이라면", "bottom": "역할 나누기" }
+  ]
+}

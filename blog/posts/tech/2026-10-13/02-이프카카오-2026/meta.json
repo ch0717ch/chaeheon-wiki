@@ -1,0 +1,21 @@
+{
+  "no": "02", "theme": "ai", "category": "AI",
+  "keyword": "이프카카오 2026",
+  "subKeywords": ["if kakao 26", "카카오 개발자 콘퍼런스", "카카오 에이전트 AI", "카카오톡 AI", "카나나 모델"],
+  "intent": "카카오 AI 전략 발표 소식을 보고 무엇이 발표되는지, 카카오톡이 어떻게 바뀌는지 알고 싶은 정보형",
+  "angle": "행사 정보표 + 기조연설표 + 에이전틱 AI 설명 + 이번 달 카카오 AI 변화 연결 + 이용자 관점 체크",
+  "titles": [
+    "이프카카오 2026 오늘 개막, 카카오톡 AI 어떻게 바뀌나",
+    "카카오가 말하는 에이전틱 AI, 카톡이 대신 예약해 준다?",
+    "if(kakao)26에서 지켜볼 카카오 AI 포인트 3가지"
+  ],
+  "pick": "B — 이용자 체감 변화로 연결",
+  "tags": ["이프카카오", "ifkakao", "카카오", "카카오톡AI", "에이전트AI", "카나나", "개발자콘퍼런스", "AI서비스", "IT뉴스", "인공지능"],
+  "check": ["행사 후 주요 발표 1~2줄 추가"],
+  "sources": [
+    "카카오 if(kakao)26 컨퍼런스 개최 — https://www.kakaocorp.com/page/detail/12131",
+    "바이라인네트워크 카카오 10월 if(kakao)26 개최 — https://byline.network/2026/09/07_kakao/",
+    "뉴스핌 10월 AI 카톡 베일 벗는다 — https://www.newspim.com/news/view/20260916001123",
+    "한국일보 카나나 10월 15일 종료 — https://www.hankookilbo.com/news/article/A2026091517040005335"
+  ]
+}

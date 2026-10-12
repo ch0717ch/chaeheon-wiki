@@ -1,0 +1,17 @@
+{
+  "theme": "it",
+  "banner": "업데이트 **해도 돼?!**",
+  "title": ["윈도우 11", "26H2", "해도 될까?"],
+  "note": ["무엇이 달라짐", "버전 확인법", "새 기능", "상황별 추천"],
+  "hero": {
+    "type": "laptop", "header": "Windows 업데이트",
+    "lines": ["버전 26H2 사용 가능", "24H2·25H2: 재부팅 1번", "23H2 이하: 약 6.5GB", "지원: 2028년 10월까지"],
+    "badge": "26H2"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "9월 29일", "bottom": "배포 시작" },
+    { "icon": "check", "top": "재부팅", "bottom": "한 번이면 끝" },
+    { "icon": "shield", "top": "지원 기간", "bottom": "2028년 10월" },
+    { "icon": "question", "top": "지금", "bottom": "해도 될까?" }
+  ]
+}
