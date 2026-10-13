@@ -1,0 +1,44 @@
+{
+  "theme": "game",
+  "banner": "둘이 하는 **그 게임?!**",
+  "title": [
+    "잇테이크투",
+    "스위치2",
+    "살 만해?"
+  ],
+  "note": [
+    "출시 정보",
+    "개선점",
+    "친구 패스",
+    "10월 신작"
+  ],
+  "hero": {
+    "type": "console",
+    "sub": "NINTENDO SWITCH 2",
+    "title": "IT TAKES 2",
+    "date": "10.15 출시",
+    "badge": "협동"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "10월 15일",
+      "bottom": "출시"
+    },
+    {
+      "icon": "gamepad",
+      "top": "스위치1",
+      "bottom": "무료 업글"
+    },
+    {
+      "icon": "people",
+      "top": "친구 패스",
+      "bottom": "한 명만 구매"
+    },
+    {
+      "icon": "won",
+      "top": "가격",
+      "bottom": "39.99달러"
+    }
+  ]
+}

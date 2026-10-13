@@ -1,0 +1,48 @@
+{
+  "theme": "it",
+  "banner": "엔비디아 넣은 **서피스?!**",
+  "title": [
+    "서피스",
+    "울트라",
+    "살 만해?"
+  ],
+  "note": [
+    "가격·구성",
+    "핵심 사양",
+    "용도별 추천",
+    "구매 전 확인"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "Surface Laptop Ultra",
+    "lines": [
+      "RTX 스파크 · N1X 18코어",
+      "15인치 미니 LED 2,000니트",
+      "메모리 최대 128GB",
+      "2,599달러부터"
+    ],
+    "badge": "10.16"
+  },
+  "tiles": [
+    {
+      "icon": "won",
+      "top": "기본형",
+      "bottom": "2,599달러"
+    },
+    {
+      "icon": "chart",
+      "top": "메모리",
+      "bottom": "최대 128GB"
+    },
+    {
+      "icon": "calendar",
+      "top": "10월 16일",
+      "bottom": "배송 시작"
+    },
+    {
+      "icon": "question",
+      "top": "국내 출시",
+      "bottom": "미확인"
+    }
+  ]
+}

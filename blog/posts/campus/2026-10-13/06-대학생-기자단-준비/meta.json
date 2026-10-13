@@ -1,0 +1,21 @@
+{
+  "no": "06", "theme": "activity", "category": "대외활동",
+  "keyword": "대학생 기자단 모집",
+  "subKeywords": ["대학생 기자단 지원", "공공기관 기자단", "기자단 샘플 기사", "기자단 모집 시기", "대학생 기자단 후기"],
+  "intent": "기자단 활동을 고민하는 대학생이 운영 방식, 모집 시기, 지원 준비를 알고 싶은 정보형",
+  "angle": "운영 방식 표 + 시기별 모집 사례 표 + 샘플 기사 준비 3단계 + 지원 전 체크 + 추천 대상",
+  "titles": [
+    "대학생 기자단 모집 시기와 지원 준비, 샘플 기사 쓰는 법",
+    "기자단 하고 싶은 대학생, 언제 어떻게 지원할까?",
+    "공공기관 기자단 붙으려면 준비할 것 3가지"
+  ],
+  "pick": "B — 막연한 궁금증에 바로 답함",
+  "tags": ["대학생기자단", "기자단", "공공기관기자단", "대외활동", "서포터즈", "샘플기사", "포트폴리오", "대학생대외활동", "대학생활", "스펙"],
+  "check": ["현재 모집 중인 기자단 1개 추가"],
+  "sources": [
+    "위비티 제18기 국가데이터처 대학생 기자단 모집 — https://www.wevity.com/index.php?c=find&s=_university&gub=1&cidx=27&gbn=viewok&gp=19&ix=104515",
+    "국가유산청 제2기 대학생기자단 모집 공고 — https://www.khs.go.kr/multiBbz/selectMultiBbzView.do?id=20867&no=27527&bbzId=newpublic&mn=NS_01_01",
+    "콘테스트코리아 대학생 기자단 2기 모집 — https://www.contestkorea.com/sub/view.php?int_gbn=2&Txt_bcode=040110001&str_no=202604170050",
+    "코드씨 달성군시설관리공단 대학생 기자단 — https://www.code-c.kr/post/activity/541678"
+  ]
+}

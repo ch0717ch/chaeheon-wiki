@@ -1,0 +1,21 @@
+{
+  "no": "04", "theme": "game", "category": "게임",
+  "keyword": "잇 테이크 투 스위치2",
+  "subKeywords": ["It Takes Two 스위치2", "잇테이크투 무료 업그레이드", "잇테이크투 친구패스", "스위치2 협동 게임", "스위치2 10월 신작"],
+  "intent": "스위치 2 사용자가 출시일·가격·업그레이드·친구 패스를 확인하고 살지 판단하려는 구매 판단형",
+  "angle": "출시 정보표 + 개선점 + 친구 패스 설명 + 추천 대상 + 10월 스위치2 신작 표 + 업그레이드 방법",
+  "titles": [
+    "잇 테이크 투 스위치2 출시, 무료 업그레이드·친구 패스 정리",
+    "스위치2로 둘이 할 게임 찾는다면, 잇 테이크 투 살 만할까?",
+    "잇 테이크 투 스위치1 갖고 있다면 무료로 업그레이드"
+  ],
+  "pick": "A — 출시 직전 정보 검색",
+  "tags": ["잇테이크투", "ItTakesTwo", "스위치2", "닌텐도스위치2", "협동게임", "커플게임", "친구패스", "신작게임", "10월출시게임", "게임정보"],
+  "check": ["닌텐도 e숍 국내 가격 추가"],
+  "sources": [
+    "Business Wire It Takes Two Launches on Nintendo Switch 2 October 15 — https://secure.businesswire.com/news/home/20260909464087/en/It-Takes-Two-Launches-on-Nintendo-Switch-2-with-Free-Upgrade-Available-for-Nintendo-Switch-Players-October-15",
+    "인벤 It Takes Two 스위치2 버전 10월 16일 출시 — https://www.inven.co.kr/webzine/news/?news=321001",
+    "Inven Global Switch 2 Version Pre-Orders Open September 30 — https://www.invenglobal.com/articles/26562/it-takes-two-nintendo-switch-2-version-pre-orders-open-september-30",
+    "닌텐도 스위치2 상품 라인업 — https://www.nintendo.com/kr/hardware/switch2/lineup/index.html"
+  ]
+}

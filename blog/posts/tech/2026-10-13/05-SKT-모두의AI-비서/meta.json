@@ -1,0 +1,21 @@
+{
+  "no": "05", "theme": "ai", "category": "AI",
+  "keyword": "SKT 모두의 AI",
+  "subKeywords": ["SKT AI 비서", "모두의 AI 증명서 발급", "모두의 AI 병원 예약", "A.X K2", "모두의 AI 3사 비교"],
+  "intent": "SKT 이용자·관심자가 SKT 모두의 AI로 무엇을 할 수 있는지, 다른 회사와 무엇이 다른지 알고 싶은 정보형",
+  "angle": "준비 중 기능표 + 출시 시점 + 3사 비교표 + 전화·문자 이용 의미 + 쓰기 전 체크",
+  "titles": [
+    "SKT 모두의 AI 베타, 증명서 발급·병원 예약까지 되는 AI 비서",
+    "SKT·KT·카카오 모두의 AI, 뭐가 다를까?",
+    "전화로 증명서 떼는 AI? SKT 모두의 AI 미리 보기"
+  ],
+  "pick": "A — 회사명+서비스명 검색 정확히",
+  "tags": ["모두의AI", "SKT", "SK텔레콤", "AI비서", "AXK2", "국민AI", "무료AI", "AI서비스", "IT뉴스", "인공지능"],
+  "check": ["베타 공개 시 앱 이름·화면 추가"],
+  "sources": [
+    "MTN SKT 모두의 AI 사업자 선정 10월 베타 — https://news.mtn.co.kr/news-detail/2026082810311183882",
+    "SKT 뉴스룸 모두의 AI — https://news.sktelecom.com/230042",
+    "뉴스토마토 SKT 행동형·KT 생활밀착·카카오 카톡완결 — https://newstomato.com/ReadNews.aspx?no=1311767",
+    "MTN 명절에도 AI 개발로 분주 — https://news.mtn.co.kr/news-detail/2026092314100646376"
+  ]
+}
