@@ -1,0 +1,18 @@
+{
+  "theme": "economy",
+  "banner": "성장률 **또 올렸다?!**",
+  "title": ["IMF 전망", "3.3%", "왜 올랐나?"],
+  "note": ["전망 비교", "상향 이유", "하방 위험", "생활 영향"],
+  "hero": {
+    "type": "chart", "paper": "IMF 전망", "label": "한국 2026년 성장률 전망",
+    "value": "3.3%", "change": "", "up": true,
+    "points": [1.9, 1.9, 2.6, 3.3],
+    "rows": [["7월", "2.6%"], ["10월", "3.3%"], ["2027년", "2.8%"]]
+  },
+  "tiles": [
+    { "icon": "chart", "top": "올해", "bottom": "3.3%로 상향" },
+    { "icon": "check", "top": "반도체", "bottom": "수출 호조" },
+    { "icon": "globe", "top": "세계", "bottom": "3.1%" },
+    { "icon": "warning", "top": "하방 위험", "bottom": "3가지" }
+  ]
+}

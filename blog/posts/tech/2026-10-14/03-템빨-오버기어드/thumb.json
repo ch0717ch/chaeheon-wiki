@@ -1,0 +1,44 @@
+{
+  "theme": "game",
+  "banner": "웹툰 템빨 **게임으로?!**",
+  "title": [
+    "템빨 게임",
+    "사전등록",
+    "언제 나와?"
+  ],
+  "note": [
+    "기본 정보",
+    "게임 특징",
+    "사전등록",
+    "출시 전 체크"
+  ],
+  "hero": {
+    "type": "console",
+    "sub": "NEXON",
+    "title": "템빨",
+    "date": "연내 출시",
+    "badge": "사전등록"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "10월 1일",
+      "bottom": "사전등록"
+    },
+    {
+      "icon": "gamepad",
+      "top": "PC·모바일",
+      "bottom": "크로스"
+    },
+    {
+      "icon": "trophy",
+      "top": "장비",
+      "bottom": "제작·강화"
+    },
+    {
+      "icon": "people",
+      "top": "원작 조회",
+      "bottom": "13억 회"
+    }
+  ]
+}
