@@ -1,0 +1,21 @@
+{
+  "no": "06", "theme": "finance", "category": "경제",
+  "keyword": "연금저축 IRP 세액공제",
+  "subKeywords": ["연금저축 세액공제 한도", "IRP 900만원", "세액공제율 16.5%", "연말정산 환급", "연금저축 중도인출"],
+  "intent": "연말정산 환급을 늘리려는 직장인이 연금저축·IRP 한도와 주의점을 알고 싶은 실용형",
+  "angle": "한도표 + 급여별 공제율·환급액표 + 결정세액 함정 + 넣기 전 확인 3가지 + 채우는 순서",
+  "titles": [
+    "연금저축 IRP 세액공제 한도 900만 원, 연말에 넣기 전 확인할 것",
+    "900만 원 넣으면 148만 원 환급? 연금저축·IRP 진짜 계산법",
+    "13월의 월급 늘리는 연금저축·IRP, 함정 3가지"
+  ],
+  "pick": "B — 흔한 오해를 바로잡는 문장",
+  "tags": ["연금저축", "IRP", "세액공제", "연말정산", "연금저축세액공제", "개인형퇴직연금", "절세", "13월의월급", "경제정보", "재테크"],
+  "check": ["국세청 공제 요건 재확인"],
+  "sources": [
+    "KB자산운용 연금 세액공제 가이드 — https://kbam.co.kr/pension/guide/pension-tax-deduction-refund-guide",
+    "위키독스 연금저축·IRP 900만원 환급 계산 — https://wikidocs.net/blog/@TaxSave/25192/",
+    "위키독스 연금저축과 IRP 12월까지 어디부터 — https://wikidocs.net/blog/@TaxSave/32004/",
+    "다음 2026 개인형 IRP 세액공제 한도 — https://v.daum.net/v/pXtaTOOce7"
+  ]
+}

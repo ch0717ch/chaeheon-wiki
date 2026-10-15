@@ -1,0 +1,17 @@
+{
+  "theme": "ai",
+  "banner": "벌써 쓸 수 **있다고?!**",
+  "title": ["제미나이 4", "아르곤", "지금 돼?"],
+  "note": ["확인된 것", "엇갈리는 이유", "확인하는 법", "결제 전 체크"],
+  "hero": {
+    "type": "laptop", "header": "제미나이 4 아르곤",
+    "lines": ["9월 30일 공개", "단계적으로 제공 중", "모델 메뉴에서 확인", "결제는 확인 후에"],
+    "badge": "NEW"
+  },
+  "tiles": [
+    { "icon": "calendar", "top": "9월 30일", "bottom": "첫 공개" },
+    { "icon": "question", "top": "나도", "bottom": "쓸 수 있나?" },
+    { "icon": "phone", "top": "모델 메뉴", "bottom": "먼저 확인" },
+    { "icon": "warning", "top": "결제 전", "bottom": "체크" }
+  ]
+}

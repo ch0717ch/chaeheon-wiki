@@ -1,0 +1,17 @@
+{
+  "theme": "it",
+  "banner": "구글이 노트북을 **또?!**",
+  "title": ["구글북", "899달러", "한국은?"],
+  "note": ["기본 정보", "다른 점", "아쉬운 점", "직구 체크"],
+  "hero": {
+    "type": "laptop", "header": "Googlebook",
+    "lines": ["제미나이 나노 v3 탑재", "배터리 최대 14시간", "5개 제조사 참여", "한국 1차 출시 제외"],
+    "badge": "899$"
+  },
+  "tiles": [
+    { "icon": "won", "top": "가격", "bottom": "899달러~" },
+    { "icon": "phone", "top": "안드로이드", "bottom": "폰 연동" },
+    { "icon": "calendar", "top": "미국", "bottom": "10월 4일" },
+    { "icon": "question", "top": "한국 출시", "bottom": "미정" }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "no": "04", "theme": "ai", "category": "AI",
+  "keyword": "제미나이 4 아르곤",
+  "subKeywords": ["제미나이 4 아르곤 사용법", "제미나이 4 출시", "구글 최신 AI 모델", "아르곤 무료", "구글 AI 프로"],
+  "intent": "새 AI 모델 소식을 본 사람이 지금 쓸 수 있는지, 결제해야 하는지 판단하려는 판단형",
+  "angle": "확인된 사실표 + 엇갈리는 보도 정리 + 사용 가능 여부 확인법 + 결제 전 체크 + 비교 팁",
+  "titles": [
+    "제미나이 4 아르곤, 지금 쓸 수 있나? 결제 전에 확인할 것",
+    "구글 최상위 AI 아르곤 출시, 누가 언제 쓸 수 있을까",
+    "제미나이 4 아르곤 쓰려고 결제? 먼저 이것부터 보세요"
+  ],
+  "pick": "A — '지금 쓸 수 있나' 검색 의도 정확히",
+  "tags": ["제미나이4", "제미나이4아르곤", "구글제미나이", "구글AI", "생성형AI", "AI모델", "구글AI프로", "AI구독", "IT뉴스", "인공지능"],
+  "check": ["구글 공식 블로그로 제공 범위 확인"],
+  "sources": [
+    "대한데일리 구글 제미나이 4 아르곤 출시 — http://www.dhdaily.co.kr/news/articleView.html?idxno=27542",
+    "디지털투데이 구글 제미나이 4 아르곤 출시 — https://www.digitaltoday.co.kr/news/articleView.html?idxno=706981",
+    "디아이투데이 일반 공개는 아직 — https://ditoday.com/?p=154237",
+    "위키독스 제미나이 4 아르곤 사용법 — https://wikidocs.net/blog/@openwiki/32282/",
+    "ZDNet 제미나이4 띄운 구글 — https://zdnet.co.kr/view/?no=20261002183953"
+  ]
+}

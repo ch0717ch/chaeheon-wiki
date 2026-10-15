@@ -1,0 +1,16 @@
+{
+  "theme": "activity",
+  "banner": "학교 돈으로 **해외?!**",
+  "title": ["겨울방학", "해외 프로그램", "지원받기"],
+  "note": ["실제 사례", "공통 패턴", "찾는 곳", "준비할 것"],
+  "hero": {
+    "type": "passport", "label": "GLOBAL", "from": "SEOUL", "to": "USA",
+    "ticketNote": "동계 프로그램 · 9~10월 모집", "seat": "장학", "stamp": "지원"
+  },
+  "tiles": [
+    { "icon": "globe", "top": "어학연수", "bottom": "장학금" },
+    { "icon": "calendar", "top": "9~10월", "bottom": "짧게 모집" },
+    { "icon": "house", "top": "국제처", "bottom": "공지 확인" },
+    { "icon": "check", "top": "어학 성적", "bottom": "여권 준비" }
+  ]
+}

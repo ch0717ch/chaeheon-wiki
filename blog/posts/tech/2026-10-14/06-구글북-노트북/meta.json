@@ -1,0 +1,21 @@
+{
+  "no": "06", "theme": "it", "category": "IT",
+  "keyword": "구글북 노트북",
+  "subKeywords": ["구글북 가격", "구글북 한국 출시", "Googlebook", "제미나이 노트북", "크롬북 상위 모델"],
+  "intent": "새 노트북을 알아보는 사람이 구글북의 특징·가격·국내 출시를 확인하려는 정보·판단형",
+  "angle": "기본 정보표 + 차별 기능 + 아쉬운 점 + 국내 출시·직구 체크 + 추천 대상",
+  "titles": [
+    "구글북 출시, 가격·사양·한국 출시 여부 정리",
+    "제미나이 넣은 구글 노트북, 크롬북이랑 뭐가 다를까?",
+    "구글북 한국엔 언제? 직구 전에 확인할 것"
+  ],
+  "pick": "A — 제품명 검색 정확히",
+  "tags": ["구글북", "Googlebook", "구글노트북", "크롬북", "제미나이", "AI노트북", "노트북추천", "안드로이드", "IT정보", "노트북"],
+  "check": ["구글 한국 출시 공지 확인"],
+  "sources": [
+    "SBS Biz 구글 제미나이 품은 구글북 출시 — https://biz.sbs.co.kr/amp/article/20000336056",
+    "디자인컴퍼스 구글북 사전 주문 시작 — https://designcompass.org/2026/09/22/googlebook-android-gemini-laptop-preorder/",
+    "위키트리 구글북 크롬북 위 플래그십으로 분리 — https://www.wikitree.co.kr/articles/1160605",
+    "Telecoms.com Google launches the Googlebook — https://www.telecoms.com/mobile-devices/google-launches-the-googlebook-but-why-"
+  ]
+}

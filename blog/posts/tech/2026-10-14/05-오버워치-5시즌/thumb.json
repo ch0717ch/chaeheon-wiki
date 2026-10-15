@@ -1,0 +1,13 @@
+{
+  "theme": "game",
+  "banner": "솜브라가 **힐러로?!**",
+  "title": ["오버워치", "5시즌", "뭐가 달라?"],
+  "note": ["시즌 요약", "독트린", "솜브라 전향", "복귀 팁"],
+  "hero": { "type": "console", "sub": "OVERWATCH", "title": "SEASON 5", "date": "10.07 시작", "badge": "신규" },
+  "tiles": [
+    { "icon": "people", "top": "신규 영웅", "bottom": "독트린" },
+    { "icon": "shield", "top": "솜브라", "bottom": "지원 전향" },
+    { "icon": "gamepad", "top": "로드호그", "bottom": "개편" },
+    { "icon": "warning", "top": "핫픽스", "bottom": "조정 중" }
+  ]
+}
