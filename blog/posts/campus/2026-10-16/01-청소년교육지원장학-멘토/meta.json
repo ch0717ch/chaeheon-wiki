@@ -1,0 +1,21 @@
+{
+  "no": "01", "theme": "scholarship", "category": "장학금",
+  "keyword": "대학생 청소년교육지원장학금",
+  "subKeywords": ["청소년교육지원사업 멘토", "한국장학재단 멘토링 장학금", "EBS 화상튜터링 멘토", "멘토링 시급", "교육봉사 장학금"],
+  "intent": "가르치는 활동으로 장학금을 받고 싶은 대학생이 사업 구조와 신청 시기를 알고 싶은 정보형",
+  "angle": "활동 요약표 + 온라인 멘토링 + 신청 시기 + 국가근로 비교표 + 추천 대상",
+  "titles": [
+    "대학생 청소년교육지원장학금, 멘토 활동하고 장학금 받는 법",
+    "과외처럼 가르치고 장학금? 청소년교육지원사업 정리",
+    "국가근로 대신 멘토링 장학금, 어떤 게 나에게 맞을까"
+  ],
+  "pick": "B — 활동 성격을 한 줄로",
+  "tags": ["청소년교육지원장학금", "멘토링장학금", "한국장학재단", "교육봉사", "EBS화상튜터링", "대학생멘토", "장학금", "국가근로", "대학생활", "대학생정보"],
+  "check": ["재단 누리집 다음 모집 공지 확인"],
+  "sources": [
+    "전북대 2026년도 대학생 청소년교육지원사업 모집공고 — https://www.jbnu.ac.kr/web/Board/209887/detailView.do?menu=2377",
+    "이화여대 2026학년도 대학생 청소년교육지원사업 신청 안내 — https://nature.ewha.ac.kr/naturea/data/newsletter.do?mode=view&articleNo=775560",
+    "한국교육신문 EBS 화상튜터링 — https://www.hangyo.com/news/article.html?no=106963",
+    "영남대 청소년교육지원장학금 멘토 모집(2차) — https://www.yu.ac.kr/main/intro/yu-news.do?mode=view&articleNo=229134992"
+  ]
+}

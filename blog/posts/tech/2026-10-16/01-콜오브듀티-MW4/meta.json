@@ -1,0 +1,21 @@
+{
+  "no": "01", "theme": "game", "category": "게임",
+  "keyword": "모던 워페어 4 출시",
+  "subKeywords": ["콜 오브 듀티 모던 워페어4", "MW4 게임패스", "콜옵 신작 출시일", "모던워페어4 PS4", "콜 오브 듀티 2026"],
+  "intent": "FPS 이용자가 출시일·플랫폼·게임패스 여부를 확인하고 구매를 판단하려는 구매 판단형",
+  "angle": "출시 정보표 + 게임패스 당일 미포함 이슈 + 상황별 구매 추천표 + PC 준비 + 체크리스트",
+  "titles": [
+    "콜 오브 듀티 모던 워페어 4 출시 10월 23일, 게임패스 당일 미포함",
+    "모던 워페어 4, 게임패스로 못 한다? 출시 전 알아둘 것",
+    "콜옵 신작 살까 기다릴까, 모던 워페어 4 체크리스트"
+  ],
+  "pick": "B — 게임패스 이슈가 가장 큰 관심",
+  "tags": ["콜오브듀티", "모던워페어4", "MW4", "게임패스", "FPS", "PS5", "엑스박스", "PC게임", "신작게임", "게임정보"],
+  "check": ["공식 가격·PC 사양 추가"],
+  "sources": [
+    "퀘이사존 모던 워페어 4 게임패스 2027년 연말 추가 예정 — https://quasarzone.com/bbs/qn_game/views/450243",
+    "Inven Global MW4 Not Included in Game Pass Day One — https://www.invenglobal.com/articles/23360/call-of-duty-modern-warfare-4-not-included-in-xbox-game-pass-day-one",
+    "브런치 콜오브듀티 모던워페어4 출시일 — https://brunch.co.kr/@dasauto/66",
+    "인벤 — https://www.inven.co.kr/"
+  ]
+}

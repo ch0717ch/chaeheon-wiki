@@ -1,0 +1,13 @@
+{
+  "theme": "game",
+  "banner": "게임패스로 **못 한다?!**",
+  "title": ["콜 오브 듀티", "MW4", "살까?"],
+  "note": ["출시 정보", "게임패스 이슈", "살까 기다릴까", "출시 전 체크"],
+  "hero": { "type": "console", "sub": "CALL OF DUTY", "title": "MW4", "date": "10.23 출시", "badge": "FPS" },
+  "tiles": [
+    { "icon": "calendar", "top": "10월 23일", "bottom": "동시 출시" },
+    { "icon": "warning", "top": "게임패스", "bottom": "당일 미포함" },
+    { "icon": "gamepad", "top": "PS4·One", "bottom": "제외" },
+    { "icon": "question", "top": "살까", "bottom": "기다릴까" }
+  ]
+}

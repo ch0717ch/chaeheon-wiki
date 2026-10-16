@@ -1,0 +1,16 @@
+{
+  "theme": "volunteer",
+  "banner": "봉사시간 **어디서?!**",
+  "title": ["VMS", "1365", "뭐가 달라?"],
+  "note": ["한눈에 비교", "학교 인정", "주의할 점", "실적 관리"],
+  "hero": {
+    "type": "phone", "paper": "봉사 인증", "header": "1365 vs VMS", "sub": "둘 다 인정하는 학교 많음",
+    "rows": [["1365", "전 분야"], ["VMS", "사회복지"], ["확인서", "각각 발급"], ["연계", "VMS→1365"], ["학교", "둘 다"]]
+  },
+  "tiles": [
+    { "icon": "table", "top": "1365 vs", "bottom": "VMS" },
+    { "icon": "check", "top": "학교 인정", "bottom": "둘 다 OK" },
+    { "icon": "warning", "top": "수강 전 봉사", "bottom": "주의" },
+    { "icon": "phone", "top": "확인서", "bottom": "학기마다" }
+  ]
+}

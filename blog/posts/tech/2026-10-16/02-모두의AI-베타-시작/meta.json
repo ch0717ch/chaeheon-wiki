@@ -1,0 +1,20 @@
+{
+  "no": "02", "theme": "ai", "category": "AI",
+  "keyword": "모두의 AI 베타 시작",
+  "subKeywords": ["모두의 AI 16일", "모두의 AI 사용법", "모두의 AI 비공개 베타", "KT 모두의 AI", "카카오 모두의 AI"],
+  "intent": "무료 국민 AI 베타 시작 소식을 본 사람이 3사 차이와 써 볼 방법을 알고 싶은 정보형",
+  "angle": "베타 요약표 + 3사 비교표(베타 기능) + 참여 가능 여부·사칭 주의 + 베타 체크 4가지",
+  "titles": [
+    "모두의 AI 베타 시작, SKT·KT·카카오 3사 무엇이 다를까",
+    "전 국민 무료 AI 오늘부터? 모두의 AI 베타 써 보는 법",
+    "모두의 AI 베타, 써 보기 전에 확인할 4가지"
+  ],
+  "pick": "A — 시작일 뉴스 검색 정확히",
+  "tags": ["모두의AI", "국민AI", "무료AI", "AI베타", "SKT", "KT", "카카오", "AI서비스", "IT뉴스", "인공지능"],
+  "check": ["각 사 베타 참여 방법 공지 추가"],
+  "sources": [
+    "MTN 모두의 AI 첫 시험대 16일 베타 시작 — https://news.mtn.co.kr/article/2026101415373296963",
+    "뉴스웨이 SKT·KT·카카오 모두의 AI 베타 돌입 — https://newsway.co.kr/news/view?ud=2026101515080970946",
+    "SBS Biz KT 모두의 AI 10월 베타 — https://biz.sbs.co.kr/amp/article/20000338681"
+  ]
+}

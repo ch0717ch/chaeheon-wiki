@@ -1,0 +1,21 @@
+{
+  "no": "03", "theme": "volunteer", "category": "봉사활동",
+  "keyword": "VMS 1365 차이",
+  "subKeywords": ["VMS 봉사시간", "1365 봉사 인정", "사회봉사 교과목", "봉사 확인서 발급", "VMS 1365 연계"],
+  "intent": "봉사 시간을 채우려는 대학생이 1365와 VMS 차이와 학교 인정 기준을 알고 싶은 정보형",
+  "angle": "비교표 + 학교 인정 방식 + 주의할 점 3가지 + 상황별 활용 + 실적 관리 팁",
+  "titles": [
+    "VMS 1365 차이, 대학생 봉사시간 어디서 인정될까",
+    "1365랑 VMS 뭐가 달라? 봉사시간 헷갈릴 때 정리",
+    "사회봉사 학점 받으려면, 1365·VMS 이것만 알자"
+  ],
+  "pick": "A — 비교 검색 그대로",
+  "tags": ["VMS", "1365", "봉사시간", "사회봉사", "봉사확인서", "대학생봉사", "자원봉사", "사회복지봉사", "대학생활", "봉사활동"],
+  "check": ["우리 학교 인정 기준 1줄 추가"],
+  "sources": [
+    "상명대 사회봉사 안내 — https://www.smu.ac.kr/kor/life/socialService5.do",
+    "고려대 사회봉사 실천 양식 — https://nipa.korea.ac.kr/sites/share/files/강의계획서_사회봉사 실천Ⅰ(SPGS313).hwp",
+    "삼육대 사회봉사 안내 — https://www.syu.ac.kr/?p=136452",
+    "전북대 사회봉사 안내 — https://csai.jbnu.ac.kr/bbs/csai/4929/351257/download.do"
+  ]
+}
