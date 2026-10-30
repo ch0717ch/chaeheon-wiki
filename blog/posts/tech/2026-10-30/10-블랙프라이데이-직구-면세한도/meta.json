@@ -1,0 +1,21 @@
+{
+  "no": "10", "theme": "it", "category": "IT",
+  "keyword": "블랙프라이데이 직구 면세한도",
+  "subKeywords": ["블랙프라이데이 2026 날짜", "해외직구 200달러", "직구 관세 계산", "개인통관고유부호", "IT 기기 직구"],
+  "intent": "블프 직구를 계획하는 사람이 날짜와 면세 한도, 세금을 미리 알고 싶은 방법형",
+  "angle": "일정 표 + 면세 한도 표 + 초과 시 계산 예시 표 + 직구 체크리스트 + 국내 행사 비교 + FAQ",
+  "titles": [
+    "블랙프라이데이 2026 직구 면세한도, 200달러·150달러 차이 정리",
+    "블프 노트북 직구, 한도 넘으면 세금 얼마나 나올까?",
+    "11월 27일 블랙프라이데이, IT 기기 직구 전 체크리스트"
+  ],
+  "pick": "A — 시즌 검색 수요",
+  "tags": ["블랙프라이데이", "블프직구", "해외직구", "면세한도", "직구관세", "개인통관고유부호", "사이버먼데이", "아마존직구", "IT기기", "IT정보"],
+  "check": ["관세청 기준 재확인"],
+  "sources": [
+    "financialwook 2026 블랙프라이데이 11월 27일 직구 면세한도 200달러 — https://financialwook.co.kr/black-friday-2026-direct-purchase/",
+    "make2t 블랙프라이데이 날짜·해외직구 면세한도 — https://www.make2t.kr/2026/10/black-friday-2026-customs-duty-free-limit.html",
+    "make2t 블랙프라이데이 해외직구 관세 계산법 — https://www.make2t.kr/2026/10/black-friday-overseas-shopping-customs-tax-guide.html",
+    "세일닥터 2026 블랙프라이데이 총정리 — https://saledoctor.co.kr/blog/2026/10/06/blackfriday/"
+  ]
+}

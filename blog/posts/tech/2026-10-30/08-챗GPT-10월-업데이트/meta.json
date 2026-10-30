@@ -1,0 +1,21 @@
+{
+  "no": "08", "theme": "ai", "category": "AI",
+  "keyword": "챗GPT 10월 업데이트",
+  "subKeywords": ["챗GPT 새 기능", "챗GPT iCloud 연동", "GPT-6 Intelligent UI", "GPT-6.1 Terra", "챗GPT 크롬 탭"],
+  "intent": "챗GPT 새 기능 소식을 보고 내가 쓸 수 있는 것을 가려내려는 정보형",
+  "angle": "날짜순 업데이트 표(대상 병기) + 바로 쓸 것 + 유료 위주 + 연동 주의 + FAQ",
+  "titles": [
+    "챗GPT 10월 업데이트 총정리, iCloud 연동부터 GPT-6.1 Terra까지",
+    "챗GPT 새 기능 많던데, 무료로 바로 쓸 수 있는 건?",
+    "챗GPT에 메일·캘린더 연결해도 될까? 10월 새 기능 주의점"
+  ],
+  "pick": "A — 월별 업데이트 검색",
+  "tags": ["챗GPT", "챗GPT업데이트", "챗GPT새기능", "GPT6", "OpenAI", "iCloud연동", "AI활용", "생성형AI", "AI뉴스", "AI정보"],
+  "check": ["공식 릴리스 노트 날짜 대조"],
+  "sources": [
+    "ChatGPT release notes — https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "Releasebot ChatGPT Updates October 2026 — https://releasebot.io/updates/openai/chatgpt",
+    "MemoryPlugin ChatGPT New Features October 2026 — https://blog.memoryplugin.com/chatgpt-new-features-october-2026/",
+    "releases.sh ChatGPT Release Notes — https://releases.sh/openai/chatgpt"
+  ]
+}

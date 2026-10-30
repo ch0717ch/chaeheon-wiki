@@ -1,0 +1,46 @@
+{
+  "theme": "volunteer",
+  "banner": "겨울 모집 **언제 열려?!**",
+  "title": [
+    "상상위더스",
+    "봉사단",
+    "준비법"
+  ],
+  "note": [
+    "최근 파견",
+    "모집 흐름",
+    "활동 내용",
+    "지금 준비"
+  ],
+  "hero": {
+    "type": "passport",
+    "label": "VOLUNTEER",
+    "from": "ICN",
+    "to": "TAS",
+    "ticketNote": "2026.7 파견",
+    "seat": "80명",
+    "stamp": "봉사"
+  },
+  "tiles": [
+    {
+      "icon": "globe",
+      "top": "1월·7월",
+      "bottom": "파견 흐름"
+    },
+    {
+      "icon": "people",
+      "top": "누적",
+      "bottom": "2,000여 명"
+    },
+    {
+      "icon": "question",
+      "top": "2027 동계",
+      "bottom": "공고 전"
+    },
+    {
+      "icon": "check",
+      "top": "지금",
+      "bottom": "준비 4가지"
+    }
+  ]
+}

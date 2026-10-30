@@ -1,0 +1,14 @@
+{
+  "theme": "ai",
+  "banner": "시리가 **한국어로?!**",
+  "title": ["iOS 27.2", "시리 AI", "한국어!"],
+  "note": ["핵심 변경점", "한국어 시리", "업데이트 전", "해도 될까"],
+  "hero": { "type": "phone", "paper": "iOS 27.2", "header": "iOS 27.2", "sub": "10월 26일 배포",
+    "rows": [["Siri AI", "한국어"], ["대화", "기억"], ["설정", "제외 앱"], ["보안", "150건+"]] },
+  "tiles": [
+    { "icon": "calendar", "top": "배포", "bottom": "10월 26일" },
+    { "icon": "globe", "top": "새 언어", "bottom": "한국어 포함" },
+    { "icon": "shield", "top": "보안 수정", "bottom": "150건 이상" },
+    { "icon": "check", "top": "업데이트 전", "bottom": "체크 4가지" }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "theme": "game",
+  "banner": "올해 지스타 **뭐 나와?!**",
+  "title": [
+    "지스타",
+    "출품작",
+    "총정리"
+  ],
+  "note": [
+    "기본 정보",
+    "참가사별",
+    "놓치면 아쉬운",
+    "동선 팁"
+  ],
+  "hero": {
+    "type": "passport",
+    "label": "G-STAR 2026",
+    "from": "SEL",
+    "to": "PUS",
+    "ticketNote": "11.19 - 11.22",
+    "seat": "부산",
+    "stamp": "예매"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "기간",
+      "bottom": "11월 19~22일"
+    },
+    {
+      "icon": "gamepad",
+      "top": "크래프톤",
+      "bottom": "5종 출품"
+    },
+    {
+      "icon": "globe",
+      "top": "해외",
+      "bottom": "캡콤·CDPR"
+    },
+    {
+      "icon": "check",
+      "top": "관람",
+      "bottom": "동선 팁"
+    }
+  ]
+}

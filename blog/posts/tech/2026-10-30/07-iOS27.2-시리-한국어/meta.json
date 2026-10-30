@@ -1,0 +1,22 @@
+{
+  "no": "07", "theme": "ai", "category": "AI",
+  "keyword": "iOS 27.2 업데이트",
+  "subKeywords": ["시리 AI 한국어", "iOS 27.2 새 기능", "Siri AI 한국어 지원", "Excluded Apps", "아이폰 업데이트 해도 될까"],
+  "intent": "업데이트 알림을 받은 아이폰 사용자가 변경점과 업데이트 여부를 판단하려는 판단형",
+  "angle": "변경점 표 + 한국어 Siri 설명 + 업데이트 전 체크 + 판단 + FAQ",
+  "titles": [
+    "iOS 27.2 업데이트, 시리 AI 한국어 지원 시작 (바뀐 점 정리)",
+    "한국어 시리가 대화를 기억한다? iOS 27.2 새 기능",
+    "iOS 27.2 업데이트해도 될까, 전에 확인할 4가지"
+  ],
+  "pick": "A — 버전명 검색",
+  "tags": ["iOS27.2", "iOS업데이트", "시리AI", "시리한국어", "아이폰업데이트", "애플인텔리전스", "아이폰듀오", "아이폰", "AI기능", "IT정보"],
+  "check": ["한국어 시리 실제 화면 캡처"],
+  "sources": [
+    "MacRumors iOS 27.2 Features — https://www.macrumors.com/2026/10/26/ios-27-2-features/",
+    "TechCrunch Apple rolls out iOS 27.2 with new Siri AI languages — https://techcrunch.com/2026/10/27/apple-rolls-out-ios-27-2-with-new-siri-ai-languages-and-security-fixes/",
+    "9to5Mac Apple releases iOS 27.2 — https://9to5mac.com/2026/10/26/apple-releases-ios-27-2-heres-whats-new/",
+    "Cult of Mac Everything new in iOS 27.2 — https://www.cultofmac.com/news/everything-new-ios-27-2",
+    "Macworld iOS 27.2 features — https://www.macworld.com/article/3269963/"
+  ]
+}

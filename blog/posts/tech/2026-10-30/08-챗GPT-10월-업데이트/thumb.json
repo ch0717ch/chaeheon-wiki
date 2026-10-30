@@ -1,0 +1,13 @@
+{
+  "theme": "ai",
+  "banner": "새 기능 **뭐가 생겼지?!**",
+  "title": ["챗GPT", "10월", "새 기능"],
+  "note": ["날짜순 정리", "바로 쓸 것", "유료 위주", "연동 주의점"],
+  "hero": { "type": "laptop", "header": "ChatGPT 10월 업데이트", "lines": ["10/7 Intelligent UI", "10/15 크롬 탭 읽기", "10/26 GPT-6.1 Terra", "10/27 iCloud 연동"], "badge": "NEW" },
+  "tiles": [
+    { "icon": "calendar", "top": "업데이트", "bottom": "8가지" },
+    { "icon": "phone", "top": "iCloud", "bottom": "모든 플랜" },
+    { "icon": "coin", "top": "Terra", "bottom": "유료 플랜" },
+    { "icon": "shield", "top": "연동 전", "bottom": "권한 확인" }
+  ]
+}

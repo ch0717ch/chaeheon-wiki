@@ -1,0 +1,46 @@
+{
+  "theme": "society",
+  "banner": "일본 면세 **바뀐다?!**",
+  "title": [
+    "일본 면세",
+    "11월",
+    "환급제로"
+  ],
+  "note": [
+    "바뀌는 점",
+    "면세 조건",
+    "출국 날 순서",
+    "환급 방법"
+  ],
+  "hero": {
+    "type": "passport",
+    "label": "TAX REFUND",
+    "from": "ICN",
+    "to": "TYO",
+    "ticketNote": "11/1 구매분부터",
+    "seat": "5천엔↑",
+    "stamp": "REFUND"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "적용",
+      "bottom": "11월 1일"
+    },
+    {
+      "icon": "won",
+      "top": "결제",
+      "bottom": "세금 포함"
+    },
+    {
+      "icon": "warning",
+      "top": "수하물",
+      "bottom": "맡기기 전"
+    },
+    {
+      "icon": "globe",
+      "top": "출국",
+      "bottom": "90일 안"
+    }
+  ]
+}

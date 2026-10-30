@@ -1,0 +1,21 @@
+{
+  "no": "02", "theme": "economy", "category": "경제",
+  "keyword": "3분기 GDP 성장률",
+  "subKeywords": ["3분기 GDP 1.0%", "깜짝 성장", "민간소비 감소", "연간 성장률 전망", "설비투자"],
+  "intent": "깜짝 성장 뉴스를 보고 숫자 의미와 체감 경기 차이를 알고 싶은 정보형",
+  "angle": "핵심 수치 표 + 부문별 기여 표 + 민간소비 감소 + 연간 전망 시나리오 + 지갑 연결",
+  "titles": [
+    "3분기 GDP 성장률 1.0%, 전망치 3배 넘은 깜짝 성장 정리",
+    "성장률 1%인데 왜 체감은 안 될까? 3분기 GDP 속 민간소비",
+    "올해 성장률 4% 가능할까, 3분기 GDP로 본 시나리오"
+  ],
+  "pick": "A — 지표명+숫자 검색",
+  "tags": ["3분기GDP", "경제성장률", "GDP속보", "깜짝성장", "민간소비", "설비투자", "반도체", "한국은행", "경제뉴스", "경제정보"],
+  "check": ["한은 속보 원문 표 확인"],
+  "sources": [
+    "서울신문 3분기 GDP 1.0% 깜짝 성장 — https://www.seoul.co.kr/news/economy/finance/2026/10/27/20261027500307",
+    "한국일보 반도체 호황에 전망치 3배 — https://www.hankookilbo.com/news/article/A2026102707580003481",
+    "국제뉴스 정부소비·설비투자 늘었다 — https://www.gukjenews.com/news/articleView.html?idxno=3734717",
+    "데일리안 전망치 3배 넘어 — https://www.dailian.co.kr/news/view/1706440/"
+  ]
+}

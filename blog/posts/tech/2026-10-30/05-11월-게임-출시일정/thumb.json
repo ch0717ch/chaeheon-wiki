@@ -1,0 +1,14 @@
+{
+  "theme": "game",
+  "banner": "이번 달 **뭐 나와?!**",
+  "title": ["11월 게임", "출시일", "한눈에"],
+  "note": ["날짜순 일정", "핵심 3개", "지갑 계획", "같은 달 행사"],
+  "hero": { "type": "phone", "paper": "11월 신작", "header": "11월 출시 일정", "sub": "2026년",
+    "rows": [["11/4", "WoW Forever"], ["11/5~6", "젤다"], ["11/12", "스텔라 CE"], ["11/19", "GTA6"], ["11/26", "아주르"]] },
+  "tiles": [
+    { "icon": "calendar", "top": "GTA6", "bottom": "11월 19일" },
+    { "icon": "gamepad", "top": "젤다", "bottom": "11월 5~6일" },
+    { "icon": "won", "top": "두 개 사면", "bottom": "16만 원대" },
+    { "icon": "trophy", "top": "지스타", "bottom": "같은 날 개막" }
+  ]
+}

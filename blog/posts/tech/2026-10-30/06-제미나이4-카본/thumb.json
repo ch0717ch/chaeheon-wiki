@@ -1,0 +1,13 @@
+{
+  "theme": "ai",
+  "banner": "AI 1위인데 **못 쓴다?!**",
+  "title": ["제미나이4", "카본", "언제 써?"],
+  "note": ["한눈에", "성능 숫자", "단계 공개 이유", "지금 쓰는 것"],
+  "hero": { "type": "laptop", "header": "Gemini 4 Carbon", "lines": ["AA 지능 지수 59점 1위", "강점: 사이버 방어·코딩", "공개: 일부 보안 담당자", "일반 공개: 날짜 미정"], "badge": "한정" },
+  "tiles": [
+    { "icon": "trophy", "top": "지능 지수", "bottom": "59점 1위" },
+    { "icon": "shield", "top": "강점", "bottom": "사이버 방어" },
+    { "icon": "warning", "top": "일반 공개", "bottom": "날짜 미정" },
+    { "icon": "coin", "top": "API", "bottom": "아르곤과 같은 가격" }
+  ]
+}

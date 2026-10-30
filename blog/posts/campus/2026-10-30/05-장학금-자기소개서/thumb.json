@@ -1,0 +1,13 @@
+{
+  "theme": "scholarship",
+  "banner": "자소서에서 **막혔다면?!**",
+  "title": ["장학금", "자소서", "이렇게!"],
+  "note": ["자주 나오는 항목", "항목별 작성", "흔한 실수", "제출 체크"],
+  "hero": { "type": "laptop", "header": "장학금 자기소개서", "lines": ["성장 과정: 계기 장면 하나", "학업 계획: 과목·자격증", "필요 사유: 달라질 계획", "재단 취지와 연결"], "badge": "작성" },
+  "tiles": [
+    { "icon": "table", "top": "항목", "bottom": "5가지" },
+    { "icon": "warning", "top": "흔한 실수", "bottom": "4가지" },
+    { "icon": "question", "top": "1학년은?", "bottom": "계획으로" },
+    { "icon": "check", "top": "제출 전", "bottom": "체크리스트" }
+  ]
+}

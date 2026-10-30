@@ -1,0 +1,22 @@
+{
+  "no": "06", "theme": "ai", "category": "AI",
+  "keyword": "제미나이 4 카본",
+  "subKeywords": ["Gemini 4 Carbon", "제미나이 카본 사용법", "구글 새 AI 모델", "AI 성능 1위", "제미나이 4 아르곤"],
+  "intent": "새 모델 소식을 보고 무엇이 다르고 지금 쓸 수 있는지 알고 싶은 정보형",
+  "angle": "요약 표 + 성능 표(자체 측정 명시) + 단계 공개 이유 + 일반 사용자 영향 + FAQ",
+  "titles": [
+    "제미나이 4 카본 공개, AI 성능 1위인데 아직 아무나 못 쓰는 이유",
+    "구글 새 AI 제미나이 4 카본, 언제 쓸 수 있을까?",
+    "제미나이 4 카본 vs 아르곤, 무엇이 다르고 가격은?"
+  ],
+  "pick": "A — 모델명 검색",
+  "tags": ["제미나이4카본", "제미나이", "GeminiCarbon", "구글AI", "AI모델", "사이버보안", "제미나이아르곤", "AI뉴스", "생성형AI", "AI정보"],
+  "check": ["일반 공개 시 업데이트"],
+  "sources": [
+    "Google 블로그 Gemini 4 Carbon: our next frontier model — https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/",
+    "이데일리 구글 새 AI 제미나이 4 카본 — https://www.edaily.co.kr/News/Read?newsId=03102886645617840&mediaCodeNo=257",
+    "GPTers 제미나이 4 카본 공개: 아직 아무나 못 써요 — https://www.gpters.org/news/post/gemini-4-carbon-revealed-patyhIrwABaeYjZ",
+    "보안뉴스 보안 성능 앞세운 제미나이 4 카본 — https://www.boannews.com/news/articleView.html?idxno=146858",
+    "헤럴드경제 제미나이4 카본으로 AI 1위 탈환 — https://www.heraldk.com/article/2026102822005485158"
+  ]
+}

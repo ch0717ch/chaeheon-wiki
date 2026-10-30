@@ -1,0 +1,13 @@
+{
+  "theme": "activity",
+  "banner": "서류 붙었다면 **면접?!**",
+  "title": ["대외활동", "면접", "질문 5개"],
+  "note": ["질문 유형", "답하는 법", "1분 자기소개", "화상 면접"],
+  "hero": { "type": "laptop", "header": "대외활동 면접 준비", "lines": ["지원 동기: 기관 활동 언급", "역량: 결과물 보여주기", "아이디어: 30초 2개", "협업: 상황-행동-결과"], "badge": "면접" },
+  "tiles": [
+    { "icon": "question", "top": "질문 유형", "bottom": "5가지" },
+    { "icon": "people", "top": "자기소개", "bottom": "1분 구조" },
+    { "icon": "phone", "top": "결과물", "bottom": "바로 보여주기" },
+    { "icon": "check", "top": "화상 면접", "bottom": "체크리스트" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "no": "01", "theme": "game", "category": "게임",
+  "keyword": "GTA6 한국 가격",
+  "subKeywords": ["GTA6 가격 89800원", "GTA6 얼티밋 에디션", "GTA6 사전 다운로드", "GTA6 출시일 11월 19일", "GTA6 PC판"],
+  "intent": "GTA6 구매를 앞두고 가격·에디션·사전 다운로드를 확인하려는 구매 판단형",
+  "angle": "정보 표(미공개 구분) + 가격 화제 이유 + 에디션 비교 표 + 출시 전 준비 + 연기 여부 + FAQ",
+  "titles": [
+    "GTA6 한국 가격 89,800원, 얼티밋 에디션과 사전 다운로드 정리",
+    "10만 원 넘을 줄 알았는데? GTA6 한국 가격이 낮게 나온 이유",
+    "GTA6 11월 19일 출시, 사전구매 전에 확인할 4가지"
+  ],
+  "pick": "A — 출시 직전 가격 검색",
+  "tags": ["GTA6", "GTA6가격", "GTA6출시일", "GTA6사전구매", "GTA6얼티밋", "락스타게임즈", "PS5게임", "Xbox", "11월게임", "게임정보"],
+  "check": ["스토어 가격·구성품 캡처"],
+  "sources": [
+    "게임메카 일반판 8만 9800원, GTA 6 한국 가격 발표 — https://www.gamemeca.com/en/view.php?gid=1776963",
+    "foxcg GTA6 출시일 11월 19일 공식 확인분 — https://foxcg.com/gta6-release-date-price-specs",
+    "노랗IT월드 GTA6 출시일 확정 — https://yellowit.co.kr/it-review/gta6-release-date-price-pc-ps5-xbox-specs/"
+  ]
+}

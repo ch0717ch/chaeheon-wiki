@@ -1,0 +1,21 @@
+{
+  "no": "09", "theme": "it", "category": "IT",
+  "keyword": "갤럭시 A18 LTE",
+  "subKeywords": ["갤럭시 A18 가격", "40만원대 스마트폰", "부모님 폰 추천", "보급형 갤럭시", "자급제 폰"],
+  "intent": "저가 스마트폰을 찾는 사람이 A18 LTE 스펙과 적합성을 판단하려는 구매형",
+  "angle": "기본 정보 표 + LTE 의미 + 맞는 사람 표 + 아쉬운 사람 + 구매 체크 + FAQ",
+  "titles": [
+    "갤럭시 A18 LTE 출시, 출고가 42만 5,700원 스펙 정리",
+    "40만 원대 갤럭시, 부모님 폰으로 괜찮을까?",
+    "갤럭시 A18 LTE, 자급제로 사서 알뜰폰 쓰면 얼마나 아낄까"
+  ],
+  "pick": "A — 모델명 검색",
+  "tags": ["갤럭시A18", "갤럭시A18LTE", "보급형스마트폰", "부모님폰", "효도폰", "자급제폰", "알뜰폰", "삼성전자", "스마트폰추천", "IT정보"],
+  "check": ["삼성 공식 스펙 페이지 링크"],
+  "sources": [
+    "뉴스핌 AI 기능 갖춘 40만원대 갤럭시 — https://www.newspim.com/news/view/20261030000255",
+    "비즈니스포스트 갤럭시 A18 LTE 국내 출시 가격 42만5700원 — https://www.businesspost.co.kr/BP?command=article_view&num=450764",
+    "세계일보 갤럭시 A18 LTE 국내 출시 — https://www.segye.com/newsView/20261030504295",
+    "글로벌이코노믹 40만 원대 스마트폰 출시 — https://www.g-enews.com/article/Industry/2026/10/20261030082906814139bf6e4b2_1"
+  ]
+}

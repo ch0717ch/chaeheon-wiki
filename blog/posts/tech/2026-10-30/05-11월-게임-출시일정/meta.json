@@ -1,0 +1,22 @@
+{
+  "no": "05", "theme": "game", "category": "게임",
+  "keyword": "11월 게임 출시 일정",
+  "subKeywords": ["2026년 11월 신작 게임", "11월 출시 게임", "GTA6 젤다 11월", "스위치2 11월 게임", "11월 PS5 게임"],
+  "intent": "이번 달 출시 게임을 한눈에 보고 구매 계획을 세우려는 정보형",
+  "angle": "날짜순 표(출처 병기) + 핵심 3개 + 지갑 계산 표 + 같은 달 행사 + FAQ",
+  "titles": [
+    "11월 게임 출시 일정 2026, GTA6·젤다·아주르 프로밀리아 한눈에",
+    "이번 달 뭐 나와? 11월 신작 게임 날짜순 정리",
+    "GTA6에 젤다까지, 11월 게임 지갑 계획 세우기"
+  ],
+  "pick": "A — 월별 출시 검색",
+  "tags": ["11월게임", "게임출시일정", "신작게임", "GTA6", "젤다의전설", "아주르프로밀리아", "스위치2게임", "PS5게임", "게임일정", "게임정보"],
+  "check": ["국내 스토어 날짜 재확인"],
+  "sources": [
+    "닌텐도 코리아 소프트웨어 발매 스케줄 — https://www.nintendo.com/kr/schedule",
+    "스팀 출시 예정 게임 — https://store.steampowered.com/explore/upcoming/?l=koreana",
+    "루리웹 2026년 11월 출시 PS5 타이틀 — https://bbs.ruliweb.com/news/board/1001/read/2364883",
+    "중앙이코노미뉴스 아주르 프로밀리아 11월 26일 출시 — https://www.joongangenews.com/news/articleView.html?idxno=557804",
+    "게임메카 GTA 6 한국 가격 발표 — https://www.gamemeca.com/en/view.php?gid=1776963"
+  ]
+}

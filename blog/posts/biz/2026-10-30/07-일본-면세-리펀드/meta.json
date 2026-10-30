@@ -1,0 +1,22 @@
+{
+  "no": "07", "theme": "society", "category": "사회",
+  "keyword": "일본 면세 변경 11월",
+  "subKeywords": ["일본 면세 리펀드", "일본 택스리펀", "일본 사후환급", "일본 면세 5000엔", "일본 공항 세관 확인"],
+  "intent": "11월 이후 일본 여행자가 바뀐 면세 절차를 미리 알고 싶은 방법형",
+  "angle": "전후 비교 표 + 조건 3가지 + 출국 날 순서 + 환급 방식 + FAQ",
+  "titles": [
+    "일본 면세 11월부터 변경, 리펀드 방식 절차 총정리",
+    "매장에서 면세 안 된다? 일본 여행 11월부터 달라지는 것",
+    "일본 공항에서 수하물 맡기기 전에 꼭 할 일 (면세 환급)"
+  ],
+  "pick": "A — 여행 전 검색 수요",
+  "tags": ["일본면세", "일본택스리펀", "일본면세변경", "일본여행", "리펀드방식", "사후환급", "일본쇼핑", "돈키호테면세", "해외여행", "생활정보"],
+  "check": ["일본 관광청 공지 링크 추가"],
+  "sources": [
+    "헤럴드경제 11월부터 日여행 면세 환급 까다로워진다 — https://biz.heraldcorp.com/article/10915988",
+    "재팬코리아데일리 日 면세제도 환급 방식 전환 — https://www.jk-daily.co.kr/news/articleView.html?idxno=41905",
+    "MATCHA 리펀드 방식 절차와 주의사항 — https://matcha-jp.com/ko/27460",
+    "PIE VAT 2026년 11월 면세제도 변경 — https://pievat.com/tourist-contents/tax-free-system-changes-2026",
+    "트립닷컴 일본 면세 2026 — https://kr.trip.com/blog/japan-tax-free-guide/"
+  ]
+}
