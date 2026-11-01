@@ -1,0 +1,21 @@
+{
+  "no": "08", "theme": "finance", "category": "경제",
+  "keyword": "종부세 고지서",
+  "subKeywords": ["종부세 납부기간", "종합부동산세 2026", "종부세 분납", "종부세 고지서 발송일", "1세대 1주택 공제"],
+  "intent": "종부세 고지를 앞둔 사람이 일정과 확인 사항, 분납을 알고 싶은 방법형",
+  "angle": "일정 표 + 고지서 확인 4가지 + 분납 표(불일치 명시) + 첫 대상자 + FAQ",
+  "titles": [
+    "종부세 고지서 11월 22일경 발송, 납부기간 12월 1~15일",
+    "종부세 고지서 받으면 먼저 확인할 4가지",
+    "종부세 금액 크면 분납, 기준과 신청 방법"
+  ],
+  "pick": "A — 시즌 검색",
+  "tags": ["종부세", "종합부동산세", "종부세고지서", "종부세납부", "종부세분납", "재산세", "부동산세금", "홈택스", "세금", "경제정보"],
+  "check": ["국세청 발표 후 날짜 확정"],
+  "sources": [
+    "asiatop 종부세 11~12월 납부 시뮬레이션 (2026) — https://asiatop.co.kr/realestate/property-tax-nov-dec-payment-simulation/",
+    "easyzetec 종부세 고지서 발급 기한과 12월 납부기간 — https://www.easyzetec.com/blog/comprehensive-property-tax-notice-bill-issue-deadline-december-payment",
+    "토스뱅크 종합부동산세 — https://www.tossbank.com/articles/real-estate-tax",
+    "복지OK 종합부동산세 2026 — https://bokjiok.com/comprehensive-property-tax-2026/"
+  ]
+}

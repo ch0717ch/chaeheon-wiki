@@ -1,0 +1,21 @@
+{
+  "no": "04", "theme": "game", "category": "게임",
+  "keyword": "게임패스 11월",
+  "subKeywords": ["Xbox 게임패스 11월 2026", "Football Manager 27 게임패스", "Escape Academy 2", "Thronefall", "게임패스 신작"],
+  "intent": "이번 달 게임패스 신규 게임을 확인하려는 구독자 정보형",
+  "angle": "확인된 목록 표 + 일부 언급 구분 + 주목 게임 + PS Plus 비교 표 + FAQ",
+  "titles": [
+    "게임패스 11월 라인업, FM27·Escape Academy 2·Thronefall",
+    "Xbox 게임패스 11월 신작, 확인된 것만 정리",
+    "PS Plus vs 게임패스, 11월엔 뭐가 나을까"
+  ],
+  "pick": "A — 월별 검색",
+  "tags": ["게임패스", "Xbox게임패스", "게임패스11월", "FootballManager27", "EscapeAcademy2", "Thronefall", "Xbox", "PC게임패스", "구독게임", "게임정보"],
+  "check": ["Xbox Wire 공식 목록 대조"],
+  "sources": [
+    "Gamerant Xbox Game Pass 7 Games Confirmed for November 2026 — https://gamerant.com/xbox-game-pass-november-2026-games/",
+    "PureXbox Xbox Game Pass November 2026 — https://www.purexbox.com/guides/xbox-game-pass-all-games-coming-soon-in-november-2026",
+    "gg.deals games coming to Game Pass — https://gg.deals/subscription-news/the-list-of-all-games-coming-to-game-pass/",
+    "Techgenyz Xbox November 2026 Games — https://techgenyz.com/xbox-november-2026-games/"
+  ]
+}

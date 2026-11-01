@@ -1,0 +1,21 @@
+{
+  "no": "10", "theme": "it", "category": "IT",
+  "keyword": "윈도우11 10월 업데이트",
+  "subKeywords": ["KB5127648", "윈도우 보안 업데이트 2026", "윈도우 제로데이", "윈도우 11월 업데이트", "패치 화요일"],
+  "intent": "윈도우 사용자가 최신 보안 업데이트 내용과 설치 필요성을 알고 싶은 해결형",
+  "angle": "요약 표 + 설치 이유 + 수정·기능 표 + 확인 방법 + 체크리스트 + 윈도우10 안내 + FAQ",
+  "titles": [
+    "윈도우11 10월 업데이트 KB5127648, 실제 악용 취약점 수정",
+    "윈도우 보안 업데이트 미뤄도 될까? 10월 패치 정리",
+    "윈도우11 업데이트 확인 방법과 11월 10일 다음 패치"
+  ],
+  "pick": "A — 업데이트명 검색",
+  "tags": ["윈도우11", "윈도우업데이트", "KB5127648", "보안업데이트", "제로데이", "마이크로소프트", "패치화요일", "PC보안", "윈도우", "IT정보"],
+  "check": ["MS 지원 문서 링크 추가"],
+  "sources": [
+    "Microsoft 지원 KB5127646 (26H1) — https://support.microsoft.com/en-us/servicing/os/windows-11/2026/10/kb5127646-windows-11-26h1-security-update",
+    "MSRC 2026년 10월 보안 업데이트 — https://www.microsoft.com/en-us/msrc/blog/2026/10/202610-security-update",
+    "Windows Central October 2026 security update — https://www.windowscentral.com/microsoft/windows-11/windows-11s-october-2026-security-update-fixes-six-everyday-annoyances",
+    "CyberInsider Windows 11 October updates fix zero-day — https://cyberinsider.com/windows-11-october-updates-fix-zero-day-vpn-failures-and-black-screens/"
+  ]
+}

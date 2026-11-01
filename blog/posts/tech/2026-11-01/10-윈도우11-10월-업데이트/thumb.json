@@ -1,0 +1,48 @@
+{
+  "theme": "it",
+  "banner": "업데이트 **미뤘다면?!**",
+  "title": [
+    "윈도우11",
+    "패치",
+    "꼭 하세요"
+  ],
+  "note": [
+    "한눈에",
+    "설치 이유",
+    "고쳐진 것",
+    "확인 방법"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "Windows 업데이트",
+    "lines": [
+      "KB5127648 설치됨",
+      "실제 악용 취약점 수정",
+      "블루투스·VPN 버그 수정",
+      "다음: 11월 10일"
+    ],
+    "badge": "보안"
+  },
+  "tiles": [
+    {
+      "icon": "shield",
+      "top": "제로데이",
+      "bottom": "수정"
+    },
+    {
+      "icon": "check",
+      "top": "버그 수정",
+      "bottom": "5가지"
+    },
+    {
+      "icon": "calendar",
+      "top": "다음 패치",
+      "bottom": "11월 10일"
+    },
+    {
+      "icon": "question",
+      "top": "확인 방법",
+      "bottom": "4단계"
+    }
+  ]
+}

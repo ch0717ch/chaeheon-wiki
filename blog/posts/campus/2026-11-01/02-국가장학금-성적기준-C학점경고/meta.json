@@ -1,0 +1,20 @@
+{
+  "no": "02", "theme": "scholarship", "category": "장학금",
+  "keyword": "국가장학금 성적기준",
+  "subKeywords": ["C학점 경고제", "국가장학금 80점", "국가장학금 12학점", "국가장학금 성적 미달", "재학생 구제신청"],
+  "intent": "기말을 앞두고 다음 학기 국가장학금 성적 기준이 걱정되는 학생의 해결형",
+  "angle": "성적 기준 표 + 환산 안내 + C학점 경고제 표 + 이수학점 + 구제신청 구분 표 + FAQ",
+  "titles": [
+    "국가장학금 성적기준 80점, 못 미치면 C학점 경고제로 받을 수 있을까",
+    "기말 망하면 국가장학금 끊길까? 성적 기준과 구제 방법",
+    "C학점 경고제 vs 구제신청, 헷갈리는 두 제도 정리"
+  ],
+  "pick": "A — 에버그린 시즌 검색",
+  "tags": ["국가장학금", "국가장학금성적기준", "C학점경고제", "국가장학금80점", "장학금성적", "기말고사", "한국장학재단", "장학금정보", "대학생", "대학생활정보"],
+  "check": ["재단 최신 공지 기준 대조"],
+  "sources": [
+    "KB Think 국가장학금 기준 및 신청 기간 — https://kbthink.com/life/daily/national-scholarship.html",
+    "geteduify F학점 받아도 국가장학금? C학점 경고제 — https://geteduify.com/career-guidance/",
+    "방송대 국가장학금 1차 신청 안내(소득 1~3구간 C학점 경고제) — https://wjeju.knou.ac.kr/bbs/smart/2077/255026/artclView.do"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "no": "04", "theme": "society", "category": "사회",
+  "keyword": "미래대응기금",
+  "subKeywords": ["2027 예산안 820조", "예산안 국회 심사 일정", "예산 법정 처리 시한", "국가재정법 개정안", "예결특위"],
+  "intent": "예산 뉴스의 핵심 쟁점과 일정을 중립적으로 이해하고 싶은 정보형",
+  "angle": "예산안 표 + 기금 설명 + 여야 주장 표(평가 없음) + 일정 표 + 생활 연결 + FAQ",
+  "titles": [
+    "미래대응기금 162조, 2027 예산안 최대 쟁점 정리",
+    "820조 슈퍼 예산, 국회 심사 일정과 처리 시한은?",
+    "2027 예산안 여야 쟁점, 내 생활과는 어떻게 이어질까"
+  ],
+  "pick": "A — 쟁점 키워드 검색",
+  "tags": ["미래대응기금", "2027예산안", "예산안", "국회예산심사", "예결특위", "국가재정법", "정부예산", "확장재정", "사회이슈", "경제정보"],
+  "check": ["12월 확정 예산 업데이트"],
+  "sources": [
+    "뉴스1 821조 슈퍼 예산 국회 심사 돌입 — https://www.news1.kr/politics/assembly/6337035",
+    "폴리뉴스 162조 미래기금 공방 — https://www.polinews.co.kr/news/articleView.html?idxno=747372",
+    "법률방송뉴스 820조원 예산 정국 — https://www.lawtv.kr/news/articleView.html?idxno=61297",
+    "M이코노미뉴스 예산안 심사 돌입 — https://www.m-economynews.com/news/article.html?no=72343"
+  ]
+}

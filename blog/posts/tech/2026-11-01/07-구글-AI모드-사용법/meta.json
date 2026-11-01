@@ -1,0 +1,21 @@
+{
+  "no": "07", "theme": "ai", "category": "AI",
+  "keyword": "구글 AI 모드",
+  "subKeywords": ["구글 AI 모드 사용법", "구글 AI 모드 한국어", "AI 검색", "AI 개요", "구글 대화형 검색"],
+  "intent": "구글 AI 모드를 처음 써보려는 사람의 방법형 (에버그린)",
+  "angle": "기본 정보 표 + 일반 검색 비교 표 + 질문 팁 + 주의점 + 블로거 관점 + FAQ",
+  "titles": [
+    "구글 AI 모드 사용법, 켜는 법부터 잘 묻는 법까지",
+    "구글 검색 'AI 모드' 탭, 일반 검색과 뭐가 다를까",
+    "AI 검색 답변 믿어도 될까? 구글 AI 모드 주의점"
+  ],
+  "pick": "A — 사용법 검색",
+  "tags": ["구글AI모드", "AI모드", "구글검색", "AI검색", "AI개요", "제미나이", "검색팁", "AI활용", "생성형AI", "AI정보"],
+  "check": ["AI 모드 화면 캡처 추가"],
+  "sources": [
+    "MS TODAY 구글 AI 모드 한국어 출시 — https://www.mstoday.co.kr/news/articleView.html?idxno=98787",
+    "KMJ 구글 AI 모드 한국어 정식 지원 — https://www.kmjournal.net/news/articleView.html?idxno=3282",
+    "searchpolaris Google AI Overview 2026 업데이트 정리 — https://searchpolaris.com/blog/ai-overview-2026-update/",
+    "링커리어 구글 AI 모드란 — https://community.linkareer.com/employment_data/6032112"
+  ]
+}

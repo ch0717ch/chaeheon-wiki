@@ -1,0 +1,13 @@
+{
+  "theme": "scholarship",
+  "banner": "서류 붙었다 **면접은?!**",
+  "title": ["장학금", "면접", "질문 5개"],
+  "note": ["보는 것", "유형별 팁", "1분 자기소개", "당일 체크"],
+  "hero": { "type": "laptop", "header": "장학금 면접 준비", "lines": ["재단 취지 한 문장", "학업 계획 = 자소서와 같게", "필요성: 달라질 변화", "사회 환원: 구체적으로"], "badge": "면접" },
+  "tiles": [
+    { "icon": "question", "top": "질문 유형", "bottom": "5가지" },
+    { "icon": "people", "top": "자기소개", "bottom": "1분 구조" },
+    { "icon": "calendar", "top": "면접 일정", "bottom": "미리 확인" },
+    { "icon": "check", "top": "당일", "bottom": "체크리스트" }
+  ]
+}

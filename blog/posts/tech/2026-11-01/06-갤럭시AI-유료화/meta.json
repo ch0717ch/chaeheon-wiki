@@ -1,0 +1,21 @@
+{
+  "no": "06", "theme": "ai", "category": "AI",
+  "keyword": "갤럭시 AI 유료화",
+  "subKeywords": ["갤럭시 AI 무료 종료", "갤럭시 AI 2026", "갤럭시 AI 요금", "제미나이 갤럭시", "삼성 AI 구독"],
+  "intent": "갤럭시 사용자가 AI 기능 유료화 여부를 확인하려는 정보형",
+  "angle": "경과 표 + 무료·유료 구분 표 + 헷갈리는 이유 + 할 일 + FAQ",
+  "titles": [
+    "갤럭시 AI 유료화 됐을까? 2026년 11월 기준 정리",
+    "갤럭시 AI 2025년까지 무료였는데, 지금은?",
+    "갤럭시 AI vs 제미나이, 유료 되는 건 어느 쪽?"
+  ],
+  "pick": "A — 궁금증 검색",
+  "tags": ["갤럭시AI", "갤럭시AI유료화", "삼성", "갤럭시", "제미나이", "AI구독", "스마트폰AI", "서클투서치", "AI정보", "IT정보"],
+  "check": ["삼성 공식 공지 재확인"],
+  "sources": [
+    "AI타임스 갤럭시 AI 2026년 이후 일부 유료화 전망 — https://www.aitimes.com/news/articleView.html?idxno=163833",
+    "딜사이트 갤럭시 AI 차별화 서비스 확장 — https://dealsite.co.kr/articles/159903",
+    "CIO 삼성 갤럭시 AI 당분간 무료 선언 — https://www.cio.com/article/4021396/",
+    "루리웹 갤럭시 AI 기본 기능 계속 무료 — https://m.ruliweb.com/news/board/1004/read/2275088"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "theme": "it",
+  "banner": "미니에 **OLED?!**",
+  "title": ["아이패드", "미니 8", "살까?"],
+  "note": ["한눈에", "달라진 점", "맞는 사람", "구매 체크"],
+  "hero": { "type": "phone", "paper": "아이패드 미니", "header": "아이패드 미니 8", "sub": "11월 6일 출시",
+    "rows": [["화면", "8.5 OLED"], ["칩", "A20 Pro"], ["방수", "IP67"], ["미국가", "$699"]] },
+  "tiles": [
+    { "icon": "calendar", "top": "출시", "bottom": "11월 6일" },
+    { "icon": "phone", "top": "화면", "bottom": "8.5인치 OLED" },
+    { "icon": "shield", "top": "방수·방진", "bottom": "IP67" },
+    { "icon": "question", "top": "한국 가격", "bottom": "확인 전" }
+  ]
+}

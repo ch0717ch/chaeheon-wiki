@@ -1,0 +1,21 @@
+{
+  "no": "03", "theme": "game", "category": "게임",
+  "keyword": "스팀 겨울 세일 2026",
+  "subKeywords": ["스팀 세일 일정", "스팀 가을 세일 11월", "스팀 블랙프라이데이", "스팀 할인 날짜", "스팀 겨울 세일 날짜"],
+  "intent": "다음 스팀 할인 시기를 알고 게임 구매 시점을 정하려는 판단형",
+  "angle": "남은 일정 표 + 가을 세일 이동 설명 + 기다릴까 표 + 절약 팁 + FAQ",
+  "titles": [
+    "스팀 겨울 세일 2026, 12월 18일 시작 (남은 할인 일정 정리)",
+    "11월에 스팀 가을 세일 안 한다? 올해 바뀐 세일 일정",
+    "스팀 게임, 지금 살까 겨울 세일까지 기다릴까"
+  ],
+  "pick": "A — 세일 날짜 검색",
+  "tags": ["스팀세일", "스팀겨울세일", "스팀가을세일", "스팀할인", "Steam", "PC게임", "게임할인", "블랙프라이데이", "게임구매", "게임정보"],
+  "check": ["블프 할인 날짜 공지 시 추가"],
+  "sources": [
+    "Steamworks Steam Autumn Sale 2026 — https://partner.steamgames.com/doc/marketing/upcoming_events/2026_autumn_sale",
+    "인벤 2026 스팀 할인 일정 — https://www.inven.co.kr/webzine/news/?news=312858",
+    "에펨코리아 2026년 스팀 할인 및 이벤트 전체 일정 — https://www.fmkorea.com/9386638773",
+    "X 게임 알려주는 고양이 2026년 남은 스팀 세일 — https://x.com/minimap_game/status/2105125314703851823"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "theme": "game",
+  "banner": "게임패스 11월 **뭐 들어와?!**",
+  "title": ["게임패스", "11월", "신작 정리"],
+  "note": ["확인된 게임", "아직 미확정", "눈여겨볼 게임", "PS Plus 비교"],
+  "hero": { "type": "phone", "paper": "게임패스", "header": "게임패스 11월", "sub": "확인된 게임",
+    "rows": [["11/3", "FM27 얼리"], ["11/5", "탈출학원2"], ["11/11", "Thronefall"], ["11월", "워해머"]] },
+  "tiles": [
+    { "icon": "gamepad", "top": "확인", "bottom": "7종 안팎" },
+    { "icon": "trophy", "top": "FM27", "bottom": "11월 3일" },
+    { "icon": "question", "top": "미확정", "bottom": "구분하기" },
+    { "icon": "table", "top": "PS Plus", "bottom": "비교" }
+  ]
+}

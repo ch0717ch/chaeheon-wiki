@@ -1,0 +1,21 @@
+{
+  "no": "02", "theme": "game", "category": "게임",
+  "keyword": "롤드컵 8강",
+  "subKeywords": ["롤드컵 2026 8강 대진", "롤드컵 8강 일정 한국시간", "T1 KC", "젠지 롤드컵", "한화생명 탈락"],
+  "intent": "8강 대진과 한국 시간 경기 일정을 확인하려는 e스포츠 팬의 정보형",
+  "angle": "8강 대진 표 + 스위스 결과 표 + 4강 시나리오 + 장소·결승 표 + 시청 팁 + FAQ",
+  "titles": [
+    "롤드컵 8강 대진·일정 (한국시간), 젠지·DK·T1 진출",
+    "한화생명 탈락, LCK 3팀 롤드컵 8강 누구와 붙나",
+    "롤드컵 4강 LCK 내전 가능성, DK vs T1 성사될까"
+  ],
+  "pick": "A — 대회 단계 검색",
+  "tags": ["롤드컵", "롤드컵8강", "월즈2026", "T1", "젠지", "디플러스기아", "LCK", "리그오브레전드", "e스포츠", "게임정보"],
+  "check": ["공식 일정 날짜 대조"],
+  "sources": [
+    "스포츠서울 롤드컵 8강 대진 완성 — https://www.sportsseoul.com/news/read/1645795",
+    "중앙이코노미뉴스 젠지·DK·T1 8강, 한화생명 탈락 — https://www.joongangenews.com/news/articleView.html?idxno=560108",
+    "인벤 8강 대진 추첨 결과 — https://www.inven.co.kr/webzine/news/?news=322817&site=lol",
+    "게임톡 LCK 4팀 상황 — https://www.gametoc.co.kr/news/articleView.html?idxno=112627"
+  ]
+}

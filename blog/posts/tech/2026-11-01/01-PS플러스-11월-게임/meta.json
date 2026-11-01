@@ -1,0 +1,20 @@
+{
+  "no": "01", "theme": "game", "category": "게임",
+  "keyword": "PS Plus 11월 게임",
+  "subKeywords": ["플스 플러스 11월", "PS플러스 월간 게임", "Dead Island 2 무료", "툼 레이더 IV-VI 리마스터", "Monster Train 2"],
+  "intent": "이번 달 PS Plus 게임과 수령 기간을 확인하려는 정보형",
+  "angle": "게임 표 + 게임별 소개 + 수령 체크 표 + 카탈로그 이탈 안내 + FAQ",
+  "titles": [
+    "PS Plus 11월 게임, Dead Island 2·툼 레이더 리마스터·Monster Train 2",
+    "11월 플스 플러스 무료 게임, 11월 30일까지 꼭 받으세요",
+    "PS Plus 11월 월간 게임, 누구에게 맞을까?"
+  ],
+  "pick": "A — 월별 검색",
+  "tags": ["PS플러스", "PSPlus", "플스플러스11월", "월간게임", "DeadIsland2", "툼레이더", "MonsterTrain2", "PS5게임", "플레이스테이션", "게임정보"],
+  "check": ["공식 블로그 이미지 캡처"],
+  "sources": [
+    "PlayStation 블로그 11월의 월간 게임 — https://blog.ko.playstation.com/2026/10/30/20261030-psplus/",
+    "VGChartz PlayStation Plus Monthly Games for November 2026 — https://www.vgchartz.com/article/469508/",
+    "루리웹 PS Plus 게임카탈로그 11월 마지막 플레이 기회 — https://bbs.ruliweb.com/news/board/300001/read/2364760"
+  ]
+}

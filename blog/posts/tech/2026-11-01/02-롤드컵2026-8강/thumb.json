@@ -1,0 +1,14 @@
+{
+  "theme": "game",
+  "banner": "LCK 3팀 **8강 간다?!**",
+  "title": ["롤드컵", "8강", "대진표"],
+  "note": ["8강 일정", "스위스 결과", "4강 시나리오", "결승 정보"],
+  "hero": { "type": "phone", "paper": "월즈 8강", "header": "롤드컵 8강", "sub": "한국시간 오전 7시",
+    "rows": [["11/5", "젠지-LYON"], ["11/6", "DK-BLG"], ["11/7", "T1-KC"], ["결승", "11/15 4시"]] },
+  "tiles": [
+    { "icon": "trophy", "top": "LCK", "bottom": "3팀 진출" },
+    { "icon": "warning", "top": "한화생명", "bottom": "탈락" },
+    { "icon": "people", "top": "4강", "bottom": "LCK 내전?" },
+    { "icon": "calendar", "top": "결승", "bottom": "11월 15일" }
+  ]
+}

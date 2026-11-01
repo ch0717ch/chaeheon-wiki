@@ -1,0 +1,22 @@
+{
+  "no": "03", "theme": "scholarship", "category": "장학금",
+  "keyword": "11월 마감 장학금",
+  "subKeywords": ["재단 장학금 모집 11월", "2027 장학생 선발", "학년별 장학금", "두산연강 STX 대산", "장학금 마감일"],
+  "intent": "이번 달 마감 장학금을 한 번에 보고 지원 계획을 세우려는 정리형",
+  "angle": "마감순 표 + 학년별 표 + 동시 준비법 + 주의점 + FAQ",
+  "titles": [
+    "11월 마감 장학금 모음, 마감순 정리 (두산·STX·대산·푸른등대)",
+    "내 학년은 어디 지원? 11월 재단 장학금 학년별 정리",
+    "장학금 여러 개 동시에 준비하는 법, 11월 마감 기준"
+  ],
+  "pick": "A — 월별 마감 검색",
+  "tags": ["11월마감장학금", "장학금모집", "재단장학금", "두산연강재단", "STX장학재단", "대산농촌재단", "푸른등대", "장학금정보", "대학생", "대학생활정보"],
+  "check": ["각 재단 원문 마감 시간 확인"],
+  "sources": [
+    "서울대 재료공학부 DN문화재단 장학생 추천 안내 — https://mse.snu.ac.kr/",
+    "서울대 소비자학과 두산연강재단 선발 안내 — https://cls.snu.ac.kr/%ec%9e%a5%ed%95%99/?mod=document&uid=80383",
+    "서울대 소비자학과 STX장학재단 선발 안내 — https://cls.snu.ac.kr/%ec%9e%a5%ed%95%99/?mod=document&uid=80382",
+    "한국농어민신문 대산장학생 모집 — https://www.agrinet.co.kr/news/articleView.html?idxno=408123",
+    "서울대 소비자학과 푸른등대 2차 선발 — https://cls.snu.ac.kr/notice/?mod=document&uid=80392"
+  ]
+}

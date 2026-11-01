@@ -1,0 +1,22 @@
+{
+  "no": "05", "theme": "ai", "category": "AI",
+  "keyword": "AI 목소리 보이스피싱",
+  "subKeywords": ["딥페이크 보이스피싱", "AI 음성 복제 사기", "가족 목소리 사기", "보이스피싱 대처법", "경찰 AI 범죄 대응"],
+  "intent": "AI 목소리 사기를 걱정하는 사람이 수법과 대처법을 알고 싶은 해결형",
+  "angle": "경찰 대응 표 + 피해 규모 + 수법 표 + 대처 4단계 + 신고처 표 + FAQ",
+  "titles": [
+    "AI 목소리 보이스피싱, 가족 목소리로 와도 이렇게 확인하세요",
+    "딥페이크 사기 늘자 경찰도 나섰다, AI 음성 복제 대처법",
+    "부모님께 꼭 알려드릴 AI 보이스피싱 대처 4단계"
+  ],
+  "pick": "A — 문제 해결 검색",
+  "tags": ["보이스피싱", "AI보이스피싱", "딥페이크", "목소리복제", "AI사기", "경찰청", "보이스피싱대처", "개인정보보호", "AI뉴스", "IT정보"],
+  "check": ["경찰청 원문 보도자료 링크"],
+  "sources": [
+    "아시아투데이 경찰 AI 범죄 대응체계 고도화 — https://www.asiatoday.co.kr/kn/view.php?key=20261015010004666",
+    "뉴스1 딥페이크 잡고 생성 경로까지 — https://www.news1.kr/society/incident-accident/6320247",
+    "비플러스 목소리·문자까지 함께 분석 — https://www.bplusnews.com/news/articleView.html?idxno=13651",
+    "전북제일신문 딥페이크·AI 음성 보이스피싱 — https://www.jbjnews.com/news/articleView.html?idxno=322925",
+    "보안뉴스 대표님 목소리로 송금 지시 — https://www.boannews.com/news/articleView.html?idxno=146850"
+  ]
+}

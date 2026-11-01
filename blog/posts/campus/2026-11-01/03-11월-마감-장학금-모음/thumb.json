@@ -1,0 +1,14 @@
+{
+  "theme": "scholarship",
+  "banner": "마감 줄줄이 **11월?!**",
+  "title": ["11월 마감", "장학금", "모음"],
+  "note": ["마감순 정리", "학년별 추천", "동시 준비법", "주의할 점"],
+  "hero": { "type": "phone", "paper": "11월 마감", "header": "11월 마감 장학금", "sub": "마감순",
+    "rows": [["11/11", "대산"], ["11/12", "푸른등대"], ["11/13", "두산연강"], ["11/16", "STX"]] },
+  "tiles": [
+    { "icon": "calendar", "top": "마감", "bottom": "5곳 정리" },
+    { "icon": "people", "top": "학년별", "bottom": "어디 지원?" },
+    { "icon": "table", "top": "서류", "bottom": "한 번에" },
+    { "icon": "warning", "top": "여러 곳 합격", "bottom": "중복수혜" }
+  ]
+}

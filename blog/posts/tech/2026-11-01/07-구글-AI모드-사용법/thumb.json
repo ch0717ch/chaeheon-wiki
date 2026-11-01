@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "검색창 옆 **AI 모드?!**",
+  "title": [
+    "구글 AI",
+    "모드",
+    "사용법"
+  ],
+  "note": [
+    "기본 정보",
+    "일반 검색 비교",
+    "잘 묻는 법",
+    "주의할 점"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "Google AI 모드",
+    "lines": [
+      "조건을 한 번에 묻기",
+      "비교는 표로 요청",
+      "이어서 질문하기",
+      "출처 링크 확인"
+    ],
+    "badge": "AI"
+  },
+  "tiles": [
+    {
+      "icon": "globe",
+      "top": "한국어",
+      "bottom": "2025년 9월~"
+    },
+    {
+      "icon": "question",
+      "top": "질문",
+      "bottom": "문장으로 길게"
+    },
+    {
+      "icon": "table",
+      "top": "비교",
+      "bottom": "표로 요청"
+    },
+    {
+      "icon": "warning",
+      "top": "답변",
+      "bottom": "출처 확인"
+    }
+  ]
+}
