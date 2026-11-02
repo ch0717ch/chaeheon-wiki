@@ -1,0 +1,21 @@
+{
+  "no": "09", "theme": "it", "category": "IT",
+  "keyword": "보조배터리 기내반입",
+  "subKeywords": ["보조배터리 비행기 규정 2026", "보조배터리 몇 개", "100Wh 계산", "보조배터리 기내 사용 금지", "20000mAh 비행기"],
+  "intent": "여행 전 보조배터리 반입 기준을 확인하려는 해결형",
+  "angle": "공통 기준 표 + 엇갈리는 개수 표 + Wh 계산 표 + 체크리스트 + FAQ",
+  "titles": [
+    "보조배터리 기내반입 2026, 몇 개까지·몇 Wh까지 가능할까",
+    "20000mAh 보조배터리 비행기 되나요? Wh 계산법 정리",
+    "기내 보조배터리 충전 금지, 겨울여행 전 꼭 확인할 규정"
+  ],
+  "pick": "A — 여행 전 검색",
+  "tags": ["보조배터리", "보조배터리기내반입", "비행기보조배터리", "항공규정", "100Wh", "해외여행", "겨울여행", "배터리화재", "여행준비", "IT정보"],
+  "check": ["항공사 공지 링크 추가"],
+  "sources": [
+    "영종뉴스 2026 보조배터리 기내반입 규정 바뀌었다 — https://www.yeongjong.co.kr/news/articleView.html?idxno=21010",
+    "tripstore 2026년 4월 기내 보조배터리 반입 규정 — https://www.tripstore.kr/blog/",
+    "하이유에스코리아 2026년 달라진 기내 반입 규정 — https://hiuskorea.com/travel/",
+    "keeptopsecret 보조배터리 Wh 계산법 — https://www.keeptopsecret.com/power-bank-airline-carry-on-rules/"
+  ]
+}

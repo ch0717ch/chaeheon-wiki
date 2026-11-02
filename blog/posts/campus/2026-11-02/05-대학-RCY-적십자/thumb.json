@@ -1,0 +1,14 @@
+{
+  "theme": "volunteer",
+  "banner": "봉사 동아리 **찾는다면?!**",
+  "title": ["대학 RCY", "적십자", "가입법"],
+  "note": ["한눈에", "활동 종류", "지역 봉사단", "다른 봉사 비교"],
+  "hero": { "type": "phone", "paper": "대학 RCY", "header": "대학적십자", "sub": "학교 안내 기준",
+    "rows": [["가입", "연중"], ["입회비", "없음"], ["봉사시간", "인정"], ["혜택", "CPR 교육"]] },
+  "tiles": [
+    { "icon": "calendar", "top": "가입", "bottom": "연중 가능" },
+    { "icon": "won", "top": "입회비", "bottom": "없음" },
+    { "icon": "people", "top": "활동", "bottom": "연탄·농촌" },
+    { "icon": "shield", "top": "교육", "bottom": "CPR" }
+  ]
+}

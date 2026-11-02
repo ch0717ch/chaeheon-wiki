@@ -1,0 +1,21 @@
+{
+  "no": "04", "theme": "ai", "category": "AI",
+  "keyword": "AI 학습 거부",
+  "subKeywords": ["AI 크롤링 차단", "robots.txt AI", "AI 학습 데이터 거부 표준", "블로그 AI 학습", "AI 크롤러"],
+  "intent": "블로그·사이트 운영자가 AI 학습 수집 거부 방법과 새 표준을 알고 싶은 정보형",
+  "angle": "변경 표 + 회사별 적용 표 + MS 구분 + 운영자 선택 표 + 한계 + FAQ",
+  "titles": [
+    "AI 학습 거부 공통 표준, 오픈AI·구글·MS·앤트로픽 지원",
+    "내 블로그 글 AI 학습 막으려면? robots.txt 한 줄 표준",
+    "AI 크롤링 차단 새 표준, 블로그 운영자가 알아둘 것"
+  ],
+  "pick": "A — 운영자 관심 검색",
+  "tags": ["AI학습거부", "AI크롤링", "robotstxt", "생성형AI", "OpenAI", "구글", "앤트로픽", "블로그운영", "AI뉴스", "AI정보"],
+  "check": ["회사별 공식 문서 링크"],
+  "sources": [
+    "SiliconANGLE Google, Anthropic and others to support new AI crawling opt-out standard — https://siliconangle.com/2026/10/30/google-anthropic-and-others-to-support-new-ai-crawling-opt-out-standard/",
+    "DEV Community unified AI training opt-out token in robots.txt — https://dev.to/delimitter/openai-google-microsoft-and-anthropic-to-support-a-unified-ai-training-opt-out-token-in-robotstxt-4204",
+    "Digital Today common standard to refuse AI training — https://www.digitaltoday.co.kr/en/view/122222/",
+    "Pickuma what the new AI scraping opt-out means — https://pickuma.com/for-pm/ai-scraping-opt-out-policy-token-explained/"
+  ]
+}

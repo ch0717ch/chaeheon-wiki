@@ -1,0 +1,14 @@
+{
+  "theme": "game",
+  "banner": "엔씨 서브컬처 **신작?!**",
+  "title": ["아스오라", "2027", "출시"],
+  "note": ["한눈에", "어떤 이야기", "TGS 시연", "국내 체험"],
+  "hero": { "type": "phone", "paper": "아스오라", "header": "아스트라에 오라티오", "sub": "엔씨 퍼블리싱",
+    "rows": [["장르", "마법 RPG"], ["배경", "1889 도쿄"], ["출시", "2027년"], ["시연", "AGF 2026"]] },
+  "tiles": [
+    { "icon": "gamepad", "top": "개발", "bottom": "디나미스 원" },
+    { "icon": "people", "top": "TGS", "bottom": "1시간 대기" },
+    { "icon": "calendar", "top": "출시", "bottom": "2027년" },
+    { "icon": "trophy", "top": "국내 시연", "bottom": "AGF 12월" }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "no": "01", "theme": "game", "category": "게임",
+  "keyword": "AGF 2026",
+  "subKeywords": ["AGF 2026 예매", "AGF 얼리버드", "AGF 킨텍스", "애니 게임 페스티벌", "AGF 패스트 티켓"],
+  "intent": "AGF 관람 예정자가 티켓 종류·가격·마감을 확인하려는 예매형",
+  "angle": "기본 정보 표 + 티켓 표 + 무대 사전예매 + 체크리스트 + FAQ",
+  "titles": [
+    "AGF 2026 예매 총정리, 얼리버드 11월 11일 마감",
+    "AGF 2026 12월 4~6일 킨텍스, 티켓 가격과 패스트 티켓",
+    "AGF 메인 무대 사전 예매 11월 20일, 놓치지 마세요"
+  ],
+  "pick": "A — 행사명+예매 검색",
+  "tags": ["AGF2026", "AGF", "애니게임페스티벌", "킨텍스", "서브컬처", "얼리버드", "멜론티켓", "엔씨", "게임행사", "게임정보"],
+  "check": ["예매처 가격 재확인"],
+  "sources": [
+    "ZDNet AGF 2026 14일 얼리버드 및 패스트 티켓 예매 개시 — https://zdnet.co.kr/view/?no=20261013112225",
+    "ZDNet AGF 2026 RED 스테이지 라인업 공개 11월20일 예매 — https://zdnet.co.kr/view/?no=20261028171259",
+    "재경일보 AGF 2026 티켓 가격 동결 — https://news.jkn.co.kr/post/1020515",
+    "스마트비즈 AGF 2026 엔씨 메인 스폰서 — https://www.smartbizn.com/news/articleView.html?idxno=156285"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "no": "10", "theme": "finance", "category": "경제",
+  "keyword": "고향사랑기부제 세액공제",
+  "subKeywords": ["고향사랑기부제 10만원", "고향사랑기부 답례품", "고향사랑e음", "연말 절세", "고향사랑기부 44%"],
+  "intent": "연말 절세를 고민하는 직장인이 고향사랑기부 혜택과 방법을 알고 싶은 계산형",
+  "angle": "공제율 표 + 금액별 계산 표 + 조건 + 기부 방법 + FAQ",
+  "titles": [
+    "고향사랑기부제 세액공제 2026, 10만 원 내면 13만 원 돌려받는 법",
+    "연말정산 전에 고향사랑기부, 20만 원 구간 44%로 바뀌었다?",
+    "고향사랑기부제 하는 법, 12월 31일까지 꼭 확인할 조건"
+  ],
+  "pick": "A — 절세 검색",
+  "tags": ["고향사랑기부제", "고향사랑기부", "세액공제", "연말정산", "연말절세", "답례품", "고향사랑e음", "기부금공제", "직장인절세", "경제정보"],
+  "check": ["고향사랑e음 공제율 원문 확인"],
+  "sources": [
+    "make2t 2026 고향사랑기부제 세액공제 계산 — https://www.make2t.kr/2026/10/hometown-donation-tax-credit-calculation-2026.html",
+    "waymark 고향사랑기부제 세액공제 20만 원 44% 신설 — https://waymark.co.kr/hometown-love-donation-tax-credit-2026/",
+    "세무법인청년들 고향사랑기부제 세액공제와 답례품 — https://www.watax.kr/incentives/hometown-love-donation-tax-credit",
+    "TILNOTE 12월 31일 전 10만 원 전액 세액공제 — https://tilnote.io/en/pages/6ae3e3595b452e0d437af4e0"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "no": "05", "theme": "ai", "category": "AI",
+  "keyword": "네이버 쇼핑 AI 에이전트",
+  "subKeywords": ["네이버플러스 스토어 AI", "쇼핑 AI 추천", "에이전트 N", "AI로 쇼핑하기", "네이버 AI 쇼핑 사용법"],
+  "intent": "연말 쇼핑에 AI를 써보려는 사람이 기능과 사용법을 알고 싶은 방법형",
+  "angle": "한눈에 표 + 질문 예시 표 + 에이전트 N + 주의점 + FAQ",
+  "titles": [
+    "네이버 쇼핑 AI 에이전트 사용법, 대화로 최저가·비교까지",
+    "AI가 쇼핑을 대신? 네이버 쇼핑 AI 에이전트 잘 쓰는 질문법",
+    "연말 쇼핑 AI로 해보기, 네이버 쇼핑 에이전트 주의점"
+  ],
+  "pick": "A — 서비스명 검색",
+  "tags": ["네이버쇼핑", "AI에이전트", "쇼핑AI", "네이버플러스스토어", "에이전트N", "AI쇼핑", "연말쇼핑", "AI활용", "생성형AI", "AI정보"],
+  "check": ["앱 화면 캡처 추가"],
+  "sources": [
+    "뉴스1 네이버 AI 쇼핑 에이전트 정식 서비스 — https://www.news1.kr/it-science/internet-platform/6213818",
+    "다음 네이버 쇼핑 AI 에이전트 정식 출시 — https://v.daum.net/v/20260701063609483",
+    "AI타임스 네이버 쇼핑 대화형 쇼핑 AI 에이전트 베타 — https://www.aitimes.com/news/articleView.html?idxno=207310",
+    "아시아경제 네이버 개인 맞춤형 쇼핑 AI 에이전트 — https://view.asiae.co.kr/article/2026022608331356140"
+  ]
+}

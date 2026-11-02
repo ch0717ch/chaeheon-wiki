@@ -1,0 +1,22 @@
+{
+  "no": "05", "theme": "finance", "category": "경제",
+  "keyword": "금값 시세",
+  "subKeywords": ["금 한돈 가격", "금값 하락", "금시세 11월", "돌반지 팔 때", "골드바 가격"],
+  "intent": "금값 하락 뉴스를 보고 현재 시세와 거래 시 주의점을 알고 싶은 정보형 (투자 권유 아님)",
+  "angle": "가격 표 + 살 때·팔 때 차이 표 + 전망 표 + 거래 체크 + FAQ",
+  "titles": [
+    "금값 1돈 60만 원대, 1년 최고가보다 얼마나 떨어졌나",
+    "금 살 때 73만 원, 팔 때 62만 원? 금값 차이 이유",
+    "돌반지 팔까 말까, 금값 하락기에 확인할 것"
+  ],
+  "pick": "A — 시세 검색",
+  "tags": ["금값", "금시세", "금한돈", "금값하락", "골드바", "돌반지", "금투자", "KRX금시장", "재테크", "경제정보"],
+  "check": ["발행 당일 시세로 숫자 갱신"],
+  "sources": [
+    "톱스타뉴스 11월 2일 금값 1돈 62만9천원 — https://www.topstarnews.net/news/articleView.html?idxno=16265786",
+    "톱스타뉴스 금 한돈 64만5788원 하락 — https://www.topstarnews.net/news/articleView.html?idxno=16263433",
+    "게임톡 11월 금시세 급락 — https://www.gametoc.co.kr/news/articleView.html?idxno=112667",
+    "CBC뉴스 금값 11월 향방 — https://www.cbci.co.kr/news/articleView.html?idxno=621483",
+    "한경매거진 금 2026년엔 한 돈 120만원까지 — https://magazine.hankyung.com/business/article/202512315757b"
+  ]
+}

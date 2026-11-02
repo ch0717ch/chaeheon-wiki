@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 학습 거부 공통 표준, 오픈AI·구글·MS·앤트로픽 지원</title>
+</head>
+<body style="margin:0;background:#fff;">
+<div style="max-width:720px;margin:0 auto;padding:24px 16px;color:#222;font-size:16px;line-height:1.9;word-break:keep-all;font-family:'Noto Sans KR','Malgun Gothic',sans-serif;">
+<p>블로그나 웹사이트를 운영한다면 알아둘 소식이 있어요. <b>OpenAI, 구글, 마이크로소프트, 앤트로픽</b>이 웹사이트가 <b>AI 학습용 데이터 수집을 한 번에 거부</b>할 수 있는 공통 표준을 지원하기로 했다는 보도가 나왔습니다.</p>
+
+<p>지금까지는 회사마다 다른 크롤러 이름을 하나하나 막아야 했는데, 앞으로는 <b>robots.txt에 항목 하나</b>로 생성형 AI 학습 수집을 거부할 수 있게 된다는 내용이에요. 다만 적용 시점은 회사마다 다릅니다.</p>
+
+<p><br></p>
+<h2 style="font-size:22px;border-left:6px solid #08332f;padding-left:12px;margin:32px 0 16px;">무엇이 바뀌나</h2>
+
+<table style="width:100%;border-collapse:collapse;text-align:center;font-size:15px;">
+<tr style="background:#08332f;color:#fff;"><th style="padding:12px;border:1px solid #08332f;">항목</th><th style="padding:12px;border:1px solid #08332f;">내용 (보도 기준)</th></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;">방식</td><td style="padding:12px;border:1px solid #ddd;">robots.txt에 <b>공통 토큰</b> 하나 추가</td></tr>
+<tr style="background:#fafafa;"><td style="padding:12px;border:1px solid #ddd;">효과</td><td style="padding:12px;border:1px solid #ddd;">생성형 AI <b>학습용</b> 데이터를 모으는 크롤러 차단 신호</td></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;">예외</td><td style="padding:12px;border:1px solid #ddd;">비생성형 작업만 하는 모델에는 적용 안 됨</td></tr>
+<tr style="background:#fafafa;"><td style="padding:12px;border:1px solid #ddd;">표준화</td><td style="padding:12px;border:1px solid #ddd;">IETF에 초안 제출</td></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;">성격</td><td style="padding:12px;border:1px solid #ddd;"><b>자발적 준수</b> — 강제 수단 아님</td></tr>
+</table>
+
+<p><br></p>
+<h2 style="font-size:22px;border-left:6px solid #08332f;padding-left:12px;margin:32px 0 16px;">회사별 적용 시점 (보도 기준)</h2>
+
+<table style="width:100%;border-collapse:collapse;text-align:center;font-size:15px;">
+<tr style="background:#08332f;color:#fff;"><th style="padding:12px;border:1px solid #08332f;">회사</th><th style="padding:12px;border:1px solid #08332f;">적용</th></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;">앤트로픽</td><td style="padding:12px;border:1px solid #ddd;"><b>이미 적용 중</b></td></tr>
+<tr style="background:#fafafa;"><td style="padding:12px;border:1px solid #ddd;">OpenAI</td><td style="padding:12px;border:1px solid #ddd;">몇 달 안에</td></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;">마이크로소프트</td><td style="padding:12px;border:1px solid #ddd;">수개월 내 / 2027년 2월 1일 보도</td></tr>
+<tr style="background:#fafafa;"><td style="padding:12px;border:1px solid #ddd;">구글</td><td style="padding:12px;border:1px solid #ddd;">내년(2027년) 중</td></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;">메타</td><td style="padding:12px;border:1px solid #ddd;">취지 지지, 구현 약속은 안 함</td></tr>
+</table>
+
+<p style="font-size:13px;color:#888;">※ 보도마다 날짜가 엇갈려요. 각 회사 공식 문서로 확인하세요.</p>
+
+<p><br></p>
+<h2 style="font-size:22px;border-left:6px solid #08332f;padding-left:12px;margin:32px 0 16px;">마이크로소프트는 두 가지로 나눴다</h2>
+
+<p>마이크로소프트는 <b>AI 학습</b>과 <b>AI 그라운딩</b>(사용자 질문에 답하려고 웹페이지를 참고하는 것)을 따로 제어할 수 있게 하고, <b>빙 검색 순위에는 영향이 없다</b>고 밝혔다는 보도가 있어요.</p>
+
+<p><br></p>
+<h2 style="font-size:22px;border-left:6px solid #08332f;padding-left:12px;margin:32px 0 16px;">블로그 운영자는 어떻게 할까</h2>
+
+<table style="width:100%;border-collapse:collapse;text-align:center;font-size:15px;">
+<tr style="background:#08332f;color:#fff;"><th style="padding:12px;border:1px solid #08332f;">상황</th><th style="padding:12px;border:1px solid #08332f;">선택</th></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;">내 글이 AI 학습에 쓰이는 게 싫다</td><td style="padding:12px;border:1px solid #ddd;">공통 토큰 + 기존 회사별 크롤러 차단 함께 유지</td></tr>
+<tr style="background:#fafafa;"><td style="padding:12px;border:1px solid #ddd;">AI 답변에 인용돼 유입을 원한다</td><td style="padding:12px;border:1px solid #ddd;">학습만 막고 검색·그라운딩은 허용하는 방식 검토</td></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;">네이버 블로그 사용자</td><td style="padding:12px;border:1px solid #ddd;">robots.txt를 직접 수정할 수 없어 플랫폼 정책을 따름</td></tr>
+</table>
+
+<p><b>당분간은 기존 회사별 크롤러 규칙도 유지하는 게 안전하다</b>는 조언이 많아요.</p>
+
+<p><br></p>
+<h2 style="font-size:22px;border-left:6px solid #08332f;padding-left:12px;margin:32px 0 16px;">한계도 있다</h2>
+
+<ul>
+<li><b>강제력 없음</b>: 따르지 않는 크롤러를 막지는 못해요.</li>
+<li><b>저작권 문제는 별개</b>: 이미 수집된 데이터나 보상 문제는 다루지 않아요.</li>
+</ul>
+
+<p><br></p>
+<h2 style="font-size:22px;border-left:6px solid #08332f;padding-left:12px;margin:32px 0 16px;">자주 나오는 질문</h2>
+
+<p><b>Q. 이걸 설정하면 구글 검색에서 빠지나요?</b><br>
+학습 거부 신호는 검색 색인과 별개로 설계됐다는 설명이에요. 다만 회사별 문서를 확인하세요.</p>
+
+<p><b>Q. 티스토리·블로그스팟은요?</b><br>
+플랫폼에서 robots.txt 설정을 제공하는지 확인해야 해요.</p>
+
+<p><br></p>
+<table style="width:100%;border-collapse:collapse;font-size:16px;">
+<tr style="background:#08332f;color:#fff;"><th style="padding:12px;border:1px solid #08332f;text-align:left;">✔ 정리하면</th></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;text-align:left;">1. OpenAI·구글·MS·앤트로픽, robots.txt 공통 토큰으로 AI 학습 수집 거부 지원</td></tr>
+<tr style="background:#fafafa;"><td style="padding:12px;border:1px solid #ddd;text-align:left;">2. 앤트로픽 적용 중, OpenAI·MS는 수개월 내, 구글은 2027년 중 (보도 기준)</td></tr>
+<tr><td style="padding:12px;border:1px solid #ddd;text-align:left;">3. 강제력은 없고 저작권 문제는 별개</td></tr>
+<tr style="background:#fafafa;"><td style="padding:12px;border:1px solid #ddd;text-align:left;">4. 당분간 기존 크롤러별 차단 규칙도 함께 유지</td></tr>
+</table>
+
+<p style="font-size:13px;color:#888;">※ 2026년 11월 2일 기준, AI 크롤링 거부 공통 표준 관련 해외 보도를 바탕으로 작성했습니다.</p>
+</div>
+</body>
+</html>

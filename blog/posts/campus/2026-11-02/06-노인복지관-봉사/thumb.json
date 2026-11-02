@@ -1,0 +1,14 @@
+{
+  "theme": "volunteer",
+  "banner": "겨울에 **더 필요한 봉사?!**",
+  "title": ["복지관", "봉사", "처음이면"],
+  "note": ["찾는 곳", "하는 활동", "처음 갈 때", "겨울 봉사"],
+  "hero": { "type": "phone", "paper": "복지관 봉사", "header": "노인복지관 봉사", "sub": "대학생 활동",
+    "rows": [["급식", "배식"], ["말벗", "안부"], ["디지털", "폰 교육"], ["배달", "도시락"]] },
+  "tiles": [
+    { "icon": "globe", "top": "찾는 곳", "bottom": "4군데" },
+    { "icon": "phone", "top": "강점", "bottom": "폰 사용법" },
+    { "icon": "warning", "top": "개인정보", "bottom": "SNS 금지" },
+    { "icon": "people", "top": "겨울", "bottom": "안부 전화" }
+  ]
+}

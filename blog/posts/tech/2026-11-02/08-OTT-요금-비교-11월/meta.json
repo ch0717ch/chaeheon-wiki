@@ -1,0 +1,20 @@
+{
+  "no": "08", "theme": "it", "category": "IT",
+  "keyword": "OTT 요금 비교",
+  "subKeywords": ["디즈니플러스 요금 인상", "디즈니플러스 광고형", "넷플릭스 요금 2026", "티빙 웨이브 요금", "유튜브 프리미엄 가격"],
+  "intent": "구독료를 정리하려는 사람이 OTT 요금을 비교하고 절약법을 알고 싶은 비교형",
+  "angle": "디즈니+ 변경 표 + OTT 비교 표 + 합계 계산 + 절약 5가지 + FAQ",
+  "titles": [
+    "OTT 요금 비교 11월, 디즈니플러스 11월 10일 인상 (광고형 7천 원)",
+    "넷플릭스·디즈니+·티빙·웨이브 다 보면 한 달 얼마?",
+    "OTT 구독료 줄이는 법 5가지, 광고형 요금제 비교"
+  ],
+  "pick": "A — 요금 비교 검색",
+  "tags": ["OTT요금", "디즈니플러스", "넷플릭스요금", "티빙", "웨이브", "유튜브프리미엄", "광고형요금제", "구독료절약", "OTT", "IT정보"],
+  "check": ["각 서비스 공식 요금 확인"],
+  "sources": [
+    "ZDNet 광고 요금제 뛰어든 디즈니+ OTT 구독료 비교 — https://zdnet.co.kr/view/?no=20261030183118",
+    "미디어오늘 넷플릭스 1년 만에 또 가격 인상 — https://www.mediatoday.co.kr/news/articleView.html?idxno=333378",
+    "한국경제TV 유튜브 구독료 71% 올라 — https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609150028"
+  ]
+}

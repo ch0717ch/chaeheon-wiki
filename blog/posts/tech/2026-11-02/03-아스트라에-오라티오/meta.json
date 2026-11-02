@@ -1,0 +1,21 @@
+{
+  "no": "03", "theme": "game", "category": "게임",
+  "keyword": "아스트라에 오라티오",
+  "subKeywords": ["엔씨 서브컬처 신작", "아스오라 출시일", "디나미스 원", "도쿄게임쇼 엔씨", "AGF 엔씨 시연"],
+  "intent": "엔씨 신작 정보를 찾는 게이머의 정보형",
+  "angle": "한눈에 표 + 세계관 + TGS 시연 표 + 국내 체험 방법 + FAQ",
+  "titles": [
+    "아스트라에 오라티오, 엔씨 서브컬처 신작 2027년 출시 정리",
+    "1889년 도쿄 마법 공무원? 아스트라에 오라티오 세계관",
+    "TGS 1시간 대기 엔씨 신작, AGF 2026에서 해볼 수 있다"
+  ],
+  "pick": "A — 게임명 검색",
+  "tags": ["아스트라에오라티오", "아스오라", "엔씨", "엔씨신작", "디나미스원", "서브컬처게임", "도쿄게임쇼", "AGF2026", "신작게임", "게임정보"],
+  "check": ["플랫폼 공식 발표 확인"],
+  "sources": [
+    "인벤 엔씨 도쿄게임쇼서 아스트라에 오라티오 첫 시연 — https://www.inven.co.kr/webzine/news/?news=321068",
+    "인벤 TGS 첫 공개 시연 1시간 이상 대기 — https://www.inven.co.kr/webzine/news/?news=321085",
+    "경향게임스 엔씨 도쿄게임쇼서 신작 첫 시연 공개 — https://www.khgames.co.kr/news/articleView.html?idxno=308519",
+    "스마트비즈 AGF 2026 엔씨 메인 스폰서 — https://www.smartbizn.com/news/articleView.html?idxno=156285"
+  ]
+}

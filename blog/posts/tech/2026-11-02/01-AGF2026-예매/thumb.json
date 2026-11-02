@@ -1,0 +1,13 @@
+{
+  "theme": "game",
+  "banner": "얼리버드 **곧 마감?!**",
+  "title": ["AGF 2026", "11/11", "얼리버드"],
+  "note": ["기본 정보", "티켓 종류", "무대 사전예매", "가기 전 체크"],
+  "hero": { "type": "passport", "label": "AGF 2026", "from": "SEL", "to": "ILSAN", "ticketNote": "12.4 - 12.6", "seat": "킨텍스", "stamp": "예매" },
+  "tiles": [
+    { "icon": "calendar", "top": "행사", "bottom": "12월 4~6일" },
+    { "icon": "won", "top": "일반 1일권", "bottom": "2만 9천 원" },
+    { "icon": "trophy", "top": "메인 스폰서", "bottom": "엔씨" },
+    { "icon": "check", "top": "무대 예매", "bottom": "11월 20일" }
+  ]
+}

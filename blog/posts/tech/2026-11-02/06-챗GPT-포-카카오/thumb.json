@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "카톡에서 **챗GPT?!**",
+  "title": [
+    "카톡",
+    "GPT",
+    "사용법"
+  ],
+  "note": [
+    "한눈에",
+    "활용 예시",
+    "대화 요약",
+    "꼭 지킬 것"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "ChatGPT for Kakao",
+    "lines": [
+      "단톡방 대화 요약",
+      "메시지 정중하게 다듬기",
+      "준비물 목록 만들기",
+      "PC 카톡에서도 사용"
+    ],
+    "badge": "AI"
+  },
+  "tiles": [
+    {
+      "icon": "phone",
+      "top": "PC",
+      "bottom": "지원"
+    },
+    {
+      "icon": "check",
+      "top": "대화 요약",
+      "bottom": "추가"
+    },
+    {
+      "icon": "warning",
+      "top": "개인정보",
+      "bottom": "입력 금지"
+    },
+    {
+      "icon": "question",
+      "top": "요금",
+      "bottom": "안내 확인"
+    }
+  ]
+}

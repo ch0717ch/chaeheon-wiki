@@ -1,0 +1,13 @@
+{
+  "theme": "ai",
+  "banner": "내 글 AI 학습 **막을 수 있다?!**",
+  "title": ["AI 학습", "거부", "새 표준"],
+  "note": ["바뀌는 것", "회사별 시점", "운영자 선택", "한계"],
+  "hero": { "type": "laptop", "header": "robots.txt", "lines": ["공통 토큰 한 줄 추가", "생성형 AI 학습 수집 거부", "앤트로픽 적용 중", "구글 2027년 중"], "badge": "AI" },
+  "tiles": [
+    { "icon": "shield", "top": "공통 토큰", "bottom": "한 줄로" },
+    { "icon": "calendar", "top": "적용 시점", "bottom": "회사별 다름" },
+    { "icon": "warning", "top": "강제력", "bottom": "없음" },
+    { "icon": "check", "top": "운영자", "bottom": "기존 규칙 유지" }
+  ]
+}

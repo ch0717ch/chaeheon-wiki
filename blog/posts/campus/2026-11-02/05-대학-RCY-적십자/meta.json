@@ -1,0 +1,21 @@
+{
+  "no": "05", "theme": "volunteer", "category": "봉사활동",
+  "keyword": "대학 RCY",
+  "subKeywords": ["대학적십자 가입", "적십자 대학생 봉사", "RCY 봉사시간", "적십자 연탄 봉사", "봉사 동아리 추천"],
+  "intent": "꾸준히 할 봉사 조직을 찾는 대학생이 RCY 가입과 활동을 알고 싶은 정보형",
+  "angle": "한눈에 표 + 활동 표 + 지역 봉사단 + 비교 표 + FAQ",
+  "titles": [
+    "대학 RCY 가입 방법, 적십자 봉사 연중 가입·입회비 없음",
+    "봉사 동아리 찾는다면 대학적십자(RCY) 활동 정리",
+    "적십자 대학생 봉사, 연탄 나눔부터 CPR 교육까지"
+  ],
+  "pick": "A — 단체명 검색",
+  "tags": ["RCY", "대학적십자", "대한적십자사", "대학생봉사", "봉사동아리", "연탄봉사", "CPR교육", "자원봉사", "봉사활동", "대학생활정보"],
+  "check": ["적십자 활동신청 화면 캡처"],
+  "sources": [
+    "서울대 약학대학 대한적십자사 대학적십자(RCY) 회원 모집 안내 — https://snupharm.snu.ac.kr/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/document/3905/",
+    "대한적십자사 RCY 활동신청 — https://www.redcross.or.kr/main/ad/rcy/re/selRcyEvntList.do?mi=1246",
+    "가톨릭관동대 봉사 — https://www.cku.ac.kr/cku_kr/5742/subview.do",
+    "네이트 대전세종지사 대학RCY 연합 농촌 봉사 — https://m.news.nate.com/view/20260623n25756"
+  ]
+}

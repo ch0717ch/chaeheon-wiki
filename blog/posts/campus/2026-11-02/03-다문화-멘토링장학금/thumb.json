@@ -1,0 +1,14 @@
+{
+  "theme": "scholarship",
+  "banner": "봉사하고 **장학금도?!**",
+  "title": ["멘토링", "장학금", "다문화"],
+  "note": ["제도 구조", "활동 내용", "맞는 학생", "놓치지 않기"],
+  "hero": { "type": "phone", "paper": "멘토링장학금", "header": "다문화·탈북 멘토링", "sub": "한국장학재단",
+    "rows": [["멘토", "대학생"], ["멘티", "초중고"], ["기간", "1년"], ["모집", "대학별"]] },
+  "tiles": [
+    { "icon": "people", "top": "멘토", "bottom": "대학생" },
+    { "icon": "globe", "top": "멘티", "bottom": "다문화·탈북" },
+    { "icon": "calendar", "top": "모집", "bottom": "대학별" },
+    { "icon": "check", "top": "공지", "bottom": "장학팀 확인" }
+  ]
+}

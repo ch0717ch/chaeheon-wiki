@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "AI가 쇼핑을 **대신?!**",
+  "title": [
+    "네이버",
+    "쇼핑",
+    "AI 사용법"
+  ],
+  "note": [
+    "한눈에",
+    "질문 예시",
+    "에이전트 N",
+    "주의할 점"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "쇼핑 AI 에이전트",
+    "lines": [
+      "20만 원 이하 가습기 추천",
+      "두 제품 차이 표로",
+      "리뷰 단점만 요약",
+      "선물 5만 원대"
+    ],
+    "badge": "AI"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "정식",
+      "bottom": "7월 1일"
+    },
+    {
+      "icon": "chart",
+      "top": "거래액",
+      "bottom": "2.7배↑"
+    },
+    {
+      "icon": "question",
+      "top": "질문",
+      "bottom": "구체적으로"
+    },
+    {
+      "icon": "warning",
+      "top": "가격",
+      "bottom": "최종 확인"
+    }
+  ]
+}

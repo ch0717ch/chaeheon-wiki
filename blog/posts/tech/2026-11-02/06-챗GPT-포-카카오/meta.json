@@ -1,0 +1,19 @@
+{
+  "no": "06", "theme": "ai", "category": "AI",
+  "keyword": "챗GPT 포 카카오",
+  "subKeywords": ["ChatGPT for Kakao 사용법", "카톡 챗GPT", "카카오톡 대화 요약", "카톡 PC 챗GPT", "카카오 AI"],
+  "intent": "카카오톡에서 챗GPT를 써보려는 사람의 방법형",
+  "angle": "한눈에 표 + 활용 표 + 대화 요약 팁 + 주의 표 + 비교 표 + FAQ",
+  "titles": [
+    "챗GPT 포 카카오 사용법, 카톡 PC에서도 되고 대화 요약까지",
+    "단톡방 100개 쌓였을 때, 카카오톡 대화 요약 쓰는 법",
+    "카톡 안의 챗GPT, 쓰기 전에 꼭 지킬 4가지"
+  ],
+  "pick": "A — 기능명 검색",
+  "tags": ["챗GPT포카카오", "ChatGPTforKakao", "카카오톡", "카톡AI", "대화요약", "챗GPT", "카카오", "AI활용", "생성형AI", "AI정보"],
+  "check": ["카톡 안내 화면 캡처"],
+  "sources": [
+    "헤럴드경제 챗GPT 포 카카오 PC 버전으로 확대 6차 정기 업데이트 — https://biz.heraldcorp.com/article/10809289",
+    "카카오 PC에서도 이어지는 일상 AI 경험 6차 정기 업데이트 — https://www.kakaocorp.com/page/detail/12082"
+  ]
+}

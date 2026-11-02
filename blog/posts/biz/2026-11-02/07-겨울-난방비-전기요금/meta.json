@@ -1,0 +1,21 @@
+{
+  "no": "07", "theme": "society", "category": "사회",
+  "keyword": "겨울 난방비",
+  "subKeywords": ["전기요금 누진제 겨울", "전기요금 4분기 동결", "도시가스 요금 11월", "난방비 아끼는 법", "전기장판 전기요금"],
+  "intent": "겨울 난방비 고지서가 걱정되는 가구의 해결형",
+  "angle": "요금 상황 표 + 누진 구간 표 + 전기·가스 절약 팁 + 지원 제도 + FAQ",
+  "titles": [
+    "겨울 난방비 아끼는 법, 전기요금 누진 400kWh 넘기지 마세요",
+    "전기요금 4분기 동결인데 왜 겨울 고지서는 비쌀까",
+    "전기장판 vs 온풍기 vs 보일러, 겨울 난방비 줄이는 법"
+  ],
+  "pick": "A — 시즌 검색",
+  "tags": ["난방비", "겨울난방비", "전기요금", "누진제", "도시가스요금", "난방비절약", "전기장판", "에너지바우처", "관리비", "생활정보"],
+  "check": ["한전 요금표 원문 대조"],
+  "sources": [
+    "국제뉴스 겨울 난방비 폭탄 피하기 — https://www.gukjenews.com/news/articleView.html?idxno=3738888",
+    "투데이에너지 11월 도시가스 도매요금 — https://www.todayenergy.kr/news/articleView.html?idxno=304757",
+    "TILNOTE 서울 도시가스 MJ당 요금 — https://tilnote.io/en/pages/6ae291a491befeb4cdc2e3bc",
+    "calcnara 2026 겨울 난방비 — https://calcnara.com/seasons/winter-heating"
+  ]
+}
