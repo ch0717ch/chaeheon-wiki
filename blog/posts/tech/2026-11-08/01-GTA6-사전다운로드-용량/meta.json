@@ -1,0 +1,40 @@
+{
+  "no": "01",
+  "theme": "game",
+  "category": "게임",
+  "keyword": "GTA6 사전 다운로드",
+  "subKeywords": [
+    "GTA6 용량",
+    "GTA6 프리로드",
+    "GTA6 212GB",
+    "GTA6 출시일 11월 19일",
+    "PS5 용량 확보"
+  ],
+  "intent": "GTA6 출시 전 사전 다운로드 날짜와 용량을 확인하려는 준비형",
+  "angle": "핵심 표 + PS5 용량 표 + 자동 다운로드 설정 + FAQ",
+  "titles": [
+    "GTA6 사전 다운로드 11월 10일, 용량 212GB 미리 비우세요",
+    "GTA6 프리로드 시작일과 PS5 저장공간 확보법",
+    "GTA6 출시 D-11, 사전 다운로드 전 체크할 3가지"
+  ],
+  "pick": "A — 출시 직전 검색",
+  "tags": [
+    "GTA6",
+    "GTA6사전다운로드",
+    "GTA6용량",
+    "프리로드",
+    "PS5",
+    "GTA6출시일",
+    "락스타게임즈",
+    "게임출시",
+    "콘솔게임",
+    "게임정보"
+  ],
+  "check": [
+    "PS 공식 페이지 날짜 재확인"
+  ],
+  "sources": [
+    "인벤 GTA6 사전 다운로드 10일 시작, 용량 212GB — https://www.inven.co.kr/webzine/news/?news=322937",
+    "게임메카 최대 212GB 필요, GTA 6 사전 다운로드 11월 10일 시작 — https://www.gamemeca.com/en/view.php?gid=1782911"
+  ]
+}

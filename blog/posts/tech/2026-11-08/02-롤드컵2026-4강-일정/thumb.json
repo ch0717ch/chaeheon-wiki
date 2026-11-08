@@ -1,0 +1,57 @@
+{
+  "theme": "game",
+  "banner": "롤드컵 4강 **몇 시?!**",
+  "title": [
+    "롤드컵",
+    "4강",
+    "대진"
+  ],
+  "note": [
+    "4강 대진",
+    "8강 결과",
+    "관전 포인트",
+    "FAQ"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "월즈 2026",
+    "header": "4강·결승 일정",
+    "sub": "한국 시간",
+    "rows": [
+      [
+        "젠지·IG",
+        "11/8"
+      ],
+      [
+        "T1·BLG",
+        "11/9 7시"
+      ],
+      [
+        "결승",
+        "11/15 4시"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "trophy",
+      "top": "LCK",
+      "bottom": "2팀 4강"
+    },
+    {
+      "icon": "warning",
+      "top": "DK",
+      "bottom": "8강 탈락"
+    },
+    {
+      "icon": "calendar",
+      "top": "결승",
+      "bottom": "11월 15일"
+    },
+    {
+      "icon": "people",
+      "top": "LCK 결승",
+      "bottom": "가능?"
+    }
+  ]
+}

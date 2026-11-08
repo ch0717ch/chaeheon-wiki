@@ -1,0 +1,40 @@
+{
+  "no": "08",
+  "theme": "it",
+  "category": "IT",
+  "keyword": "윈도우 11월 업데이트",
+  "subKeywords": [
+    "윈도우11 보안 업데이트 11월",
+    "패치 화요일",
+    "KB5127936",
+    "윈도우 업데이트 오류",
+    "윈도우 업데이트 제거"
+  ],
+  "intent": "이번 달 윈도우 업데이트 날짜와 설치 전 확인할 점을 알고 싶은 해결형",
+  "angle": "일정 표 + 체크 표 + 업데이트 방법 + 문제 해결 + FAQ",
+  "titles": [
+    "윈도우11 11월 보안 업데이트, 한국 시간 11월 11일 배포",
+    "윈도우 패치 화요일 11월, 설치 전 체크 4가지",
+    "윈도우 업데이트 후 문제 생기면? 제거 방법까지"
+  ],
+  "pick": "A — 업데이트 검색",
+  "tags": [
+    "윈도우11",
+    "윈도우업데이트",
+    "보안업데이트",
+    "패치화요일",
+    "KB5127936",
+    "마이크로소프트",
+    "윈도우11업데이트",
+    "PC관리",
+    "IT정보",
+    "컴퓨터팁"
+  ],
+  "check": [
+    "배포 후 KB 번호·알려진 문제 확인"
+  ],
+  "sources": [
+    "Microsoft 2026년 보안 업데이트 릴리스 일정 — https://www.microsoft.com/en-us/msrc/blog/2025/11/securityupdatereleaseschedule2026",
+    "Windows 11 릴리스 정보 — https://learn.microsoft.com/ko-kr/windows/release-health/windows11-release-information"
+  ]
+}

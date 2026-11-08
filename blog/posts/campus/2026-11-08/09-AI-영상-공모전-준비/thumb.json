@@ -1,0 +1,48 @@
+{
+  "theme": "activity",
+  "banner": "AI 영상 공모전 **규정?!**",
+  "title": [
+    "AI 영상",
+    "공모전",
+    "준비법"
+  ],
+  "note": [
+    "규정 체크",
+    "준비 순서",
+    "심사 팁",
+    "FAQ"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "AI 영상 공모전",
+    "lines": [
+      "AI 사용 범위",
+      "도구 표기",
+      "저작권·초상권",
+      "출품 규격"
+    ],
+    "badge": "규정 먼저"
+  },
+  "tiles": [
+    {
+      "icon": "warning",
+      "top": "초상권",
+      "bottom": "주의"
+    },
+    {
+      "icon": "check",
+      "top": "준비",
+      "bottom": "5단계"
+    },
+    {
+      "icon": "trophy",
+      "top": "심사",
+      "bottom": "주제 전달"
+    },
+    {
+      "icon": "question",
+      "top": "AI 음악",
+      "bottom": "규정 확인"
+    }
+  ]
+}

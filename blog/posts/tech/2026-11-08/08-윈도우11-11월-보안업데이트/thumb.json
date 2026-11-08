@@ -1,0 +1,48 @@
+{
+  "theme": "it",
+  "banner": "윈도우 업데이트 **언제?!**",
+  "title": [
+    "윈도우11",
+    "11월",
+    "업데이트"
+  ],
+  "note": [
+    "배포 일정",
+    "설치 전 체크",
+    "업데이트 방법",
+    "문제 해결"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "Windows 업데이트",
+    "lines": [
+      "한국 11월 11일",
+      "26H2·25H2 대상",
+      "재부팅 필요",
+      "작업 먼저 저장"
+    ],
+    "badge": "보안 패치"
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "배포",
+      "bottom": "11월 11일"
+    },
+    {
+      "icon": "shield",
+      "top": "보안",
+      "bottom": "빨리 설치"
+    },
+    {
+      "icon": "check",
+      "top": "업데이트",
+      "bottom": "기록 확인"
+    },
+    {
+      "icon": "question",
+      "top": "윈도우10",
+      "bottom": "ESU만"
+    }
+  ]
+}
