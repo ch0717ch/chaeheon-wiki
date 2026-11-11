@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "챗GPT에 **가게 등록?!**",
+  "title": [
+    "챗GPT",
+    "비즈",
+    "프로필"
+  ],
+  "note": [
+    "기능 정리",
+    "주목 이유",
+    "한국 사업자",
+    "시각 차이"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "Business Hub",
+    "lines": [
+      "프로필 등록·인증",
+      "언급·클릭 인사이트",
+      "제품 피드 연결",
+      "미국 베타부터"
+    ],
+    "badge": "11/10"
+  },
+  "tiles": [
+    {
+      "icon": "people",
+      "top": "대상",
+      "bottom": "미국 기업"
+    },
+    {
+      "icon": "chart",
+      "top": "인사이트",
+      "bottom": "언급·클릭"
+    },
+    {
+      "icon": "check",
+      "top": "지금 할 일",
+      "bottom": "정보 정리"
+    },
+    {
+      "icon": "question",
+      "top": "한국",
+      "bottom": "일정 미정"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "no": "06",
+  "theme": "ai",
+  "category": "AI",
+  "keyword": "챗GPT GIF 만들기",
+  "subKeywords": [
+    "ChatGPT Images 2.6",
+    "챗GPT 움짤",
+    "챗GPT 이미지 새 기능",
+    "참조 이미지 저장",
+    "GPT Image 2.6"
+  ],
+  "intent": "챗GPT 새 이미지 기능으로 GIF 만드는 법을 알고 싶은 사용법형",
+  "angle": "기능 표 + 요청 예시 표 + 체크 표 + API 모델 + FAQ",
+  "titles": [
+    "챗GPT로 GIF 만들기, Images 2.6 새 기능 사용법",
+    "챗GPT 움짤 생성 가능해졌다, 참조 이미지 저장까지",
+    "챗GPT 이미지 2.6 업데이트, 블로그 움짤 만드는 법"
+  ],
+  "pick": "A — 사용법 검색",
+  "tags": [
+    "챗GPT",
+    "ChatGPT",
+    "GIF만들기",
+    "AI이미지",
+    "움짤",
+    "오픈AI",
+    "이미지생성",
+    "AI툴",
+    "AI활용",
+    "IT정보"
+  ],
+  "check": [
+    "무료 요금제 한도 공식 확인"
+  ],
+  "sources": [
+    "AI Weekly OpenAI Ships ChatGPT Images 2.6 With GIFs — https://aiweekly.co/alerts/openai-ships-chatgpt-images-26-with-gifs-and-faster-api-models",
+    "ChatGPT release notes — https://help.openai.com/en/articles/6825453-chatgpt-release-notes"
+  ]
+}

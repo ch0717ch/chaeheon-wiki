@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "챗GPT로 **움짤까지?!**",
+  "title": [
+    "챗GPT",
+    "GIF",
+    "만들기"
+  ],
+  "note": [
+    "새 기능",
+    "요청 예시",
+    "쓰기 전 체크",
+    "API 모델"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "ChatGPT Images 2.6",
+    "lines": [
+      "반복 GIF 생성",
+      "재생 속도 조절",
+      "참조 이미지 저장",
+      "순차 적용 중"
+    ],
+    "badge": "11월 4일"
+  },
+  "tiles": [
+    {
+      "icon": "check",
+      "top": "GIF",
+      "bottom": "새로 지원"
+    },
+    {
+      "icon": "phone",
+      "top": "참조 사진",
+      "bottom": "재사용"
+    },
+    {
+      "icon": "warning",
+      "top": "저작권",
+      "bottom": "주의"
+    },
+    {
+      "icon": "question",
+      "top": "무료 한도",
+      "bottom": "확인"
+    }
+  ]
+}

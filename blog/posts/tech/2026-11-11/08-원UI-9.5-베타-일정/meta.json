@@ -1,0 +1,41 @@
+{
+  "no": "08",
+  "theme": "it",
+  "category": "IT",
+  "keyword": "One UI 9.5 베타",
+  "subKeywords": [
+    "원UI 9.5 베타 일정",
+    "갤럭시 S26 업데이트",
+    "원UI 9.5 신청",
+    "삼성 멤버스 베타",
+    "갤럭시 S26 울트라 베타"
+  ],
+  "intent": "갤럭시 S26 One UI 9.5 베타 시기와 참여 전 주의점을 알고 싶은 정보형",
+  "angle": "전망 표 + 참여 방법 + 체크 표 + FAQ (공식 발표 전 명시)",
+  "titles": [
+    "One UI 9.5 베타 언제? 갤럭시 S26 울트라 11월 시작 전망",
+    "원UI 9.5 베타 신청 방법과 참여 전 체크 4가지",
+    "갤럭시 S26 One UI 9.5, 정식은 S27과 함께?"
+  ],
+  "pick": "A — 업데이트 검색",
+  "tags": [
+    "원UI",
+    "OneUI9점5",
+    "갤럭시S26",
+    "갤럭시업데이트",
+    "삼성멤버스",
+    "베타테스트",
+    "갤럭시S26울트라",
+    "안드로이드",
+    "IT정보",
+    "스마트폰팁"
+  ],
+  "check": [
+    "삼성 공식 베타 공지 나오면 날짜 수정"
+  ],
+  "sources": [
+    "KBench 삼성 갤럭시S26 One UI 9.5 베타 앞당기나 — https://kbench.com/?q=node%2F283171",
+    "Sammy Fans Galaxy S26 starts getting November 2026 update — https://www.sammyfans.com/2026/11/09/samsung-galaxy-s26-starts-getting-november-2026-update/",
+    "테크노트코리아 One UI 9.5 베타 11월 말~12월 초 — https://technotekorea.com/"
+  ]
+}

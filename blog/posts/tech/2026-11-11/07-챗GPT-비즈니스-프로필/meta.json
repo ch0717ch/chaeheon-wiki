@@ -1,0 +1,40 @@
+{
+  "no": "07",
+  "theme": "ai",
+  "category": "AI",
+  "keyword": "챗GPT 비즈니스 프로필",
+  "subKeywords": [
+    "ChatGPT Business Hub",
+    "챗GPT 기업 등록",
+    "AI 검색 마케팅",
+    "챗GPT 비즈니스 에이전트",
+    "AI 검색 최적화"
+  ],
+  "intent": "챗GPT의 새 기업용 기능이 무엇이고 사업자에게 어떤 의미인지 알고 싶은 정보형",
+  "angle": "기능 표 + 의미 + 한국 사업자 표 + 엇갈린 시각 + FAQ",
+  "titles": [
+    "챗GPT 비즈니스 프로필 출시, 구글 비즈니스처럼 될까",
+    "챗GPT에 가게 정보 등록하는 시대, Business Hub 정리",
+    "AI 검색 시대 사업자가 지금 할 일, 챗GPT 새 기능으로 보기"
+  ],
+  "pick": "A — 이슈 검색",
+  "tags": [
+    "챗GPT",
+    "오픈AI",
+    "비즈니스프로필",
+    "AI검색",
+    "AI마케팅",
+    "소상공인",
+    "온라인마케팅",
+    "AI에이전트",
+    "AI뉴스",
+    "IT정보"
+  ],
+  "check": [
+    "한국 출시 발표 시 업데이트"
+  ],
+  "sources": [
+    "TechCrunch OpenAI rolls out new business profiles — https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/",
+    "OpenAI Introducing Businesses in ChatGPT — https://openai.com/index/introducing-businesses-chatgpt/"
+  ]
+}

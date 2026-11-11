@@ -1,0 +1,40 @@
+{
+  "no": "02",
+  "theme": "game",
+  "category": "게임",
+  "keyword": "GTA6 리뷰",
+  "subKeywords": [
+    "GTA6 리뷰 엠바고",
+    "GTA6 메타크리틱",
+    "GTA6 평점",
+    "GTA6 리뷰 언제",
+    "GTA6 출시 11월 19일"
+  ],
+  "intent": "GTA6 리뷰·평점이 언제 나오는지 알고 싶은 정보형",
+  "angle": "엠바고 표 + 전작 점수 표 + 가짜 리뷰 주의 + 출시 전 체크 + FAQ",
+  "titles": [
+    "GTA6 리뷰 언제 나오나, 엠바고 11월 18일 유력",
+    "GTA6 메타크리틱 점수는? 전작 97점과 리뷰 공개일",
+    "GTA6 출시 전 리뷰 엠바고, 가짜 점수 조심하세요"
+  ],
+  "pick": "A — 출시 직전 검색",
+  "tags": [
+    "GTA6",
+    "GTA6리뷰",
+    "GTA6평점",
+    "메타크리틱",
+    "리뷰엠바고",
+    "락스타게임즈",
+    "GTA6출시",
+    "콘솔게임",
+    "게임정보",
+    "신작게임"
+  ],
+  "check": [
+    "엠바고 해제 후 점수 반영 여부"
+  ],
+  "sources": [
+    "Insider Gaming Grand Theft Auto 6 Review Embargo Date — https://insider-gaming.com/grand-theft-auto-6-review-embargo/",
+    "GTA.media GTA 6 Reviews Embargo Date — https://gta.media/gta-6-reviews/"
+  ]
+}

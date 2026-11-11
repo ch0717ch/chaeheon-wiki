@@ -1,0 +1,41 @@
+{
+  "no": "04",
+  "theme": "game",
+  "category": "게임",
+  "keyword": "게임 블랙프라이데이 세일",
+  "subKeywords": [
+    "닌텐도 e숍 블프",
+    "PS스토어 블랙프라이데이",
+    "스팀 블프 할인",
+    "게임 할인 11월",
+    "닌텐도 할인 2026"
+  ],
+  "intent": "블프 시즌 게임 할인 정보를 한 번에 보려는 구매 준비형",
+  "angle": "스토어별 표 + 스팀 세일 정리 + 체크 표 + GTA6 고려 + FAQ",
+  "titles": [
+    "게임 블랙프라이데이 세일 2026, 닌텐도·PS·스팀 정리",
+    "닌텐도 e숍 블프 세일 11월 24일까지, 사기 전 체크",
+    "블프 게임 할인, 역대 최저가인지 먼저 확인하세요"
+  ],
+  "pick": "A — 세일 검색",
+  "tags": [
+    "블랙프라이데이",
+    "게임할인",
+    "닌텐도e숍",
+    "PS스토어",
+    "스팀할인",
+    "닌텐도스위치",
+    "PS5",
+    "게임세일",
+    "게임정보",
+    "11월할인"
+  ],
+  "check": [
+    "한국 스토어 세일 기간 확인 후 수정"
+  ],
+  "sources": [
+    "스파이크 춘소프트 닌텐도 e숍 BlackFriday 세일 — https://www.spike-chunsoft.co.jp/event/46653/",
+    "gg.deals PlayStation Black Friday Sale 2026 — https://gg.deals/deal/playstation-black-friday-sale-2026",
+    "딜워치 스팀 가을 세일 2026 — https://dealwatch.app/sale/steam-autumn-sale-2026"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "no": "09",
+  "theme": "it",
+  "category": "IT",
+  "keyword": "램 가격",
+  "subKeywords": [
+    "DDR5 가격 폭등",
+    "램값 상승 2026",
+    "PC 견적 램",
+    "SSD 가격 상승",
+    "메모리 가격 언제 내려"
+  ],
+  "intent": "램·SSD 가격 상승 이유와 지금 PC를 살 때 대응법을 알고 싶은 해결형",
+  "angle": "가격 표 + 원인 + 구매 전략 표 + SSD + FAQ",
+  "titles": [
+    "램 가격 5배 폭등, 지금 PC 맞춰도 될까",
+    "DDR5 32GB 400달러 넘었다, 램값 오른 이유",
+    "램·SSD 가격 상승기, PC 살 때 아끼는 법 4가지"
+  ],
+  "pick": "A — 가격 검색",
+  "tags": [
+    "램가격",
+    "DDR5",
+    "메모리가격",
+    "PC견적",
+    "SSD가격",
+    "컴퓨터조립",
+    "노트북가격",
+    "HBM",
+    "IT정보",
+    "PC부품"
+  ],
+  "check": [
+    "국내 가격 비교 사이트 시세 추가 여부"
+  ],
+  "sources": [
+    "Tech Insider DDR5 RAM Prices 2026 — https://tech-insider.org/ddr5-ram-prices-2026-pc-builders/",
+    "Tech Insider DDR5 Chip Prices Up 452% — https://tech-insider.org/team-group-ddr5-chip-price-452-percent-shortage-2028-2026/",
+    "다나와 DPG RAM 소비자 가격 역사상 최고치 — https://dpg.danawa.com/news/view?boardSeq=294&listSeq=5947740"
+  ]
+}

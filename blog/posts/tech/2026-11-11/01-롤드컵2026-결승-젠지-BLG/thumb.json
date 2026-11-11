@@ -1,0 +1,57 @@
+{
+  "theme": "game",
+  "banner": "롤드컵 결승 **젠지 vs BLG?!**",
+  "title": [
+    "롤드컵",
+    "결승",
+    "대진"
+  ],
+  "note": [
+    "결승 정보",
+    "4강 결과",
+    "관전 포인트",
+    "시청 팁"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "월즈 2026",
+    "header": "결승",
+    "sub": "한국 시간",
+    "rows": [
+      [
+        "대진",
+        "젠지·BLG"
+      ],
+      [
+        "일시",
+        "11/15 4시"
+      ],
+      [
+        "장소",
+        "뉴욕"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "trophy",
+      "top": "젠지",
+      "bottom": "첫 결승"
+    },
+    {
+      "icon": "warning",
+      "top": "T1",
+      "bottom": "4강 탈락"
+    },
+    {
+      "icon": "gamepad",
+      "top": "BLG",
+      "bottom": "LCK 2팀 격파"
+    },
+    {
+      "icon": "calendar",
+      "top": "결승",
+      "bottom": "일요일 새벽"
+    }
+  ]
+}
