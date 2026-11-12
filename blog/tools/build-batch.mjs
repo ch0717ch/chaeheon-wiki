@@ -1,5 +1,6 @@
 // 규칙 v2 (blog/strategy/rules-v2.md) 배치 빌더
-// 사용법: node blog/tools/build-batch.mjs blog/posts/<블로그키>/<날짜>
+// 사용법: node blog/tools/build-batch.mjs blog/posts/<블로그키>/<날짜> [--only 11,12]
+//         (--only: 같은 날짜 폴더에 이전 형식 글이 섞여 있을 때 이번 배치 글 번호만 빌드)
 //
 // 날짜 폴더 안의 글 폴더(NN-slug/source.md + meta.json)를 읽어
 //   <날짜폴더>/배치_YYYYMMDD_<블로그명>/
@@ -10,7 +11,7 @@
 // source.md 문법 (네이버 스마트에디터에 붙여도 깨지지 않는 것만)
 //   ## 소제목                 → 색 막대 소제목
 //   빈 줄                     → 문단 구분 (문단 안 줄바꿈 유지)
-//   - 항목 / 1. 항목          → 글머리 목록 / 번호 목록
+//   - 항목 / 1. 항목          → 글머리 목록 / 번호 목록  (- [ ] 항목 → ☐ 체크리스트)
 //   | a | b |                 → 표 (첫 줄 = 머리글, |---| 줄은 무시)
 //   > 문장                    → 인용구 (연속된 > 줄은 한 인용구)
 //   ---                       → 구분선
@@ -121,7 +122,10 @@ export function toHtml(blocks, meta) {
         return `<p>${b.lines.map(il).join("<br>\n")}</p>`;
       }
       case "ul":
-        return `<ul>\n${b.items.map((t) => `<li>${il(t)}</li>`).join("\n")}\n</ul>`;
+        {
+        const check = b.items.every((t) => /^\[ ?\]/.test(t));
+        return `<ul${check ? ' style="list-style:none;padding-left:4px;"' : ""}>\n${b.items.map((t) => `<li>${il(t.replace(/^\[ ?\]\s*/, "☐ "))}</li>`).join("\n")}\n</ul>`;
+      }
       case "ol":
         return `<ol>\n${b.items.map((t) => `<li>${il(t)}</li>`).join("\n")}\n</ol>`;
       case "hr":
@@ -214,8 +218,11 @@ const batchDir = join(root, `배치_${ymd}_${conf.batchName}`);
 mkdirSync(batchDir, { recursive: true });
 for (const f of readdirSync(batchDir)) if (f.endsWith(".html") || f === "배치정보.md") rmSync(join(batchDir, f));
 
+const onlyIdx = process.argv.indexOf("--only");
+const only = onlyIdx > 0 ? process.argv[onlyIdx + 1].split(",") : null;
 const dirs = readdirSync(root, { withFileTypes: true })
   .filter((d) => d.isDirectory() && existsSync(join(root, d.name, "source.md")))
+  .filter((d) => !only || only.some((n) => d.name.startsWith(n + "-")))
   .map((d) => join(root, d.name))
   .sort();
 
