@@ -3,7 +3,7 @@
 결과: <출력폴더>/배치_YYYYMMDD_<블로그명>.zip
   배치_YYYYMMDD_<블로그명>/NN_키워드(카테고리).html
   배치_YYYYMMDD_<블로그명>/NN_키워드(카테고리)_썸네일.png
-  배치_YYYYMMDD_<블로그명>/배치정보.md
+  배치_YYYYMMDD_<블로그명>/배치정보.txt
 """
 import json
 import os
@@ -18,11 +18,11 @@ key = os.path.basename(os.path.dirname(root))
 conf = json.load(open(os.path.join(blog_dir, "blogs.json"), encoding="utf-8"))[key]
 name = f"배치_{os.path.basename(root).replace('-', '')}_{conf['batchName']}"
 batch = os.path.join(root, name)
-files = sorted(f for f in os.listdir(batch) if f.endswith((".html", ".png", ".md")))
+files = sorted(f for f in os.listdir(batch) if f.endswith((".html", ".png")) or f == "배치정보.txt")
 htmls = [f for f in files if f.endswith(".html")]
 pngs = [f for f in files if f.endswith(".png")]
-if "배치정보.md" not in files or len(htmls) != len(pngs):
-    sys.exit(f"배치 폴더가 덜 만들어짐: html {len(htmls)}, png {len(pngs)}, 배치정보.md {'있음' if '배치정보.md' in files else '없음'}")
+if "배치정보.txt" not in files or len(htmls) != len(pngs):
+    sys.exit(f"배치 폴더가 덜 만들어짐: html {len(htmls)}, png {len(pngs)}, 배치정보.txt {'있음' if '배치정보.txt' in files else '없음'}")
 os.makedirs(out_dir, exist_ok=True)
 out = os.path.join(out_dir, f"{name}.zip")
 with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:

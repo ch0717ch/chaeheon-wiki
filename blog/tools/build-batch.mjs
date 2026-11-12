@@ -5,7 +5,7 @@
 // 날짜 폴더 안의 글 폴더(NN-slug/source.md + meta.json)를 읽어
 //   <날짜폴더>/배치_YYYYMMDD_<블로그명>/
 //     NN_키워드(카테고리).html      ← 네이버 에디터 복붙용 본문 (안내문·자리 표시 없음)
-//     배치정보.md                   ← 글별 제목 3안·해시태그 30·카테고리·예약 시각·모드·도입/마무리 유형·쇼핑커넥트 + 검수 결과
+//     배치정보.txt                  ← 배치당 1개(일반 텍스트): 글별 제목 3안·해시태그 30·카테고리·예약 시각·모드·도입/마무리 유형·쇼핑커넥트 + 검수 결과
 //     NN_키워드(카테고리)_썸네일.png ← 글 폴더의 thumb.png(render-thumbs.mjs 잡지 표지형)를 이 이름으로 복사
 // 를 만들고, 배치 전체를 자동 검수해 문제를 출력한다. 순서: render-thumbs.mjs → build-batch.mjs → pack-batch.py
 // 썸네일·본문 디자인은 이전 형식 그대로(사용자 지시 2026-11-12), 바뀐 것은 글 형태와 결과물 구성뿐.
@@ -224,7 +224,7 @@ if (!conf?.batchName) throw new Error(`blogs.json 에 ${key}.batchName 이 없�
 const ymd = date.replace(/-/g, "");
 const batchDir = join(root, `배치_${ymd}_${conf.batchName}`);
 mkdirSync(batchDir, { recursive: true });
-for (const f of readdirSync(batchDir)) if (f.endsWith(".html") || f.endsWith(".png") || f === "배치정보.md") rmSync(join(batchDir, f));
+for (const f of readdirSync(batchDir)) if (f.endsWith(".html") || f.endsWith(".png") || (f === "배치정보.md" || f === "배치정보.txt")) rmSync(join(batchDir, f));
 
 const onlyIdx = process.argv.indexOf("--only");
 const only = onlyIdx > 0 ? process.argv[onlyIdx + 1].split(",") : null;
@@ -316,36 +316,35 @@ const start = sh * 60 + sm + (conf.scheduleOffsetMin ?? 0);
 const step = conf.scheduleIntervalMin ?? 60;
 posts.forEach((p, i) => (p.time = p.meta.schedule ?? hhmm(start + i * step)));
 
-// 배치정보.md
-const lines = [`# 배치정보 — ${conf.batchName} (${date})`, ""];
-lines.push(`| 번호 | 키워드 | 카테고리 | 예약 | 모드 | 도입 | 마무리 |`, `|---|---|---|---|---|---|---|`);
+// 배치정보.txt — 배치(블로그)당 1개, 일반 텍스트 (글 폴더마다 만들지 않는다)
+const SEP = "-".repeat(40);
+const lines = [`배치정보 — ${conf.batchName} (${date})`, "", "[예약 발행 시간표]"];
 for (const p of posts)
-  lines.push(`| ${p.meta.no} | ${p.meta.keyword} | ${p.meta.category} | ${p.time} | ${p.meta.mode ?? "일반"} | ${p.meta.intro} | ${p.meta.outro} |`);
-lines.push("");
+  lines.push(`  ${p.meta.no}  ${p.time}  ${p.meta.keyword} (${p.meta.category}) · ${p.meta.mode === "시리즈" ? "시리즈" : "일반"}`);
 for (const p of posts) {
   const m = p.meta;
-  lines.push(`---`, ``, `## ${fileBase(m)}`, ``);
-  lines.push(`- 카테고리: ${m.category}`);
-  lines.push(`- 예약 발행: ${date} ${p.time}`);
-  lines.push(`- 모드: ${m.mode === "시리즈" ? `시리즈 (원글: ${m.seriesOf})` : "일반"}`);
-  lines.push(`- 도입 유형: ${m.intro} / 마무리 유형: ${m.outro}`);
-  if (m.shoppingConnect) lines.push(`- 쇼핑커넥트 위치: ${m.shoppingConnect}`);
-  lines.push(`- 본문: 공백 포함 ${p.chars}자, 공식 링크 ${p.links}개`, ``, `**제목 후보**`, ``);
-  m.titles.forEach((t, i) => lines.push(`${i + 1}. ${t}`));
-  lines.push(``, `**해시태그 (${p.tags.length}개)**`, ``, p.tags.map((t) => `#${t}`).join(" "), ``);
+  lines.push("", SEP, "", `[${fileBase(m)}]`);
+  lines.push(`카테고리: ${m.category}`);
+  lines.push(`예약 발행: ${date} ${p.time}`);
+  lines.push(`모드: ${m.mode === "시리즈" ? `시리즈 (원글: ${m.seriesOf})` : "일반"}`);
+  lines.push(`도입 유형: ${m.intro} / 마무리 유형: ${m.outro}`);
+  if (m.shoppingConnect) lines.push(`쇼핑커넥트 위치: ${m.shoppingConnect}`);
+  lines.push(`본문: 공백 포함 ${p.chars}자, 공식 링크 ${p.links}개`, "제목 후보");
+  m.titles.forEach((t, i) => lines.push(`  ${i + 1}) ${t}`));
+  lines.push(`해시태그 (${p.tags.length}개)`, `  ${p.tags.map((t) => `#${t}`).join(" ")}`);
 }
-lines.push(`---`, ``, `## 배치 검수 결과`, ``);
-lines.push(`- 글 ${posts.length}개, 본문 공백 포함 ${Math.min(...posts.map((p) => p.chars))}~${Math.max(...posts.map((p) => p.chars))}자`);
+lines.push("", SEP, "", "[배치 검수 결과]");
+lines.push(`글 ${posts.length}개, 본문 공백 포함 ${Math.min(...posts.map((p) => p.chars))}~${Math.max(...posts.map((p) => p.chars))}자`);
 const count = (k) => Object.entries(posts.reduce((a, p) => ((a[p.meta[k]] = (a[p.meta[k]] ?? 0) + 1), a), {})).map(([v, c]) => `${v} ${c}`).join(", ");
-lines.push(`- 도입 유형: ${count("intro")}`);
-lines.push(`- 마무리 유형: ${count("outro")}`);
-lines.push(`- 제목 어미: ${Object.entries(endings.reduce((a, e) => ((a[e] = (a[e] ?? 0) + 1), a), {})).map(([v, c]) => `${v} ${c}`).join(", ")}`);
-lines.push(`- 시리즈 모드: ${posts.filter((p) => p.meta.mode === "시리즈").length}/${posts.length}`);
-lines.push(`- 금지 표현·빈 링크·반복 문장 검사: ${issues.length ? `${issues.length}건 남음` : "통과"}`);
+lines.push(`도입 유형: ${count("intro")}`);
+lines.push(`마무리 유형: ${count("outro")}`);
+lines.push(`제목 어미: ${Object.entries(endings.reduce((a, e) => ((a[e] = (a[e] ?? 0) + 1), a), {})).map(([v, c]) => `${v} ${c}`).join(", ")}`);
+lines.push(`시리즈 모드: ${posts.filter((p) => p.meta.mode === "시리즈").length}/${posts.length}`);
+lines.push(`금지 표현·빈 링크·반복 문장 검사: ${issues.length ? `${issues.length}건 남음` : "통과"}`);
 for (const [n, m] of issues) lines.push(`  - [${n}] ${m}`);
-writeFileSync(join(batchDir, "배치정보.md"), lines.join("\n") + "\n");
+writeFileSync(join(batchDir, "배치정보.txt"), lines.join("\n") + "\n");
 
-console.log(`info  ${join(batchDir, "배치정보.md")}`);
+console.log(`info  ${join(batchDir, "배치정보.txt")}`);
 if (issues.length) {
   console.log(`\n검수 ${issues.length}건:`);
   for (const [n, m] of issues) console.log(`  [${n}] ${m}`);
