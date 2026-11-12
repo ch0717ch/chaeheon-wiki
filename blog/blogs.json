@@ -1,4 +1,5 @@
 {
+  "scheduleStart": "07:00",
   "biz": {
     "label": "1번블로그_비즈니스경제",
     "name": "1번 블로그 — 비즈니스·경제·사회",
@@ -13,7 +14,17 @@
       "경제",
       "사회"
     ],
-    "categoryInFilename": true
+    "categoryInFilename": true,
+    "batchName": "본진",
+    "displayName": "eddie's area",
+    "v2Categories": [
+      "비즈니스",
+      "경제",
+      "사회"
+    ],
+    "batchSize": "5~7",
+    "scheduleOffsetMin": 60,
+    "scheduleIntervalMin": 120
   },
   "campus": {
     "label": "2번블로그_대학생활",
@@ -29,7 +40,17 @@
       "봉사활동",
       "대외활동"
     ],
-    "categoryInFilename": false
+    "categoryInFilename": false,
+    "batchName": "대학생",
+    "displayName": "대학생활정보노트",
+    "v2Categories": [
+      "장학금",
+      "봉사",
+      "대외활동"
+    ],
+    "batchSize": 10,
+    "scheduleOffsetMin": 30,
+    "scheduleIntervalMin": 60
   },
   "tech": {
     "label": "3번블로그_게임IT",
@@ -45,7 +66,16 @@
       "AI",
       "IT"
     ],
-    "categoryInFilename": true
+    "categoryInFilename": true,
+    "batchName": "겜테크",
+    "displayName": "겜테크연구소",
+    "v2Categories": [
+      "게임",
+      "AI기술"
+    ],
+    "batchSize": 10,
+    "scheduleOffsetMin": 0,
+    "scheduleIntervalMin": 60
   },
   "techpuli": {
     "label": "테크풀이_블로그스팟",
