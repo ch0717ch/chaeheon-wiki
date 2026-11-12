@@ -1,0 +1,41 @@
+{
+  "no": "09",
+  "theme": "finance",
+  "category": "경제",
+  "keyword": "비트코인 시세",
+  "subKeywords": [
+    "비트코인 7만3천 달러",
+    "비트코인 하락 이유",
+    "금값 시세 11월",
+    "금 1돈 가격",
+    "가상자산 약세"
+  ],
+  "intent": "비트코인·금 가격 흐름과 하락 이유를 확인하려는 정보형 (투자 권유 아님)",
+  "angle": "비트코인 표 + 금 표 + 이유 표 + 알트코인 + 주의점 + FAQ",
+  "titles": [
+    "비트코인 7만3천 달러, 1년 전보다 29% 낮아졌다",
+    "비트코인·금값 같이 약세, 미국 금리 인상 우려 때문?",
+    "금 1돈 살 때 78만 원·팔 때 66만 원, 11월 시세 정리"
+  ],
+  "pick": "A — 시세 검색",
+  "tags": [
+    "비트코인",
+    "비트코인시세",
+    "가상자산",
+    "암호화폐",
+    "금값",
+    "금시세",
+    "금1돈",
+    "미국금리",
+    "재테크",
+    "경제정보"
+  ],
+  "check": [
+    "투자 권유 아님 문구 유지"
+  ],
+  "sources": [
+    "IT타임스 11월 11일 코인 가격 비트코인 2.14%↓ — https://www.ittimes.com/news/articleView.html?idxno=87932",
+    "Fortune Current price of Bitcoin for Nov. 11, 2026 — https://fortune.com/article/price-of-bitcoin-11-11-2026/",
+    "국제뉴스 오늘의 금값시세 11월 11일 — https://www.gukjenews.com/news/articleView.html?idxno=3748211"
+  ]
+}

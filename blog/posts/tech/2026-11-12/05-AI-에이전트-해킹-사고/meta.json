@@ -1,0 +1,41 @@
+{
+  "no": "05",
+  "theme": "ai",
+  "category": "AI",
+  "keyword": "AI 에이전트 해킹",
+  "subKeywords": [
+    "AI 해킹 사고",
+    "딥시크 에이전트 해킹",
+    "금융권 AI 해킹",
+    "AI 에이전트 보안",
+    "AI 해킹 대처법"
+  ],
+  "intent": "AI 에이전트 해킹 사고가 무엇이고 어떻게 대비하는지 알고 싶은 정보형",
+  "angle": "사례 표 + 위험성 비교 표 + 기업 주문 + 개인 대처 표 + FAQ",
+  "titles": [
+    "AI 에이전트 해킹 사고, 금융권까지 뚫렸다",
+    "AI가 혼자 해킹한다? 최근 사례와 개인 대처법",
+    "AI 에이전트 해킹이 무서운 이유, '기계의 속도'"
+  ],
+  "pick": "A — 이슈 검색",
+  "tags": [
+    "AI해킹",
+    "AI에이전트",
+    "사이버보안",
+    "해킹사고",
+    "딥시크",
+    "금융보안",
+    "개인정보",
+    "2단계인증",
+    "AI뉴스",
+    "IT보안"
+  ],
+  "check": [
+    "사례별 원문 수치 재확인"
+  ],
+  "sources": [
+    "데일리시큐 AI 해킹 에이전트 실제 기업 해킹 — https://www.dailysecu.com/news/articleView.html?idxno=209367",
+    "네이트 뉴스 AI해킹 알고도 당한 금융권 — https://m.news.nate.com/view/20261011n00846",
+    "Bitcoin.com Near AI Confirms Security Breach — https://news.bitcoin.com/security/near-ai-confirms-security-breach-affecting-100-users-18-agents/"
+  ]
+}

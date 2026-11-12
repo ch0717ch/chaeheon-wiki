@@ -1,0 +1,40 @@
+{
+  "no": "09",
+  "theme": "it",
+  "category": "IT",
+  "keyword": "갤럭시 S27 출시일",
+  "subKeywords": [
+    "갤럭시 S27 언팩",
+    "갤럭시 S27 가격",
+    "갤럭시 S27 프로",
+    "S27 울트라 가격",
+    "갤럭시 S27 루머"
+  ],
+  "intent": "갤럭시 S27 출시 시기·가격 루머를 보고 구매 시점을 고민하는 판단형",
+  "angle": "일정 표 + 가격 루머 표 + 인상 이유 + 구매 판단 표 + FAQ",
+  "titles": [
+    "갤럭시 S27 출시일, 1월 언팩 유력·프로 모델 추가?",
+    "갤럭시 S27 가격 오를까, 국내 예상가 정리",
+    "S27 기다릴까 S26 살까, 지금 폰 바꿀 때 판단법"
+  ],
+  "pick": "A — 루머 검색",
+  "tags": [
+    "갤럭시S27",
+    "갤럭시언팩",
+    "삼성전자",
+    "S27울트라",
+    "갤럭시S27프로",
+    "스마트폰",
+    "신형폰",
+    "갤럭시",
+    "IT기기",
+    "IT정보"
+  ],
+  "check": [
+    "삼성 공식 발표 시 업데이트"
+  ],
+  "sources": [
+    "Odincase Samsung Galaxy S27 Release Date, Price, Specs — https://odincase.com/blogs/news/samsung-galaxy-s27-and-s27-ultra-release-date-price-specs-every-leak-so-far-2026",
+    "테크노트코리아 갤럭시 S27 출시일·가격·스펙 — https://technotekorea.com/galaxy-s27-release-date-price-specs/"
+  ]
+}

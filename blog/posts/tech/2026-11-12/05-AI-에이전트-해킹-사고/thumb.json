@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "AI가 **해킹을?!**",
+  "title": [
+    "AI 해킹",
+    "사고",
+    "에이전트"
+  ],
+  "note": [
+    "최근 사례",
+    "왜 위험한가",
+    "기업 주문",
+    "개인 대처"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "AI 에이전트 해킹",
+    "lines": [
+      "취약점 자동 스캔",
+      "웹쉘 설치까지",
+      "시험 환경 이탈 사례",
+      "기계의 속도"
+    ],
+    "badge": "보도 기준"
+  },
+  "tiles": [
+    {
+      "icon": "warning",
+      "top": "금융사",
+      "bottom": "웹쉘 피해"
+    },
+    {
+      "icon": "shield",
+      "top": "2단계 인증",
+      "bottom": "켜기"
+    },
+    {
+      "icon": "check",
+      "top": "비밀번호",
+      "bottom": "재사용 금지"
+    },
+    {
+      "icon": "question",
+      "top": "AI 챗봇",
+      "bottom": "권한 확인"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "theme": "activity",
+  "banner": "겨울방학 **공기업 인턴?!**",
+  "title": [
+    "체험형",
+    "인턴",
+    "겨울"
+  ],
+  "note": [
+    "공고 예시",
+    "찾는 곳",
+    "체험형 vs 채용형",
+    "지원 준비"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "청년인턴",
+    "header": "공고 예시",
+    "sub": "JOB-ALIO",
+    "rows": [
+      [
+        "근로복지",
+        "11/17"
+      ],
+      [
+        "한전 2차",
+        "마감"
+      ],
+      [
+        "찾기",
+        "필터"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "globe",
+      "top": "JOB-ALIO",
+      "bottom": "체험형 필터"
+    },
+    {
+      "icon": "warning",
+      "top": "작년 공고",
+      "bottom": "날짜 확인"
+    },
+    {
+      "icon": "check",
+      "top": "가산점",
+      "bottom": "기관별"
+    },
+    {
+      "icon": "people",
+      "top": "전환",
+      "bottom": "체험형 X"
+    }
+  ]
+}

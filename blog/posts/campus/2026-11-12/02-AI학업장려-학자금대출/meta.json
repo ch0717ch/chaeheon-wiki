@@ -1,0 +1,41 @@
+{
+  "no": "02",
+  "theme": "scholarship",
+  "category": "장학금",
+  "keyword": "AI학업장려 학자금대출",
+  "subKeywords": [
+    "AI 학자금대출 200만원",
+    "AI학업장려 대상 학과",
+    "SW중심대학 대출",
+    "AI 대출 금리 1.7%",
+    "AI학업장려 신청 마감"
+  ],
+  "intent": "새로 생긴 AI 학자금대출의 대상·조건·마감을 확인하려는 정보형",
+  "angle": "조건 표 + 용도 표 + 의무 + 일정 표 + 대상 확인 + FAQ",
+  "titles": [
+    "AI학업장려 학자금대출, 소득 기준 없이 연 200만 원",
+    "AI·SW 학과라면 확인, 새 학자금대출 11월 17일 마감",
+    "AI학업장려 대출 조건과 의무, 보고서까지 내야 해요"
+  ],
+  "pick": "A — 신규 제도 검색",
+  "tags": [
+    "AI학업장려학자금대출",
+    "학자금대출",
+    "한국장학재단",
+    "SW중심대학",
+    "AI교육",
+    "대학생대출",
+    "생활비대출",
+    "장학금정보",
+    "대학생활",
+    "AI"
+  ],
+  "check": [
+    "대상 학과 목록 링크 추가"
+  ],
+  "sources": [
+    "교육을 비추다 AI학업장려 학자금대출 첫 시행 연 200만 원 한도 — https://www.kyobit.com/news/articleView.html?idxno=6023",
+    "서울경제 AI학업장려 대출 60개大로 확대 — https://m.sedaily.com/article/20093444",
+    "핀포인트뉴스 AI학업장려 학자금대출 첫 시행 — https://www.pinpointnews.co.kr/news/articleView.html?idxno=464840"
+  ]
+}
