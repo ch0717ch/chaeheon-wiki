@@ -6,7 +6,9 @@
 //   <날짜폴더>/배치_YYYYMMDD_<블로그명>/
 //     NN_키워드(카테고리).html      ← 네이버 에디터 복붙용 본문 (안내문·자리 표시 없음)
 //     배치정보.md                   ← 글별 제목 3안·해시태그 30·카테고리·예약 시각·모드·도입/마무리 유형·쇼핑커넥트 + 검수 결과
-// 를 만들고, 배치 전체를 자동 검수해 문제를 출력한다. (썸네일은 render-cover.mjs, 압축은 pack-batch.py)
+//     NN_키워드(카테고리)_썸네일.png ← 글 폴더의 thumb.png(render-thumbs.mjs 잡지 표지형)를 이 이름으로 복사
+// 를 만들고, 배치 전체를 자동 검수해 문제를 출력한다. 순서: render-thumbs.mjs → build-batch.mjs → pack-batch.py
+// 썸네일·본문 디자인은 이전 형식 그대로(사용자 지시 2026-11-12), 바뀐 것은 글 형태와 결과물 구성뿐.
 //
 // source.md 문법 (네이버 스마트에디터에 붙여도 깨지지 않는 것만)
 //   ## 소제목                 → 색 막대 소제목
@@ -22,11 +24,12 @@
 //   ※ 문장                    → 작은 회색 글씨(기준일·출처)
 //
 // meta.json 키 (v2)
-//   no, keyword, category(blogs.json 의 v2Categories), theme(색), mode("일반"|"시리즈"), seriesOf(시리즈 원글 제목),
+//   no, keyword, category(blogs.json 의 v2Categories), theme, mode("일반"|"시리즈"), seriesOf(시리즈 원글 제목),
 //   intro(질문형|상황 묘사형|뉴스 맥락형|결론 먼저형|비교표 먼저형),
 //   outro(체크리스트|다음 행동 제안|주의사항 한 줄|질문 던지기|일정 리마인드|짧게 끝내기),
-//   titles[3], hashtags[30](# 없이), cover{title, subtitle}, shoppingConnect(선택), schedule(선택 "HH:MM"), sources[]
-import { readdirSync, readFileSync, existsSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+//   titles[3], hashtags[30](# 없이), shoppingConnect(선택), schedule(선택 "HH:MM"), sources[]
+//   theme 은 blogs.json themes (scholarship|volunteer|activity / economy|finance|society / game|ai|it) — 본문 색·썸네일 색
+import { readdirSync, readFileSync, existsSync, writeFileSync, mkdirSync, rmSync, copyFileSync } from "node:fs";
 import { join, resolve, basename } from "node:path";
 
 export const INTROS = ["질문형", "상황 묘사형", "뉴스 맥락형", "결론 먼저형", "비교표 먼저형"];
@@ -43,15 +46,19 @@ const FORBIDDEN = [
 ];
 const CONNECTORS = ["또한", "그리고", "따라서"];
 
+// 본문 디자인은 이전 형식(build-post.mjs)과 같은 테마 색을 쓴다 (meta.theme)
 const COLORS = {
-  // 대학생
-  장학금: "#1f5fd1", 봉사: "#1d9a5b", 대외활동: "#e5533d",
-  // 본진
-  비즈니스: "#2348a8", 경제: "#0f8a55", 사회: "#6a3fb5",
-  // 겜테크
-  게임: "#7b2cbf", AI기술: "#0f8f80",
+  scholarship: "#0b1f44", volunteer: "#0b3d2e", activity: "#3a0d1e",
+  economy: "#0a3a25", finance: "#0b1f44", society: "#2b1650",
+  game: "#24103d", ai: "#08332f", it: "#0f172a",
 };
-const color = (meta) => COLORS[meta.category] ?? "#334155";
+const ACCENTS = {
+  scholarship: "#ffd400", volunteer: "#c6ff3d", activity: "#ff8a3d",
+  economy: "#2bb673", finance: "#ffd400", society: "#b18cff",
+  game: "#c77dff", ai: "#2dd4bf", it: "#94a3b8",
+};
+const color = (meta) => COLORS[meta.theme] ?? COLORS.scholarship;
+const accent = (meta) => ACCENTS[meta.theme] ?? ACCENTS.scholarship;
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 function inline(s, accent) {
@@ -131,7 +138,7 @@ export function toHtml(blocks, meta) {
       case "hr":
         return `<hr style="border:0;border-top:1px solid #ddd;margin:28px 0;">`;
       case "quote":
-        return `<blockquote style="margin:20px 0;padding:14px 18px;border-left:4px solid ${c};background:#f7f7f9;color:#333;">${b.items.map(il).join("<br>\n")}</blockquote>`;
+        return `<blockquote style="margin:20px 0;padding:14px 18px;border-left:4px solid ${accent(meta)};background:#f7f7f9;color:#333;">${b.items.map(il).join("<br>\n")}</blockquote>`;
       case "note":
         return `<p style="font-size:13px;color:#888;">${il(b.text)}</p>`;
       case "table": {
@@ -143,11 +150,12 @@ ${rows.map((r, i) => `<tr${i % 2 ? ' style="background:#fafafa;"' : ""}>${r.map(
       }
       case "box":
         return `<table style="width:100%;border-collapse:collapse;font-size:16px;">
-<tr><td style="padding:16px 18px;border:2px solid ${c};background:#f8f9ff;line-height:1.8;">${b.body.filter(Boolean).map(il).join("<br>\n")}</td></tr>
+<tr><td style="padding:16px 18px;border:2px solid ${accent(meta)};background:#fffbe6;line-height:1.8;">${b.body.filter(Boolean).map(il).join("<br>\n")}</td></tr>
 </table>`;
       case "summary": {
         const items = b.body.filter(Boolean).map((l) => l.replace(/^[·\-]\s*/, ""));
-        return `<table style="width:100%;border-collapse:collapse;font-size:16px;">
+        return `<p><br></p>
+<table style="width:100%;border-collapse:collapse;font-size:16px;">
 <tr style="background:${c};color:#fff;"><th style="padding:12px;border:1px solid ${c};text-align:left;">✔ ${esc(b.title)}</th></tr>
 ${items.map((t, i) => `<tr${i % 2 ? ' style="background:#fafafa;"' : ""}><td style="${td}text-align:left;">${i + 1}. ${il(t)}</td></tr>`).join("\n")}
 </table>`;
@@ -216,7 +224,7 @@ if (!conf?.batchName) throw new Error(`blogs.json 에 ${key}.batchName 이 없�
 const ymd = date.replace(/-/g, "");
 const batchDir = join(root, `배치_${ymd}_${conf.batchName}`);
 mkdirSync(batchDir, { recursive: true });
-for (const f of readdirSync(batchDir)) if (f.endsWith(".html") || f === "배치정보.md") rmSync(join(batchDir, f));
+for (const f of readdirSync(batchDir)) if (f.endsWith(".html") || f.endsWith(".png") || f === "배치정보.md") rmSync(join(batchDir, f));
 
 const onlyIdx = process.argv.indexOf("--only");
 const only = onlyIdx > 0 ? process.argv[onlyIdx + 1].split(",") : null;
@@ -246,7 +254,10 @@ for (const [idx, dir] of dirs.entries()) {
   const tags = (meta.hashtags ?? []).map((t) => t.replace(/^#/, "").trim());
   if (tags.length !== 30) warn(`해시태그 ${tags.length}개 (30개 필요)`);
   if (new Set(tags).size !== tags.length) warn(`해시태그 중복 있음`);
-  if (!meta.cover?.title) warn(`cover.title 없음 (썸네일)`);
+  if (!existsSync(join(dir, "thumb.json"))) warn(`thumb.json 없음 (썸네일)`);
+  if (!existsSync(join(dir, "thumb.png"))) warn(`thumb.png 없음 — render-thumbs.mjs 를 먼저 실행`);
+  else copyFileSync(join(dir, "thumb.png"), join(batchDir, `${fileBase(meta)}_썸네일.png`));
+  if (!COLORS[meta.theme]) warn(`theme "${meta.theme}" 이 없음 (blogs.json themes)`);
   if (meta.mode === "시리즈" && !meta.seriesOf) warn(`시리즈 모드인데 seriesOf(원글 제목) 없음`);
   if (blocks.some((b) => b.type === "summary" && (!b.title || /정리/.test(b.title)))) warn(`요약 표 제목이 비었거나 "정리" 포함`);
 

@@ -1,5 +1,6 @@
 {
   "no": "11",
+  "theme": "scholarship",
   "keyword": "국가장학금 가구원 동의",
   "category": "장학금",
   "mode": "시리즈",
@@ -43,11 +44,6 @@
     "가족관계증명서",
     "재학생장학금"
   ],
-  "cover": {
-    "title": "국가장학금\n**가구원 동의**\n이렇게 하세요",
-    "subtitle": "부모님 두 분 모두 · 해외·이혼이면 방법이 달라요",
-    "badge": "2027 1학기 대비"
-  },
   "sources": [
     "한국장학재단 가구원 정보제공 동의현황 및 동의하기 — https://www.kosaf.go.kr/ko/fmlyInfoAgmt.do",
     "한국장학재단 국가장학금 Ⅰ유형 안내 — https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_12_01_01",

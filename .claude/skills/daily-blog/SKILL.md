@@ -6,6 +6,7 @@ description: 사용자의 네이버 블로그 3개(겜테크 = 게임·AI기술 
 # 블로그 배치 루틴 (규칙 v2, 2026-11-13부터)
 
 **규칙 원문은 `blog/strategy/rules-v2.md` — 먼저 끝까지 읽는다.** 이 문서는 실행 순서만 적는다.
+**바뀐 것은 글 형태뿐이다. 썸네일(잡지 표지형 thumb.json)과 본문 HTML 디자인(테마 색)은 이전과 똑같이 만든다** (사용자 지시 2026-11-12).
 사용자가 이 루틴을 부르면 **질문하지 말고 끝까지 진행**한다. 사용자에게 내용을 직접 붙여넣어 달라고 요청하는 것은 영구 금지.
 
 | 블로그명 | 키 | 주제 | 카테고리(파일명) | 배치 크기 | 예약 시작 |
@@ -36,7 +37,8 @@ description: 사용자의 네이버 블로그 3개(겜테크 = 게임·AI기술 
 
 ## 2단계 — 글 폴더 만들기
 
-각 글: `blog/posts/<키>/<날짜>/<NN>-<짧은-한글-슬러그>/` 에 `source.md` + `meta.json` (thumb.json 은 더 이상 쓰지 않는다).
+각 글: `blog/posts/<키>/<날짜>/<NN>-<짧은-한글-슬러그>/` 에 `source.md` + `meta.json` + `thumb.json`.
+같은 날짜 폴더에 이전 형식 글이 있으면 번호를 이어 붙이고 빌드 때 `--only` 로 이번 글만 고른다.
 
 **source.md** (문법: `blog/tools/build-batch.mjs` 상단 주석)
 - 첫 2~3문장에 검색 질문의 핵심 답. 도입은 배정된 유형대로.
@@ -53,33 +55,37 @@ description: 사용자의 네이버 블로그 3개(겜테크 = 게임·AI기술 
 **meta.json**
 ```json
 {
-  "no": "01", "keyword": "국가장학금 1차 신청기간", "category": "장학금",
+  "no": "01", "theme": "scholarship", "keyword": "국가장학금 1차 신청기간", "category": "장학금",
   "mode": "시리즈", "seriesOf": "원글 제목 (일반 모드면 생략)",
   "intro": "결론 먼저형", "outro": "짧게 끝내기",
   "titles": ["네이버용 제목 3개 — 길고 부드럽게 말 거는 톤, 어미 섞기"],
   "hashtags": ["# 없이 정확히 30개, 중복 없이"],
-  "cover": { "title": "국가장학금 1차\n**신청기간** 확인", "subtitle": "2027년 1학기 · 재학생은 1차가 원칙", "badge": "2027 1학기" },
   "shoppingConnect": "겜테크 구매 의도 글만: '추천 모델 비교' 표 바로 아래",
   "sources": ["기관명 — https://..."]
 }
 ```
 - intro: 질문형 | 상황 묘사형 | 뉴스 맥락형 | 결론 먼저형 | 비교표 먼저형
 - outro: 체크리스트 | 다음 행동 제안 | 주의사항 한 줄 | 질문 던지기 | 일정 리마인드 | 짧게 끝내기
-- cover.title 은 최대 3줄, 한 줄 9자 안팎. `**강조**` 는 카테고리 색. 썸네일 문구는 본문에 있는 내용만.
+- theme: 겜테크 game|ai|it / 대학생 scholarship|volunteer|activity / 본진 economy|finance|society (본문 색·썸네일 색)
+
+**thumb.json** — 기존 잡지 표지형 그대로. 형식은 이전 글(예: `blog/posts/campus/2026-11-12/11-국가장학금-가구원동의/thumb.json`)과
+`blog/tools/render-thumbs.mjs` 상단 주석을 따른다 (banner / title 3줄 / note 4개 / hero / tiles 4개).
+제목 2줄째는 4~5자 이내(길면 소품과 겹침), phone 행 값은 짧게, 아이콘 chip·doc·stamp 는 쓰지 않는다. 썸네일 문구는 본문에 있는 내용만.
 - schedule 은 비워 두면 자동 배정 (특정 시각이 필요할 때만 "HH:MM").
 
 ## 3단계 — 빌드·검수·썸네일·압축 (블로그마다)
 
 ```bash
-node blog/tools/build-batch.mjs blog/posts/<키>/<날짜>     # 배치 폴더에 NN_키워드(카테고리).html + 배치정보.md, 자동 검수
-node blog/tools/render-cover.mjs blog/posts/<키>/<날짜>    # NN_키워드(카테고리)_썸네일.png
+node blog/tools/render-thumbs.mjs blog/posts/<키>/<날짜>/<NN>-*   # 글마다 thumb.png (기존 잡지 표지형)
+node blog/tools/build-batch.mjs blog/posts/<키>/<날짜> [--only 11,12]   # 배치 폴더에 HTML·썸네일 복사·배치정보.md, 자동 검수
 python3 blog/tools/pack-batch.py blog/posts/<키>/<날짜> --out <스크래치패드>/<날짜>   # 배치_YYYYMMDD_블로그명.zip
 ```
 - 배치 폴더: `blog/posts/<키>/<날짜>/배치_YYYYMMDD_<블로그명>/`
 - build-batch 가 "검수 N건"을 내면 **source.md·meta.json 을 고쳐 0건이 될 때까지 다시 빌드**한다
   (분량, 금지 표현, 접속어 반복, 링크 1~3개, 표 유무, 도입·마무리 연속/횟수, 제목 어미, 3개 글 이상 같은 문장, 해시태그 30개).
   검수 결과는 배치정보.md 맨 아래에 자동으로 들어간다.
-- 썸네일은 contact sheet(스크래치패드 `sheet.mjs`)로 모아 Read 로 확인: 제목이 넘치거나 줄이 4줄 이상이면 cover.title 을 줄인다.
+- 썸네일은 contact sheet(스크래치패드 `sheet.mjs`)로 모아 Read 로 확인: 제목이 소품과 겹치거나 phone 행이 줄바꿈되면 thumb.json 을 줄여 다시 렌더링 → build-batch 다시 실행.
+- 빌드 후 HTML을 한 번 직접 읽고, 검수가 못 잡는 근거 없는 숫자·표현("5분이면" 같은)을 고친다.
 
 ## 4단계 — 전달
 
