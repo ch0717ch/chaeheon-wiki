@@ -1,0 +1,57 @@
+{
+  "theme": "game",
+  "banner": "스위치2 SD카드 **아무거나?!**",
+  "title": [
+    "스위치2",
+    "SD카드",
+    "고르기"
+  ],
+  "note": [
+    "Express만 됨",
+    "용량 고르기",
+    "가격",
+    "처음 할 일"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "스위치2",
+    "header": "메모리 카드",
+    "sub": "닌텐도 안내",
+    "rows": [
+      [
+        "일반 SD",
+        "저장 X"
+      ],
+      [
+        "Express",
+        "저장 O"
+      ],
+      [
+        "최대",
+        "2TB"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "warning",
+      "top": "Express",
+      "bottom": "표기 확인"
+    },
+    {
+      "icon": "gamepad",
+      "top": "추천",
+      "bottom": "256~512GB"
+    },
+    {
+      "icon": "won",
+      "top": "가격",
+      "bottom": "행사 비교"
+    },
+    {
+      "icon": "check",
+      "top": "첫 사용",
+      "bottom": "업데이트"
+    }
+  ]
+}

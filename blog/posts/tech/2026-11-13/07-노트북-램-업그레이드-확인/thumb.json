@@ -1,0 +1,48 @@
+{
+  "theme": "it",
+  "banner": "램 늘릴 수 **있을까?!**",
+  "title": [
+    "노트북",
+    "램",
+    "확인법"
+  ],
+  "note": [
+    "확인하는 법",
+    "온보드 구조",
+    "사기 전 체크",
+    "안 될 때"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "작업 관리자 → 메모리",
+    "lines": [
+      "사용된 슬롯 1/2",
+      "폼 팩터 SODIMM",
+      "규격 DDR4 / DDR5",
+      "최대 용량 확인"
+    ],
+    "badge": "바로 확인"
+  },
+  "tiles": [
+    {
+      "icon": "check",
+      "top": "빈 슬롯",
+      "bottom": "추가 가능"
+    },
+    {
+      "icon": "warning",
+      "top": "온보드",
+      "bottom": "불가"
+    },
+    {
+      "icon": "won",
+      "top": "DDR5",
+      "bottom": "가격 급등"
+    },
+    {
+      "icon": "question",
+      "top": "맥북",
+      "bottom": "추가 불가"
+    }
+  ]
+}

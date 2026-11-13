@@ -1,0 +1,61 @@
+{
+  "theme": "game",
+  "banner": "PS5 용량 **부족하면?!**",
+  "title": [
+    "PS5",
+    "SSD",
+    "증설법"
+  ],
+  "note": [
+    "SSD 조건",
+    "용량 고르기",
+    "설치 순서",
+    "사기 전 체크"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "PS5 확장",
+    "header": "M.2 SSD 조건",
+    "sub": "소니 안내 기준",
+    "rows": [
+      [
+        "규격",
+        "Gen4 NVMe"
+      ],
+      [
+        "속도",
+        "5,500MB/s"
+      ],
+      [
+        "두께",
+        "11.25mm"
+      ],
+      [
+        "방열판",
+        "필요"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "gamepad",
+      "top": "GTA6",
+      "bottom": "212GB"
+    },
+    {
+      "icon": "warning",
+      "top": "SATA",
+      "bottom": "안 됨"
+    },
+    {
+      "icon": "check",
+      "top": "업데이트",
+      "bottom": "먼저"
+    },
+    {
+      "icon": "won",
+      "top": "가격",
+      "bottom": "비교 필수"
+    }
+  ]
+}

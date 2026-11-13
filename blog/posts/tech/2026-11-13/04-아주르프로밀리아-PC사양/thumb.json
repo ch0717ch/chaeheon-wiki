@@ -1,0 +1,61 @@
+{
+  "theme": "game",
+  "banner": "내 PC로 **돌아갈까?!**",
+  "title": [
+    "아주르",
+    "사양",
+    "체크"
+  ],
+  "note": [
+    "플랫폼",
+    "PC 사양",
+    "사전등록 보상",
+    "출시 전 할 일"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "아주르 프로밀리아",
+    "header": "PC 사양",
+    "sub": "CBT 기준",
+    "rows": [
+      [
+        "최소",
+        "GTX 1060"
+      ],
+      [
+        "권장",
+        "RTX 3060"
+      ],
+      [
+        "메모리",
+        "32GB 권장"
+      ],
+      [
+        "용량",
+        "150GB"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "출시",
+      "bottom": "11월 26일"
+    },
+    {
+      "icon": "gamepad",
+      "top": "PS5",
+      "bottom": "일정 미정"
+    },
+    {
+      "icon": "trophy",
+      "top": "보상",
+      "bottom": "별의 기억 20"
+    },
+    {
+      "icon": "check",
+      "top": "드라이버",
+      "bottom": "업데이트"
+    }
+  ]
+}

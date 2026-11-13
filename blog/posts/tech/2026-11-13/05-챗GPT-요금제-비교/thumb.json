@@ -1,0 +1,61 @@
+{
+  "theme": "ai",
+  "banner": "챗GPT 유료 **뭐가 나아?!**",
+  "title": [
+    "챗GPT",
+    "요금제",
+    "비교"
+  ],
+  "note": [
+    "요금 한눈에",
+    "Go vs Plus",
+    "Pro는 누구",
+    "가입 전 체크"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "챗GPT",
+    "header": "월 요금",
+    "sub": "한국 원화",
+    "rows": [
+      [
+        "Free",
+        "0원"
+      ],
+      [
+        "Go",
+        "13,000원"
+      ],
+      [
+        "Plus",
+        "29,000원"
+      ],
+      [
+        "Pro",
+        "15.9만~"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "won",
+      "top": "결제",
+      "bottom": "월 단위"
+    },
+    {
+      "icon": "warning",
+      "top": "앱 결제",
+      "bottom": "더 비쌀 수"
+    },
+    {
+      "icon": "check",
+      "top": "과제용",
+      "bottom": "Go 추천"
+    },
+    {
+      "icon": "question",
+      "top": "한도",
+      "bottom": "공식 확인"
+    }
+  ]
+}

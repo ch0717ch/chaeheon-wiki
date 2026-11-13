@@ -1,0 +1,48 @@
+{
+  "theme": "it",
+  "banner": "업데이트가 **안 끝나요?!**",
+  "title": [
+    "윈도우",
+    "오류",
+    "해결법"
+  ],
+  "note": [
+    "먼저 3가지",
+    "일시 중지",
+    "파일 검사",
+    "업데이트 제거"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "Windows 업데이트",
+    "lines": [
+      "다시 시작",
+      "저장공간 확보",
+      "문제 해결사 실행",
+      "sfc /scannow"
+    ],
+    "badge": "단계별"
+  },
+  "tiles": [
+    {
+      "icon": "check",
+      "top": "1순위",
+      "bottom": "다시 시작"
+    },
+    {
+      "icon": "warning",
+      "top": "노트북",
+      "bottom": "충전기 연결"
+    },
+    {
+      "icon": "shield",
+      "top": "보안 패치",
+      "bottom": "미루지 않기"
+    },
+    {
+      "icon": "question",
+      "top": "오류 코드",
+      "bottom": "그대로 검색"
+    }
+  ]
+}
