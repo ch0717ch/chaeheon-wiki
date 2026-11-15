@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "챗GPT가 **갑자기 멈췄다?!**",
+  "title": [
+    "챗GPT",
+    "한도",
+    "해결"
+  ],
+  "note": [
+    "한도 뜨는 이유",
+    "바로 할 일",
+    "아껴 쓰는 법",
+    "유료 판단"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "사용량 한도 도달",
+    "lines": [
+      "재사용 시각 확인",
+      "긴 대화는 요약",
+      "새 대화로 이어가기",
+      "질문은 한 번에"
+    ],
+    "badge": "해결"
+  },
+  "tiles": [
+    {
+      "icon": "warning",
+      "top": "계정 정지",
+      "bottom": "아님"
+    },
+    {
+      "icon": "calendar",
+      "top": "안내 시각",
+      "bottom": "이후 재개"
+    },
+    {
+      "icon": "check",
+      "top": "질문",
+      "bottom": "한 번에"
+    },
+    {
+      "icon": "question",
+      "top": "기기 바꿔도",
+      "bottom": "한도 같음"
+    }
+  ]
+}

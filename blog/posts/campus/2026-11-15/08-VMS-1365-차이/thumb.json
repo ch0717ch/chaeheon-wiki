@@ -1,0 +1,57 @@
+{
+  "theme": "volunteer",
+  "banner": "VMS? 1365? **어디 등록해?!**",
+  "title": [
+    "VMS",
+    "1365",
+    "차이"
+  ],
+  "note": [
+    "운영 기관",
+    "실적 연계",
+    "가입 주의",
+    "누락 대처"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "자원봉사",
+    "header": "주로 쓰는 곳",
+    "sub": "일반적 기준",
+    "rows": [
+      [
+        "VMS",
+        "복지시설"
+      ],
+      [
+        "1365",
+        "봉사센터"
+      ],
+      [
+        "확인서",
+        "제출처 기준"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "house",
+      "top": "복지관",
+      "bottom": "VMS"
+    },
+    {
+      "icon": "people",
+      "top": "봉사센터",
+      "bottom": "1365"
+    },
+    {
+      "icon": "warning",
+      "top": "회원 정보",
+      "bottom": "실제와 같게"
+    },
+    {
+      "icon": "calendar",
+      "top": "실적 등록",
+      "bottom": "1~2주"
+    }
+  ]
+}

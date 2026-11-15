@@ -1,0 +1,57 @@
+{
+  "theme": "it",
+  "banner": "공유기 **7까지 필요해?!**",
+  "title": [
+    "와이파이7",
+    "공유기",
+    "고르기"
+  ],
+  "note": [
+    "6·6E·7 차이",
+    "요금제 확인",
+    "체감되는 경우",
+    "메시 고려"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "Wi-Fi",
+    "header": "규격 비교",
+    "sub": "이론상 최대 속도",
+    "rows": [
+      [
+        "와이파이 6",
+        "9.6Gbps"
+      ],
+      [
+        "6E",
+        "+6GHz"
+      ],
+      [
+        "와이파이 7",
+        "46Gbps"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "globe",
+      "top": "요금제",
+      "bottom": "먼저 확인"
+    },
+    {
+      "icon": "check",
+      "top": "WAN 포트",
+      "bottom": "2.5G 이상"
+    },
+    {
+      "icon": "house",
+      "top": "방 많으면",
+      "bottom": "메시"
+    },
+    {
+      "icon": "warning",
+      "top": "6GHz",
+      "bottom": "벽에 약함"
+    }
+  ]
+}

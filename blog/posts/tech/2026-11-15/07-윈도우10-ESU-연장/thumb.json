@@ -1,0 +1,48 @@
+{
+  "theme": "it",
+  "banner": "윈도우10 **1년 더 된다?!**",
+  "title": [
+    "윈도우10",
+    "ESU",
+    "연장"
+  ],
+  "note": [
+    "대상 확인",
+    "날짜 차이",
+    "할 일",
+    "윈도우11 점검"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "Windows 10 ESU",
+    "lines": [
+      "대상: 22H2",
+      "등록: 업데이트 메뉴",
+      "보안 업데이트만",
+      "종료: 27년 10월 12일"
+    ],
+    "badge": "확인"
+  },
+  "tiles": [
+    {
+      "icon": "shield",
+      "top": "ESU",
+      "bottom": "보안만 제공"
+    },
+    {
+      "icon": "warning",
+      "top": "날짜",
+      "bottom": "두 개 혼재"
+    },
+    {
+      "icon": "check",
+      "top": "PC 상태 검사",
+      "bottom": "11 가능?"
+    },
+    {
+      "icon": "calendar",
+      "top": "이전 목표",
+      "bottom": "27년 10월 전"
+    }
+  ]
+}
