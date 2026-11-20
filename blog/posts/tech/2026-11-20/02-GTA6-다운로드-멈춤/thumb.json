@@ -1,0 +1,57 @@
+{
+  "theme": "game",
+  "banner": "다운로드가 **안 끝나?!**",
+  "title": [
+    "GTA6",
+    "다운",
+    "멈춤"
+  ],
+  "note": [
+    "필요 용량",
+    "공간 비우기",
+    "멈출 때 4단계",
+    "SSD 증설"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "GTA6",
+    "header": "필요 용량",
+    "sub": "보도·안내 기준",
+    "rows": [
+      [
+        "락스타",
+        "최대 212GB"
+      ],
+      [
+        "스토어",
+        "약 223GB"
+      ],
+      [
+        "권장 여유",
+        "250GB+"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "warning",
+      "top": "멈추면",
+      "bottom": "용량 먼저"
+    },
+    {
+      "icon": "check",
+      "top": "휴식 모드",
+      "bottom": "인터넷 유지"
+    },
+    {
+      "icon": "gamepad",
+      "top": "대기열",
+      "bottom": "맨 위로"
+    },
+    {
+      "icon": "chart",
+      "top": "자주 지운다면",
+      "bottom": "SSD 증설"
+    }
+  ]
+}

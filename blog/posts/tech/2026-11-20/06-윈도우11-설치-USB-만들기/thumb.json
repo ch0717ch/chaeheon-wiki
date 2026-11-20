@@ -1,0 +1,48 @@
+{
+  "theme": "it",
+  "banner": "USB 하나로 **윈도우 설치?!**",
+  "title": [
+    "윈도우11",
+    "USB",
+    "만들기"
+  ],
+  "note": [
+    "준비물",
+    "만드는 순서",
+    "부팅 방법",
+    "백업할 것"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "설치 미디어 만들기",
+    "lines": [
+      "8GB 이상 USB",
+      "도구 실행 → 동의",
+      "USB 플래시 드라이브",
+      "작성 완료까지 대기"
+    ],
+    "badge": "무료"
+  },
+  "tiles": [
+    {
+      "icon": "warning",
+      "top": "USB 파일",
+      "bottom": "모두 삭제"
+    },
+    {
+      "icon": "check",
+      "top": "부팅 키",
+      "bottom": "F12·ESC 등"
+    },
+    {
+      "icon": "shield",
+      "top": "TPM",
+      "bottom": "바이오스 확인"
+    },
+    {
+      "icon": "chart",
+      "top": "설치 전",
+      "bottom": "백업 먼저"
+    }
+  ]
+}
