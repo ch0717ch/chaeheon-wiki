@@ -22,9 +22,11 @@
       "경제",
       "사회"
     ],
-    "batchSize": "5~7",
+    "batchSize": 0,
     "scheduleOffsetMin": 60,
-    "scheduleIntervalMin": 120
+    "scheduleIntervalMin": 120,
+    "active": false,
+    "pausedFrom": "2026-11-23"
   },
   "campus": {
     "label": "2번블로그_대학생활",
@@ -50,7 +52,8 @@
     ],
     "batchSize": 10,
     "scheduleOffsetMin": 30,
-    "scheduleIntervalMin": 60
+    "scheduleIntervalMin": 60,
+    "active": true
   },
   "tech": {
     "label": "3번블로그_게임IT",
@@ -75,7 +78,8 @@
     ],
     "batchSize": 10,
     "scheduleOffsetMin": 0,
-    "scheduleIntervalMin": 60
+    "scheduleIntervalMin": 60,
+    "active": true
   },
   "techpuli": {
     "label": "테크풀이_블로그스팟",
