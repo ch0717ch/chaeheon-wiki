@@ -1,0 +1,57 @@
+{
+  "theme": "it",
+  "banner": "외장 SSD **아무거나 사도 돼?!**",
+  "title": [
+    "외장",
+    "SSD",
+    "고르기"
+  ],
+  "note": [
+    "규격별 속도",
+    "PS5에 쓸 때",
+    "용량 고르기",
+    "케이블·발열"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "외장 SSD",
+    "header": "USB 규격",
+    "sub": "이론상 최대",
+    "rows": [
+      [
+        "Gen 1",
+        "5Gbps"
+      ],
+      [
+        "Gen 2",
+        "10Gbps"
+      ],
+      [
+        "Gen 2x2",
+        "20Gbps"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "gamepad",
+      "top": "PS5 게임",
+      "bottom": "보관만"
+    },
+    {
+      "icon": "check",
+      "top": "케이블",
+      "bottom": "동봉품 사용"
+    },
+    {
+      "icon": "chart",
+      "top": "게임 보관",
+      "bottom": "1TB 이상"
+    },
+    {
+      "icon": "warning",
+      "top": "포트 속도",
+      "bottom": "먼저 확인"
+    }
+  ]
+}

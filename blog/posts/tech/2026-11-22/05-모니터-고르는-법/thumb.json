@@ -1,0 +1,57 @@
+{
+  "theme": "it",
+  "banner": "모니터 **뭘 봐야 돼?!**",
+  "title": [
+    "모니터",
+    "고르는",
+    "법"
+  ],
+  "note": [
+    "용도별 기준",
+    "크기·해상도",
+    "HDR 표기",
+    "연결 포트"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "모니터",
+    "header": "크기별 해상도",
+    "sub": "일반적 기준",
+    "rows": [
+      [
+        "24인치",
+        "FHD"
+      ],
+      [
+        "27인치",
+        "QHD"
+      ],
+      [
+        "32인치+",
+        "4K"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "gamepad",
+      "top": "게임",
+      "bottom": "144Hz 이상"
+    },
+    {
+      "icon": "check",
+      "top": "노트북",
+      "bottom": "USB-C 입력"
+    },
+    {
+      "icon": "chart",
+      "top": "HDR",
+      "bottom": "인증 등급"
+    },
+    {
+      "icon": "house",
+      "top": "책상 깊이",
+      "bottom": "먼저 재기"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "theme": "it",
+  "banner": "아이폰 용량 **가득 찼다?!**",
+  "title": [
+    "아이폰",
+    "용량",
+    "정리"
+  ],
+  "note": [
+    "원인 찾기",
+    "앱 정리하기",
+    "사진 정리",
+    "메시지 보관"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "iPhone",
+    "header": "정리 방법",
+    "sub": "설정 → 일반",
+    "rows": [
+      [
+        "사진",
+        "iCloud 최적화"
+      ],
+      [
+        "앱",
+        "앱 정리하기"
+      ],
+      [
+        "메시지",
+        "보관 기간"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "check",
+      "top": "앱 정리",
+      "bottom": "데이터 유지"
+    },
+    {
+      "icon": "warning",
+      "top": "iCloud",
+      "bottom": "용량 확인"
+    },
+    {
+      "icon": "phone",
+      "top": "최근 삭제",
+      "bottom": "비우기"
+    },
+    {
+      "icon": "calendar",
+      "top": "메시지",
+      "bottom": "30일·1년"
+    }
+  ]
+}

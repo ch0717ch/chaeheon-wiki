@@ -1,0 +1,57 @@
+{
+  "theme": "game",
+  "banner": "PS5 화면 **이게 최선이야?!**",
+  "title": [
+    "PS5",
+    "TV",
+    "설정"
+  ],
+  "note": [
+    "PS5 설정",
+    "TV 설정",
+    "성능 모드",
+    "모니터 연결"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "PS5",
+    "header": "영상 출력",
+    "sub": "추천 설정",
+    "rows": [
+      [
+        "120Hz",
+        "자동"
+      ],
+      [
+        "VRR",
+        "자동"
+      ],
+      [
+        "HDR",
+        "켜기"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "gamepad",
+      "top": "TV",
+      "bottom": "게임 모드"
+    },
+    {
+      "icon": "check",
+      "top": "HDMI 2.1",
+      "bottom": "포트 확인"
+    },
+    {
+      "icon": "warning",
+      "top": "깜빡임",
+      "bottom": "VRR 끄고 비교"
+    },
+    {
+      "icon": "chart",
+      "top": "성능 모드",
+      "bottom": "게임 설정"
+    }
+  ]
+}
