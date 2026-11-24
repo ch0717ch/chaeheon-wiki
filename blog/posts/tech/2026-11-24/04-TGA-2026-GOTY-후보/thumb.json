@@ -1,0 +1,57 @@
+{
+  "theme": "game",
+  "banner": "TGA 2026 **GOTY 후보는?!**",
+  "title": [
+    "TGA",
+    "2026",
+    "후보"
+  ],
+  "note": [
+    "GOTY 후보 6편",
+    "시상식 시간",
+    "GTA6 수상?",
+    "기대작 부문"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "TGA 2026",
+    "header": "시상식",
+    "sub": "보도 기준",
+    "rows": [
+      [
+        "현지",
+        "12월 10일"
+      ],
+      [
+        "한국",
+        "12/11 오전"
+      ],
+      [
+        "최다 후보",
+        "GTA6"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "trophy",
+      "top": "GOTY",
+      "bottom": "후보 6편"
+    },
+    {
+      "icon": "globe",
+      "top": "중계",
+      "bottom": "유튜브"
+    },
+    {
+      "icon": "calendar",
+      "top": "팬 투표",
+      "bottom": "시상식 전까지"
+    },
+    {
+      "icon": "check",
+      "top": "트레일러",
+      "bottom": "대거 공개"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "theme": "ai",
+  "banner": "GPT-6.2 **뭐가 달라?!**",
+  "title": [
+    "GPT-6.2",
+    "신모델",
+    "공개"
+  ],
+  "note": [
+    "두 모델 차이",
+    "요금제별 이용",
+    "AI 경쟁",
+    "볼 포인트"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "GPT-6.2 (보도 기준)",
+    "lines": [
+      "아스트라: 전문 업무",
+      "솔: 일상 작업",
+      "유료: Work·Codex",
+      "무료 계정: 미제공"
+    ],
+    "badge": "신모델"
+  },
+  "tiles": [
+    {
+      "icon": "chart",
+      "top": "API 가격",
+      "bottom": "4배 차이"
+    },
+    {
+      "icon": "warning",
+      "top": "무료 계정",
+      "bottom": "사용 불가"
+    },
+    {
+      "icon": "check",
+      "top": "유료 구독",
+      "bottom": "Work·Codex"
+    },
+    {
+      "icon": "calendar",
+      "top": "공개",
+      "bottom": "11월 17일"
+    }
+  ]
+}
