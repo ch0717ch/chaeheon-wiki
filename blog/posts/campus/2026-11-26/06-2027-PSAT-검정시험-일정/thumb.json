@@ -1,0 +1,57 @@
+{
+  "theme": "activity",
+  "banner": "PSAT **검정시험으로!**",
+  "title": [
+    "2027",
+    "PSAT",
+    "일정"
+  ],
+  "note": [
+    "PSAT 일정",
+    "5급·외교관",
+    "7급 일정",
+    "대학생 준비"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "PSAT",
+    "header": "2027 일정",
+    "sub": "인사처 발표 기준",
+    "rows": [
+      [
+        "심화",
+        "2월 27일"
+      ],
+      [
+        "기본",
+        "7월 10일"
+      ],
+      [
+        "수수료",
+        "없음"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "5급 원서",
+      "bottom": "3/4~8"
+    },
+    {
+      "icon": "check",
+      "top": "7급 원서",
+      "bottom": "7/12~16"
+    },
+    {
+      "icon": "trophy",
+      "top": "7급 최종",
+      "bottom": "12월 9일"
+    },
+    {
+      "icon": "warning",
+      "top": "원서",
+      "bottom": "따로 접수"
+    }
+  ]
+}

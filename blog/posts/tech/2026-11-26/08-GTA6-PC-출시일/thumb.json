@@ -1,0 +1,48 @@
+{
+  "theme": "game",
+  "banner": "GTA6 PC판 **언제 나와?**",
+  "title": [
+    "GTA6",
+    "PC판",
+    "출시일"
+  ],
+  "note": [
+    "공식 발표",
+    "이전 사례",
+    "지금 선택",
+    "PC 사양"
+  ],
+  "hero": {
+    "type": "laptop",
+    "header": "GTA6 PC",
+    "lines": [
+      "콘솔 11월 19일",
+      "PC 발표 없음",
+      "GTA5 1년 7개월",
+      "RDR2 1년 1개월"
+    ],
+    "badge": "미정"
+  },
+  "tiles": [
+    {
+      "icon": "question",
+      "top": "PC 출시일",
+      "bottom": "발표 없음"
+    },
+    {
+      "icon": "calendar",
+      "top": "GTA5 사례",
+      "bottom": "1년 7개월"
+    },
+    {
+      "icon": "warning",
+      "top": "권장 사양",
+      "bottom": "추정치 주의"
+    },
+    {
+      "icon": "gamepad",
+      "top": "콘솔판",
+      "bottom": "출시 완료"
+    }
+  ]
+}

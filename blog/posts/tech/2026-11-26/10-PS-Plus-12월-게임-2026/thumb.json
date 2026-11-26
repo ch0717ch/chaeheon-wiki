@@ -1,0 +1,57 @@
+{
+  "theme": "game",
+  "banner": "PS Plus **12월 게임은?**",
+  "title": [
+    "PS Plus",
+    "12월",
+    "게임"
+  ],
+  "note": [
+    "12월 3종",
+    "받는 기간",
+    "등급별 차이",
+    "구독 종료"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "PS+",
+    "header": "12월 게임",
+    "sub": "보도 기준",
+    "rows": [
+      [
+        "1",
+        "토니호크3+4"
+      ],
+      [
+        "2",
+        "제노버스2"
+      ],
+      [
+        "3",
+        "암네시아"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "calendar",
+      "top": "제공 시작",
+      "bottom": "12월 1일"
+    },
+    {
+      "icon": "warning",
+      "top": "추가 마감",
+      "bottom": "1월 4일"
+    },
+    {
+      "icon": "gamepad",
+      "top": "엑스트라",
+      "bottom": "12월 9일 발표"
+    },
+    {
+      "icon": "check",
+      "top": "에센셜",
+      "bottom": "3종 제공"
+    }
+  ]
+}

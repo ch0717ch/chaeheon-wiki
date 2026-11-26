@@ -1,0 +1,57 @@
+{
+  "theme": "game",
+  "banner": "파레이돌리아 **첫 한국어 시연**",
+  "title": [
+    "파레이",
+    "돌리아",
+    "AGF"
+  ],
+  "note": [
+    "어떤 게임",
+    "부스 체험",
+    "출시 시기",
+    "AGF 선택"
+  ],
+  "hero": {
+    "type": "phone",
+    "paper": "넥슨",
+    "header": "파레이돌리아",
+    "sub": "보도 기준",
+    "rows": [
+      [
+        "시연",
+        "AGF 2026"
+      ],
+      [
+        "전투",
+        "라이브 턴"
+      ],
+      [
+        "출시일",
+        "공개 전"
+      ]
+    ]
+  },
+  "tiles": [
+    {
+      "icon": "gamepad",
+      "top": "한국어",
+      "bottom": "첫 시연"
+    },
+    {
+      "icon": "people",
+      "top": "김용하",
+      "bottom": "총괄 PD"
+    },
+    {
+      "icon": "calendar",
+      "top": "CBT",
+      "bottom": "내년 예정"
+    },
+    {
+      "icon": "question",
+      "top": "플랫폼",
+      "bottom": "공개 전"
+    }
+  ]
+}

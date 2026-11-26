@@ -1,0 +1,51 @@
+{
+  "no": "08",
+  "theme": "game",
+  "keyword": "GTA6 PC 출시일",
+  "category": "게임",
+  "mode": "시리즈",
+  "seriesOf": "GTA6 출시 시간",
+  "intro": "상황 묘사형",
+  "outro": "질문 던지기",
+  "titles": [
+    "GTA6 PC 출시일, 아직 공식 발표가 없어요",
+    "GTA5는 1년 7개월 걸렸는데, GTA6 PC판은 언제쯤일까요?",
+    "GTA6 PC 버전 기다릴까 콘솔로 할까, 지금 상황을 짚어볼게요"
+  ],
+  "hashtags": [
+    "GTA6",
+    "GTA6PC",
+    "GTA6PC출시일",
+    "GTA6PC버전",
+    "GTA6스팀",
+    "록스타",
+    "록스타게임즈",
+    "GTA6사양",
+    "PC게임",
+    "레드데드리뎀션2",
+    "GTA5",
+    "콘솔게임",
+    "PS5",
+    "Xbox",
+    "게임뉴스",
+    "오픈월드",
+    "IT정보",
+    "게임정보",
+    "테크팁",
+    "디지털기기",
+    "가성비",
+    "꿀팁",
+    "사용법",
+    "설정방법",
+    "오류해결",
+    "신제품",
+    "게이머",
+    "모바일게임",
+    "AI활용",
+    "스마트폰팁"
+  ],
+  "sources": [
+    "Rockstar Games Newswire — https://www.rockstargames.com/newswire/article/ak3ak31a49a221/grand-theft-auto-vi-is-now-set-to-launch-november-19-2026",
+    "Tracker.gg — https://tracker.gg/gta6/release-date"
+  ]
+}
